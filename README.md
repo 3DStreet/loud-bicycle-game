@@ -8,7 +8,7 @@ Install dependencies: `npm install`
 
 ### Development
 
-Start development server: `npm start`
+Start development server: `npm run dev`
 
 ### Production
 
