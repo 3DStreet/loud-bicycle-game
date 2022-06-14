@@ -16,7 +16,7 @@ module.exports = merge(common, {
   devtool: "source-map",
   entry: "./src/index.js",
   output: {
-    filename: "[contentHash].bundle.js",
+    filename: "[hash].bundle.js",
     path: path.resolve(__dirname, "dist")
   },
   devServer: {
