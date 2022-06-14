@@ -18,6 +18,9 @@ module.exports = merge(common, {
   },
   devServer: {
     https: true,
+    static: path.resolve(__dirname, 'src'),
+    open: true,
+    hot: true
   },
   plugins: [new HtmlWebpackPlugin({
     template: "./src/index.html",
