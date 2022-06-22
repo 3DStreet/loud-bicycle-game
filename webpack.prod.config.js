@@ -3,6 +3,7 @@ const { merge } = require("webpack-merge");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const common = require("./webpack.common.config");
 
@@ -33,5 +34,12 @@ module.exports = merge(common, {
     filename: "index.html",
     inject: 'head',
     scriptLoading: 'blocking'
-  })]
+  }), new CopyWebpackPlugin({
+    patterns: [
+      {
+        from: path.resolve(__dirname, "src/assets"),
+        to: path.resolve(__dirname, "dist/assets"),
+      }
+    ]}
+  )]
 });
