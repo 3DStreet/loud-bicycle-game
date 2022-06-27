@@ -1,12 +1,25 @@
 <html>
   <head>
     <title>Loud Bicycle Game</title>
+    <style>
+      #shout, #horn {
+        position: absolute;
+        top: 0;
+        height: 150px;
+        width: 150px;
+      }
+
+      #horn {
+        left: 150px;
+      }
+    </style>
   </head>
   <body>
     <a-scene>
-        <a-camera>
-          <a-cursor></a-cursor>
+        <a-camera position="0 3 1" rotation="-45 0 0" wasd-controls-enabled="false" look-controls-enabled="false">
         </a-camera>
+
+        <a-sphere scale="0.5 0.5 0.5" color="green" player-controller></a-sphere>
 
         <a-entity id="level" animation="property: position; to: 0 0 40; dur: 10000; easing: linear; loop: true">
           <a-box position="2 0.5 -7" rotation="0 86 0" color="#4CC3D9"></a-box>
@@ -16,12 +29,11 @@
           <a-plane position="-2.5 0 -10" rotation="-90 0 0" scale="2 80 1" color="grey"></a-plane>
         </a-entity>
 
-        <!-- Button -->
-        <a-entity>
-          <a-image id="shout" position="-0.3 2 -3" src="/assets/shout.jpg" height="0.5" width="0.5" color="#FFEE63" ></a-image>
-          <a-image id="horn" position="0.3 2 -3" src="/assets/bicycle-horn.jpg" height="0.5" width="0.5" color="#FFEE63" ></a-image>
-        </a-entity>
+      <a-box id="noise-indicator" material="transparent: true; opacity: 0.4" visible="false" noise-indicator position="0 1 -2" scale="4 1 2"></a-box>
+      
       <a-sky color="#ECECEC"></a-sky>
     </a-scene>
+    <img id="shout" height="200" width="200" src="/assets/shout.jpg" >
+    <img id="horn" height="200" width="200" src="/assets/bicycle-horn.jpg" >
   </body>
 </html>

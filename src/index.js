@@ -1,13 +1,22 @@
 require('aframe');
+require('./player-controller');
+require('./noise-indicator');
+require('./aabb-collider');
 
-window.onload = (function() {
-    var hornEl = document.getElementById('horn');
-    var shoutEl = document.getElementById('shout');
+const onSceneLoaded = (function() {
+    let hornEl = document.getElementById('horn');
+    let shoutEl = document.getElementById('shout');
+
+    let noiseIndicator = document.getElementById('noise-indicator').components['noise-indicator'];
 
     hornEl.addEventListener('click', function() {
-        console.log('HORN!');
+        noiseIndicator.display()
     });
     shoutEl.addEventListener('click', function() {
         console.log('SHOUT!');
     });
 });
+
+window.onload = () => {
+    document.querySelector('a-scene').addEventListener('loaded', onSceneLoaded)
+}
