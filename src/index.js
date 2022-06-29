@@ -7,7 +7,7 @@ require('./interactable');
 const onSceneLoaded = (function() {
     let hornEl = document.getElementById('horn');
     let shoutEl = document.getElementById('shout');
-
+    
     let noiseIndicator = document.getElementById('noise-indicator').components['noise-indicator'];
 
     hornEl.addEventListener('click', function() {
@@ -19,5 +19,10 @@ const onSceneLoaded = (function() {
 });
 
 window.onload = () => {
-    document.querySelector('a-scene').addEventListener('loaded', onSceneLoaded)
+    let scene = document.querySelector('a-scene');
+    if(scene.hasLoaded) {
+        onSceneLoaded();
+    } else {
+        scene.addEventListener('loaded', onSceneLoaded);
+    }
 }
