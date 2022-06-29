@@ -2,6 +2,7 @@ require('aframe');
 require('./player-controller');
 require('./noise-indicator');
 require('./aabb-collider');
+require('./interactable');
 
 const onSceneLoaded = (function() {
     let hornEl = document.getElementById('horn');

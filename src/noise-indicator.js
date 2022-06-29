@@ -8,6 +8,6 @@ AFRAME.registerComponent('noise-indicator', {
         setTimeout(() => {
             this.el.object3D.visible = false;
             this.isActive = false;
-        }, 300);
+        }, 1000);
     }
   });
