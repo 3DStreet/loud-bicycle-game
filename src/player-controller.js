@@ -1,7 +1,14 @@
 export let playerController;
 
 AFRAME.registerComponent('player-controller', {
+    schema: {
+        lanes: {default: 3},
+    },
     init: function () {
+        if(this.data.lanes === 1) {
+            document.querySelector('#right-lane').object3D.visible = false;
+            document.querySelector('#left-lane').object3D.visible = false;
+        }
         playerController = this;
         this.currentLane = 1;
         window.addEventListener("keypress", this.onKeyPressed.bind(this));
@@ -21,11 +28,13 @@ AFRAME.registerComponent('player-controller', {
         }
     },
     goRight: function() {
+        if(this.data.lanes === 1) return;
         this.currentLane++;
         this.currentLane = Math.min(this.currentLane, 1);
         this.setPosition();
     },
     goLeft: function() {
+        if(this.data.lanes === 1) return;
         this.currentLane--;
         this.currentLane = Math.max(this.currentLane, -1);
         this.setPosition();

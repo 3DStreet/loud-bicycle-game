@@ -11,10 +11,10 @@ const onSceneLoaded = (function() {
     let noiseIndicator = document.getElementById('noise-indicator').components['noise-indicator'];
 
     hornEl.addEventListener('click', function() {
-        noiseIndicator.display()
+        noiseIndicator.display(false)
     });
     shoutEl.addEventListener('click', function() {
-        console.log('SHOUT!');
+        noiseIndicator.display(true)
     });
 });
 

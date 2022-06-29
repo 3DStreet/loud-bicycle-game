@@ -19,18 +19,22 @@
       <a-camera position="0 3 1" rotation="-45 0 0" wasd-controls-enabled="false" look-controls-enabled="false">
       </a-camera>
 
-      <a-sphere aabb-collider="objects:[interactable]" scale="0.5 0.5 0.5" color="green" player-controller></a-sphere>
+      <a-sphere scale="0.5 0.5 0.5" color="green" player-controller="lanes: 3"></a-sphere>
 
-      <a-entity id="level" animation="property: position; to: 0 0 40; dur: 10000; easing: linear; loop: false">
+      <a-entity id="interactable-spawner"></a-entity>
+
+      <a-entity id="level" animation="property: position; to: 0 0 400; dur: 100000; easing: linear; loop: false">
         <a-box interactable id="box-1" position="2 0.5 -7" rotation="0 86 0" color="#4CC3D9"></a-box>
         <a-box interactable id="box-2" position="-0.5 0.5 -20" rotation="0 200 0" color="#4CC3D9"></a-box>
-        <a-plane position="0 0 -10" rotation="-90 0 0" scale="2 80 1" color="grey"></a-plane>
-        <a-plane position="2.5 0 -10" rotation="-90 0 0" scale="2 80 1" color="grey"></a-plane>
-        <a-plane position="-2.5 0 -10" rotation="-90 0 0" scale="2 80 1" color="grey"></a-plane>
+        <a-plane id="mid-lane" position="0 0 -10" rotation="-90 0 0" scale="2 800 1" color="grey"></a-plane>
+        <a-plane id="right-lane" position="2.5 0 -10" rotation="-90 0 0" scale="2 800 1" color="grey"></a-plane>
+        <a-plane id="left-lane" position="-2.5 0 -10" rotation="-90 0 0" scale="2 800 1" color="grey"></a-plane>
       </a-entity>
-
-      <a-box id="noise-indicator" material="transparent: true; opacity: 0.4" visible="false" noise-indicator position="0 1 -2" scale="4 1 2"></a-box>
       
+      
+      <a-box id="noise-indicator" aabb-collider="objects:[interactable]" material="transparent: true; opacity: 0.4" visible="false" noise-indicator position="0 1 -2" scale="4 1 2"></a-box>
+      
+
       <a-sky color="#ECECEC"></a-sky>
     </a-scene>
     <img id="shout" height="200" width="200" src="/assets/shout.jpg" >
