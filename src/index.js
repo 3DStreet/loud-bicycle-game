@@ -3,6 +3,16 @@ require('./player-controller');
 require('./noise-indicator');
 require('./aabb-collider');
 require('./interactable');
+require('./interactable-pool');
+
+window.lanes = 3
+const queryString = window.location.search;
+const urlParams = new URLSearchParams(queryString);
+const lanes = Number(urlParams.get('lanes'));
+console.log('lanes', lanes);
+if(lanes === 1) {
+    window.lanes = lanes
+}
 
 const onSceneLoaded = (function() {
     let hornEl = document.getElementById('horn');

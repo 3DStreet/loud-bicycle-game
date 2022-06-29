@@ -45,6 +45,7 @@ AFRAME.registerComponent('aabb-collider', {
     return function () {
       var collisions = [];
       var el = this.el;
+      if(!el.getObject3D) return;
       var mesh = el.getObject3D('mesh');
       var self = this;
       // No mesh, no collisions
@@ -70,6 +71,7 @@ AFRAME.registerComponent('aabb-collider', {
       // AABB collision detection
       function intersect (el) {
         var intersected;
+        if(!el.getObject3D) return;
         var mesh = el.getObject3D('mesh');
         var elMin;
         var elMax;
