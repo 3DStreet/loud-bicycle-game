@@ -1,4 +1,5 @@
 require('aframe');
+require('./game-manager');
 require('./player-controller');
 require('./noise-indicator');
 require('./aabb-collider');

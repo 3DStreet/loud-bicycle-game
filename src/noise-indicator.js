@@ -1,4 +1,5 @@
 import { playerController } from './player-controller'
+import { GAME_STATE, GAME_STATES } from "./game-manager";
 
 AFRAME.registerComponent('noise-indicator', {
     init: function() {
@@ -6,6 +7,8 @@ AFRAME.registerComponent('noise-indicator', {
         window.addEventListener("keypress", this.onKeyPressed.bind(this));
     },
     display: function(isSmall) {
+        if(GAME_STATE !== GAME_STATES.PLAYING) return;
+
         isSmall ? this.scaleSmall() : this.scaleLarge();
 
         this.el.object3D.position.x = playerController.el.object3D.position.x;
