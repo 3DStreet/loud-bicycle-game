@@ -60,7 +60,7 @@ AFRAME.registerComponent('player-controller', {
     },
     tick: function(t, dt) {
         if(GAME_STATE === GAME_STATES.PLAYING) {
-            if(this.collider?.collisions.length) {
+            if(this.collider && this.collider.collisions.length) {
                 for (let index = 0; index < this.collider.collisions.length; index++) {
                     const element = this.collider.collisions[index];
                     if(element.object3D.visible)
