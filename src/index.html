@@ -7,9 +7,24 @@
         top: 0;
         height: 150px;
         width: 150px;
+        border: 2px solid green;
+      }
+      #horn.disabled {
+        border: 2px solid red;
+      }
+      #shout-meter, #horn-meter {
+        position: absolute;
+        top: 200px;
+        width: 150px;
+      }
+      .high-meter {
+        accent-color: green;
+      }
+      .low-meter {
+        accent-color: coral;
       }
 
-      #horn {
+      #horn, #horn-meter {
         left: 150px;
       }
 
@@ -45,6 +60,8 @@
     </a-scene>
     <img id="shout" height="200" width="200" src="./assets/shout.jpg" >
     <img id="horn" height="200" width="200" src="./assets/bicycle-horn.jpg" >
+    <progress id="shout-meter" class="low-meter" value="0" max="100"></progress>
+    <progress id="horn-meter" class="low-meter" value="0" max="100"></progress>
     <p id="game-state-header">Loading</p>
   </body>
 </html>
