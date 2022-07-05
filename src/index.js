@@ -11,22 +11,24 @@ const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const lanes = Number(urlParams.get('lanes'));
 console.log('lanes', lanes);
-if(lanes === 1) {
+if (lanes === 1) {
     window.lanes = lanes
 }
 
 const onSceneLoaded = (function() {
     let hornEl = document.getElementById('horn');
     let shoutEl = document.getElementById('shout');
-    
     let noiseIndicator = document.getElementById('noise-indicator').components['noise-indicator'];
 
     hornEl.addEventListener('click', function() {
-        noiseIndicator.display(false)
+        if (!hornEl.classList.contains('disabled')) {
+            noiseIndicator.display(false);
+        }
     });
     shoutEl.addEventListener('click', function() {
-        noiseIndicator.display(true)
+        noiseIndicator.display(true);
     });
+
 });
 
 window.onload = () => {
