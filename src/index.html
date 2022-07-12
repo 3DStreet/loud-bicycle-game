@@ -46,12 +46,14 @@
       </a-assets>
       <a-camera position="0 3 1" rotation="-45 0 0" wasd-controls-enabled="false" look-controls-enabled="false"></a-camera>
 
-      <a-sphere position="0 0.5 0" scale="0.5 0.5 0.5" color="green" player-controller="speed: 2.0" aabb-collider="objects:[interactable]"></a-sphere>
+      <a-sphere position="0 0.5 0" scale="0.5 0.5 0.5" color="green" player-controller="speed: 2.0" aabb-collider="objects:[interactable]">
+        <a-sphere id="noise-indicator" aabb-collider="objects:[interactable]" material="transparent: true; opacity: 0.4" visible="false" noise-indicator scale="4 1 4"></a-sphere>
+      </a-sphere>
 
       <a-entity id="interactable-spawner" interactable-pool></a-entity>
       <a-entity id="game-manager" game-manager></a-entity>
-      <a-entity noise-meter="clickerId:shout; meterId:shout-meter; isSmall:true; keyCode:e"></a-entity>
-      <a-entity noise-meter="clickerId:horn; meterId:horn-meter; isSmall:false; keyCode:q"></a-entity>
+      <a-entity noise-meter="clickerId:shout; meterId:shout-meter; isSmall:true; keyCode:q"></a-entity>
+      <a-entity noise-meter="clickerId:horn; meterId:horn-meter; isSmall:false; keyCode:e"></a-entity>
 
       <a-entity id="level" animation="property: position; to: 0 0 400; autoplay: false; dur: 100000; easing: linear; loop: false">
         <a-plane id="mid-lane" position="0 0 -10" rotation="-90 0 0" scale="2 800 1" color="grey"></a-plane>
@@ -59,8 +61,6 @@
         <a-plane id="left-lane" position="-2.5 0 -10" rotation="-90 0 0" scale="2 800 1" color="grey"></a-plane>
       </a-entity>
       
-      <a-box id="noise-indicator" aabb-collider="objects:[interactable]" material="transparent: true; opacity: 0.4" visible="false" noise-indicator position="0 1 -2" scale="4 1 2"></a-box>
-
       <a-sky color="#ECECEC"></a-sky>
     </a-scene>
     <img id="shout" height="200" width="200" src="./assets/shout.jpg" >

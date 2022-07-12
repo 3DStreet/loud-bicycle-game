@@ -11,7 +11,7 @@ AFRAME.registerComponent('noise-indicator', {
 
         isSmall ? this.scaleSmall() : this.scaleLarge();
 
-        this.el.object3D.position.x = playerController.el.object3D.position.x;
+        // this.el.object3D.position.x = playerController.el.object3D.position.x;
         this.isActive = true;
         this.el.object3D.visible = true;
         
@@ -21,10 +21,10 @@ AFRAME.registerComponent('noise-indicator', {
         }, 200);
     },
     scaleSmall: function() {
-        this.el.object3D.scale.set(2,1,1)
+        this.el.object3D.scale.set(4,0.5,4)
     },
     scaleLarge: function() {
-        this.el.object3D.scale.set(4,1,2)
+        this.el.object3D.scale.set(7,0.5,7)
     },
     tick: function() {
         if(this.isActive && this.collider.collisions.length) {

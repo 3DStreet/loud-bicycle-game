@@ -1,4 +1,5 @@
 import { GAME_STATE, GAME_STATES, gameManager } from "./game-manager";
+import { lerp } from './helpers/math'
 
 export let playerController;
 
@@ -77,8 +78,3 @@ AFRAME.registerComponent('player-controller', {
         gameManager.stopLevel();
     }
   });
-
-  function lerp(a, b, t) {
-    t = Math.max(Math.min(t,1),0);
-    return a + (b - a) * t;
-  }

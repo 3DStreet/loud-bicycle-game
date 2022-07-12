@@ -21,6 +21,7 @@ AFRAME.registerComponent('interactable-pool', {
         el.play();
 
         el.components.interactable.isHit = false;
+        el.components.interactable.followPlayerDepth();
 
         let parent = el.object3D.parent;
         let scene = this.el.sceneEl.object3D;
