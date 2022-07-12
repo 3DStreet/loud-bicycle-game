@@ -1,4 +1,7 @@
+import { GAME_STATE, GAME_STATES } from "./game-manager";
+
 const LOW_METER_THRESHOLD = 20;
+const METER_UPDATE_INTERVAL = 300; // 300 ms
 const SMALL_NOISE_USAGE = 5;
 const BIG_NOISE_USAGE = 10;
 
@@ -11,8 +14,20 @@ AFRAME.registerComponent('noise-meter', {
     },
     init: function() {
         this.meter = 0;
+        this.lastTickUpdate = 0;
         
         this.addEvents();
+    },
+    tick: function(t) {
+        if ((t - this.lastTickUpdate) >= METER_UPDATE_INTERVAL) {
+            this.lastTickUpdate = t;
+
+            if (GAME_STATE === GAME_STATES.PLAYING && this.noiseIndicator && !this.noiseIndicator.isActive) {
+                this.meter += 5;
+                this.meter = Math.min(100, this.meter);
+                this.updateMeter();
+            }
+        }
     },
     addEvents: function() {
         const scene = document.querySelector('a-scene');
@@ -37,14 +52,6 @@ AFRAME.registerComponent('noise-meter', {
     },
     onSceneLoaded: function() {
         this.noiseIndicator = document.getElementById('noise-indicator').components['noise-indicator'];
-
-        setInterval(() => {
-            if (!this.noiseIndicator.isActive) {
-                this.meter += 5;
-                this.meter = Math.min(100, this.meter);
-                this.updateMeter();
-            }
-        }, 500);
     },
     onKeyPressed: function(e) {
         if (e.key === this.data.keyCode) {
