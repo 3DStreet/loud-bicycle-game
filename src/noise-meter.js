@@ -10,8 +10,6 @@ AFRAME.registerComponent('noise-meter', {
         keyCode: {default: ''}
     },
     init: function() {
-        this.clickerEl = document.getElementById(this.data.clickerId);
-        this.meterEl = document.getElementById(this.data.meterId);
         this.meter = 0;
         
         this.addEvents();
@@ -28,7 +26,10 @@ AFRAME.registerComponent('noise-meter', {
             window.addEventListener("keypress", this.onKeyPressed.bind(this));
         }
 
-        this.clickerEl.addEventListener('click', function() {
+        this.clickerEl = document.getElementById(this.data.clickerId);
+        this.meterEl = document.getElementById(this.data.meterId);
+        
+        this.clickerEl.addEventListener('click', () => {
             if (!this.clickerEl.classList.contains('disabled')) {
                 this.displayIndicator();
             }
