@@ -14,6 +14,7 @@ AFRAME.registerComponent('player-controller', {
         }
         playerController = this;
         this.currentLane = 0;
+        this.lives = 3;
         window.addEventListener("keypress", this.onKeyPressed.bind(this));
         setTimeout(() => {
             this.collider = this.el.components['aabb-collider'];
@@ -22,6 +23,8 @@ AFRAME.registerComponent('player-controller', {
         this.currentPosition = 0;
         this.targetPosition = 0;
         this.lerpT = 0;
+
+        this.liveEls = document.querySelector('#life-indicator-container').children;
     },
     onKeyPressed: function(e) {
         if(GAME_STATE !== GAME_STATES.PLAYING) return;
@@ -71,10 +74,29 @@ AFRAME.registerComponent('player-controller', {
             this.el.object3D.position.x = lerp(this.currentPosition, this.targetPosition, this.lerpT)
             this.lerpT += this.data.speed * dt / 1000;
             this.lerpT = Math.max(Math.min(this.lerpT,1),0);
+            if(this.collided) {
+                this.collidedTimer += dt / 1000;
+                if(Math.floor((this.collidedTimer % 1) * 10) % 2) {
+                    this.el.object3D.visible = false;
+                } else {
+                    this.el.object3D.visible = true;
+                }
+            }
         }
     },
     onCollided: function() {
+        if(this.collided) return;
         this.collided = true;
-        gameManager.stopLevel();
+        this.collidedTimer = 0;
+        this.lives--;
+        this.liveEls[this.liveEls.length - this.lives - 1].style.visibility = 'hidden';
+        if(this.lives === 0) {
+            gameManager.stopLevel();
+        } else {
+            setTimeout(() => {
+                this.collided = false;
+                this.el.object3D.visible = true;
+            }, 1000);
+        }
     }
   });

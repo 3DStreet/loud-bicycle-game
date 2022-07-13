@@ -37,6 +37,22 @@
         right: 0;
         font-size: larger;
       }
+
+      #life-indicator-container {
+        position: absolute;
+        left: 5;
+        bottom: 5;
+      }
+
+      .life-indicator {
+        width: 50px;
+        height: 50px;
+        background-color: green;
+        border-radius: 50px;
+        border: 10px solid black;
+        margin-top: 5px;
+      }
+
     </style>
   </head>
   <body>
@@ -44,7 +60,7 @@
       <a-assets>
         <a-mixin id="interactable-mixin" interactable color="#4CC3D9" geometry="primitive: box; width: 1; height: 1; depth: 1"></a-mixin>
       </a-assets>
-      <a-camera position="0 3 1" rotation="-45 0 0" wasd-controls-enabled="false" look-controls-enabled="false" fov="90"></a-camera>
+      <a-camera position="0 4 2" rotation="-55 0 0" wasd-controls-enabled="false" look-controls-enabled="false" fov="90"></a-camera>
 
       <a-sphere position="0 0.5 0" scale="0.5 0.5 0.5" color="green" player-controller="speed: 2.0" aabb-collider="objects:[interactable]">
         <a-sphere id="noise-indicator" aabb-collider="objects:[interactable]" material="transparent: true; opacity: 0.4" visible="false" noise-indicator scale="4 1 4"></a-sphere>
@@ -68,5 +84,10 @@
     <progress id="shout-meter" class="low-meter" value="0" max="100"></progress>
     <progress id="horn-meter" class="low-meter" value="0" max="100"></progress>
     <p id="game-state-header">Loading</p>
+    <div id="life-indicator-container">
+      <div class="life-indicator"></div>
+      <div class="life-indicator"></div>
+      <div class="life-indicator"></div>
+    </div>
   </body>
 </html>

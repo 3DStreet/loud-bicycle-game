@@ -46,7 +46,6 @@ AFRAME.registerComponent('interactable', {
     },
     update: function() {
         var data = this.data;
-        console.log('data', data.type);
     },
     tick: function(t, dt) {
         // follow player
