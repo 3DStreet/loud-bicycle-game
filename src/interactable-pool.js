@@ -1,3 +1,5 @@
+import {interactableTypes, isSideType} from './interactable'
+
 AFRAME.registerComponent('interactable-pool', {
     init: function() {
         setTimeout(() => {
@@ -18,10 +20,16 @@ AFRAME.registerComponent('interactable-pool', {
     },
     spawnEl: function (){
         let el = this.pool.requestEntity();
+        // el.setAttribute('interactable', {type: });
+        // const type = interactableTypes[Math.floor(Math.random()*interactableTypes.length)]
+        const type = 'side'
+        const sideType = isSideType(type);
+        
+        el.setAttribute('interactable', {type});
         el.play();
 
         el.components.interactable.isHit = false;
-        el.components.interactable.followPlayerDepth();
+
 
         let parent = el.object3D.parent;
         let scene = this.el.sceneEl.object3D;
@@ -30,10 +38,22 @@ AFRAME.registerComponent('interactable-pool', {
 
         let lane = Math.floor(Math.random() * 3) - 1;
 
-        if(window.lanes === 1)
-            lane = 0;
+        // if(window.lanes === 1) {
+        //     lane = 0;
+        // } 
 
-        el.object3D.position.set(lane * 2,1,-10);
+        if(sideType) {
+            while(lane === 0) {
+                lane = Math.floor(Math.random() * 3) - 1;
+            }
+            el.object3D.position.set(lane * 5,1,-20);
+            el.components.interactable.direction = Math.sign(lane) * -1;
+            el.components.interactable.speed = 0;
+            el.components.interactable.counter = 0;
+            el.components.interactable.startDelay = 3.7;
+        } else {
+            el.object3D.position.set(lane * 2,1,-10);
+        }
 
         parent.attach( el.object3D );
 
