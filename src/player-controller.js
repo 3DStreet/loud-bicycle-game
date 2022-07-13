@@ -16,6 +16,19 @@ AFRAME.registerComponent('player-controller', {
         this.currentLane = 0;
         this.lives = 3;
         window.addEventListener("keypress", this.onKeyPressed.bind(this));
+        
+        let touchStartX = 0;
+        let touchEndX = 0;
+        document.addEventListener("touchstart", e => {
+            touchStartX = e.changedTouches[0].screenX;
+        })
+        document.addEventListener("touchend", e => {
+            touchEndX = e.changedTouches[0].screenX;
+            if(touchEndX < touchStartX) this.goLeft();
+            else if(touchEndX > touchStartX) this.goRight();
+        })
+
+
         setTimeout(() => {
             this.collider = this.el.components['aabb-collider'];
         }, 100);
