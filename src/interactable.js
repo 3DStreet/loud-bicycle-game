@@ -2,7 +2,7 @@ import { Vector3 } from 'super-three';
 import { GAME_STATE, GAME_STATES } from "./game-manager";
 import { lerp } from './helpers/math'
 
-export const interactableTypes = ['init', 'rightHook', 'leftCross', 'side', 'driveway'];
+export const interactableTypes = ['rightHook', 'side', /*'leftCross', 'driveway'*/];
 export const isSideType = (type) => {
     return type === 'side' || type === 'driveway';
 }
@@ -11,7 +11,7 @@ AFRAME.registerComponent('interactable', {
     schema: {
         event: {type: 'string', default: ''},
         acceleration: {type: 'float', default: 0.1},
-        type: {default: 'init', oneOf: interactableTypes}
+        type: {default: 'side', oneOf: interactableTypes}
     },
     init: function() {
         this.isHit = false;
@@ -29,20 +29,21 @@ AFRAME.registerComponent('interactable', {
         if(isSideType(this.data.type)) {
 
         } else {
-            const elX = this.el.object3D.position.x;
-            const elY = this.el.object3D.position.y;
-            const elZ = this.el.object3D.position.z;
-            this.el.setAttribute('animation', {
-                property: 'position',
-                'to': {x: elX, y: elY+1, z: elZ},
-                easing: 'linear',
-                dur: 200
-            });
+            // const elX = this.el.object3D.position.x;
+            // const elY = this.el.object3D.position.y;
+            // const elZ = this.el.object3D.position.z;
+            // this.el.setAttribute('animation', {
+            //     property: 'position',
+            //     'to': {x: elX, y: elY+1, z: elZ},
+            //     easing: 'linear',
+            //     dur: 200
+            // });
         }
     },
     followPlayerDepth: function() {
         this.lerpToPlayer = false;
         this.followPlayer = true;
+        this.counter = 0;
     },
     update: function() {
         var data = this.data;
@@ -69,7 +70,12 @@ AFRAME.registerComponent('interactable', {
     followPlayerHorizontal: function(dt) {
         this.el.object3D.getWorldPosition(this.tempVec);
         if(this.tempVec.z > 0) {
-            this.el.object3D.position.z -= this.tempVec.z;
+            if(this.counter !== 0) {
+                this.el.object3D.position.z -= this.tempVec.z;
+            } else {
+                this.el.object3D.position.z -= this.data.acceleration * (dt / 1000) * 75;
+            }
+
         }
 
         if(Math.round(this.tempVec.z) === 0) {

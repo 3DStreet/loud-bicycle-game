@@ -20,9 +20,7 @@ AFRAME.registerComponent('interactable-pool', {
     },
     spawnEl: function (){
         let el = this.pool.requestEntity();
-        // el.setAttribute('interactable', {type: });
-        // const type = interactableTypes[Math.floor(Math.random()*interactableTypes.length)]
-        const type = 'side'
+        const type = interactableTypes[Math.floor(Math.random()*interactableTypes.length)]
         const sideType = isSideType(type);
         
         el.setAttribute('interactable', {type});
@@ -51,8 +49,14 @@ AFRAME.registerComponent('interactable-pool', {
             el.components.interactable.speed = 0;
             el.components.interactable.counter = 0;
             el.components.interactable.startDelay = 3.7;
+            el.components.interactable.lerpToPlayer = false;
+            el.components.interactable.followPlayer = false;
         } else {
-            el.object3D.position.set(lane * 2,1,-10);
+            if(type === 'rightHook') {
+                el.object3D.position.set(lane * 2,1,5);
+                el.components.interactable.speed = 0;
+                el.components.interactable.followPlayerDepth();
+            }
         }
 
         parent.attach( el.object3D );
