@@ -1,7 +1,8 @@
 import { GAME_STATE, GAME_STATES } from "./game-manager";
 
 const LOW_METER_THRESHOLD = 20;
-const METER_UPDATE_INTERVAL = 300; // 300 ms
+const METER_INTERVAL_MS = 300;
+const METER_INTERVAL_INCREASE = 5;
 const SMALL_NOISE_USAGE = 5;
 const BIG_NOISE_USAGE = 10;
 
@@ -18,15 +19,12 @@ AFRAME.registerComponent('noise-meter', {
         
         this.addEvents();
     },
-    tick: function(t) {
-        if ((t - this.lastTickUpdate) >= METER_UPDATE_INTERVAL) {
-            this.lastTickUpdate = t;
-
-            if (GAME_STATE === GAME_STATES.PLAYING && this.noiseIndicator && !this.noiseIndicator.isActive) {
-                this.meter += 5;
-                this.meter = Math.min(100, this.meter);
-                this.updateMeter();
-            }
+    tick: function(_t, dt) {
+        if (GAME_STATE === GAME_STATES.PLAYING && this.noiseIndicator && !this.noiseIndicator.isActive) {
+            const increase = (dt * METER_INTERVAL_INCREASE)/METER_INTERVAL_MS;
+            this.meter += increase;
+            this.meter = Math.min(100, this.meter);
+            this.updateMeter();
         }
     },
     addEvents: function() {
