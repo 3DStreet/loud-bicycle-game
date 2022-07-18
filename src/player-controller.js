@@ -3,6 +3,8 @@ import { lerp } from './helpers/math'
 
 export let playerController;
 
+const TOUCH_SWIPE_THRESHHOLD = 20;
+
 AFRAME.registerComponent('player-controller', {
     schema: {
         speed: {default: 1.0},
@@ -20,6 +22,9 @@ AFRAME.registerComponent('player-controller', {
         })
         document.addEventListener("touchend", e => {
             touchEndX = e.changedTouches[0].screenX;
+            const diff = touchEndX - touchStartX;
+            const isValid = Math.abs(diff) > TOUCH_SWIPE_THRESHHOLD;
+            if(!isValid) return
             if(touchEndX < touchStartX) this.goLeft();
             else if(touchEndX > touchStartX) this.goRight();
         })
