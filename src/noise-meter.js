@@ -71,6 +71,7 @@ AFRAME.registerComponent('noise-meter', {
     },
     onSceneLoaded: function() {
         this.noiseIndicator = document.getElementById('noise-indicator').components['noise-indicator'];
+        this.sound = this.el.components.sound;
     },
     onKeyPressed: function(e) {
         if (e.key === this.data.keyCode) {
@@ -92,6 +93,7 @@ AFRAME.registerComponent('noise-meter', {
         if (this.hasLowMeter() || this.displaying || this.broken || noiseMeters[this.otherId].displaying) {
             return;
         }
+        this.sound.playSound();
         this.displaying = true;
         this.noiseIndicator.display(this.data.isSmall);
     },
@@ -99,6 +101,7 @@ AFRAME.registerComponent('noise-meter', {
         if(!this.displaying) return; 
         this.noiseIndicator.hide();
         this.displaying = false;
+        this.sound.stopSound();
     },
     breakIndicator: function() {
         this.noiseIndicator.hide();
@@ -106,6 +109,6 @@ AFRAME.registerComponent('noise-meter', {
         this.broken = true;
         this.meterEl.className = 'low-meter';
         this.clickerEl.classList.add('disabled');
-
+        this.sound.stopSound();
     }
   });
