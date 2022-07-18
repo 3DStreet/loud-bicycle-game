@@ -14,11 +14,10 @@ AFRAME.registerComponent('noise-indicator', {
         this.el.object3D.position.x = playerController.el.object3D.position.x;
         this.isActive = true;
         this.el.object3D.visible = true;
-        
-        setTimeout(() => {
-            this.el.object3D.visible = false;
-            this.isActive = false;
-        }, 200);
+    },
+    hide: function() {
+        this.el.object3D.visible = false;
+        this.isActive = false;
     },
     scaleSmall: function() {
         this.el.object3D.scale.set(2,1,1)
