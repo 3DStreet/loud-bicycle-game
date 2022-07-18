@@ -31,7 +31,6 @@ AFRAME.registerComponent('noise-meter', {
                 this.meter += increase;
                 this.meter = Math.min(100, this.meter);
                 if(this.broken && this.meter > BROKEN_REACTIVATE_THRESHHOLD ) {
-                    console.log('falsess');
                     this.broken = false;
                     this.meterEl.className = 'high-meter';
                     this.clickerEl.classList.remove('disabled');
@@ -63,10 +62,13 @@ AFRAME.registerComponent('noise-meter', {
         this.clickerEl = document.getElementById(this.data.clickerId);
         this.meterEl = document.getElementById(this.data.meterId);
         
-        this.clickerEl.addEventListener('click', () => {
+        this.clickerEl.addEventListener('pointerdown', () => {
             if (!this.clickerEl.classList.contains('disabled')) {
                 this.displayIndicator();
             }
+        });
+        document.addEventListener('pointerup', () => {
+            this.hideIndicator();
         });
     },
     onSceneLoaded: function() {
@@ -74,7 +76,7 @@ AFRAME.registerComponent('noise-meter', {
         this.sound = this.el.components.sound;
     },
     onKeyPressed: function(e) {
-        if (e.key === this.data.keyCode) {
+        if (e.key === this.data.keyCode && GAME_STATE === GAME_STATES.PLAYING) {
             this.displayIndicator();
         }
     },

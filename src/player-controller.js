@@ -28,6 +28,7 @@ AFRAME.registerComponent('player-controller', {
         setTimeout(() => {
             this.collider = this.el.components['aabb-collider'];
             this.animationMixer = this.el.components['animation-mixer'];
+            this.sound = this.el.components['sound'];
             this.cameraEl = document.querySelector('a-camera');
             this.cameraEl.object3D.position.x = 2.5 * Math.floor(window.lanes / 2)
         }, 100);
@@ -107,6 +108,7 @@ AFRAME.registerComponent('player-controller', {
         this.collidedTimer = 0;
         this.lives--;
         this.liveEls[this.liveEls.length - this.lives - 1].style.visibility = 'hidden';
+        this.sound.playSound();
         if(this.lives === 0) {
             gameManager.stopLevel();
             this.animationMixer.stopAction();
