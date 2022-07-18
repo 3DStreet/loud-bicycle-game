@@ -11,7 +11,6 @@ require('aframe-extras.animation-mixer');
 window.lanes = 3
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
-console.log(urlParams.get('lanes'));
 const lanesParam = urlParams.get('lanes');
 
 if(lanesParam) {

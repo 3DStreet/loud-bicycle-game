@@ -4,7 +4,7 @@ AFRAME.registerComponent('interactable-pool', {
     init: function() {
         setTimeout(() => {
             this.pool = this.el.sceneEl.components.pool__interactable;
-            document.querySelector('#noise-indicator').components['aabb-collider'].update();      
+            document.querySelector('#noise-indicator-collider').components['aabb-collider'].update();      
             document.querySelector('[player-controller]').components['aabb-collider'].update();      
         }, 1000);
     },
@@ -27,7 +27,6 @@ AFRAME.registerComponent('interactable-pool', {
         el.play();
 
         el.components.interactable.isHit = false;
-
 
         let parent = el.object3D.parent;
         let scene = this.el.sceneEl.object3D;

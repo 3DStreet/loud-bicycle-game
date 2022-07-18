@@ -67,20 +67,20 @@
       <a-assets>
         <a-mixin id="interactable-mixin" interactable color="#4CC3D9" geometry="primitive: box; width: 1; height: 1; depth: 1"></a-mixin>
         <a-asset-item id="animatedBike" src="./assets/cyclist.glb"></a-asset-item>
+        <a-asset-item id="wave" src="./assets/wave.glb"></a-asset-item>>
       </a-assets>
       <a-camera position="0 5 2" rotation="-55 0 0" wasd-controls-enabled="false" look-controls-enabled="false" fov="90"></a-camera>
       <a-entity
         id="model"
-        position="0 0 0"
-        rotation="0 0 0"
         gltf-model="#animatedBike"
-        scale="1 1 1"
         animation-mixer
         sound="src: url(./assets/damage.mp3);"
-        player-controller="speed: 2.0" aabb-collider="objects:[interactable]"
+        player-controller="speed: 2.0"
+        aabb-collider="objects:[interactable]"
       >
-        <a-sphere id="noise-indicator" aabb-collider="objects:[interactable]" material="transparent: true; opacity: 0.4" visible="false" noise-indicator scale="4 1 4"></a-sphere>
-
+        <a-entity id="noise-indicator" gltf-model="#wave" visible="false" noise-indicator>
+          <a-sphere id="noise-indicator-collider" visible="false" aabb-collider="objects:[interactable]"></a-sphere>
+        </a-entity>
       </a-entity>
 
       <a-entity id="interactable-spawner" interactable-pool></a-entity>
