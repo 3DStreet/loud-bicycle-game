@@ -59,12 +59,21 @@
     <a-scene pool__interactable="container: #level; mixin: interactable-mixin; size: 10">
       <a-assets>
         <a-mixin id="interactable-mixin" interactable color="#4CC3D9" geometry="primitive: box; width: 1; height: 1; depth: 1"></a-mixin>
+        <a-asset-item id="animatedBike" src="./assets/cyclist.glb"></a-asset-item>
       </a-assets>
       <a-camera position="0 5 2" rotation="-55 0 0" wasd-controls-enabled="false" look-controls-enabled="false" fov="90"></a-camera>
-
-      <a-sphere position="0 0.5 0" scale="0.5 0.5 0.5" color="green" player-controller="speed: 2.0" aabb-collider="objects:[interactable]">
+      <a-entity
+        id="model"
+        position="0 0 0"
+        rotation="0 0 0"
+        gltf-model="#animatedBike"
+        scale="1 1 1"
+        animation-mixer
+        player-controller="speed: 2.0" aabb-collider="objects:[interactable]"
+      >
         <a-sphere id="noise-indicator" aabb-collider="objects:[interactable]" material="transparent: true; opacity: 0.4" visible="false" noise-indicator scale="4 1 4"></a-sphere>
-      </a-sphere>
+
+      </a-entity>
 
       <a-entity id="interactable-spawner" interactable-pool></a-entity>
       <a-entity id="game-manager" game-manager></a-entity>

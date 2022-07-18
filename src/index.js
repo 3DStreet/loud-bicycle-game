@@ -6,6 +6,7 @@ require('./aabb-collider');
 require('./interactable');
 require('./interactable-pool');
 require('./noise-meter');
+require('aframe-extras.animation-mixer');
 
 window.lanes = 3
 const queryString = window.location.search;

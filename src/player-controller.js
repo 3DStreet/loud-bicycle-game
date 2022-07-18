@@ -31,6 +31,7 @@ AFRAME.registerComponent('player-controller', {
 
         setTimeout(() => {
             this.collider = this.el.components['aabb-collider'];
+            this.animationMixer = this.el.components['animation-mixer'];
         }, 100);
 
         this.currentPosition = 0;
@@ -87,6 +88,11 @@ AFRAME.registerComponent('player-controller', {
             this.el.object3D.position.x = lerp(this.currentPosition, this.targetPosition, this.lerpT)
             this.lerpT += this.data.speed * dt / 1000;
             this.lerpT = Math.max(Math.min(this.lerpT,1),0);
+
+            let dist = this.targetPosition - this.el.object3D.position.x;
+            const targetRotation = Math.sin(-dist) / 2;
+            this.el.object3D.rotation.y = lerp(this.el.object3D.rotation.y, targetRotation, this.lerpT)
+
             if(this.collided) {
                 this.collidedTimer += dt / 1000;
                 if(Math.floor((this.collidedTimer % 1) * 10) % 2) {
@@ -105,6 +111,7 @@ AFRAME.registerComponent('player-controller', {
         this.liveEls[this.liveEls.length - this.lives - 1].style.visibility = 'hidden';
         if(this.lives === 0) {
             gameManager.stopLevel();
+            this.animationMixer.stopAction();
         } else {
             setTimeout(() => {
                 this.collided = false;
