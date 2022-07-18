@@ -8,10 +8,6 @@ AFRAME.registerComponent('player-controller', {
         speed: {default: 1.0},
     },
     init: function () {
-        if(window.lanes === 1) {
-            document.querySelector('#right-lane').object3D.visible = false;
-            document.querySelector('#left-lane').object3D.visible = false;
-        }
         playerController = this;
         this.currentLane = 0;
         this.lives = 3;
@@ -32,6 +28,8 @@ AFRAME.registerComponent('player-controller', {
         setTimeout(() => {
             this.collider = this.el.components['aabb-collider'];
             this.animationMixer = this.el.components['animation-mixer'];
+            this.cameraEl = document.querySelector('a-camera');
+            this.cameraEl.object3D.position.x = 2.5 * Math.floor(window.lanes / 2)
         }, 100);
 
         this.currentPosition = 0;
@@ -56,18 +54,18 @@ AFRAME.registerComponent('player-controller', {
         }
     },
     goRight: function() {
-        if(window.lanes === 1) return;
+        if(this.currentLane === window.lanes - 1) return;
         let prevLane = this.currentLane;
         this.currentLane++;
-        this.currentLane = Math.min(this.currentLane, 1);
+        this.currentLane = Math.min(this.currentLane, window.lanes);
         if(prevLane !== this.currentLane)
             this.setPosition();
     },
     goLeft: function() {
-        if(window.lanes === 1) return;
+        if(this.currentLane === 0) return;
         let prevLane = this.currentLane;
         this.currentLane--;
-        this.currentLane = Math.max(this.currentLane, -1);
+        this.currentLane = Math.max(this.currentLane, 0);
         if(prevLane !== this.currentLane)
             this.setPosition();
     },

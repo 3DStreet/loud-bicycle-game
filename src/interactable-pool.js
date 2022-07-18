@@ -34,18 +34,15 @@ AFRAME.registerComponent('interactable-pool', {
 
         scene.attach( el.object3D ); 
 
-        let lane = Math.floor(Math.random() * 3) - 1;
-
-        // if(window.lanes === 1) {
-        //     lane = 0;
-        // } 
+        let lane = Math.floor(Math.random() * window.lanes);
 
         if(sideType) {
-            while(lane === 0) {
-                lane = Math.floor(Math.random() * 3) - 1;
+            lane = Math.floor(Math.random() * 2);
+            if(lane === 1) {
+                lane = window.lanes - 1;
             }
-            el.object3D.position.set(lane * 5,1,-20);
-            el.components.interactable.direction = Math.sign(lane) * -1;
+            el.object3D.position.set(lane * 2.5 + Math.sign(lane - 0.5) * 2.5, 1, -20);
+            el.components.interactable.direction = Math.sign(lane - 0.5) * -1;
             el.components.interactable.speed = 0;
             el.components.interactable.counter = 0;
             el.components.interactable.startDelay = 3.7;
@@ -53,7 +50,7 @@ AFRAME.registerComponent('interactable-pool', {
             el.components.interactable.followPlayer = false;
         } else {
             if(type === 'rightHook') {
-                el.object3D.position.set(lane * 2,1,5);
+                el.object3D.position.set(lane * 2.5,1,5);
                 el.components.interactable.speed = 0;
                 el.components.interactable.followPlayerDepth();
             }
