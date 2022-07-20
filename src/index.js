@@ -9,6 +9,7 @@ require('./coin-pool');
 require('./coin');
 require('./noise-meter');
 require('aframe-extras.animation-mixer');
+require('./aframe-street-component');
 
 window.lanes = 3
 const queryString = window.location.search;

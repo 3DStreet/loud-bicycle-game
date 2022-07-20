@@ -104,9 +104,12 @@
       <a-entity noise-meter="clickerId:horn; meterId:horn-meter; isSmall:false; keyCode:e" sound="src: url(./assets/horn.mp3); loop: true"></a-entity>
 
       <a-entity id="level" animation="property: position; to: 0 0 400; autoplay: false; dur: 100000; easing: linear; loop: false">
-        <a-plane id="mid-lane" position="0 0 -10" rotation="-90 0 0" scale="2 800 1" color="grey"></a-plane>
-        <a-plane id="right-lane" position="2.5 0 -10" rotation="-90 0 0" scale="2 800 1" color="grey"></a-plane>
-        <a-plane id="left-lane" position="5 0 -10" rotation="-90 0 0" scale="2 800 1" color="grey"></a-plane>
+        <a-entity
+        id="street_3"
+        position = "1.5 0 -65"
+        street="length: 150"
+        streetmix-loader="streetmixStreetURL: https://streetmix.net/LoudBicycle/8/street_3"
+      ></a-entity>
       </a-entity>
       
     </a-scene>
