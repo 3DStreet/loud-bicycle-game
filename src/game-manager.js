@@ -10,6 +10,8 @@ export let gameManager;
 
 export let gameScore = 0;
 
+const COIN_SCORE = 1;
+
 AFRAME.registerComponent('game-manager', {
     schema: {
     },
@@ -42,7 +44,7 @@ AFRAME.registerComponent('game-manager', {
         this.headerLabel.innerText = "Playing"
     },
     increaseScore: function() {
-        gameScore++;
+        gameScore += COIN_SCORE;
         this.gameScoreLabel.innerText = gameScore;
         this.coinAudio.playSound();
     },

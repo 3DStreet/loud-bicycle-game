@@ -44,7 +44,6 @@ AFRAME.registerComponent('interactable-pool', {
             el.components.interactable.direction = Math.sign(lane - 0.5) * -1;
             el.components.interactable.speed = 0;
             el.components.interactable.counter = 0;
-            el.components.interactable.startDelay = 3.7;
             el.components.interactable.lerpToPlayer = false;
             el.components.interactable.followPlayer = false;
         } else {

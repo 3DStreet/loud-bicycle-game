@@ -7,10 +7,15 @@ export const isSideType = (type) => {
     return type === 'side' || type === 'driveway';
 }
 
+const INTERACTABLE_HORIZONTAL_ACCELERATION = 0.1;
+const HORIZONTAL_ATTACK_WAIT_TIME = 2.0;
+const HORIZONTAL_FOLLOW_ATTACK_SPEED = 1.0;
+const INTERACTABLE_BEHIND_ACCELERATION = 0.1;
+const INTERACTABLE_SIDE_ATTACK_DELAY_AFTER_SPAWN = 3.7;
+
 AFRAME.registerComponent('interactable', {
     schema: {
         event: {type: 'string', default: ''},
-        acceleration: {type: 'float', default: 0.1},
         type: {default: 'side', oneOf: interactableTypes}
     },
     init: function() {
@@ -26,19 +31,6 @@ AFRAME.registerComponent('interactable', {
     onCollision: function() {
         if(this.isHit) return;
         this.isHit = true;
-        if(isSideType(this.data.type)) {
-
-        } else {
-            // const elX = this.el.object3D.position.x;
-            // const elY = this.el.object3D.position.y;
-            // const elZ = this.el.object3D.position.z;
-            // this.el.setAttribute('animation', {
-            //     property: 'position',
-            //     'to': {x: elX, y: elY+1, z: elZ},
-            //     easing: 'linear',
-            //     dur: 200
-            // });
-        }
     },
     followPlayerDepth: function() {
         this.lerpToPlayer = false;
@@ -54,14 +46,14 @@ AFRAME.registerComponent('interactable', {
             this.followPlayerHorizontal(dt)
         } else if(GAME_STATE === GAME_STATES.PLAYING && this.data.type === 'side') {
             if(!this.isHit) {
-                if(this.counter > this.startDelay) {
-                    this.speed += this.data.acceleration * (dt / 1000);
+                if(this.counter > INTERACTABLE_SIDE_ATTACK_DELAY_AFTER_SPAWN) {
+                    this.speed += INTERACTABLE_HORIZONTAL_ACCELERATION * (dt / 1000);
                     this.el.object3D.position.x += this.direction * this.speed;
                 } else {
                     this.counter += dt / 1000;
                 }
             } else {
-                this.speed -= this.data.acceleration * (dt / 1000) * 3;
+                this.speed -= INTERACTABLE_HORIZONTAL_ACCELERATION * (dt / 1000) * 3;
                 this.speed = Math.max(0, this.speed);
                 this.el.object3D.position.x += this.direction * this.speed;
             }
@@ -73,21 +65,20 @@ AFRAME.registerComponent('interactable', {
             if(this.counter !== 0) {
                 this.el.object3D.position.z -= this.tempVec.z;
             } else {
-                this.el.object3D.position.z -= this.data.acceleration * (dt / 1000) * 75;
+                this.el.object3D.position.z -= INTERACTABLE_BEHIND_ACCELERATION * (dt / 1000) * 75;
             }
-
         }
 
         if(Math.round(this.tempVec.z) === 0) {
             this.counter += dt / 1000;
-            if(this.counter > 2.0 && !this.lerpToPlayer) {
+            if(this.counter > HORIZONTAL_ATTACK_WAIT_TIME && !this.lerpToPlayer) {
                 this.lerpToPlayer = true;
                 this.lerpT = 0.0;
                 this.fromX = this.el.object3D.position.x;
                 this.toX = this.playerEl.object3D.position.x;
             } else if(this.lerpToPlayer) {
                 this.el.object3D.position.x = lerp(this.fromX, this.toX, this.lerpT)
-                this.lerpT += dt / 1000;
+                this.lerpT += HORIZONTAL_FOLLOW_ATTACK_SPEED * dt / 1000;
             }
         }
     }

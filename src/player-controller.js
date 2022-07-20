@@ -52,10 +52,6 @@ AFRAME.registerComponent('player-controller', {
             case 'a':
                 this.goLeft()
                 break;
-            case 'w':
-                break;
-            case 's':
-                break;
         }
     },
     goRight: function() {
@@ -114,8 +110,6 @@ AFRAME.registerComponent('player-controller', {
     },
     onCollided: function() {
         if(this.collided) return;
-
-
 
         this.collided = true;
         this.collidedTimer = 0;
