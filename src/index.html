@@ -60,12 +60,23 @@
         margin-top: 5px;
       }
 
+      #score-container {
+        position: absolute;
+        right: 5;
+        bottom: 5;
+      }
+
+      #score {
+        font-size: 50px;
+      }
+
     </style>
   </head>
   <body>
-    <a-scene pool__interactable="container: #level; mixin: interactable-mixin; size: 10">
+    <a-scene vr-mode-ui="enabled: false" ar-mode-ui="enabled: false" pool__interactable="container: #level; mixin: interactable-mixin; size: 10" pool__coins="container: #level; mixin: coin-mixin; size: 20">
       <a-assets>
-        <a-mixin id="interactable-mixin" interactable color="#4CC3D9" geometry="primitive: box; width: 1; height: 1; depth: 1"></a-mixin>
+        <a-mixin id="interactable-mixin" interactable  material="color: red" color="#4CC3D9" geometry="primitive: box; width: 1; height: 1; depth: 1"></a-mixin>
+        <a-mixin id="coin-mixin" material="color: #ded508" coin geometry="primitive: box; width: 1; height: 1; depth: 0.2"></a-mixin>
         <a-asset-item id="animatedBike" src="./assets/cyclist.glb"></a-asset-item>
         <a-asset-item id="wave" src="./assets/wave.glb"></a-asset-item>>
       </a-assets>
@@ -76,7 +87,7 @@
         animation-mixer
         sound="src: url(./assets/damage.mp3);"
         player-controller="speed: 2.0"
-        aabb-collider="objects:[interactable]"
+        aabb-collider="objects:[interactable], [coin]"
       >
         <a-entity id="noise-indicator" gltf-model="#wave" visible="false" noise-indicator>
           <a-sphere id="noise-indicator-collider" visible="false" aabb-collider="objects:[interactable]"></a-sphere>
@@ -84,7 +95,8 @@
       </a-entity>
 
       <a-entity id="interactable-spawner" interactable-pool></a-entity>
-      <a-entity id="game-manager" game-manager></a-entity>
+      <a-entity id="coin-spawner" coin-pool></a-entity>
+      <a-entity id="game-manager" game-manager sound="src: url(./assets/coin.mp3);"></a-entity>
       <a-entity noise-meter="clickerId:shout; meterId:shout-meter; isSmall:true; keyCode:q" sound="src: url(./assets/shout.mp3); loop: true"></a-entity>
       <a-entity noise-meter="clickerId:horn; meterId:horn-meter; isSmall:false; keyCode:e" sound="src: url(./assets/horn.mp3); loop: true"></a-entity>
 
@@ -105,6 +117,9 @@
       <div class="life-indicator"></div>
       <div class="life-indicator"></div>
       <div class="life-indicator"></div>
+    </div>
+    <div id="score-container">
+      <p id="score">0</p>
     </div>
   </body>
 </html>

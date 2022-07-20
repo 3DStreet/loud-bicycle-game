@@ -29,7 +29,6 @@ AFRAME.registerComponent('player-controller', {
             else if(touchEndX > touchStartX) this.goRight();
         })
 
-
         setTimeout(() => {
             this.collider = this.el.components['aabb-collider'];
             this.animationMixer = this.el.components['animation-mixer'];
@@ -85,8 +84,14 @@ AFRAME.registerComponent('player-controller', {
             if(this.collider && this.collider.collisions.length) {
                 for (let index = 0; index < this.collider.collisions.length; index++) {
                     const element = this.collider.collisions[index];
-                    if(element.object3D.visible)
-                        this.onCollided();
+                    
+                    if(element.object3D.visible) {
+                        if(element.components.coin) {
+                            element.components.coin.onCollision();
+                        } else {
+                            this.onCollided();
+                        }
+                    }
                 }
             }
             this.el.object3D.position.x = lerp(this.currentPosition, this.targetPosition, this.lerpT)
@@ -109,6 +114,9 @@ AFRAME.registerComponent('player-controller', {
     },
     onCollided: function() {
         if(this.collided) return;
+
+
+
         this.collided = true;
         this.collidedTimer = 0;
         this.lives--;

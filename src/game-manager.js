@@ -8,6 +8,8 @@ export let GAME_STATE = GAME_STATES.MENU;
 
 export let gameManager;
 
+export let gameScore = 0;
+
 AFRAME.registerComponent('game-manager', {
     schema: {
     },
@@ -15,21 +17,33 @@ AFRAME.registerComponent('game-manager', {
         gameManager = this;
         setTimeout(() => {
             this.interactablePool = document.querySelector('[interactable-pool]').components['interactable-pool'];
+            this.coinPool = document.querySelector('[coin-pool]').components['coin-pool'];
             this.levelAnimation = document.querySelector('#level').components.animation;
             this.headerLabel = document.querySelector('#game-state-header');
+            this.gameScoreLabel = document.querySelector('#score');
             this.playLevel();
+            this.coinAudio = this.el.components.sound;
         }, 100);
     },
     stopLevel: function() {
         this.levelAnimation.animation.pause();
         this.interactablePool.stop();
+        this.coinPool.stop();
         GAME_STATE = GAME_STATES.END;
         this.headerLabel.innerText = "Stopped"
     },
     playLevel: function() {
+        gameScore = 0;
+        this.gameScoreLabel.innerText = gameScore;
         this.levelAnimation.animation.play();
         this.interactablePool.start();
+        this.coinPool.start();
         GAME_STATE = GAME_STATES.PLAYING;
         this.headerLabel.innerText = "Playing"
+    },
+    increaseScore: function() {
+        gameScore++;
+        this.gameScoreLabel.innerText = gameScore;
+        this.coinAudio.playSound();
     },
 });

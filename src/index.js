@@ -5,6 +5,8 @@ require('./noise-indicator');
 require('./aabb-collider');
 require('./interactable');
 require('./interactable-pool');
+require('./coin-pool');
+require('./coin');
 require('./noise-meter');
 require('aframe-extras.animation-mixer');
 
