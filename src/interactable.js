@@ -22,6 +22,9 @@ AFRAME.registerComponent('interactable', {
         this.isHit = false;
         this.playerEl = document.querySelector('[player-controller]');
         this.tempVec = new Vector3();
+        setTimeout(() => {
+            this.sound = this.el.components['sound'];
+        }, 100);
     },
     play: function() {
         this.fromX = this.el.object3D.position.x;
@@ -31,6 +34,7 @@ AFRAME.registerComponent('interactable', {
     onCollision: function() {
         if(this.isHit) return;
         this.isHit = true;
+        this.sound.playSound();
     },
     followPlayerDepth: function() {
         this.lerpToPlayer = false;
