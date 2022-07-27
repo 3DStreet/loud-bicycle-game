@@ -1,5 +1,7 @@
 import {interactableTypes, isSideType} from './interactable'
 
+const SIDE_INTERCTABLE_START_DISTANCE = 5;
+
 AFRAME.registerComponent('interactable-pool', {
     init: function() {
         setTimeout(() => {
@@ -40,7 +42,8 @@ AFRAME.registerComponent('interactable-pool', {
             if(lane === 1) {
                 lane = window.lanes - 1;
             }
-            el.object3D.position.set(lane * 2.5 + Math.sign(lane - 0.5) * 2.5, 1, -20);
+            el.object3D.position.set(lane * 2.5 + Math.sign(lane - 0.5) * SIDE_INTERCTABLE_START_DISTANCE, 0, -20);
+            el.object3D.rotation.y = -Math.sign(lane - 0.5) * 1.5708;
             el.components.interactable.direction = Math.sign(lane - 0.5) * -1;
             el.components.interactable.speed = 0;
             el.components.interactable.counter = 0;
@@ -48,9 +51,10 @@ AFRAME.registerComponent('interactable-pool', {
             el.components.interactable.followPlayer = false;
         } else {
             if(type === 'rightHook') {
-                el.object3D.position.set(lane * 2.5,1,5);
+                el.object3D.position.set(lane * 2.5,0,5);
                 el.components.interactable.speed = 0;
                 el.components.interactable.followPlayerDepth();
+                el.object3D.rotation.y = Math.PI;
             }
         }
 

@@ -78,10 +78,11 @@
       <a-assets>
         <audio id="muffled-voice" src="./assets/muffled_voice.mp3" preload="auto"></audio>
         <img id="sky" src="https://github.3dstreet.org/assets/CGSkies_0343_doubled_2048.jpg">
-        <a-mixin id="interactable-mixin" interactable sound="src:#muffled-voice" material="color: red" color="#4CC3D9" geometry="primitive: box; width: 1; height: 1; depth: 1"></a-mixin>
+        <a-mixin id="interactable-mixin" interactable sound="src:#muffled-voice" material="color: red" color="#4CC3D9" gltf-model="#car"></a-mixin>
         <a-mixin id="coin-mixin" material="color: #ded508" coin geometry="primitive: box; width: 1; height: 1; depth: 0.2"></a-mixin>
         <a-asset-item id="animatedBike" src="./assets/cyclist.glb"></a-asset-item>
         <a-asset-item id="wave" src="./assets/wave.glb"></a-asset-item>>
+        <a-asset-item id="car" src="./assets/car.glb"></a-asset-item>>
 
       </a-assets>
       <a-sky src="#sky"></a-sky>
