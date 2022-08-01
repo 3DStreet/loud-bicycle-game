@@ -23,7 +23,7 @@
       #shout.disabled {
         border: 2px solid red;
       }
-      #shout-meter, #horn-meter {
+      #special-meter, #main-meter {
         position: absolute;
         top: 200px;
         width: 150px;
@@ -35,7 +35,7 @@
         accent-color: coral;
       }
 
-      #horn, #horn-meter {
+      #horn, #main-meter {
         left: 150px;
       }
 
@@ -103,8 +103,8 @@
       <a-entity id="interactable-spawner" interactable-pool></a-entity>
       <a-entity id="coin-spawner" coin-pool></a-entity>
       <a-entity id="game-manager" game-manager sound="src: url(./assets/coin.mp3);"></a-entity>
-      <a-entity noise-meter="clickerId:shout; meterId:shout-meter; isSmall:true; keyCode:q" sound="src: url(./assets/shout.mp3); loop: true"></a-entity>
-      <a-entity noise-meter="clickerId:horn; meterId:horn-meter; isSmall:false; keyCode:e" sound="src: url(./assets/horn.mp3); loop: true"></a-entity>
+      <a-entity noise-meter="clickerId:shout; meterId:special-meter; isSmall:true; keyCode:q" sound="src: url(./assets/bell.mp3); loop: true"></a-entity>
+      <a-entity noise-meter="clickerId:horn; meterId:main-meter; isSmall:false; keyCode:e" sound="src: url(./assets/shout.mp3); loop: true"></a-entity>
 
       <a-entity id="level" animation="property: position; to: 0 0 400; autoplay: false; dur: 100000; easing: linear; loop: false">
         <!-- <a-entity
@@ -114,12 +114,17 @@
           streetmix-loader="streetmixStreetURL: https://streetmix.net/LoudBicycle/8/street_3"
         ></a-entity> -->
       </a-entity>
-      
+
     </a-scene>
-    <img id="shout" height="200" width="200" src="./assets/shout.jpg" >
-    <img id="horn" height="200" width="200" src="./assets/bicycle-horn.jpg" >
-    <progress id="shout-meter" class="high-meter" value="0" max="100"></progress>
-    <progress id="horn-meter" class="high-meter" value="0" max="100"></progress>
+
+<!-- special weapon, bell, green ray gun -->
+    <img id="shout" height="200" width="200" src="./assets/bell.jpg" >
+    <progress id="special-meter" class="high-meter" value="0" max="100"></progress>
+
+<!-- main weapon, shout, Loud Classic, Loud Mini -->
+    <img id="horn" height="200" width="200" src="./assets/shout.jpg" >
+    <progress id="main-meter" class="high-meter" value="0" max="100"></progress>
+
     <p id="game-state-header">Loading</p>
     <div id="life-indicator-container">
       <div class="life-indicator"></div>

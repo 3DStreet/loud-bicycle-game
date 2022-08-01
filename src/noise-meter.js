@@ -4,8 +4,16 @@ const LOW_METER_THRESHOLD = 20;
 const METER_INTERVAL_MS = 300;
 const METER_INTERVAL_INCREASE = 5;
 const SMALL_NOISE_USAGE = 5;
-const BIG_NOISE_USAGE = 10;
+const BIG_NOISE_USAGE = 30;
 const BROKEN_REACTIVATE_THRESHHOLD = 60;
+
+
+const NOISE_USAGE = {
+                     bell: 0,
+                     shout: 30,
+                     classic: 10,
+                     mini: 5
+                   }
 
 const noiseMeters = {};
 
@@ -19,7 +27,7 @@ AFRAME.registerComponent('noise-meter', {
     init: function() {
         this.meter = 100;
         this.lastTickUpdate = 0;
-        
+
         this.addEvents();
         noiseMeters[this.data.clickerId] = this;
         this.otherId = this.data.clickerId === 'horn' ? 'shout' : 'horn';
@@ -36,6 +44,8 @@ AFRAME.registerComponent('noise-meter', {
                     this.clickerEl.classList.remove('disabled');
                 }
             } else {
+              // This should come from the NOISE_USAGE dictionary
+                // const decrease = (dt * (NOISE_USAGE[this.data.clickerId]))/METER_INTERVAL_MS;
                 const decrease = (dt * (this.data.isSmall ? SMALL_NOISE_USAGE : BIG_NOISE_USAGE))/METER_INTERVAL_MS;
                 this.meter -= decrease;
                 this.meter = Math.max(0, this.meter);
@@ -61,7 +71,7 @@ AFRAME.registerComponent('noise-meter', {
 
         this.clickerEl = document.getElementById(this.data.clickerId);
         this.meterEl = document.getElementById(this.data.meterId);
-        
+
         this.clickerEl.addEventListener('pointerdown', () => {
             if (!this.clickerEl.classList.contains('disabled')) {
                 this.displayIndicator();
@@ -100,7 +110,7 @@ AFRAME.registerComponent('noise-meter', {
         this.noiseIndicator.display(this.data.isSmall);
     },
     hideIndicator: function() {
-        if(!this.displaying) return; 
+        if(!this.displaying) return;
         this.noiseIndicator.hide();
         this.displaying = false;
         this.sound.stopSound();
