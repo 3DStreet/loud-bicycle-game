@@ -7,6 +7,8 @@ require('./interactable');
 require('./interactable-pool');
 require('./coin-pool');
 require('./coin');
+require('./bike-train-pool');
+require('./bike-train-member');
 require('./noise-meter');
 require('aframe-extras.animation-mixer');
 require('./aframe-street-component');
@@ -19,5 +21,4 @@ const lanesParam = urlParams.get('lanes');
 if(lanesParam) {
     const lanes = Number(lanesParam);
     window.lanes = lanes
-
 }

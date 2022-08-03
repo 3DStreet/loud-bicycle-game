@@ -35,7 +35,10 @@ AFRAME.registerComponent('noise-indicator', {
         if(this.isActive && this.collider.collisions.length) {
             for (let index = 0; index < this.collider.collisions.length; index++) {
                 const element = this.collider.collisions[index];
-                element.components['interactable'].onCollision();                
+                if(element.components['interactable'])
+                    element.components['interactable'].onCollision();
+                else if (element.components['bike-train-member'])                
+                element.components['bike-train-member'].onCollision();
             }
         }
         if(this.texture) {

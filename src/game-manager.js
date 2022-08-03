@@ -22,6 +22,7 @@ AFRAME.registerComponent('game-manager', {
         setTimeout(() => {
             this.interactablePool = document.querySelector('[interactable-pool]').components['interactable-pool'];
             this.coinPool = document.querySelector('[coin-pool]').components['coin-pool'];
+            this.bikePool = document.querySelector('[bike-train-pool]').components['bike-train-pool'];
             this.level = document.querySelector('#level');
             this.levelAnimation = level.components.animation;
             this.headerLabel = document.querySelector('#game-state-header');
@@ -37,6 +38,7 @@ AFRAME.registerComponent('game-manager', {
         this.levelAnimation.animation.pause();
         this.interactablePool.stop();
         this.coinPool.stop();
+        this.bikePool.stop();
         GAME_STATE = GAME_STATES.END;
         this.headerLabel.innerText = "Stopped"
     },
@@ -46,6 +48,7 @@ AFRAME.registerComponent('game-manager', {
         this.levelAnimation.animation.play();
         this.interactablePool.start();
         this.coinPool.start();
+        this.bikePool.start();
         GAME_STATE = GAME_STATES.PLAYING;
         this.headerLabel.innerText = "Playing"
     },
@@ -56,7 +59,6 @@ AFRAME.registerComponent('game-manager', {
     },
     generateLevel: function(index) {
         const levelData = gameData.levels[index];
-        console.log('ld', levelData.streetUrls);
         this.currentLevelStreetEls = []
         let isLastStreet = false;
         let spawnDistance = levelData.streetLength / 2;
@@ -68,11 +70,13 @@ AFRAME.registerComponent('game-manager', {
                 el.setAttribute('rotation', {x: -90, y: 0, z: 0})
                 el.setAttribute('geometry', {width: levelData.streetWidth, height: levelData.streetWidth, primitive: 'plane'})
                 el.setAttribute('material', `src:url(${levelData.intersectionUrls[0]})`)
+                el.setAttribute('class', `intersection`)
                 spawnDistance += levelData.streetLength;
             } else {
                 el.setAttribute('position', {x: 1.5, y: 0, z: -(spawnDistance - levelData.streetLength / 2)})
                 el.setAttribute('street', {length: levelData.streetLength})
                 el.setAttribute('streetmix-loader', {streetmixStreetURL: levelData.streetUrls[0]})
+                el.setAttribute('class', `street`)
                 spawnDistance += levelData.streetWidth;
             }
             isLastStreet = !isLastStreet;
