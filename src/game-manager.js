@@ -14,11 +14,13 @@ export let gameScore = 0;
 
 const COIN_SCORE = 1;
 
+
 AFRAME.registerComponent('game-manager', {
     schema: {
     },
     init: function() {
         gameManager = this;
+        this.currentLevelStreetEls = [];
         setTimeout(() => {
             this.interactablePool = document.querySelector('[interactable-pool]').components['interactable-pool'];
             this.coinPool = document.querySelector('[coin-pool]').components['coin-pool'];
@@ -71,12 +73,14 @@ AFRAME.registerComponent('game-manager', {
                 el.setAttribute('geometry', {width: levelData.streetWidth, height: levelData.streetWidth, primitive: 'plane'})
                 el.setAttribute('material', `src:url(${levelData.intersectionUrls[0]})`)
                 el.setAttribute('class', `intersection`)
+                el.length = levelData.streetWidth;
                 spawnDistance += levelData.streetLength;
             } else {
                 el.setAttribute('position', {x: 1.5, y: 0, z: -(spawnDistance - levelData.streetLength / 2)})
                 el.setAttribute('street', {length: levelData.streetLength})
                 el.setAttribute('streetmix-loader', {streetmixStreetURL: levelData.streetUrls[0]})
                 el.setAttribute('class', `street`)
+                el.length = levelData.streetLength;
                 spawnDistance += levelData.streetWidth;
             }
             isLastStreet = !isLastStreet;

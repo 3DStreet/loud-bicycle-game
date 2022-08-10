@@ -1,6 +1,7 @@
 import { Vector3 } from 'super-three';
 import { GAME_STATE, GAME_STATES } from "./game-manager";
 import { lerp } from './helpers/math'
+import { playerController } from './player-controller'
 
 export const interactableTypes = ['rightHook', 'side', /*'leftCross', 'driveway'*/];
 export const isSideType = (type) => {
@@ -11,7 +12,8 @@ const INTERACTABLE_HORIZONTAL_ACCELERATION = 0.1;
 const HORIZONTAL_ATTACK_WAIT_TIME = 2.0;
 const HORIZONTAL_FOLLOW_ATTACK_SPEED = 1.0;
 const INTERACTABLE_BEHIND_ACCELERATION = 0.1;
-const INTERACTABLE_SIDE_ATTACK_DELAY_AFTER_SPAWN = 3.7;
+// const INTERACTABLE_SIDE_ATTACK_DELAY_AFTER_SPAWN = 3.7;
+const INTERACTABLE_SIDE_ATTACK_START_Z_DISTANCE = 5;
 
 AFRAME.registerComponent('interactable', {
     schema: {
@@ -45,44 +47,55 @@ AFRAME.registerComponent('interactable', {
         var data = this.data;
     },
     tick: function(t, dt) {
-        // follow player
-        if(GAME_STATE === GAME_STATES.PLAYING && this.followPlayer && !this.isHit) {
-            this.followPlayerHorizontal(dt)
-        } else if(GAME_STATE === GAME_STATES.PLAYING && this.data.type === 'side') {
-            if(!this.isHit) {
-                if(this.counter > INTERACTABLE_SIDE_ATTACK_DELAY_AFTER_SPAWN) {
-                    this.speed += INTERACTABLE_HORIZONTAL_ACCELERATION * (dt / 1000);
-                    this.el.object3D.position.x += this.direction * this.speed;
-                } else {
-                    this.counter += dt / 1000;
-                }
-            } else {
-                this.speed -= INTERACTABLE_HORIZONTAL_ACCELERATION * (dt / 1000) * 3;
-                this.speed = Math.max(0, this.speed);
-                this.el.object3D.position.x += this.direction * this.speed;
+        if(GAME_STATE === GAME_STATES.PLAYING && this.followPlayer) {
+            switch(this.data.type) {
+                case 'rightHook':
+                    this.followPlayerHorizontal(dt)
+                    break;
+                case 'leftCross':
+                    break;
+                case 'side':
+                    this.attackPlayerFromSide(dt);
+                    break;
+
             }
         }
     },
-    followPlayerHorizontal: function(dt) {
-        this.el.object3D.getWorldPosition(this.tempVec);
-        if(this.tempVec.z > 0) {
-            if(this.counter !== 0) {
-                this.el.object3D.position.z -= this.tempVec.z;
-            } else {
-                this.el.object3D.position.z -= INTERACTABLE_BEHIND_ACCELERATION * (dt / 1000) * 75;
+    attackPlayerFromSide: function(dt) {
+        if(!this.isHit) {
+            const worldZ = this.el.object3D.position.z + this.el.object3D.parent.position.z 
+            if(worldZ > -INTERACTABLE_SIDE_ATTACK_START_Z_DISTANCE) {
+                this.speed += INTERACTABLE_HORIZONTAL_ACCELERATION * (dt / 1000);
+                this.el.object3D.position.x += this.direction * this.speed;
             }
+        } else {
+            this.speed -= INTERACTABLE_HORIZONTAL_ACCELERATION * (dt / 1000) * 3;
+            this.speed = Math.max(0, this.speed);
+            this.el.object3D.position.x += this.direction * this.speed;
         }
-
-        if(Math.round(this.tempVec.z) === 0) {
-            this.counter += dt / 1000;
-            if(this.counter > HORIZONTAL_ATTACK_WAIT_TIME && !this.lerpToPlayer) {
-                this.lerpToPlayer = true;
-                this.lerpT = 0.0;
-                this.fromX = this.el.object3D.position.x;
-                this.toX = this.playerEl.object3D.position.x;
-            } else if(this.lerpToPlayer) {
-                this.el.object3D.position.x = lerp(this.fromX, this.toX, this.lerpT)
-                this.lerpT += HORIZONTAL_FOLLOW_ATTACK_SPEED * dt / 1000;
+    },
+    followPlayerHorizontal: function(dt) {
+        if(!this.isHit) {
+            this.el.object3D.getWorldPosition(this.tempVec);
+            if(this.tempVec.z > 0) {
+                if(this.counter !== 0) {
+                    this.el.object3D.position.z -= this.tempVec.z;
+                } else {
+                    this.el.object3D.position.z -= INTERACTABLE_BEHIND_ACCELERATION * (dt / 1000) * 75;
+                }
+            }
+    
+            if(Math.round(this.tempVec.z) === 0) {
+                this.counter += dt / 1000;
+                if(this.counter > HORIZONTAL_ATTACK_WAIT_TIME && !this.lerpToPlayer) {
+                    this.lerpToPlayer = true;
+                    this.lerpT = 0.0;
+                    this.fromX = this.el.object3D.position.x;
+                    this.toX = this.playerEl.object3D.position.x;
+                } else if(this.lerpToPlayer) {
+                    this.el.object3D.position.x = lerp(this.fromX, this.toX, this.lerpT)
+                    this.lerpT += HORIZONTAL_FOLLOW_ATTACK_SPEED * dt / 1000;
+                }
             }
         }
     }
