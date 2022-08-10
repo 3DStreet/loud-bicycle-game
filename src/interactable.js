@@ -47,7 +47,7 @@ AFRAME.registerComponent('interactable', {
         var data = this.data;
     },
     tick: function(t, dt) {
-        if(GAME_STATE === GAME_STATES.PLAYING && this.followPlayer) {
+        if(GAME_STATE === GAME_STATES.PLAYING) {
             switch(this.data.type) {
                 case 'rightHook':
                     this.followPlayerHorizontal(dt)
@@ -75,7 +75,7 @@ AFRAME.registerComponent('interactable', {
         }
     },
     followPlayerHorizontal: function(dt) {
-        if(!this.isHit) {
+        if(!this.isHit && this.followPlayer) {
             this.el.object3D.getWorldPosition(this.tempVec);
             if(this.tempVec.z > 0) {
                 if(this.counter !== 0) {
