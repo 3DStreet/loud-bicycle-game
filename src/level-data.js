@@ -4,7 +4,7 @@ export const gameData = {
             name: 'Level 1 - Drop off the kids',
             duration: 180,
             streetLength: 30,
-            streetWidth: 30,
+            streetWidth: 20,
             streetLengthAdditionalRange: 10,
             streetUrls: [
                 'https://streetmix.net/LoudBicycle/8/street_3'
