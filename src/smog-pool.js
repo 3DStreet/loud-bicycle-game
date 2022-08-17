@@ -1,7 +1,7 @@
-AFRAME.registerComponent('coin-pool', {
+AFRAME.registerComponent('smog-pool', {
     init: function() {
         setTimeout(() => {
-            this.pool = this.el.sceneEl.components.pool__coins;
+            this.pool = this.el.sceneEl.components.pool__smogs;
             document.querySelector('[player-controller]').components['aabb-collider'].update();      
         }, 1000);
     },
@@ -22,7 +22,7 @@ AFRAME.registerComponent('coin-pool', {
         
         el.play();
 
-        el.components.coin.spawn();
+        el.components.smog.spawn();
 
         let parent = el.object3D.parent;
         let scene = this.el.sceneEl.object3D;

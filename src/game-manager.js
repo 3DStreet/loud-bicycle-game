@@ -12,7 +12,7 @@ export let gameManager;
 
 export let gameScore = 0;
 
-const COIN_SCORE = 1;
+const SMOG_SCORE = 1;
 
 
 AFRAME.registerComponent('game-manager', {
@@ -23,14 +23,14 @@ AFRAME.registerComponent('game-manager', {
         this.currentLevelStreetEls = [];
         setTimeout(() => {
             this.interactablePool = document.querySelector('[interactable-pool]').components['interactable-pool'];
-            this.coinPool = document.querySelector('[coin-pool]').components['coin-pool'];
+            this.smogPool = document.querySelector('[smog-pool]').components['smog-pool'];
             this.bikePool = document.querySelector('[bike-train-pool]').components['bike-train-pool'];
             this.level = document.querySelector('#level');
             this.levelAnimation = level.components.animation;
             this.headerLabel = document.querySelector('#game-state-header');
             this.gameScoreLabel = document.querySelector('#score');
             this.playLevel();
-            this.coinAudio = this.el.components.sound;
+            this.smogAudio = this.el.components.sound;
 
             // TODO: Chosen by menu
             this.generateLevel(0);
@@ -39,7 +39,7 @@ AFRAME.registerComponent('game-manager', {
     stopLevel: function() {
         this.levelAnimation.animation.pause();
         this.interactablePool.stop();
-        this.coinPool.stop();
+        this.smogPool.stop();
         this.bikePool.stop();
         GAME_STATE = GAME_STATES.END;
         this.headerLabel.innerText = "Stopped"
@@ -49,15 +49,15 @@ AFRAME.registerComponent('game-manager', {
         this.gameScoreLabel.innerText = gameScore;
         this.levelAnimation.animation.play();
         this.interactablePool.start();
-        this.coinPool.start();
+        this.smogPool.start();
         this.bikePool.start();
         GAME_STATE = GAME_STATES.PLAYING;
         this.headerLabel.innerText = "Playing"
     },
     increaseScore: function() {
-        gameScore += COIN_SCORE;
+        gameScore += SMOG_SCORE;
         this.gameScoreLabel.innerText = gameScore;
-        this.coinAudio.playSound();
+        this.smogAudio.playSound();
     },
     generateLevel: function(index) {
         const levelData = gameData.levels[index];
