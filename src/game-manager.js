@@ -75,7 +75,7 @@ AFRAME.registerComponent('game-manager', {
             } else {
                 el.setAttribute('position', {x: 1.5, y: 0, z: -(spawnDistance - levelData.streetLength / 2)})
                 el.setAttribute('street', {length: levelData.streetLength})
-                el.setAttribute('streetmix-loader', {streetmixStreetURL: levelData.streetUrls[0]})
+                el.setAttribute('streetmix-loader', {streetmixAPIURL: levelData.streetUrls[0]})
                 el.setAttribute('class', `street`)
                 el.length = levelData.streetLength;
                 spawnDistance += levelData.streetWidth;

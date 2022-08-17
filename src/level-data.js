@@ -7,7 +7,7 @@ export const gameData = {
             streetWidth: 20,
             streetLengthAdditionalRange: 10,
             streetUrls: [
-                'https://streetmix.net/florianisikci/1/street_3'
+                './levels/3263bf00-18ad-11ed-b59a-fff1e488c94a.json'
             ],
             intersectionUrls: [
                 'https://cdn.glitch.global/4cbfc52c-9f40-485c-b7ff-e3ed0494f9a0/intersection.jpeg?v=1650059985944'
