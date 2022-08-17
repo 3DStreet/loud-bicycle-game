@@ -90,6 +90,7 @@
         <a-asset-item id="animatedBike" src="./assets/cyclist.glb"></a-asset-item>
         <a-asset-item id="wave" src="./assets/wave.glb"></a-asset-item>>
         <a-asset-item id="car" src="./assets/car.glb"></a-asset-item>>
+        <a-asset-item id="bell" src="./assets/bell.glb"></a-asset-item>>
       </a-assets>
       <a-sky src="#sky"></a-sky>
       <a-camera position="0 5 2" rotation="-35 0 0" wasd-controls-enabled="false" look-controls-enabled="false" fov="90"></a-camera>
@@ -106,11 +107,13 @@
         </a-entity>
       </a-entity>
 
+      <a-entity id="bell-indicator" gltf-model="#bell" visible="false" scale="0.75 0.75 0.75"></a-entity>
+
       <a-entity id="interactable-spawner" interactable-pool></a-entity>
       <a-entity id="coin-spawner" coin-pool></a-entity>
       <a-entity id="bike-train-spawner" bike-train-pool></a-entity>
 
-      <a-entity id="game-manager" game-manager sound="src: url(./assets/coin.mp3);"></a-entity>
+      <a-entity id="game-manager" game-manager sound="src: url(./assets/breath_caugh.mp3);"></a-entity>
       <a-entity noise-meter="clickerId:shout; meterId:special-meter; isSmall:true; keyCode:q" sound="src: url(./assets/bell.mp3); loop: true"></a-entity>
       <a-entity noise-meter="clickerId:horn; meterId:main-meter; isSmall:false; keyCode:e" sound="src: url(./assets/shout.mp3); loop: true"></a-entity>
 

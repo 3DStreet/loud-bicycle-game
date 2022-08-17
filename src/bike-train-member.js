@@ -13,7 +13,8 @@ AFRAME.registerComponent('bike-train-member', {
             this.originalParent = this.el.object3D.parent;
 
         });
-
+        this.animateBell = false;
+        this.bell = document.querySelector('#bell-indicator');
         this.spawned = false;
         this.isHit = false;
         this.playerEl = document.querySelector('[player-controller]');
@@ -30,16 +31,36 @@ AFRAME.registerComponent('bike-train-member', {
         this.el.object3D.position.set(x, 0, z)
         this.el.object3D.quaternion.identity();
         amountBikeTrainMembers++;
+
+        this.bellOffset = 0;
+        this.setBellActive(false);
     },
     spawn: function() {
         this.isHit = false;
         this.spawned = true;
         this.el.object3D.visible = true;
+        this.setBellActive(true);
     },
     despawn: function() {
         this.spawned = false;
         this.el.object3D.visible = false;
         this.originalParent.attach(this.el.object3D)
-
+        this.setBellActive(false);
+    },
+    setBellActive: function(b) {
+        console.log('bella', b);
+        if(b) {
+            this.el.object3D.attach(this.bell.object3D);
+        } else {
+            this.el.sceneEl.object3D.attach(this.bell.object3D);
+        }
+        
+        this.animateBell = b;
+        this.bell.object3D.visible = b;
+    },
+    tick: function(t, dt) {
+        if(this.animateBell) {
+            this.bell.object3D.position.set(0, 2.5 + Math.sin(t/300) / 4, -0.3);
+        }
     }
 });

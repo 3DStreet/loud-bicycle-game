@@ -14,11 +14,13 @@ export let gameScore = 0;
 
 const COIN_SCORE = 1;
 
+
 AFRAME.registerComponent('game-manager', {
     schema: {
     },
     init: function() {
         gameManager = this;
+        this.currentLevelStreetEls = [];
         setTimeout(() => {
             this.interactablePool = document.querySelector('[interactable-pool]').components['interactable-pool'];
             this.coinPool = document.querySelector('[coin-pool]').components['coin-pool'];
@@ -75,6 +77,7 @@ AFRAME.registerComponent('game-manager', {
                 el.setAttribute('street', {length: levelData.streetLength})
                 el.setAttribute('streetmix-loader', {streetmixStreetURL: levelData.streetUrls[0]})
                 el.setAttribute('class', `street`)
+                el.length = levelData.streetLength;
                 spawnDistance += levelData.streetWidth;
             }
             isIntersection = !isIntersection;
