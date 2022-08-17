@@ -62,18 +62,15 @@ AFRAME.registerComponent('game-manager', {
     generateLevel: function(index) {
         const levelData = gameData.levels[index];
         this.currentLevelStreetEls = []
-        let isLastStreet = false;
+        let isIntersection = false;
         let spawnDistance = levelData.streetLength / 2;
         for (let i = 0; i < 10; i++) {
             const el = document.createElement('a-entity');
 
-            if(isLastStreet) {
-                el.setAttribute('position', {x: 2, y: -0.1, z: -(spawnDistance - levelData.streetWidth / 2)})
-                el.setAttribute('rotation', {x: -90, y: 0, z: 0})
-                el.setAttribute('geometry', {width: levelData.streetWidth, height: levelData.streetWidth, primitive: 'plane'})
-                el.setAttribute('material', `src:url(${levelData.intersectionUrls[0]})`)
-                el.setAttribute('class', `intersection`)
-                el.length = levelData.streetWidth;
+            if(isIntersection) {    
+                el.setAttribute('position', {x: 2, y: 0, z: -(spawnDistance - levelData.streetWidth / 2)})
+                el.setAttribute('intersection', `dimensions: ${levelData.streetWidth} ${levelData.streetWidth}; northeastcurb: 4.572 4.572; southwestcurb: 4.572 4.572; southeastcurb: 4.572 4.572; northwestcurb: 4.572 4.572; trafficsignal: 1 1 1 1; crosswalk: 1 1 1 1`);
+                el.setAttribute('class', 'intersection');
                 spawnDistance += levelData.streetLength;
             } else {
                 el.setAttribute('position', {x: 1.5, y: 0, z: -(spawnDistance - levelData.streetLength / 2)})
@@ -83,7 +80,7 @@ AFRAME.registerComponent('game-manager', {
                 el.length = levelData.streetLength;
                 spawnDistance += levelData.streetWidth;
             }
-            isLastStreet = !isLastStreet;
+            isIntersection = !isIntersection;
             this.level.append(el);
             this.currentLevelStreetEls.push(el);
         }
