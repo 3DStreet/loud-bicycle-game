@@ -5,7 +5,7 @@ export const gameData = {
             duration: 180,
             amountBikePool: 3,
             streetLength: 30,
-            streetWidth: 30,
+            streetWidth: 20,
             streetLengthAdditionalRange: 10,
             streetUrls: [
                 'https://streetmix.net/florianisikci/1/street_3'
