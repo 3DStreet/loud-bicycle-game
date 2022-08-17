@@ -1,9 +1,14 @@
+import { Vector3 } from 'super-three';
 import {interactableTypes, isSideType} from './interactable'
+import { gameManager } from './game-manager';
 
-const SIDE_INTERCTABLE_START_DISTANCE = 5;
+const SIDE_INTERCTABLE_START_DISTANCE = 10;
+const INTERSECTION_CAR_Z_OFFSET = 2;
 
 AFRAME.registerComponent('interactable-pool', {
     init: function() {
+        this.tempVec = new Vector3();
+        this.streetIndex = 0;
         setTimeout(() => {
             this.pool = this.el.sceneEl.components.pool__interactable;
             document.querySelector('#noise-indicator-collider').components['aabb-collider'].update();      
@@ -21,8 +26,10 @@ AFRAME.registerComponent('interactable-pool', {
         this.spawnInterval = null;
     },
     spawnEl: function (){
-        let el = this.pool.requestEntity();
         const type = interactableTypes[Math.floor(Math.random()*interactableTypes.length)]
+        if(type !== 'rightHook') return;
+        
+        let el = this.pool.requestEntity();
         const sideType = isSideType(type);
         
         el.setAttribute('interactable', {type});
@@ -37,33 +44,105 @@ AFRAME.registerComponent('interactable-pool', {
 
         let lane = Math.floor(Math.random() * window.lanes);
 
-        if(sideType) {
-            lane = Math.floor(Math.random() * 2);
-            if(lane === 1) {
-                lane = window.lanes - 1;
-            }
-            el.object3D.position.set(lane * 2.5 + Math.sign(lane - 0.5) * SIDE_INTERCTABLE_START_DISTANCE, 0, -20);
-            el.object3D.rotation.y = -Math.sign(lane - 0.5) * 1.5708;
-            el.components.interactable.direction = Math.sign(lane - 0.5) * -1;
+        if(type === 'rightHook') {
+            el.object3D.position.set(lane * 2.5,0,5);
             el.components.interactable.speed = 0;
-            el.components.interactable.counter = 0;
-            el.components.interactable.lerpToPlayer = false;
-            el.components.interactable.followPlayer = false;
-        } else {
-            if(type === 'rightHook') {
-                el.object3D.position.set(lane * 2.5,0,5);
-                el.components.interactable.speed = 0;
-                el.components.interactable.followPlayerDepth();
-                el.object3D.rotation.y = Math.PI;
-            }
+            el.components.interactable.followPlayerDepth();
+            el.object3D.rotation.y = Math.PI;
         }
-
+        
         parent.attach( el.object3D );
 
         setTimeout(() => {
             if(this.pool.usedEls.includes(el))
                 this.returnEl(el);
         }, 10000);
+    },
+
+    spawnCarOnDriveway: function (position){
+        const type = "side"
+        
+        let el = this.pool.requestEntity();
+        
+        el.setAttribute('interactable', {type});
+        el.play();
+
+        el.components.interactable.isHit = false;
+
+        let parent = el.object3D.parent;
+        let scene = this.el.sceneEl.object3D;
+
+        scene.attach( el.object3D ); 
+        el.object3D.position.copy(position);
+
+        // el.object3D.position.set(lane * 2.5 + Math.sign(lane - 0.5) * SIDE_INTERCTABLE_START_DISTANCE, 0, -20);
+        el.object3D.rotation.y = 1.5708;
+        el.components.interactable.direction = -1;
+        el.components.interactable.speed = 0;
+        el.components.interactable.counter = 0;
+        el.components.interactable.lerpToPlayer = false;
+        el.components.interactable.followPlayer = false;
+
+        parent.attach( el.object3D );
+
+        setTimeout(() => {
+            if(this.pool.usedEls.includes(el))
+                this.returnEl(el);
+        }, 20000);
+    },
+    spawnCarOnIntersection: function (position, isRight){
+        const type = "side"
+        
+        let el = this.pool.requestEntity();
+        
+        el.setAttribute('interactable', {type});
+        el.play();
+
+        el.components.interactable.isHit = false;
+
+        let parent = el.object3D.parent;
+        let scene = this.el.sceneEl.object3D;
+
+        scene.attach( el.object3D ); 
+        el.object3D.position.copy(position);
+
+        const lane = isRight ? 1 : -1;
+
+        el.object3D.position.set(lane * 2.5 + Math.sign(lane - 0.5) * SIDE_INTERCTABLE_START_DISTANCE, 0, position.z - lane * INTERSECTION_CAR_Z_OFFSET);
+        el.object3D.rotation.y = -Math.sign(lane - 0.5) * 1.5708;
+        el.components.interactable.direction = Math.sign(lane - 0.5) * -1;
+        el.components.interactable.speed = 0;
+        el.components.interactable.counter = 0;
+        el.components.interactable.lerpToPlayer = false;
+        el.components.interactable.followPlayer = false;
+
+        parent.attach( el.object3D );
+
+        setTimeout(() => {
+            if(this.pool.usedEls.includes(el))
+                this.returnEl(el);
+        }, 20000);
+    },
+
+    spawnCarsOnStreet: function(index) {
+        const root = gameManager.getStreetObject3D(index);
+
+        
+        root.traverse((child) => {
+            if(child.type === "Group") {
+                if(child.el.classList[0] === "driveway") {
+                    child.getWorldPosition(this.tempVec)
+                    this.spawnCarOnDriveway(this.tempVec)
+                } else if(child.el.classList[0] === "intersection") {
+                    child.getWorldPosition(this.tempVec)
+                    this.spawnCarOnIntersection(this.tempVec, true);
+                    this.spawnCarOnIntersection(this.tempVec, false);
+                }
+            } 
+            // if(child.type === "Group" && child.el.classList[0] === "intersection")
+        });
+    
+
     },
     returnAll: function() {
         const els = [...this.pool.usedEls];
@@ -78,4 +157,11 @@ AFRAME.registerComponent('interactable-pool', {
     update: function() {
         var data = this.data;
     },
+    tick: function() {
+        const currentStreetIndex = gameManager.getCurrentStreetIndex();
+        if(currentStreetIndex != -1 && this.streetIndex !== currentStreetIndex) {
+            this.spawnCarsOnStreet(currentStreetIndex + 1);
+            this.streetIndex = currentStreetIndex;
+        }
+    }
 });

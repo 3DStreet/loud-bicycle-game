@@ -1,3 +1,4 @@
+import { Vector3 } from 'super-three';
 import { gameData } from "./level-data";
 
 export const GAME_STATES = {
@@ -20,6 +21,7 @@ AFRAME.registerComponent('game-manager', {
     },
     init: function() {
         gameManager = this;
+        this.tempVec = new Vector3();
         this.currentLevelStreetEls = [];
         setTimeout(() => {
             this.interactablePool = document.querySelector('[interactable-pool]').components['interactable-pool'];
@@ -73,22 +75,38 @@ AFRAME.registerComponent('game-manager', {
                 el.setAttribute('geometry', {width: levelData.streetWidth, height: levelData.streetWidth, primitive: 'plane'})
                 el.setAttribute('material', `src:url(${levelData.intersectionUrls[0]})`)
                 el.setAttribute('class', `intersection`)
-                el.length = levelData.streetWidth;
+                el.halfLength = levelData.streetLength / 2;
                 spawnDistance += levelData.streetLength;
             } else {
                 el.setAttribute('position', {x: 1.5, y: 0, z: -(spawnDistance - levelData.streetLength / 2)})
                 el.setAttribute('street', {length: levelData.streetLength})
                 el.setAttribute('streetmix-loader', {streetmixStreetURL: levelData.streetUrls[0]})
                 el.setAttribute('class', `street`)
-                el.length = levelData.streetLength;
+                el.halfLength = levelData.streetWidth / 2;
                 spawnDistance += levelData.streetWidth;
             }
             isLastStreet = !isLastStreet;
             this.level.append(el);
             this.currentLevelStreetEls.push(el);
         }
-    }, 
+    },
     removeLevel: function() {
 
-    }
+    },
+    getCurrentStreetIndex: function() {
+        if(!this.currentLevelStreetEls) return;
+
+        for (let i = 0; i < this.currentLevelStreetEls.length; i++) {
+            const street = this.currentLevelStreetEls[i];
+            street.object3D.getWorldPosition(this.tempVec);
+
+
+            if(this.tempVec.z + street.halfLength > 0 && this.tempVec.z - street.halfLength < 0 )
+                return i
+        }
+        return -1;
+    },
+    getStreetObject3D: function(index) {
+        return this.currentLevelStreetEls[index].object3D;
+    },
 });
