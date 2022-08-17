@@ -1,7 +1,6 @@
 <html>
   <head>
     <title>Loud Bicycle Game</title>
-    <script src="https://github.3dstreet.org/dist/aframe-street-component.js"></script>
     <style>
       #shout, #horn {
         position: absolute;
@@ -79,13 +78,13 @@
       ar-mode-ui="enabled: false" 
       pool__interactable="container: #level; mixin: interactable-mixin; size: 10" 
       pool__bikes="container: #level; mixin: bike-mixin; size: 6" 
-      pool__coins="container: #level; mixin: coin-mixin; size: 20" 
+      pool__smogs="container: #level; mixin: smog-mixin; size: 20" 
       gltf-model="dracoDecoderPath: https://www.gstatic.com/draco/versioned/decoders/1.4.3/">
       <a-assets>
         <audio id="muffled-voice" src="./assets/muffled_voice.mp3" preload="auto"></audio>
         <img id="sky" src="https://github.3dstreet.org/assets/CGSkies_0343_doubled_2048.jpg">
         <a-mixin id="interactable-mixin" interactable sound="src:#muffled-voice" material="color: red" color="#4CC3D9" gltf-model="#car"></a-mixin>
-        <a-mixin id="coin-mixin" material="color: #ded508" coin geometry="primitive: box; width: 1; height: 1; depth: 0.2"></a-mixin>
+        <a-mixin id="smog-mixin" smog geometry="primitive: box; width: 1; height: 1; depth: 0.2"></a-mixin>
         <a-mixin id="bike-mixin" gltf-model="#animatedBike" bike-train-member></a-mixin>
         <a-asset-item id="animatedBike" src="./assets/cyclist.glb"></a-asset-item>
         <a-asset-item id="wave" src="./assets/wave.glb"></a-asset-item>>
@@ -100,17 +99,16 @@
         animation-mixer
         sound="src: url(./assets/damage.mp3);"
         player-controller="speed: 2.0"
-        aabb-collider="objects:[interactable], [coin]"
+        aabb-collider="objects:[interactable], [smog]"
       >
         <a-entity id="noise-indicator" gltf-model="#wave" visible="false" noise-indicator>
           <a-sphere id="noise-indicator-collider" visible="false" aabb-collider="objects:[interactable], [bike-train-member]"></a-sphere>
         </a-entity>
       </a-entity>
-
       <a-entity id="bell-indicator" gltf-model="#bell" visible="false" scale="0.75 0.75 0.75"></a-entity>
 
       <a-entity id="interactable-spawner" interactable-pool></a-entity>
-      <a-entity id="coin-spawner" coin-pool></a-entity>
+      <a-entity id="smog-spawner" smog-pool></a-entity>
       <a-entity id="bike-train-spawner" bike-train-pool></a-entity>
 
       <a-entity id="game-manager" game-manager sound="src: url(./assets/breath_caugh.mp3);"></a-entity>

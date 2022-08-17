@@ -82,8 +82,8 @@ AFRAME.registerComponent('player-controller', {
                     const element = this.collider.collisions[index];
                     
                     if(element.object3D.visible) {
-                        if(element.components.coin) {
-                            element.components.coin.onCollision();
+                        if(element.components.smog) {
+                            element.components.smog.onCollision();
                         } else {
                             this.onCollided();
                         }
