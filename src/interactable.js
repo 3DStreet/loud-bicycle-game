@@ -57,7 +57,6 @@ AFRAME.registerComponent('interactable', {
                 case 'side':
                     this.attackPlayerFromSide(dt);
                     break;
-
             }
         }
     },

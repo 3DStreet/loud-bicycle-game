@@ -3,6 +3,7 @@ export const gameData = {
         {
             name: 'Level 1 - Drop off the kids',
             duration: 180,
+            amountBikePool: 3,
             streetLength: 50,
             streetWidth: 20,
             streetLengthAdditionalRange: 10,

@@ -1,12 +1,13 @@
 require('aframe');
+require('./aframe-particle-system-component')
 require('./game-manager');
 require('./player-controller');
 require('./noise-indicator');
 require('./aabb-collider');
 require('./interactable');
 require('./interactable-pool');
-require('./coin-pool');
-require('./coin');
+require('./smog-pool');
+require('./smog');
 require('./bike-train-pool');
 require('./bike-train-member');
 require('./noise-meter');
