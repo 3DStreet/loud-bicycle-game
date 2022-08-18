@@ -64,7 +64,7 @@ AFRAME.registerComponent('game-manager', {
         this.currentLevelStreetEls = []
         let isIntersection = false;
         let spawnDistance = levelData.streetLength / 2;
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < 7; i++) {
             const el = document.createElement('a-entity');
 
             if(isIntersection) {    
@@ -75,7 +75,7 @@ AFRAME.registerComponent('game-manager', {
             } else {
                 el.setAttribute('position', {x: 1.5, y: 0, z: -(spawnDistance - levelData.streetLength / 2)})
                 el.setAttribute('street', {length: levelData.streetLength})
-                el.setAttribute('streetmix-loader', {streetmixAPIURL: levelData.streetUrls[0]})
+                el.setAttribute('streetmix-loader', {streetmixAPIURL: levelData.streetUrls[i]})
                 el.setAttribute('class', `street`)
                 el.length = levelData.streetLength;
                 spawnDistance += levelData.streetWidth;
