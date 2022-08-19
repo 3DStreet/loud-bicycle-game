@@ -53,10 +53,10 @@ AFRAME.registerComponent('interactable-pool', {
         
         parent.attach( el.object3D );
 
-        setTimeout(() => {
+        el.components.interactable.returnFunction = () => {
             if(this.pool.usedEls.includes(el))
                 this.returnEl(el);
-        }, 10000);
+        }
     },
 
     spawnCarOnDriveway: function (position){
@@ -75,9 +75,11 @@ AFRAME.registerComponent('interactable-pool', {
         scene.attach( el.object3D ); 
         el.object3D.position.copy(position);
 
+        let isRight = position.x > 0;
+
         // el.object3D.position.set(lane * 2.5 + Math.sign(lane - 0.5) * SIDE_INTERCTABLE_START_DISTANCE, 0, -20);
-        el.object3D.rotation.y = 1.5708;
-        el.components.interactable.direction = -1;
+        el.object3D.rotation.y = isRight ? 1.5708 : -1.5708;
+        el.components.interactable.direction = isRight ? -1 : 1;
         el.components.interactable.speed = 0;
         el.components.interactable.counter = 0;
         el.components.interactable.lerpToPlayer = false;
@@ -85,10 +87,10 @@ AFRAME.registerComponent('interactable-pool', {
 
         parent.attach( el.object3D );
 
-        setTimeout(() => {
+        el.components.interactable.returnFunction = () => {
             if(this.pool.usedEls.includes(el))
                 this.returnEl(el);
-        }, 20000);
+        }
     },
     spawnCarOnIntersection: function (position, isRight){
         const type = "side"
@@ -118,15 +120,14 @@ AFRAME.registerComponent('interactable-pool', {
 
         parent.attach( el.object3D );
 
-        setTimeout(() => {
+        el.components.interactable.returnFunction = () => {
             if(this.pool.usedEls.includes(el))
                 this.returnEl(el);
-        }, 20000);
+        }
     },
 
     spawnCarsOnStreet: function(index) {
         const root = gameManager.getStreetObject3D(index);
-
         
         root.traverse((child) => {
             if(child.type === "Group") {

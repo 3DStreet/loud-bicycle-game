@@ -73,13 +73,14 @@ AFRAME.registerComponent('game-manager', {
                 el.setAttribute('position', {x: 2, y: 0, z: -(spawnDistance - levelData.streetWidth / 2)})
                 el.setAttribute('intersection', `dimensions: ${levelData.streetWidth} ${levelData.streetWidth}; northeastcurb: 4.572 4.572; southwestcurb: 4.572 4.572; southeastcurb: 4.572 4.572; northwestcurb: 4.572 4.572; trafficsignal: 1 1 1 1; crosswalk: 1 1 1 1`);
                 el.setAttribute('class', 'intersection');
+                el.halfLength = levelData.streetWidth / 2;
                 spawnDistance += levelData.streetLength;
             } else {
                 el.setAttribute('position', {x: 1.5, y: 0, z: -(spawnDistance - levelData.streetLength / 2)})
                 el.setAttribute('street', {length: levelData.streetLength})
                 el.setAttribute('streetmix-loader', {streetmixAPIURL: levelData.streetUrls[i]})
-                el.setAttribute('class', `street`)
-                el.halfLength = levelData.streetWidth / 2;
+                el.setAttribute('class', `street`)  
+                el.halfLength = levelData.streetLength                                                                                                                                                                                                                                                                                   / 2;
                 spawnDistance += levelData.streetWidth;
             }
             isIntersection = !isIntersection;
@@ -96,7 +97,6 @@ AFRAME.registerComponent('game-manager', {
         for (let i = 0; i < this.currentLevelStreetEls.length; i++) {
             const street = this.currentLevelStreetEls[i];
             street.object3D.getWorldPosition(this.tempVec);
-
 
             if(this.tempVec.z + street.halfLength > 0 && this.tempVec.z - street.halfLength < 0 )
                 return i

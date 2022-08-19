@@ -14,6 +14,7 @@ const HORIZONTAL_FOLLOW_ATTACK_SPEED = 1.0;
 const INTERACTABLE_BEHIND_ACCELERATION = 0.1;
 // const INTERACTABLE_SIDE_ATTACK_DELAY_AFTER_SPAWN = 3.7;
 const INTERACTABLE_SIDE_ATTACK_START_Z_DISTANCE = 5;
+const INTERACTABLE_DISABLE_Z = 10;
 
 AFRAME.registerComponent('interactable', {
     schema: {
@@ -58,6 +59,11 @@ AFRAME.registerComponent('interactable', {
                     this.attackPlayerFromSide(dt);
                     break;
             }
+        }
+        this.el.object3D.getWorldPosition(this.tempVec);
+
+        if(this.returnFunction && this.tempVec.z > INTERACTABLE_DISABLE_Z) {
+            this.returnFunction();
         }
     },
     attackPlayerFromSide: function(dt) {
