@@ -71,7 +71,7 @@ AFRAME.registerComponent('game-manager', {
 
             if(isIntersection) {    
                 el.setAttribute('position', {x: 2, y: 0, z: -(spawnDistance - levelData.streetWidth / 2)})
-                el.setAttribute('intersection', `dimensions: ${levelData.streetWidth} ${levelData.streetWidth}; northeastcurb: 4.572 4.572; southwestcurb: 4.572 4.572; southeastcurb: 4.572 4.572; northwestcurb: 4.572 4.572; trafficsignal: 1 1 1 1; crosswalk: 1 1 1 1`);
+                el.setAttribute('intersection', `dimensions: ${levelData.streetWidth} ${levelData.streetWidth}; northeastcurb: 3.9 3.9; southwestcurb: 4.572 4.572; southeastcurb: 3.9 3.9; northwestcurb: 2.5 3.9; trafficsignal: 1 1 1 1; crosswalk: 1 1 1 1`);
                 el.setAttribute('class', 'intersection');
                 el.halfLength = levelData.streetWidth / 2;
                 spawnDistance += levelData.streetLength;
