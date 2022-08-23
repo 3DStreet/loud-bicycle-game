@@ -1,0 +1,3 @@
+[submodule "src/3dstreet-assets"]
+	path = src/3dstreet-assets
+	url = https://github.com/3DStreet/3dstreet-assets-dist.git
