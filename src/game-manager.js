@@ -15,7 +15,6 @@ export let gameScore = 0;
 
 const SMOG_SCORE = 1;
 
-
 AFRAME.registerComponent('game-manager', {
     schema: {
     },
@@ -23,6 +22,8 @@ AFRAME.registerComponent('game-manager', {
         gameManager = this;
         this.tempVec = new Vector3();
         this.currentLevelStreetEls = [];
+
+
         setTimeout(() => {
             this.interactablePool = document.querySelector('[interactable-pool]').components['interactable-pool'];
             this.smogPool = document.querySelector('[smog-pool]').components['smog-pool'];
@@ -31,11 +32,13 @@ AFRAME.registerComponent('game-manager', {
             this.levelAnimation = level.components.animation;
             this.headerLabel = document.querySelector('#game-state-header');
             this.gameScoreLabel = document.querySelector('#score');
-            this.playLevel();
             this.smogAudio = this.el.components.sound;
-
-            // TODO: Chosen by menu
-            this.generateLevel(0);
+            
+            document.querySelector('#level-1-button').addEventListener('click', () => {
+                this.generateLevel(0);
+                this.playLevel();
+                setMenuEnabled(false);
+            })
         }, 100);
     },
     stopLevel: function() {
