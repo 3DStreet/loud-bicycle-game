@@ -43,6 +43,10 @@ module.exports = merge(common, {
       {
         from: path.resolve(__dirname, "src/levels"),
         to: path.resolve(__dirname, "dist/levels"),
+      },
+      {
+        from: path.resolve(__dirname, "src/3dstreet-assets"),
+        to: path.resolve(__dirname, "dist/3dstreet-assets"),
       }
     ]}
   )]
