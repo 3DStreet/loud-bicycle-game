@@ -11,6 +11,11 @@ jobs:
       - name: Checkout the repository
         uses: actions/checkout@master
 
+      - name: Checkout repository and submodules
+        uses: srt32/git-actions@v0.0.3
+        with:
+          args: git submodule update --init --recursive
+
       - name: Install Dependencies & Build
         run: |
           npm ci
