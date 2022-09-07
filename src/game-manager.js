@@ -135,7 +135,7 @@ AFRAME.registerComponent('game-manager', {
         return this.currentLevelStreetEls[index].object3D;
     },
     tick: function() {
-        if(GAME_STATE === GAME_STATES.PLAYING && this.level?.object3D && this.getLevelPosition() > this.levelData.endDistance) {
+        if(GAME_STATE === GAME_STATES.PLAYING && this.getLevelPosition() > this.levelData.endDistance) {
             this.endLevel();
         }
     }
