@@ -23,7 +23,6 @@ AFRAME.registerComponent('bike-train-pool', {
         el.play();
 
         const component = el.components['bike-train-member'];
-        component.spawn();
 
         let parent = el.object3D.parent;
         let scene = this.el.sceneEl.object3D;
@@ -35,6 +34,8 @@ AFRAME.registerComponent('bike-train-pool', {
         el.object3D.rotation.set(0, 90, 0)
 
         parent.attach( el.object3D );
+
+        component.spawn();
 
         setTimeout(() => {
             if(this.pool.usedEls.includes(el) && !component.isHit)

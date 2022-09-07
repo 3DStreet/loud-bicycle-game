@@ -33,14 +33,15 @@ AFRAME.registerComponent('interactable-pool', {
         const sideType = isSideType(type);
         
         el.setAttribute('interactable', {type});
-        el.play();
-
-        el.components.interactable.isHit = false;
 
         let parent = el.object3D.parent;
         let scene = this.el.sceneEl.object3D;
 
         scene.attach( el.object3D ); 
+
+        el.components.interactable.isHit = false;
+        el.play();
+
 
         let lane = Math.floor(Math.random() * window.lanes);
 
@@ -54,8 +55,10 @@ AFRAME.registerComponent('interactable-pool', {
         parent.attach( el.object3D );
 
         el.components.interactable.returnFunction = () => {
-            if(this.pool.usedEls.includes(el))
+            if(this.pool.usedEls.includes(el)) {
                 this.returnEl(el);
+                this.spawned = false;
+            }
         }
     },
 

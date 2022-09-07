@@ -48,7 +48,6 @@ AFRAME.registerComponent('bike-train-member', {
         this.setBellActive(false);
     },
     setBellActive: function(b) {
-        console.log('bella', b);
         if(b) {
             this.el.object3D.attach(this.bell.object3D);
         } else {

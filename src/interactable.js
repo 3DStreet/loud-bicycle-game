@@ -33,9 +33,10 @@ AFRAME.registerComponent('interactable', {
         this.fromX = this.el.object3D.position.x;
         this.toX = this.el.object3D.position.x;
         this.counter = 0;
+        this.spawned = true;
     },
     onCollision: function() {
-        if(this.isHit) return;
+        if(this.isHit || !this.spawned) return;
         this.isHit = true;
         this.sound.playSound();
     },
