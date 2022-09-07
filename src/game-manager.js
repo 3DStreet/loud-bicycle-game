@@ -19,6 +19,7 @@ AFRAME.registerComponent('game-manager', {
     schema: {
     },
     init: function() {
+        window.gameManager = this;
         gameManager = this;
         this.tempVec = new Vector3();
         this.currentLevelStreetEls = [];
