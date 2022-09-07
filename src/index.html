@@ -396,10 +396,19 @@
 
     function setLevelSelectionEnabled(b) {
       if(b) {
+        let hasPlayedBefore = localStorage.getItem("played-loud-bicycle");
         mainMenu.classList.remove('enabled');
         mainMenu.classList.add('disabled');
-        levelSelection.classList.add('enabled');
-        levelSelection.classList.remove('disabled');
+        if(hasPlayedBefore) {
+          levelSelection.classList.add('enabled');
+          levelSelection.classList.remove('disabled');
+        } else {
+          // Set key for loading level selection after playing the first time
+          localStorage.setItem("played-loud-bicycle", '1')
+          window.gameManager.generateLevel(0);
+          window.gameManager.playLevel();
+          setMenuEnabled(false);
+        }
       } else {
         mainMenu.classList.remove('disabled');
         mainMenu.classList.add('enabled');
