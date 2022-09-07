@@ -23,6 +23,7 @@ AFRAME.registerComponent('game-manager', {
         gameManager = this;
         this.tempVec = new Vector3();
         this.currentLevelStreetEls = [];
+        this.winSoundEl = document.querySelector('#win-sound');
 
         setTimeout(() => {
             this.interactablePool = document.querySelector('[interactable-pool]').components['interactable-pool'];
@@ -50,7 +51,16 @@ AFRAME.registerComponent('game-manager', {
                 this.playLevel();
                 setMenuEnabled(false);
             }
+
+            this.tick = AFRAME.utils.throttleTick(this.tick, 500, this);
         }, 100);
+    },
+    endLevel: function() {
+        this.stopLevel();
+        this.headerLabel.innerText = "Ended";
+        setEndScreenEnabled(true);
+        this.winSoundEl.play();
+        this.removeLevel();
     },
     stopLevel: function() {
         this.levelAnimation.animation.pause();
@@ -76,7 +86,7 @@ AFRAME.registerComponent('game-manager', {
         this.smogAudio.playSound();
     },
     generateLevel: function(index) {
-        const levelData = gameData.levels[index];
+        const levelData = this.levelData = gameData.levels[index];
         this.currentLevelStreetEls = []
         let isIntersection = false;
         let spawnDistance = levelData.streetLength / 2;
@@ -105,6 +115,10 @@ AFRAME.registerComponent('game-manager', {
     removeLevel: function() {
 
     },
+    getLevelPosition: function() {
+        this.level.object3D.getWorldPosition(this.tempVec);
+        return this.tempVec.z;
+    },
     getCurrentStreetIndex: function() {
         if(!this.currentLevelStreetEls) return;
 
@@ -120,4 +134,9 @@ AFRAME.registerComponent('game-manager', {
     getStreetObject3D: function(index) {
         return this.currentLevelStreetEls[index].object3D;
     },
+    tick: function() {
+        if(GAME_STATE === GAME_STATES.PLAYING && this.level?.object3D && this.getLevelPosition() > this.levelData.endDistance) {
+            this.endLevel();
+        }
+    }
 });
