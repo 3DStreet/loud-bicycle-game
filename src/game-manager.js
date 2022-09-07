@@ -24,7 +24,6 @@ AFRAME.registerComponent('game-manager', {
         this.tempVec = new Vector3();
         this.currentLevelStreetEls = [];
 
-
         setTimeout(() => {
             this.interactablePool = document.querySelector('[interactable-pool]').components['interactable-pool'];
             this.smogPool = document.querySelector('[smog-pool]').components['smog-pool'];
@@ -40,6 +39,17 @@ AFRAME.registerComponent('game-manager', {
                 this.playLevel();
                 setMenuEnabled(false);
             })
+
+            // TODO: Disables menu by default, remove in the future
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+            const showMenu = urlParams.get('menu');
+
+            if(!showMenu) {
+                this.generateLevel(0);
+                this.playLevel();
+                setMenuEnabled(false);
+            }
         }, 100);
     },
     stopLevel: function() {
