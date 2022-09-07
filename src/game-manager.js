@@ -23,6 +23,7 @@ AFRAME.registerComponent('game-manager', {
         gameManager = this;
         this.tempVec = new Vector3();
         this.currentLevelStreetEls = [];
+        this.winSoundEl = document.querySelector('#win-sound');
 
         setTimeout(() => {
             this.interactablePool = document.querySelector('[interactable-pool]').components['interactable-pool'];
@@ -53,6 +54,13 @@ AFRAME.registerComponent('game-manager', {
 
             this.tick = AFRAME.utils.throttleTick(this.tick, 500, this);
         }, 100);
+    },
+    endLevel: function() {
+        this.stopLevel();
+        this.headerLabel.innerText = "Ended";
+        setEndScreenEnabled(true);
+        this.winSoundEl.play();
+        this.removeLevel();
     },
     stopLevel: function() {
         this.levelAnimation.animation.pause();
@@ -128,8 +136,7 @@ AFRAME.registerComponent('game-manager', {
     },
     tick: function() {
         if(GAME_STATE === GAME_STATES.PLAYING && this.level?.object3D && this.getLevelPosition() > this.levelData.endDistance) {
-            console.log('YOU FINISHED THE LEVEL');
-            this.stopLevel();
+            this.endLevel();
         }
     }
 });

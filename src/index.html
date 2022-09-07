@@ -137,6 +137,20 @@
         gap: 10px;
       }
 
+      #level-end-container {
+        color: black;
+        background-color: aliceblue;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        width: 40%;
+        height: 300px;
+        border-radius: 10px;
+        gap: 10px;
+      }
+
+
       .disabled {
         pointer-events: none !important;
         opacity: 0;
@@ -233,6 +247,7 @@
       <a-assets>
         <streetmix-assets url="./3dstreet-assets/"></streetmix-assets>
         <audio id="muffled-voice" src="./assets/muffled_voice.mp3" preload="auto"></audio>
+        <audio id="win-sound" src="./assets/win.mp3" preload="auto"></audio>
         <img id="sky" src="https://github.3dstreet.org/assets/CGSkies_0343_doubled_2048.jpg">
         <a-mixin id="interactable-mixin" interactable sound="src:#muffled-voice" material="color: red" color="#4CC3D9" gltf-model="#car"></a-mixin>
         <a-mixin id="smog-mixin" smog geometry="primitive: box; width: 1; height: 1; depth: 0.2"></a-mixin>
@@ -295,7 +310,13 @@
         <button class="button" onclick="setSettingsEnabled(true)"><span class="text">Settings</span></button>
         <button class="button" onclick="setCreditsEnabled(true)"><span class="text">Credits</span></button>
       </div>
-      <div id="level-end-screen" class="disabled"></div>
+      <div id="level-end-screen" class="disabled">
+        <div id="level-end-container">
+          <h3>Level finished!</h3>
+          <p>Data tbd</p>
+          <button id="level-end-continue" class="button" onclick="setEndScreenEnabled(false)"><span class="text">Continue</span></button>
+        </div>
+      </div>
       <div id="level-selection" class="disabled">
         <div id="level-button-container">
           <button id="level-1-button" class="button"><span class="text">Level 1</span></button>
@@ -351,6 +372,7 @@
     let landing = document.querySelector('#landing');
     let credits = document.querySelector('#credits');
     let mainMenu = document.querySelector('#main-menu');
+    let endScreen = document.querySelector('#level-end-screen');
     let settings = document.querySelector('#settings');
     let levelSelection = document.querySelector('#level-selection');
 
@@ -394,6 +416,20 @@
       }
     }
 
+    function setEndScreenEnabled(b) {
+      setMenuEnabled(true);
+      if(b) {
+        endScreen.classList.add('enabled');
+        endScreen.classList.remove('disabled');
+        levelSelection.classList.remove('enabled');
+        levelSelection.classList.add('disabled');
+      } else {
+        endScreen.classList.remove('enabled');
+        endScreen.classList.add('disabled');
+        levelSelection.classList.add('enabled');
+        levelSelection.classList.remove('disabled');
+      }
+    }
     function setLevelSelectionEnabled(b) {
       if(b) {
         let hasPlayedBefore = localStorage.getItem("played-loud-bicycle");
@@ -424,8 +460,10 @@
     }
 
     function setMenuEnabled(b) {
+      landing.classList.add('disabled');
       if(b) {
         gameMenu.classList.remove('disabled');
+        gameMenu.style.display = 'unset';
       } else {
         gameMenu.classList.add('disabled');
         gameMenu.style.display = 'none';
