@@ -1,3 +1,5 @@
+export const SIDE_STREET_URL = './levels/side_street-26f46f90-bd11-11ec-b3b1-39567990c5f6.json';
+
 export const gameData = {
     levels: [
         {
