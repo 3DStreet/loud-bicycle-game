@@ -286,7 +286,7 @@
 
       </a-assets>
       <a-sky src="#sky"></a-sky>
-      <a-camera position="0 5 2" rotation="-35 0 0" wasd-controls-enabled="false" look-controls-enabled="false" fov="90"></a-camera>
+      <a-camera position="0 5 3" rotation="-35 0 0" wasd-controls-enabled="false" look-controls-enabled="false" fov="90"></a-camera>
       <a-entity
         id="model"
         geometry="primitive: box; depth: 1.5; width: 0.6"
@@ -341,7 +341,7 @@
       </div>
       <div id="level-end-screen" class="disabled">
         <div id="level-end-container">
-          <h3>Level finished!</h3>
+          <h3 id="level-end-header"></h3>
           <p>Data tbd</p>
           <button id="level-end-continue" class="button" onclick="setEndScreenEnabled(false)"><span class="text">Continue</span></button>
         </div>
@@ -445,13 +445,16 @@
       }
     }
 
-    function setEndScreenEnabled(b) {
+    function setEndScreenEnabled(b, message) {
       setMenuEnabled(true);
       if(b) {
         endScreen.classList.add('enabled');
         endScreen.classList.remove('disabled');
         levelSelection.classList.remove('enabled');
         levelSelection.classList.add('disabled');
+        if(message) {
+          endScreen.querySelector('#level-end-header').innerText = message;
+        }
       } else {
         endScreen.classList.remove('enabled');
         endScreen.classList.add('disabled');
@@ -459,6 +462,7 @@
         levelSelection.classList.remove('disabled');
       }
     }
+
     function setLevelSelectionEnabled(b) {
       if(b) {
         let hasPlayedBefore = localStorage.getItem("played-loud-bicycle");
