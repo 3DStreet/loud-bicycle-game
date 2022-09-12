@@ -3,9 +3,6 @@ on:
   push:
     branches:
       - main
-  pull_request:
-    branches:
-      - main
 
 jobs:
   deploy:
@@ -14,7 +11,10 @@ jobs:
       - name: Checkout the repository
         uses: actions/checkout@master
 
-      - name: Install Dep endencies & Build
+      - name: Checkout submodules
+        run: git submodule update --init --recursive
+
+      - name: Install Dependencies & Build
         run: |
           npm ci
           npm run build

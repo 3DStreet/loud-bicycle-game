@@ -12,12 +12,14 @@ AFRAME.registerComponent('noise-indicator', {
             this.texture = this.el.getObject3D('mesh').children[0].material.map;
         })      
     },
-    display: function(isSmall) {
+    display: function(isBell) {
         if(GAME_STATE !== GAME_STATES.PLAYING) return;
 
-        isSmall ? this.scaleSmall() : this.scaleLarge();
+        this.isBell = isBell;
+        isBell ? this.scaleSmall() : this.scaleLarge();
 
         // this.el.object3D.position.x = playerController.el.object3D.position.x;
+        
         this.isActive = true;
         this.el.object3D.visible = true;
     },
@@ -35,10 +37,10 @@ AFRAME.registerComponent('noise-indicator', {
         if(this.isActive && this.collider.collisions.length) {
             for (let index = 0; index < this.collider.collisions.length; index++) {
                 const element = this.collider.collisions[index];
-                if(element.components['interactable'])
+                if(element.components['interactable'] && !this.isBell)
                     element.components['interactable'].onCollision();
-                else if (element.components['bike-train-member'])                
-                element.components['bike-train-member'].onCollision();
+                else if (element.components['bike-train-member'] && this.isBell)                
+                    element.components['bike-train-member'].onCollision();
             }
         }
         if(this.texture) {

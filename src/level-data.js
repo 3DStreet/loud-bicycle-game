@@ -2,7 +2,7 @@ export const gameData = {
     levels: [
         {
             name: 'Level 1 - Drop off the kids',
-            duration: 180,
+            endDistance: 180,
             amountBikePool: 3,
             streetLength: 50,
             streetWidth: 20,
@@ -21,7 +21,7 @@ export const gameData = {
         },
         {
             name: 'Level 2 - Get to work',
-            duration: 180,
+            endDistance: 180,
             streetLength: 100,
             streetWidth: 45,
             streetLengthAdditionalRange: 10,
