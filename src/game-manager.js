@@ -1,5 +1,5 @@
 import { Vector3 } from 'super-three';
-import { gameData } from "./level-data";
+import { gameData, SIDE_STREET_URL } from "./level-data";
 
 export const GAME_STATES = {
     PLAYING: 0,
@@ -94,9 +94,27 @@ AFRAME.registerComponent('game-manager', {
             const el = document.createElement('a-entity');
 
             if(isIntersection) {    
-                el.setAttribute('position', {x: 2, y: 0, z: -(spawnDistance - levelData.streetWidth / 2)})
-                el.setAttribute('intersection', `dimensions: ${levelData.streetWidth} ${levelData.streetWidth}; northeastcurb: 4.572 4.572; southwestcurb: 4.572 4.572; southeastcurb: 4.572 4.572; northwestcurb: 4.572 4.572; trafficsignal: 1 1 1 1; crosswalk: 1 1 1 1`);
+                let positionZ = -(spawnDistance - levelData.streetWidth / 2);
+                el.setAttribute('position', {x: 2, y: 0, z: positionZ})
+                el.setAttribute('intersection', `dimensions: ${levelData.streetWidth} ${levelData.streetWidth}; northeastcurb: 3.9 4.6; southwestcurb: 2.9 4.6; southeastcurb: 4.9 4.6; northwestcurb: 2.5 4.6; trafficsignal: 1 1 1 1; crosswalk: 1 1 1 1`);
                 el.setAttribute('class', 'intersection');
+
+                const rightSideStreet = document.createElement('a-entity');
+                rightSideStreet.setAttribute('position', {x: (levelData.streetWidth / 2) + 22, y: 0, z: positionZ})
+                rightSideStreet.setAttribute('rotation', {x: 0, y: 90, z: 0})
+                rightSideStreet.setAttribute('street', {length: 40, showVehicles: false})
+                rightSideStreet.setAttribute('streetmix-loader', {streetmixAPIURL: SIDE_STREET_URL, showBuildings: false})
+                rightSideStreet.setAttribute('class', `side-street`)  
+                this.level.append(rightSideStreet);
+
+                const left = document.createElement('a-entity');
+                left.setAttribute('position', {x: -(levelData.streetWidth / 2) - 18, y: 0, z: positionZ})
+                left.setAttribute('rotation', {x: 0, y: 90, z: 0})
+                left.setAttribute('street', {length: 40, showVehicles: false})
+                left.setAttribute('streetmix-loader', {streetmixAPIURL: SIDE_STREET_URL, showBuildings: false})
+                left.setAttribute('class', `side-street`)  
+                this.level.append(left);
+
                 el.halfLength = levelData.streetWidth / 2;
                 spawnDistance += levelData.streetLength;
             } else {
