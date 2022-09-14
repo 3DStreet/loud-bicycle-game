@@ -31,7 +31,7 @@ AFRAME.registerComponent('bike-train-pool', {
 
         let lane = Math.floor(window.lanes);
         el.object3D.position.set(lane * 2.5, 0, -20);
-        el.object3D.rotation.set(0, 90, 0)
+        el.object3D.rotation.set(0, -Math.PI/2, 0)
 
         parent.attach( el.object3D );
 

@@ -19,7 +19,10 @@ export const gameData = {
             ],
             intersectionUrls: [
                 'https://cdn.glitch.global/4cbfc52c-9f40-485c-b7ff-e3ed0494f9a0/intersection.jpeg?v=1650059985944'
-            ]
+            ],
+            getLevelEndMessage: function(score) {
+                return `You brought ${score} kids safely to school!`
+            }
         },
         {
             name: 'Level 2 - Get to work',
@@ -28,11 +31,46 @@ export const gameData = {
             streetWidth: 45,
             streetLengthAdditionalRange: 10,
             streetUrls: [
-                'https://streetmix.net/LoudBicycle/8/street_3'
+                './levels/street_1-51136070-c1f7-11ec-877c-abfad556cfc6.json'
             ],
             intersectionUrls: [
                 'https://cdn.glitch.global/4cbfc52c-9f40-485c-b7ff-e3ed0494f9a0/intersection.jpeg?v=1650059985944'
-            ]
+            ],
+            getLevelEndMessage: function(score) {
+                return `You brought ${score} colleagues safely to work.`
+            }
+        },
+        {
+            name: 'Level 3 - Get to the bar!',
+            endDistance: 180,
+            streetLength: 100,
+            streetWidth: 45,
+            streetLengthAdditionalRange: 10,
+            streetUrls: [
+                './levels/street_1-51136070-c1f7-11ec-877c-abfad556cfc6.json'
+            ],
+            intersectionUrls: [
+                'https://cdn.glitch.global/4cbfc52c-9f40-485c-b7ff-e3ed0494f9a0/intersection.jpeg?v=1650059985944'
+            ],
+            getLevelEndMessage: function() {
+                return `You got to the bar!`
+            }
+        },
+        {
+            name: 'Level 4 - Get home safely',
+            endDistance: 180,
+            streetLength: 100,
+            streetWidth: 45,
+            streetLengthAdditionalRange: 10,
+            streetUrls: [
+                './levels/street_1-51136070-c1f7-11ec-877c-abfad556cfc6.json'
+            ],
+            intersectionUrls: [
+                'https://cdn.glitch.global/4cbfc52c-9f40-485c-b7ff-e3ed0494f9a0/intersection.jpeg?v=1650059985944'
+            ],
+            getLevelEndMessage: function() {
+                return `You got home safely!`
+            }
         }
     ]
 } 

@@ -23,6 +23,7 @@ AFRAME.registerComponent('game-manager', {
         gameManager = this;
         this.tempVec = new Vector3();
         this.currentLevelStreetEls = [];
+        this.bikeMemberCount = 0;
         this.winSoundEl = document.querySelector('#win-sound');
 
         setTimeout(() => {
@@ -57,8 +58,8 @@ AFRAME.registerComponent('game-manager', {
     },
     endLevel: function() {
         this.stopLevel();
-        this.headerLabel.innerText = "Ended";
-        setEndScreenEnabled(true);
+        this.headerLabel.innerText = "Finished";
+        setEndScreenEnabled(true, this.levelData.getLevelEndMessage(this.bikeMemberCount));
         this.winSoundEl.play();
         this.removeLevel();
     },
@@ -72,6 +73,7 @@ AFRAME.registerComponent('game-manager', {
     },
     playLevel: function() {
         gameScore = 0;
+        this.bikeMemberCount = 0;
         this.gameScoreLabel.innerText = gameScore;
         this.levelAnimation.animation.play();
         this.interactablePool.start();
@@ -151,6 +153,9 @@ AFRAME.registerComponent('game-manager', {
     },
     getStreetObject3D: function(index) {
         return this.currentLevelStreetEls[index].object3D;
+    },
+    incrementBikePoolMemberCount: function() {
+        this.bikeMemberCount++;
     },
     tick: function() {
         if(GAME_STATE === GAME_STATES.PLAYING && this.getLevelPosition() > this.levelData.endDistance) {

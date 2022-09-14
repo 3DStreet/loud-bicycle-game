@@ -29,10 +29,12 @@ AFRAME.registerComponent('bike-train-member', {
 
         playerController.el.object3D.attach(this.el.object3D)
         this.el.object3D.position.set(x, 0, z)
-        this.el.object3D.quaternion.identity();
+        this.el.object3D.rotation.set(0, Math.PI, 0)
+
         amountBikeTrainMembers++;
 
         this.bellOffset = 0;
+        gameManager.incrementBikePoolMemberCount();
         this.setBellActive(false);
     },
     spawn: function() {
