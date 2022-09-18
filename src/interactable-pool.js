@@ -5,6 +5,17 @@ import { gameManager } from './game-manager';
 const SIDE_INTERCTABLE_START_DISTANCE = 10;
 const INTERSECTION_CAR_Z_OFFSET = 2;
 
+AFRAME.registerComponent('randomize-gltf-model', {
+    schema: {type: 'array'},
+    init: function () {
+      console.log(this.data)
+  
+      const randomElement = this.data[Math.floor(Math.random() * this.data.length)];
+      console.log(randomElement);
+      this.el.setAttribute('gltf-model', '#' + randomElement);
+    }
+  });
+
 AFRAME.registerComponent('interactable-pool', {
     init: function() {
         this.tempVec = new Vector3();
