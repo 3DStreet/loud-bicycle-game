@@ -8,6 +8,7 @@ const INTERSECTION_CAR_Z_OFFSET = 2;
 AFRAME.registerComponent('interactable-pool', {
     init: function() {
         this.tempVec = new Vector3();
+
         this.streetIndex = 0;
         setTimeout(() => {
             this.pool = this.el.sceneEl.components.pool__interactable;
@@ -18,8 +19,8 @@ AFRAME.registerComponent('interactable-pool', {
     start: function() {
         if(this.spawnInterval) return;
         this.spawnInterval = setInterval(() => {
-            this.spawnEl()
-        }, 2000);
+
+        }, 5000);
     },
     stop: function() {
         clearInterval(this.spawnInterval);
@@ -59,6 +60,34 @@ AFRAME.registerComponent('interactable-pool', {
                 this.returnEl(el);
                 this.spawned = false;
             }
+        }
+    },
+
+    spawnLeftCross: function(position) {
+        const type = 'leftCross'
+        
+        let el = this.pool.requestEntity();
+
+        el.setAttribute('interactable', {type});
+        el.play();
+
+        el.components.interactable.isHit = false;
+
+        let parent = el.object3D.parent;
+        let scene = this.el.sceneEl.object3D;
+
+        scene.attach( el.object3D ); 
+        el.object3D.position.copy(position);
+
+        el.object3D.rotation.y = 0;
+
+        parent.attach( el.object3D );
+
+        el.components.interactable.setBezierCurve();
+
+        el.components.interactable.returnFunction = () => {
+            if(this.pool.usedEls.includes(el))
+                this.returnEl(el);
         }
     },
 
@@ -141,6 +170,9 @@ AFRAME.registerComponent('interactable-pool', {
                     child.getWorldPosition(this.tempVec)
                     this.spawnCarOnIntersection(this.tempVec, true);
                     this.spawnCarOnIntersection(this.tempVec, false);
+                    this.tempVec.z -= 10;
+                    this.tempVec.x -= 2.5;
+                    this.spawnLeftCross(this.tempVec);
                 }
             } 
             // if(child.type === "Group" && child.el.classList[0] === "intersection")
