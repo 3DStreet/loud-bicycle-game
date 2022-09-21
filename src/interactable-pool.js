@@ -1,6 +1,7 @@
 import { Vector3 } from 'super-three';
 import {interactableTypes, isSideType} from './interactable'
 import { gameManager } from './game-manager';
+import { playerController } from './player-controller'
 
 const SIDE_INTERCTABLE_START_DISTANCE = 10;
 const INTERSECTION_CAR_Z_OFFSET = 2;
@@ -8,6 +9,7 @@ const INTERSECTION_CAR_Z_OFFSET = 2;
 AFRAME.registerComponent('interactable-pool', {
     init: function() {
         this.tempVec = new Vector3();
+
         this.streetIndex = 0;
         setTimeout(() => {
             this.pool = this.el.sceneEl.components.pool__interactable;
@@ -18,18 +20,20 @@ AFRAME.registerComponent('interactable-pool', {
     start: function() {
         if(this.spawnInterval) return;
         this.spawnInterval = setInterval(() => {
-            this.spawnEl()
-        }, 2000);
+            this.spawnRightHook();
+        }, 4000);
     },
     stop: function() {
         clearInterval(this.spawnInterval);
         this.spawnInterval = null;
     },
-    spawnEl: function (){
-        const type = interactableTypes[Math.floor(Math.random()*interactableTypes.length)]
-        if(type !== 'rightHook') return;
+    spawnRightHook: function (){
+        if(this.spawnedRightHook) return;
+        this.spawnedRightHook = true;
         
         let el = this.pool.requestEntity();
+
+        const type = 'rightHook'
         const sideType = isSideType(type);
         
         el.setAttribute('interactable', {type});
@@ -42,23 +46,49 @@ AFRAME.registerComponent('interactable-pool', {
         el.components.interactable.isHit = false;
         el.play();
 
+        el.components.interactable.lane = Math.floor(Math.random() * window.lanes);
+        while(el.components.interactable.lane === playerController.currentLane)
+            el.components.interactable.lane = Math.floor(Math.random() * window.lanes);
 
-        let lane = Math.floor(Math.random() * window.lanes);
-
-        if(type === 'rightHook') {
-            el.object3D.position.set(lane * 2.5,0,5);
-            el.components.interactable.speed = 0;
-            el.components.interactable.followPlayerDepth();
-            el.object3D.rotation.y = Math.PI;
-        }
+        el.object3D.position.set(el.components.interactable.lane * 2.5,0,5);
+        el.components.interactable.speed = 0;
+        el.components.interactable.followPlayerDepth();
+        el.object3D.rotation.y = Math.PI;
         
         parent.attach( el.object3D );
 
         el.components.interactable.returnFunction = () => {
             if(this.pool.usedEls.includes(el)) {
                 this.returnEl(el);
-                this.spawned = false;
+                this.spawnedRightHook = false;
             }
+        }
+    },
+    spawnLeftCross: function(position) {
+        const type = 'leftCross'
+        
+        let el = this.pool.requestEntity();
+
+        el.setAttribute('interactable', {type});
+        el.play();
+
+        el.components.interactable.isHit = false;
+
+        let parent = el.object3D.parent;
+        let scene = this.el.sceneEl.object3D;
+
+        scene.attach( el.object3D ); 
+        el.object3D.position.copy(position);
+
+        el.object3D.rotation.y = 0;
+
+        parent.attach( el.object3D );
+
+        el.components.interactable.setBezierCurve();
+
+        el.components.interactable.returnFunction = () => {
+            if(this.pool.usedEls.includes(el))
+                this.returnEl(el);
         }
     },
 
@@ -141,6 +171,9 @@ AFRAME.registerComponent('interactable-pool', {
                     child.getWorldPosition(this.tempVec)
                     this.spawnCarOnIntersection(this.tempVec, true);
                     this.spawnCarOnIntersection(this.tempVec, false);
+                    this.tempVec.z -= 10;
+                    this.tempVec.x -= 2.5;
+                    this.spawnLeftCross(this.tempVec);
                 }
             } 
             // if(child.type === "Group" && child.el.classList[0] === "intersection")
