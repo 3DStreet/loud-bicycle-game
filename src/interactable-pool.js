@@ -1,6 +1,7 @@
 import { Vector3 } from 'super-three';
 import {interactableTypes, isSideType} from './interactable'
 import { gameManager } from './game-manager';
+import { playerController } from './player-controller'
 
 const SIDE_INTERCTABLE_START_DISTANCE = 10;
 const INTERSECTION_CAR_Z_OFFSET = 2;
@@ -19,18 +20,20 @@ AFRAME.registerComponent('interactable-pool', {
     start: function() {
         if(this.spawnInterval) return;
         this.spawnInterval = setInterval(() => {
-
-        }, 5000);
+            this.spawnRightHook();
+        }, 4000);
     },
     stop: function() {
         clearInterval(this.spawnInterval);
         this.spawnInterval = null;
     },
-    spawnEl: function (){
-        const type = interactableTypes[Math.floor(Math.random()*interactableTypes.length)]
-        if(type !== 'rightHook') return;
+    spawnRightHook: function (){
+        if(this.spawnedRightHook) return;
+        this.spawnedRightHook = true;
         
         let el = this.pool.requestEntity();
+
+        const type = 'rightHook'
         const sideType = isSideType(type);
         
         el.setAttribute('interactable', {type});
@@ -43,26 +46,24 @@ AFRAME.registerComponent('interactable-pool', {
         el.components.interactable.isHit = false;
         el.play();
 
+        el.components.interactable.lane = Math.floor(Math.random() * window.lanes);
+        while(el.components.interactable.lane === playerController.currentLane)
+            el.components.interactable.lane = Math.floor(Math.random() * window.lanes);
 
-        let lane = Math.floor(Math.random() * window.lanes);
-
-        if(type === 'rightHook') {
-            el.object3D.position.set(lane * 2.5,0,5);
-            el.components.interactable.speed = 0;
-            el.components.interactable.followPlayerDepth();
-            el.object3D.rotation.y = Math.PI;
-        }
+        el.object3D.position.set(el.components.interactable.lane * 2.5,0,5);
+        el.components.interactable.speed = 0;
+        el.components.interactable.followPlayerDepth();
+        el.object3D.rotation.y = Math.PI;
         
         parent.attach( el.object3D );
 
         el.components.interactable.returnFunction = () => {
             if(this.pool.usedEls.includes(el)) {
                 this.returnEl(el);
-                this.spawned = false;
+                this.spawnedRightHook = false;
             }
         }
     },
-
     spawnLeftCross: function(position) {
         const type = 'leftCross'
         

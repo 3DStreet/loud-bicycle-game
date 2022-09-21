@@ -125,7 +125,13 @@ AFRAME.registerComponent('interactable', {
                 if(this.counter !== 0) {
                     this.el.object3D.position.z -= this.tempVec.z;
                 } else {
+                    while(this.tempVec > 3 && this.lane === playerController.currentLane){
+                        this.changeLane = true;
+                        this.lane = Math.floor(Math.random() * window.lanes);
+                        this.el.object3D.position.set(this.lane * 2.5,0,5);
+                    }
                     this.el.object3D.position.z -= INTERACTABLE_BEHIND_ACCELERATION * (dt / 1000) * 75;
+                    this.changeLane = false;
                 }
             }
     
