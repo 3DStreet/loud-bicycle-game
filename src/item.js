@@ -32,7 +32,6 @@ AFRAME.registerComponent('item', {
     tick: function() {
         if(this.isHit) return;
         if(this.camera && this.comicEffectObject) {
-            console.log(this.isHit);
             this.el.object3D.getWorldPosition(this.tempVec);
             this.tempVec2.copy(this.tempVec)
             this.tempVec2.sub(this.camera.position);
@@ -40,7 +39,6 @@ AFRAME.registerComponent('item', {
             this.tempVec2.multiplyScalar(0.1);
             this.tempVec2.add(this.tempVec)
             this.comicEffectObject.position.copy(this.tempVec2)
-            console.log(this.tempVec.distanceTo(this.playerEl.object3D.position));
             if(this.tempVec.distanceTo(this.playerEl.object3D.position) < 1) {
                 this.onCollision();
             }

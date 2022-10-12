@@ -28,7 +28,7 @@ AFRAME.registerComponent('interactable-pool', {
     start: function() {
         if(this.spawnInterval) return;
         this.spawnInterval = setInterval(() => {
-            this.spawnRightHook();
+            // this.spawnRightHook();
         }, 4000);
     },
     stop: function() {
@@ -95,6 +95,37 @@ AFRAME.registerComponent('interactable-pool', {
         parent.attach( el.object3D );
 
         el.components.interactable.setBezierCurveLeftCross();
+
+        el.components.interactable.returnFunction = () => {
+            if(this.pool.usedEls.includes(el))
+                this.returnEl(el);
+        }
+    },
+    spawnRightCross: function(position) {
+        const type = 'rightCross';
+        
+        let el = this.pool.requestEntity();
+
+        el.setAttribute('interactable', {type});
+        el.play();
+
+        el.removeAttribute("gltf-model");
+        el.setAttribute('gltf-model', '#box-truck-rigged');
+
+        el.components.interactable.isHit = false;
+
+        let parent = el.object3D.parent;
+        let scene = this.el.sceneEl.object3D;
+
+        scene.attach( el.object3D ); 
+        el.object3D.position.copy(position);
+        
+        el.object3D.quaternion.identity();
+        el.object3D.rotateY(Math.PI);
+        
+        parent.attach( el.object3D );
+
+        el.components.interactable.setBezierCurveRightCross();
 
         el.components.interactable.returnFunction = () => {
             if(this.pool.usedEls.includes(el))
@@ -171,7 +202,7 @@ AFRAME.registerComponent('interactable-pool', {
 
     spawnCarsOnStreet: function(index) {
         const root = gameManager.getStreetObject3D(index);
-        
+        if(!root) return;
         root.traverse((child) => {
             if(child.type === "Group") {
                 if(child.el.classList[0] === "driveway") {
@@ -183,10 +214,12 @@ AFRAME.registerComponent('interactable-pool', {
                     this.spawnCarOnIntersection(this.tempVec, false);
                     this.tempVec.z -= 10;
                     this.tempVec.x -= 2.5;
-                    this.spawnLeftCross(this.tempVec);
+                    // this.spawnLeftCross(this.tempVec);
+                    this.tempVec.z += 25;
+                    this.tempVec.x += 2.7;
+                    this.spawnRightCross(this.tempVec);
                 }
             } 
-            // if(child.type === "Group" && child.el.classList[0] === "intersection")
         });
     
 
@@ -207,7 +240,8 @@ AFRAME.registerComponent('interactable-pool', {
     tick: function() {
         const currentStreetIndex = gameManager.getCurrentStreetIndex();
         if(currentStreetIndex != -1 && this.streetIndex !== currentStreetIndex) {
-            this.spawnCarsOnStreet(currentStreetIndex + 1);
+            if(this.streetIndex === 0) this.spawnCarsOnStreet(currentStreetIndex + 1);
+            this.spawnCarsOnStreet(currentStreetIndex + 2);
             this.streetIndex = currentStreetIndex;
         }
     }
