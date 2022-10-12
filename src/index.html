@@ -248,6 +248,7 @@
         <streetmix-assets url="./3dstreet-assets/"></streetmix-assets>
         <audio id="muffled-voice" src="./assets/muffled_voice.mp3" preload="auto"></audio>
         <audio id="win-sound" src="./assets/win.mp3" preload="auto"></audio>
+        <img id="comic-effect" src="./assets/comic_effect.png">
         <img id="sky" src="https://github.3dstreet.org/assets/CGSkies_0343_doubled_2048.jpg">
         <a-mixin id="interactable-mixin" interactable sound="src:#muffled-voice" material="color: red" color="#4CC3D9" randomize-gltf-model="vehicle-bmw-m2-asset,suv-rigged,sedan-taxi-rigged"></a-mixin>
         <a-mixin id="smog-mixin" smog geometry="primitive: box; width: 1; height: 1; depth: 0.2"></a-mixin>
@@ -308,9 +309,12 @@
 
       <a-entity id="game-manager" game-manager sound="src: url(./assets/breath_caugh.mp3);"></a-entity>
       <a-entity noise-meter="clickerId:shout; meterId:special-meter; isSmall:true; keyCode:q" sound="src: url(./assets/bell.mp3); loop: true"></a-entity>
-      <a-entity noise-meter="clickerId:horn; meterId:main-meter; isSmall:false; keyCode:e" sound="src: url(./assets/shout.mp3); loop: true"></a-entity>
+      <a-entity id="horn-noise" noise-meter="clickerId:horn; meterId:main-meter; isSmall:false; keyCode:e" sound="src: url(./assets/shout.mp3); loop: true"></a-entity>
 
-      <a-entity id="level" animation="property: position; to: 0 0 400; autoplay: false; dur: 100000; easing: linear; loop: false"></a-entity>
+      <a-plane id="comic-effect-plane" src="#comic-effect" material="opacity: 1.0; transparent: false; alphaTest: 0.5" position="-0.3 0.7 -10.5" look-at="a-camera" scale="2 2 2" rotation="-90 0 0"></a-plane>
+      <a-entity id="level" animation="property: position; to: 0 0 400; autoplay: false; dur: 100000; easing: linear; loop: false">
+        <a-entity item="type: horn" gltf-model="#loud-bicycle-mini-asset" position="0 0.8 -16" scale="4 4 4"></a-entity>
+      </a-entity>
 
     </a-scene>
 

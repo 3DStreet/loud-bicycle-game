@@ -6,6 +6,7 @@ const INDICATOR_SPEED = 3;
 AFRAME.registerComponent('noise-indicator', {
     init: function() {
         this.isActive = false;
+        this.isLoudMini = false;
         this.collider = this.el.children[0].components['aabb-collider']; 
         this.yOffset = 0;
         this.el.addEventListener('object3dset', () => {
@@ -16,12 +17,15 @@ AFRAME.registerComponent('noise-indicator', {
         if(GAME_STATE !== GAME_STATES.PLAYING) return;
 
         this.isBell = isBell;
-        isBell ? this.scaleSmall() : this.scaleLarge();
+        isBell ? this.scaleSmall() : this.isLoudMini ? this.scaleLarge() : this.scaleSmall();
 
         // this.el.object3D.position.x = playerController.el.object3D.position.x;
         
         this.isActive = true;
         this.el.object3D.visible = true;
+    },
+    upgradeLoudMini: function() {
+        this.isLoudMini = true;
     },
     hide: function() {
         this.el.object3D.visible = false;

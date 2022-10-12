@@ -46,9 +46,10 @@ AFRAME.registerComponent('game-manager', {
             const queryString = window.location.search;
             const urlParams = new URLSearchParams(queryString);
             const showMenu = urlParams.get('menu');
-
+            
             if(!showMenu) {
-                this.generateLevel(0);
+                const levelParam = Number(urlParams.get('level')) || 0;
+                this.generateLevel(levelParam);
                 this.playLevel();
                 setMenuEnabled(false);
             }
@@ -86,6 +87,11 @@ AFRAME.registerComponent('game-manager', {
         gameScore += SMOG_SCORE;
         this.gameScoreLabel.innerText = gameScore;
         this.smogAudio.playSound();
+    },
+    upgradeToHorn: function() {
+        document.querySelector('[noise-indicator]').components['noise-indicator'].upgradeLoudMini();
+        document.querySelector('#horn').src = './assets/loud_mini.jpg';
+        document.querySelector('#horn-noise').setAttribute('sound', {src: 'url(./assets/horn.mp3)'});
     },
     generateLevel: function(index) {
         const levelData = this.levelData = gameData.levels[index];
@@ -152,7 +158,7 @@ AFRAME.registerComponent('game-manager', {
         return -1;
     },
     getStreetObject3D: function(index) {
-        return this.currentLevelStreetEls[index].object3D;
+        return this.currentLevelStreetEls[index]?.object3D;
     },
     incrementBikePoolMemberCount: function() {
         this.bikeMemberCount++;
