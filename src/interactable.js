@@ -21,6 +21,12 @@ const INTERACTABLE_LEFT_CROSS_ATTACK_SPEED_MULTIPLIER = 0.4;
 const INTERACTABLE_LEFT_CROSS_Z_DISTANCE = 15;
 const INTERACTABLE_LEFT_CROSS_X_DISTANCE = 10;
 
+// Right Cross
+const INTERACTABLE_RIGHT_CROSS_ATTACK_START_Z_DISTANCE = 25;
+const INTERACTABLE_RIGHT_CROSS_ATTACK_SPEED_MULTIPLIER = 0.4;
+const INTERACTABLE_RIGHT_CROSS_Z_DISTANCE = 15;
+const INTERACTABLE_RIGHT_CROSS_X_DISTANCE = 10;
+
 const INTERACTABLE_DISABLE_Z = 10;
 
 AFRAME.registerComponent('interactable', {
@@ -45,10 +51,17 @@ AFRAME.registerComponent('interactable', {
         this.counter = 0;
         this.spawned = true;
     },
-    onCollision: function() {
+    onCollision: function(isHonk) {
         if(this.isHit || !this.spawned) return;
-        this.isHit = true;
-        this.sound.playSound();
+        if(isHonk) {
+            setTimeout(() => {
+                this.isHit = true;
+                this.sound.playSound();
+            }, Math.round(Math.random() * 201));
+        } else {
+            this.isHit = true;
+            this.sound.playSound();
+        }
     },
     followPlayerDepth: function() {
         this.lerpToPlayer = false;
@@ -78,13 +91,23 @@ AFRAME.registerComponent('interactable', {
             this.returnFunction();
         }
     },
-    setBezierCurve: function() {
+    setBezierCurveLeftCross: function() {
         this.curveVec0.copy(this.el.object3D.position);
 
         this.curveVec1.copy(this.curveVec0);
         this.curveVec1.z += INTERACTABLE_LEFT_CROSS_Z_DISTANCE;
         this.curveVec2.copy(this.curveVec1);
         this.curveVec2.x += INTERACTABLE_LEFT_CROSS_X_DISTANCE;
+
+        this.speed = 0;
+    },
+    setBezierCurveRightCross: function() {
+        this.curveVec0.copy(this.el.object3D.position);
+
+        this.curveVec1.copy(this.curveVec0);
+        this.curveVec1.z += INTERACTABLE_RIGHT_CROSS_Z_DISTANCE;
+        this.curveVec2.copy(this.curveVec1);
+        this.curveVec2.x += INTERACTABLE_RIGHT_CROSS_X_DISTANCE;
 
         this.speed = 0;
     },
@@ -165,4 +188,4 @@ export function getPointOnCurve(a, b, c, d, t) {
     out.y = a.y * factor1 + b.y * factor2 + c.y * factor3 + d.y * factor4;
     out.z = a.z * factor1 + b.z * factor2 + c.z * factor3 + d.z * factor4;
     return out;
-  }
+}

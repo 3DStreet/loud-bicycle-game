@@ -31,7 +31,7 @@ AFRAME.registerComponent('player-controller', {
 
         setTimeout(() => {
             this.collider = this.el.components['aabb-collider'];
-            this.animationMixer = this.el.components['animation-mixer'];
+            this.animationMixer = this.el.querySelector('[animation-mixer]').components['animation-mixer'];
             this.sound = this.el.components['sound'];
             this.cameraEl = document.querySelector('a-camera');
             this.cameraEl.object3D.position.x = 2.5 * Math.floor(window.lanes / 2)
@@ -84,8 +84,12 @@ AFRAME.registerComponent('player-controller', {
                     if(element.object3D.visible) {
                         if(element.components.smog) {
                             element.components.smog.onCollision();
-                        } else {
+                        } else if(element.components.interactable){
+                            element.components.interactable.onCollision();
                             this.onCollided();
+                        } else if(element.components.item){
+                            element.components.item.onCollision();
+                            console.log('this', this.collider.collisions[index]);
                         }
                     }
                 }

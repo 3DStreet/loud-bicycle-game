@@ -1,5 +1,6 @@
 require('aframe');
 require('./aframe-particle-system-component')
+require('./look-at');
 require('./game-manager');
 require('./player-controller');
 require('./noise-indicator');
@@ -8,6 +9,7 @@ require('./interactable');
 require('./interactable-pool');
 require('./smog-pool');
 require('./smog');
+require('./item');
 require('./bike-train-pool');
 require('./bike-train-member');
 require('./noise-meter');

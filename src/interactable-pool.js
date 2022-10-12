@@ -9,10 +9,7 @@ const INTERSECTION_CAR_Z_OFFSET = 2;
 AFRAME.registerComponent('randomize-gltf-model', {
     schema: {type: 'array'},
     init: function () {
-      console.log(this.data)
-  
       const randomElement = this.data[Math.floor(Math.random() * this.data.length)];
-      console.log(randomElement);
       this.el.setAttribute('gltf-model', '#' + randomElement);
     }
   });
@@ -64,7 +61,9 @@ AFRAME.registerComponent('interactable-pool', {
         el.object3D.position.set(el.components.interactable.lane * 2.5,0,5);
         el.components.interactable.speed = 0;
         el.components.interactable.followPlayerDepth();
-        el.object3D.rotation.y = Math.PI;
+        setTimeout(() => {
+            el.object3D.rotation.y = Math.PI;
+        }, 100);
         
         parent.attach( el.object3D );
 
@@ -95,7 +94,7 @@ AFRAME.registerComponent('interactable-pool', {
 
         parent.attach( el.object3D );
 
-        el.components.interactable.setBezierCurve();
+        el.components.interactable.setBezierCurveLeftCross();
 
         el.components.interactable.returnFunction = () => {
             if(this.pool.usedEls.includes(el))
