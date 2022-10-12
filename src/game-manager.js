@@ -158,7 +158,8 @@ AFRAME.registerComponent('game-manager', {
         return -1;
     },
     getStreetObject3D: function(index) {
-        return this.currentLevelStreetEls[index]?.object3D;
+        const street = this.currentLevelStreetEls[index];
+        return street ? street.object3D : null;
     },
     incrementBikePoolMemberCount: function() {
         this.bikeMemberCount++;
