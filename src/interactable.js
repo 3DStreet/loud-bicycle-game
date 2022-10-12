@@ -3,7 +3,7 @@ import { GAME_STATE, GAME_STATES } from "./game-manager";
 import { lerp } from './helpers/math'
 import { playerController } from './player-controller'
 
-export const interactableTypes = ['rightHook', 'side', 'leftCross', /*'driveway'*/];
+export const interactableTypes = ['rightHook', 'side', 'leftCross', 'rightCross' /*'driveway'*/];
 export const isSideType = (type) => {
     return type === 'side' || type === 'driveway';
 }
@@ -22,9 +22,9 @@ const INTERACTABLE_LEFT_CROSS_Z_DISTANCE = 15;
 const INTERACTABLE_LEFT_CROSS_X_DISTANCE = 10;
 
 // Right Cross
-const INTERACTABLE_RIGHT_CROSS_ATTACK_START_Z_DISTANCE = 25;
-const INTERACTABLE_RIGHT_CROSS_ATTACK_SPEED_MULTIPLIER = 0.4;
-const INTERACTABLE_RIGHT_CROSS_Z_DISTANCE = 15;
+const INTERACTABLE_RIGHT_CROSS_ATTACK_START_Z_DISTANCE = 4;
+const INTERACTABLE_RIGHT_CROSS_ATTACK_SPEED_MULTIPLIER = 0.3;
+const INTERACTABLE_RIGHT_CROSS_Z_DISTANCE = -12;
 const INTERACTABLE_RIGHT_CROSS_X_DISTANCE = 10;
 
 const INTERACTABLE_DISABLE_Z = 10;
@@ -80,6 +80,9 @@ AFRAME.registerComponent('interactable', {
                 case 'leftCross':
                     this.attackPlayerLeftCross(dt)
                     break;
+                case 'rightCross':
+                    this.attackPlayerRightCross(dt)
+                    break;
                 case 'side':
                     this.attackPlayerFromSide(dt);
                     break;
@@ -116,6 +119,23 @@ AFRAME.registerComponent('interactable', {
             const worldZ = this.el.object3D.position.z + this.el.object3D.parent.position.z 
             if(worldZ > -INTERACTABLE_LEFT_CROSS_ATTACK_START_Z_DISTANCE) {
                 this.speed += INTERACTABLE_LEFT_CROSS_ATTACK_SPEED_MULTIPLIER * (dt / 1000);
+                this.speed = Math.min(1, this.speed);
+                if(this.speed === 1) {
+                    this.el.object3D.position.x += this.speed / 10;
+                } else {
+                    let pos = getPointOnCurve(this.curveVec0, this.curveVec1, this.curveVec1, this.curveVec2, this.speed);
+                    this.el.object3D.position.copy(pos)
+                    let pos2 = getPointOnCurve(this.curveVec0, this.curveVec1, this.curveVec1, this.curveVec2, this.speed+0.001);
+                    this.el.object3D.lookAt(this.el.object3D.parent.localToWorld(pos2));
+                }
+            }
+        }
+    },
+    attackPlayerRightCross: function(dt) {
+        if(!this.isHit) {
+            const worldZ = this.el.object3D.position.z + this.el.object3D.parent.position.z 
+            if(worldZ > -INTERACTABLE_RIGHT_CROSS_ATTACK_START_Z_DISTANCE) {
+                this.speed += INTERACTABLE_RIGHT_CROSS_ATTACK_SPEED_MULTIPLIER * (dt / 1000);
                 this.speed = Math.min(1, this.speed);
                 if(this.speed === 1) {
                     this.el.object3D.position.x += this.speed / 10;
