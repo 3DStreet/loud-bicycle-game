@@ -20,7 +20,7 @@ AFRAME.registerComponent('interactable-pool', {
     start: function() {
         if(this.spawnInterval) return;
         this.spawnInterval = setInterval(() => {
-            // this.spawnRightHook();
+            this.spawnRightHook();
         }, 4000);
     },
     stop: function() {
