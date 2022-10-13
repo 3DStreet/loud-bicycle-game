@@ -56,9 +56,10 @@ AFRAME.registerComponent('interactable-pool', {
         el.object3D.position.set(el.components.interactable.lane * 2.5,0,5);
         el.components.interactable.speed = 0;
         el.components.interactable.followPlayerDepth();
-        setTimeout(() => {
-            el.object3D.rotation.y = Math.PI;
-        }, 100);
+
+        el.object3D.quaternion.identity();
+
+        el.object3D.rotateY(Math.PI);
         
         parent.attach( el.object3D );
 
