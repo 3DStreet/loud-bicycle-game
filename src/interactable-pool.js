@@ -6,14 +6,6 @@ import { playerController } from './player-controller'
 const SIDE_INTERCTABLE_START_DISTANCE = 10;
 const INTERSECTION_CAR_Z_OFFSET = 2;
 
-AFRAME.registerComponent('randomize-gltf-model', {
-    schema: {type: 'array'},
-    init: function () {
-      const randomElement = this.data[Math.floor(Math.random() * this.data.length)];
-      this.el.setAttribute('gltf-model', '#' + randomElement);
-    }
-  });
-
 AFRAME.registerComponent('interactable-pool', {
     init: function() {
         this.tempVec = new Vector3();
@@ -44,6 +36,9 @@ AFRAME.registerComponent('interactable-pool', {
         const type = 'rightHook'
         const sideType = isSideType(type);
         
+        el.removeAttribute("gltf-model");
+        el.setAttribute('gltf-model', '#sedan-taxi-rigged');
+
         el.setAttribute('interactable', {type});
 
         let parent = el.object3D.parent;
@@ -81,6 +76,9 @@ AFRAME.registerComponent('interactable-pool', {
 
         el.setAttribute('interactable', {type});
         el.play();
+
+        el.removeAttribute("gltf-model");
+        el.setAttribute('gltf-model', '#sedan-rigged');
 
         el.components.interactable.isHit = false;
 
@@ -141,6 +139,9 @@ AFRAME.registerComponent('interactable-pool', {
         el.setAttribute('interactable', {type});
         el.play();
 
+        el.removeAttribute("gltf-model");
+        el.setAttribute('gltf-model', '#suv-rigged');
+
         el.components.interactable.isHit = false;
 
         let parent = el.object3D.parent;
@@ -173,6 +174,9 @@ AFRAME.registerComponent('interactable-pool', {
         
         el.setAttribute('interactable', {type});
         el.play();
+
+        el.removeAttribute("gltf-model");
+        el.setAttribute('gltf-model', '#vehicle-bmw-m2-asset');
 
         el.components.interactable.isHit = false;
 
