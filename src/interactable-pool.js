@@ -28,12 +28,14 @@ AFRAME.registerComponent('interactable-pool', {
         this.spawnInterval = null;
     },
     spawnRightHook: function (){
+        const type = 'rightHook'
+        if(!gameManager.levelData.interactables.includes(type)) return;
         if(this.spawnedRightHook) return;
         this.spawnedRightHook = true;
         
         let el = this.pool.requestEntity();
 
-        const type = 'rightHook'
+
         const sideType = isSideType(type);
         
         el.removeAttribute("gltf-model");
@@ -72,6 +74,7 @@ AFRAME.registerComponent('interactable-pool', {
     },
     spawnLeftCross: function(position) {
         const type = 'leftCross'
+        if(!gameManager.levelData.interactables.includes(type)) return;
         
         let el = this.pool.requestEntity();
 
@@ -93,7 +96,8 @@ AFRAME.registerComponent('interactable-pool', {
 
         parent.attach( el.object3D );
 
-        el.components.interactable.setBezierCurveLeftCross();
+        // el.components.interactable.setBezierCurveLeftCross(position.z - 90);
+        el.components.interactable.setBezierCurveLeftCross(position.z);
 
         el.components.interactable.returnFunction = () => {
             if(this.pool.usedEls.includes(el))
@@ -102,6 +106,7 @@ AFRAME.registerComponent('interactable-pool', {
     },
     spawnRightCross: function(position) {
         const type = 'rightCross';
+        if(!gameManager.levelData.interactables.includes(type)) return;
         
         let el = this.pool.requestEntity();
 
@@ -133,6 +138,7 @@ AFRAME.registerComponent('interactable-pool', {
     },
 
     spawnCarOnDriveway: function (position){
+        if(!gameManager.levelData.interactables.includes('driveway')) return;
         const type = "side"
         
         let el = this.pool.requestEntity();
@@ -170,6 +176,7 @@ AFRAME.registerComponent('interactable-pool', {
     },
     spawnCarOnIntersection: function (position, isRight){
         const type = "side"
+        if(!gameManager.levelData.interactables.includes(type)) return;
         
         let el = this.pool.requestEntity();
         
@@ -219,7 +226,7 @@ AFRAME.registerComponent('interactable-pool', {
                     this.spawnCarOnIntersection(this.tempVec, false);
                     this.tempVec.z -= 10;
                     this.tempVec.x -= 2.5;
-                    // this.spawnLeftCross(this.tempVec);
+                    this.spawnLeftCross(this.tempVec);
                     this.tempVec.z += 25;
                     this.tempVec.x += 2.7;
                     this.spawnRightCross(this.tempVec);

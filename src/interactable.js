@@ -3,7 +3,7 @@ import { GAME_STATE, GAME_STATES } from "./game-manager";
 import { lerp } from './helpers/math'
 import { playerController } from './player-controller'
 
-export const interactableTypes = ['rightHook', 'side', 'leftCross', 'rightCross' /*'driveway'*/];
+export const interactableTypes = ['rightHook', 'side', 'leftCross', 'rightCross', 'driveway'];
 export const isSideType = (type) => {
     return type === 'side' || type === 'driveway';
 }
@@ -94,7 +94,9 @@ AFRAME.registerComponent('interactable', {
             this.returnFunction();
         }
     },
-    setBezierCurveLeftCross: function() {
+    setBezierCurveLeftCross: function(startZ) {
+        this.startZ = startZ;
+
         this.curveVec0.copy(this.el.object3D.position);
 
         this.curveVec1.copy(this.curveVec0);
@@ -116,6 +118,8 @@ AFRAME.registerComponent('interactable', {
     },
     attackPlayerLeftCross: function(dt) {
         if(!this.isHit) {
+            // if(this.startZ < this.el.object3D.position.z)
+            //     return this.el.object3D.position.z += 0.1;
             const worldZ = this.el.object3D.position.z + this.el.object3D.parent.position.z 
             if(worldZ > -INTERACTABLE_LEFT_CROSS_ATTACK_START_Z_DISTANCE) {
                 this.speed += INTERACTABLE_LEFT_CROSS_ATTACK_SPEED_MULTIPLIER * (dt / 1000);

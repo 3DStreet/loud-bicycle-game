@@ -1,5 +1,14 @@
 export const SIDE_STREET_URL = './levels/side_street-26f46f90-bd11-11ec-b3b1-39567990c5f6.json';
 
+/*
+* To enable the spawning of interactable types in a level, add them to the 'interactables' array
+* 'side' - Intersection
+* 'driveway' - Driveway
+* 'leftCross' - Left Cross
+* 'rightCross' - Right Cross
+* 'rightHook' - Right Hook
+*/
+
 export const gameData = {
     levels: [
         {
@@ -9,6 +18,11 @@ export const gameData = {
             streetLength: 50,
             streetWidth: 20,
             streetLengthAdditionalRange: 10,
+            interactables: [
+                'driveway',
+                'side',
+                'rightCross'
+            ],
             streetUrls: [
                 './levels/street_1-51136070-c1f7-11ec-877c-abfad556cfc6.json',
                 './levels/street_1-51136070-c1f7-11ec-877c-abfad556cfc6.json',
@@ -30,6 +44,9 @@ export const gameData = {
             streetLength: 100,
             streetWidth: 45,
             streetLengthAdditionalRange: 10,
+            interactables: [
+                'driveway'
+            ],
             streetUrls: [
                 './levels/street_1-51136070-c1f7-11ec-877c-abfad556cfc6.json'
             ],
