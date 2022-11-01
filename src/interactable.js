@@ -22,11 +22,15 @@ const INTERACTABLE_LEFT_CROSS_ATTACK_SPEED_MULTIPLIER = 0.4;
 const INTERACTABLE_LEFT_CROSS_Z_DISTANCE = 15;
 const INTERACTABLE_LEFT_CROSS_X_DISTANCE = 10;
 
+
 // Right Cross
 const INTERACTABLE_RIGHT_CROSS_ATTACK_START_Z_DISTANCE = 4;
 const INTERACTABLE_RIGHT_CROSS_ATTACK_SPEED_MULTIPLIER = 0.3;
 const INTERACTABLE_RIGHT_CROSS_Z_DISTANCE = -12;
 const INTERACTABLE_RIGHT_CROSS_X_DISTANCE = 10;
+
+// const INTERACTABLE_RIGHT_CROSS_V0 = [2, 0, -12];
+
 
 const INTERACTABLE_DISABLE_Z = 10;
 
@@ -39,6 +43,7 @@ AFRAME.registerComponent('interactable', {
         this.curveVec0 = new Vector3();
         this.curveVec1 = new Vector3();
         this.curveVec2 = new Vector3();
+        this.curveVec3 = new Vector3();
         this.isHit = false;
         this.playerEl = document.querySelector('[player-controller]');
         this.tempVec = new Vector3();
@@ -112,8 +117,13 @@ AFRAME.registerComponent('interactable', {
     setBezierCurveRightCross: function() {
         this.curveVec0.copy(this.el.object3D.position);
 
+        const INTERACTABLE_RIGHT_CROSS_V0 = [-2, 0, -12];
+
         this.curveVec1.copy(this.curveVec0);
-        this.curveVec1.z += INTERACTABLE_RIGHT_CROSS_Z_DISTANCE;
+        this.curveVec1.z += INTERACTABLE_RIGHT_CROSS_V0[2];
+        this.curveVec1.x += INTERACTABLE_RIGHT_CROSS_V0[0];
+
+
         this.curveVec2.copy(this.curveVec1);
         this.curveVec2.x += INTERACTABLE_RIGHT_CROSS_X_DISTANCE;
 
@@ -123,7 +133,7 @@ AFRAME.registerComponent('interactable', {
         if(!this.isHit) {
             // if(this.startZ < this.el.object3D.position.z)
             //     return this.el.object3D.position.z += 0.1;
-            const worldZ = this.el.object3D.position.z + this.el.object3D.parent.position.z 
+            const worldZ = this.el.object3D.position.z + this.el.object3D.parent.position.z
             if(worldZ > -INTERACTABLE_LEFT_CROSS_ATTACK_START_Z_DISTANCE) {
                 this.speed += INTERACTABLE_LEFT_CROSS_ATTACK_SPEED_MULTIPLIER * (dt / 1000);
                 this.speed = Math.min(1, this.speed);
@@ -140,7 +150,7 @@ AFRAME.registerComponent('interactable', {
     },
     attackPlayerRightCross: function(dt) {
         if(!this.isHit) {
-            const worldZ = this.el.object3D.position.z + this.el.object3D.parent.position.z 
+            const worldZ = this.el.object3D.position.z + this.el.object3D.parent.position.z
             if(worldZ > -INTERACTABLE_RIGHT_CROSS_ATTACK_START_Z_DISTANCE) {
                 this.speed += INTERACTABLE_RIGHT_CROSS_ATTACK_SPEED_MULTIPLIER * (dt / 1000);
                 this.speed = Math.min(1, this.speed);
@@ -157,7 +167,7 @@ AFRAME.registerComponent('interactable', {
     },
     attackPlayerFromSide: function(dt) {
         if(!this.isHit) {
-            const worldZ = this.el.object3D.position.z + this.el.object3D.parent.position.z 
+            const worldZ = this.el.object3D.position.z + this.el.object3D.parent.position.z
             if(worldZ > -INTERACTABLE_SIDE_ATTACK_START_Z_DISTANCE) {
                 this.speed += INTERACTABLE_HORIZONTAL_ACCELERATION * (dt / 1000);
                 this.el.object3D.position.x += this.direction * this.speed;
@@ -184,7 +194,7 @@ AFRAME.registerComponent('interactable', {
                     this.changeLane = false;
                 }
             }
-    
+
             if(Math.round(this.tempVec.z) === 0) {
                 this.counter += dt / 1000;
                 if(this.counter > HORIZONTAL_ATTACK_WAIT_TIME && !this.lerpToPlayer) {
