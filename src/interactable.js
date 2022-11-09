@@ -19,15 +19,19 @@ const INTERACTABLE_SIDE_ATTACK_START_Z_DISTANCE = 5;
 // Left Cross
 const INTERACTABLE_LEFT_CROSS_ATTACK_START_Z_DISTANCE = 25;
 const INTERACTABLE_LEFT_CROSS_ATTACK_SPEED_MULTIPLIER = 0.4;
-const INTERACTABLE_LEFT_CROSS_Z_DISTANCE = 15;
-const INTERACTABLE_LEFT_CROSS_X_DISTANCE = 10;
+const INTERACTABLE_LEFT_CROSS_V1_OFFSET = new Vector3( 0, 0, 15 );
+const INTERACTABLE_LEFT_CROSS_V2_OFFSET = new Vector3( 0, 0, 15 );
+const INTERACTABLE_LEFT_CROSS_V3_OFFSET = new Vector3( 10, 0, 15 );
+// const INTERACTABLE_LEFT_CROSS_Z_DISTANCE = 15;
+// const INTERACTABLE_LEFT_CROSS_X_DISTANCE = 10;
 
 
 // Right Cross
 const INTERACTABLE_RIGHT_CROSS_ATTACK_START_Z_DISTANCE = 4;
 const INTERACTABLE_RIGHT_CROSS_ATTACK_SPEED_MULTIPLIER = 0.3;
-const INTERACTABLE_RIGHT_CROSS_Z_DISTANCE = -12;
-const INTERACTABLE_RIGHT_CROSS_X_DISTANCE = 10;
+const INTERACTABLE_RIGHT_CROSS_V1_OFFSET = new Vector3( -2, 0, -12 );
+const INTERACTABLE_RIGHT_CROSS_V2_OFFSET = new Vector3( -2, 0, -12 );
+const INTERACTABLE_RIGHT_CROSS_V3_OFFSET = new Vector3( 10, 0, 0 );
 
 // const INTERACTABLE_RIGHT_CROSS_V0 = [2, 0, -12];
 
@@ -108,25 +112,23 @@ AFRAME.registerComponent('interactable', {
         this.curveVec0.copy(this.el.object3D.position);
 
         this.curveVec1.copy(this.curveVec0);
-        this.curveVec1.z += INTERACTABLE_LEFT_CROSS_Z_DISTANCE;
+        this.curveVec1.add(INTERACTABLE_LEFT_CROSS_V1_OFFSET);
         this.curveVec2.copy(this.curveVec1);
+        this.curveVec2.add(INTERACTABLE_LEFT_CROSS_V2_OFFSET);
         this.curveVec3.copy(this.curveVec1);
-        this.curveVec3.x += INTERACTABLE_LEFT_CROSS_X_DISTANCE;
+        this.curveVec3.add(INTERACTABLE_LEFT_CROSS_V3_OFFSET);
 
         this.speed = 0;
     },
     setBezierCurveRightCross: function() {
         this.curveVec0.copy(this.el.object3D.position);
 
-        const INTERACTABLE_RIGHT_CROSS_V0 = [-2, 0, -12];
-
         this.curveVec1.copy(this.curveVec0);
-        this.curveVec1.z += INTERACTABLE_RIGHT_CROSS_V0[2];
-        this.curveVec1.x += INTERACTABLE_RIGHT_CROSS_V0[0];
-        this.curveVec2.copy(this.curveVec1);
-
+        this.curveVec1.add(INTERACTABLE_RIGHT_CROSS_V1_OFFSET);
+        this.curveVec2.copy(this.curveVec0);
+        this.curveVec2.add(INTERACTABLE_RIGHT_CROSS_V2_OFFSET);
         this.curveVec3.copy(this.curveVec1);
-        this.curveVec3.x += INTERACTABLE_RIGHT_CROSS_X_DISTANCE;
+        this.curveVec3.add(INTERACTABLE_RIGHT_CROSS_V3_OFFSET);
 
         this.speed = 0;
     },
