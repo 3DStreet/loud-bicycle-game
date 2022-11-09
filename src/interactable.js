@@ -110,7 +110,8 @@ AFRAME.registerComponent('interactable', {
         this.curveVec1.copy(this.curveVec0);
         this.curveVec1.z += INTERACTABLE_LEFT_CROSS_Z_DISTANCE;
         this.curveVec2.copy(this.curveVec1);
-        this.curveVec2.x += INTERACTABLE_LEFT_CROSS_X_DISTANCE;
+        this.curveVec3.copy(this.curveVec1);
+        this.curveVec3.x += INTERACTABLE_LEFT_CROSS_X_DISTANCE;
 
         this.speed = 0;
     },
@@ -122,10 +123,10 @@ AFRAME.registerComponent('interactable', {
         this.curveVec1.copy(this.curveVec0);
         this.curveVec1.z += INTERACTABLE_RIGHT_CROSS_V0[2];
         this.curveVec1.x += INTERACTABLE_RIGHT_CROSS_V0[0];
-
-
         this.curveVec2.copy(this.curveVec1);
-        this.curveVec2.x += INTERACTABLE_RIGHT_CROSS_X_DISTANCE;
+
+        this.curveVec3.copy(this.curveVec1);
+        this.curveVec3.x += INTERACTABLE_RIGHT_CROSS_X_DISTANCE;
 
         this.speed = 0;
     },
@@ -140,9 +141,9 @@ AFRAME.registerComponent('interactable', {
                 if(this.speed === 1) {
                     this.el.object3D.position.x += this.speed / 10;
                 } else {
-                    let pos = getPointOnCurve(this.curveVec0, this.curveVec1, this.curveVec1, this.curveVec2, this.speed);
+                    let pos = getPointOnCurve(this.curveVec0, this.curveVec1, this.curveVec2, this.curveVec3, this.speed);
                     this.el.object3D.position.copy(pos)
-                    let pos2 = getPointOnCurve(this.curveVec0, this.curveVec1, this.curveVec1, this.curveVec2, this.speed+0.001);
+                    let pos2 = getPointOnCurve(this.curveVec0, this.curveVec1, this.curveVec2, this.curveVec3, this.speed+0.001);
                     this.el.object3D.lookAt(this.el.object3D.parent.localToWorld(pos2));
                 }
             }
@@ -157,9 +158,9 @@ AFRAME.registerComponent('interactable', {
                 if(this.speed === 1) {
                     this.el.object3D.position.x += this.speed / 10;
                 } else {
-                    let pos = getPointOnCurve(this.curveVec0, this.curveVec1, this.curveVec1, this.curveVec2, this.speed);
+                    let pos = getPointOnCurve(this.curveVec0, this.curveVec1, this.curveVec2, this.curveVec3, this.speed);
                     this.el.object3D.position.copy(pos)
-                    let pos2 = getPointOnCurve(this.curveVec0, this.curveVec1, this.curveVec1, this.curveVec2, this.speed+0.001);
+                    let pos2 = getPointOnCurve(this.curveVec0, this.curveVec1, this.curveVec2, this.curveVec3, this.speed+0.001);
                     this.el.object3D.lookAt(this.el.object3D.parent.localToWorld(pos2));
                 }
             }
