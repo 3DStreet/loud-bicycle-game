@@ -132,8 +132,7 @@ AFRAME.registerComponent('player-controller', {
         this.liveEls[this.liveEls.length - this.lives - 1].style.visibility = 'hidden';
         this.sound.playSound();
         if(this.lives === 0) {
-            gameManager.stopLevel();
-            this.animationMixer.stopAction();
+            gameManager.failLevel();
         } else {
             setTimeout(() => {
                 this.collided = false;

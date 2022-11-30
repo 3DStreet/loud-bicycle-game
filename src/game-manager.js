@@ -68,6 +68,13 @@ AFRAME.registerComponent('game-manager', {
         this.winSoundEl.play();
         this.removeLevel();
     },
+    failLevel: function() {
+        this.stopLevel();
+        this.headerLabel.innerText = "Failed";
+        setEndScreenEnabled(true, "Try again!");
+        // this.winSoundEl.play();
+        this.removeLevel();
+    },
     stopLevel: function() {
         this.levelAnimation.animation.pause();
         this.interactablePool.stop();
