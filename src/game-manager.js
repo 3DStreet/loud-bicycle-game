@@ -1,5 +1,6 @@
 import { Vector3 } from 'super-three';
 import { gameData, SIDE_STREET_URL } from "./level-data";
+import { playerController } from './player-controller';
 
 export const GAME_STATES = {
     PLAYING: 0,
@@ -36,11 +37,14 @@ AFRAME.registerComponent('game-manager', {
             this.gameScoreLabel = document.querySelector('#score');
             this.smogAudio = this.el.components.sound;
             
-            document.querySelector('#level-1-button').addEventListener('click', () => {
-                this.generateLevel(0);
-                this.playLevel();
-                setMenuEnabled(false);
-            })
+            for (let i = 0; i < 6; i++) {
+                const id = `#level-${i+1}-button`;
+                document.querySelector(id).addEventListener('click', () => {
+                    this.generateLevel(i);
+                    this.playLevel();
+                    setMenuEnabled(false);
+                })
+            }
 
             // TODO: Disables menu by default, remove in the future
             const queryString = window.location.search;
@@ -64,6 +68,13 @@ AFRAME.registerComponent('game-manager', {
         this.winSoundEl.play();
         this.removeLevel();
     },
+    failLevel: function() {
+        this.stopLevel();
+        this.headerLabel.innerText = "Failed";
+        setEndScreenEnabled(true, "Try again!");
+        // this.winSoundEl.play();
+        this.removeLevel();
+    },
     stopLevel: function() {
         this.levelAnimation.animation.pause();
         this.interactablePool.stop();
@@ -76,7 +87,8 @@ AFRAME.registerComponent('game-manager', {
         gameScore = 0;
         this.bikeMemberCount = 0;
         this.gameScoreLabel.innerText = gameScore;
-        this.levelAnimation.animation.play();
+        playerController.reset();
+        this.levelAnimation.animation.restart();
         this.interactablePool.start();
         this.smogPool.start();
         this.bikePool.start();
@@ -93,8 +105,33 @@ AFRAME.registerComponent('game-manager', {
         document.querySelector('#horn').src = './assets/loud_mini.jpg';
         document.querySelector('#horn-noise').setAttribute('sound', {src: 'url(./assets/horn.mp3)'});
     },
+    downgradeToShout: function() {
+        document.querySelector('[noise-indicator]').components['noise-indicator'].downgradeShout();
+        document.querySelector('#horn').src = './assets/shout.jpg';
+        document.querySelector('#horn-noise').setAttribute('sound', {src: 'url(./assets/shout.mp3)'});
+    },
+    spawnMinis: function() {
+        // <a-entity item="type: horn" gltf-model="#loud-bicycle-mini-asset" position="0 0.8 -16" scale="4 4 4"></a-entity>
+        for (let i = 0; i < 3; i++) {
+            const element = document.createElement('a-entity');
+            element.setAttribute('item', {type: 'horn'});
+            element.setAttribute('gltf-model', '#loud-bicycle-mini-asset');
+            element.setAttribute('scale', '4 4 4');
+            element.setAttribute('position', (i * 2.5) + ' 0.8 -' + (this.levelData.endDistance - 50));
+            this.currentLevel.append(element);
+        };
+
+    },
     generateLevel: function(index) {
         const levelData = this.levelData = gameData.levels[index];
+        if(levelData.startWithMini) this.upgradeToHorn();
+        else this.downgradeToShout();
+        document.querySelector('[player-controller]').components['player-controller'].setLane(levelData.startingLane);
+        
+        this.currentLevel = document.createElement('a-entity');
+        this.level.append(this.currentLevel);
+        if(levelData.spawnMinis) this.spawnMinis();
+        
         this.currentLevelStreetEls = []
         let isIntersection = false;
         let spawnDistance = levelData.streetLength / 2;
@@ -113,7 +150,7 @@ AFRAME.registerComponent('game-manager', {
                 rightSideStreet.setAttribute('street', {length: 40, showVehicles: false})
                 rightSideStreet.setAttribute('streetmix-loader', {streetmixAPIURL: SIDE_STREET_URL, showBuildings: false})
                 rightSideStreet.setAttribute('class', `side-street`)  
-                this.level.append(rightSideStreet);
+                this.currentLevel.append(rightSideStreet);
 
                 const left = document.createElement('a-entity');
                 left.setAttribute('position', {x: -(levelData.streetWidth / 2) - 18, y: 0, z: positionZ})
@@ -121,7 +158,7 @@ AFRAME.registerComponent('game-manager', {
                 left.setAttribute('street', {length: 40, showVehicles: false})
                 left.setAttribute('streetmix-loader', {streetmixAPIURL: SIDE_STREET_URL, showBuildings: false})
                 left.setAttribute('class', `side-street`)  
-                this.level.append(left);
+                this.currentLevel.append(left);
 
                 el.halfLength = levelData.streetWidth / 2;
                 spawnDistance += levelData.streetLength;
@@ -134,12 +171,16 @@ AFRAME.registerComponent('game-manager', {
                 spawnDistance += levelData.streetWidth;
             }
             isIntersection = !isIntersection;
-            this.level.append(el);
+            this.currentLevel.append(el);
             this.currentLevelStreetEls.push(el);
         }
     },
     removeLevel: function() {
-
+        this.interactablePool.returnAll();
+        this.bikePool.returnAll();
+        this.smogPool.returnAll();
+        this.currentLevel.parentNode.removeChild(this.currentLevel);
+        this.currentLevel = null;
     },
     getLevelPosition: function() {
         this.level.object3D.getWorldPosition(this.tempVec);

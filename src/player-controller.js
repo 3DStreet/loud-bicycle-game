@@ -43,6 +43,19 @@ AFRAME.registerComponent('player-controller', {
 
         this.liveEls = document.querySelector('#life-indicator-container').children;
     },
+    reset: function() {
+        this.lives = 3;
+        this.liveEls[0].style.visibility = 'unset';
+        this.liveEls[1].style.visibility = 'unset';
+        this.liveEls[2].style.visibility = 'unset';
+        this.collided = false;
+        this.el.object3D.visible = true;
+    },
+    setLane: function(lane) {
+        this.currentLane = lane;
+        this.setPosition();
+        this.el.object3D.position.x = this.currentLane * 2.5;
+    },
     onKeyPressed: function(e) {
         if(GAME_STATE !== GAME_STATES.PLAYING) return;
         switch(e.key) {
@@ -121,8 +134,7 @@ AFRAME.registerComponent('player-controller', {
         this.liveEls[this.liveEls.length - this.lives - 1].style.visibility = 'hidden';
         this.sound.playSound();
         if(this.lives === 0) {
-            gameManager.stopLevel();
-            this.animationMixer.stopAction();
+            gameManager.failLevel();
         } else {
             setTimeout(() => {
                 this.collided = false;

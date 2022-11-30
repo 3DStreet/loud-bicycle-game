@@ -11,10 +11,24 @@ AFRAME.registerComponent('item', {
         this.tempVec = new Vector3();
         this.tempVec2 = new Vector3();
 
-        this.el.sceneEl.addEventListener('loaded', () => {
-            this.comicEffectObject = document.querySelector('#comic-effect-plane').object3D;
-            this.camera = document.querySelector('a-camera').object3D;
-        });
+        this.comicEffectEl = document.createElement('a-plane');
+        this.comicEffectEl.setAttribute('src', '#comic-effect');
+        this.comicEffectEl.setAttribute('material', {opacity: 1.0, transparent: false, alphaTest: 0.5});
+        this.comicEffectEl.setAttribute('look-at', 'a-camera');
+        this.comicEffectEl.setAttribute('scale', '2 2 2');
+
+        this.el.sceneEl.append(this.comicEffectEl);
+
+        this.comicEffectObject = this.comicEffectEl.object3D;
+        
+        // document.querySelector('#comic-effect-plane').object3D;
+        this.camera = document.querySelector('a-camera').object3D;
+        // this.el.sceneEl.addEventListener('loaded', () => {
+        // });
+    },
+    remove: function() {
+        if(this.comicEffectEl)
+            this.comicEffectEl.parentNode.removeChild(this.comicEffectEl);
     },
     onCollision: function() {
         if(this.isHit) return;
@@ -39,12 +53,11 @@ AFRAME.registerComponent('item', {
             this.tempVec2.multiplyScalar(0.1);
             this.tempVec2.add(this.tempVec)
             this.comicEffectObject.position.copy(this.tempVec2)
-            if(this.tempVec.distanceTo(this.playerEl.object3D.position) < 1) {
+            if(this.tempVec.distanceTo(this.playerEl.object3D.position) < 2) {
                 this.onCollision();
             }
         }
 
         this.el.object3D.rotateY(0.02);
-
     }
 });

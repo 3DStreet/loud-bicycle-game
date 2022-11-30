@@ -9,10 +9,10 @@ AFRAME.registerComponent('bike-train-member', {
     },
     init: function() {
         const scene = document.querySelector('a-scene');
-        scene.addEventListener('loaded', () => {
-            this.originalParent = this.el.object3D.parent;
-
-        });
+        this.originalParent = this.el.object3D.parent;
+        // scene.addEventListener('loaded', () => {
+        //     this.originalParent = this.el.object3D.parent;
+        // });
         this.animateBell = false;
         this.bell = document.querySelector('#bell-indicator');
         this.spawned = false;

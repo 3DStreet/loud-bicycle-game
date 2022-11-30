@@ -3,8 +3,11 @@ import { GAME_STATE, GAME_STATES } from "./game-manager";
 
 const INDICATOR_SPEED = 3;
 
+export let noiseIndicator;
+
 AFRAME.registerComponent('noise-indicator', {
     init: function() {
+        noiseIndicator = this;
         this.isActive = false;
         this.isLoudMini = false;
         this.collider = this.el.children[0].components['aabb-collider']; 
@@ -27,6 +30,9 @@ AFRAME.registerComponent('noise-indicator', {
     upgradeLoudMini: function() {
         this.isLoudMini = true;
     },
+    downgradeShout: function() {
+        this.isLoudMini = false;
+    },
     hide: function() {
         this.el.object3D.visible = false;
         this.isActive = false;
@@ -42,7 +48,7 @@ AFRAME.registerComponent('noise-indicator', {
             for (let index = 0; index < this.collider.collisions.length; index++) {
                 const element = this.collider.collisions[index];
                 if(element.components['interactable'] && !this.isBell)
-                    element.components['interactable'].onCollision();
+                    element.components['interactable'].onCollision(true);
                 else if (element.components['bike-train-member'] && this.isBell)                
                     element.components['bike-train-member'].onCollision();
             }

@@ -13,11 +13,13 @@ export const gameData = {
     levels: [
         {
             name: 'Level 1 - Drop off the kids',
+            startingLane: 2,
             endDistance: 180,
             amountBikePool: 3,
             streetLength: 50,
             streetWidth: 20,
             streetLengthAdditionalRange: 10,
+            spawnMinis: true,
             interactables: [
                 'driveway',
                 'side',
@@ -40,9 +42,11 @@ export const gameData = {
         },
         {
             name: 'Level 2 - Get to work',
+            startingLane: 2,
             endDistance: 180,
             streetLength: 100,
             streetWidth: 45,
+            startWithMini: true,
             streetLengthAdditionalRange: 10,
             interactables: [
                 'driveway'
@@ -59,6 +63,7 @@ export const gameData = {
         },
         {
             name: 'Level 3 - Get to the bar!',
+            startingLane: 2,
             endDistance: 180,
             streetLength: 100,
             streetWidth: 45,
@@ -75,6 +80,7 @@ export const gameData = {
         },
         {
             name: 'Level 4 - Get home safely',
+            startingLane: 2,
             endDistance: 180,
             streetLength: 100,
             streetWidth: 45,

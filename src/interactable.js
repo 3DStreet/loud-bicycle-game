@@ -1,6 +1,7 @@
 import { Vector3 } from 'super-three';
 import { GAME_STATE, GAME_STATES } from "./game-manager";
 import { lerp } from './helpers/math'
+import { noiseIndicator } from './noise-indicator';
 import { playerController } from './player-controller'
 
 export const interactableTypes = ['rightHook', 'side', 'leftCross', 'rightCross', 'driveway'];
@@ -54,10 +55,12 @@ AFRAME.registerComponent('interactable', {
     onCollision: function(isHonk) {
         if(this.isHit || !this.spawned) return;
         if(isHonk) {
+            // Randomization of reaction speed
+            let time = Math.round(noiseIndicator.isLoudMini ? 100 + Math.random() * 200 : 300 + Math.random() * 200) 
             setTimeout(() => {
                 this.isHit = true;
                 this.sound.playSound();
-            }, Math.round(Math.random() * 201));
+            }, time);
         } else {
             this.isHit = true;
             this.sound.playSound();
