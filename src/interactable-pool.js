@@ -13,8 +13,8 @@ AFRAME.registerComponent('interactable-pool', {
         this.streetIndex = 0;
         setTimeout(() => {
             this.pool = this.el.sceneEl.components.pool__interactable;
-            document.querySelector('#noise-indicator-collider').components['aabb-collider'].update();      
-            document.querySelector('[player-controller]').components['aabb-collider'].update();      
+            document.querySelector('#noise-indicator-collider').components['aabb-collider'].update();
+            document.querySelector('[player-controller]').components['aabb-collider'].update();
         }, 1000);
     },
     start: function() {
@@ -32,12 +32,12 @@ AFRAME.registerComponent('interactable-pool', {
         if(!gameManager.levelData.interactables.includes(type)) return;
         if(this.spawnedRightHook) return;
         this.spawnedRightHook = true;
-        
+
         let el = this.pool.requestEntity();
 
 
         const sideType = isSideType(type);
-        
+
         el.removeAttribute("gltf-model");
         el.setAttribute('gltf-model', '#sedan-taxi-rigged');
 
@@ -46,7 +46,7 @@ AFRAME.registerComponent('interactable-pool', {
         let parent = el.object3D.parent;
         let scene = this.el.sceneEl.object3D;
 
-        scene.attach( el.object3D ); 
+        scene.attach( el.object3D );
 
         el.components.interactable.isHit = false;
         el.play();
@@ -62,7 +62,7 @@ AFRAME.registerComponent('interactable-pool', {
         el.object3D.quaternion.identity();
 
         el.object3D.rotateY(Math.PI);
-        
+
         parent.attach( el.object3D );
 
         el.components.interactable.returnFunction = () => {
@@ -75,7 +75,7 @@ AFRAME.registerComponent('interactable-pool', {
     spawnLeftCross: function(position) {
         const type = 'leftCross'
         if(!gameManager.levelData.interactables.includes(type)) return;
-        
+
         let el = this.pool.requestEntity();
 
         el.setAttribute('interactable', {type});
@@ -89,7 +89,7 @@ AFRAME.registerComponent('interactable-pool', {
         let parent = el.object3D.parent;
         let scene = this.el.sceneEl.object3D;
 
-        scene.attach( el.object3D ); 
+        scene.attach( el.object3D );
         el.object3D.position.copy(position);
 
         el.object3D.rotation.y = 0;
@@ -105,9 +105,10 @@ AFRAME.registerComponent('interactable-pool', {
         }
     },
     spawnRightCross: function(position) {
+        position.z = position.z + 20
         const type = 'rightCross';
         if(!gameManager.levelData.interactables.includes(type)) return;
-        
+
         let el = this.pool.requestEntity();
 
         el.setAttribute('interactable', {type});
@@ -121,12 +122,14 @@ AFRAME.registerComponent('interactable-pool', {
         let parent = el.object3D.parent;
         let scene = this.el.sceneEl.object3D;
 
-        scene.attach( el.object3D ); 
+        scene.attach( el.object3D );
         el.object3D.position.copy(position);
-        
+
         el.object3D.quaternion.identity();
         el.object3D.rotateY(Math.PI);
-        
+
+        parent.attach( el.object3D );
+
         el.components.interactable.setBezierCurveRightCross();
 
         el.components.interactable.returnFunction = () => {
@@ -138,9 +141,9 @@ AFRAME.registerComponent('interactable-pool', {
     spawnCarOnDriveway: function (position){
         if(!gameManager.levelData.interactables.includes('driveway')) return;
         const type = "side"
-        
+
         let el = this.pool.requestEntity();
-        
+
         el.setAttribute('interactable', {type});
         el.play();
 
@@ -152,7 +155,7 @@ AFRAME.registerComponent('interactable-pool', {
         let parent = el.object3D.parent;
         let scene = this.el.sceneEl.object3D;
 
-        scene.attach( el.object3D ); 
+        scene.attach( el.object3D );
         el.object3D.position.copy(position);
 
         let isRight = position.x > 0;
@@ -175,9 +178,9 @@ AFRAME.registerComponent('interactable-pool', {
     spawnCarOnIntersection: function (position, isRight){
         const type = "side"
         if(!gameManager.levelData.interactables.includes(type)) return;
-        
+
         let el = this.pool.requestEntity();
-        
+
         el.setAttribute('interactable', {type});
         el.play();
 
@@ -189,7 +192,7 @@ AFRAME.registerComponent('interactable-pool', {
         let parent = el.object3D.parent;
         let scene = this.el.sceneEl.object3D;
 
-        scene.attach( el.object3D ); 
+        scene.attach( el.object3D );
         el.object3D.position.copy(position);
 
         const lane = isRight ? 1 : -1;
@@ -229,9 +232,9 @@ AFRAME.registerComponent('interactable-pool', {
                     this.tempVec.x += 2.7;
                     this.spawnRightCross(this.tempVec);
                 }
-            } 
+            }
         });
-    
+
 
     },
     returnAll: function() {
