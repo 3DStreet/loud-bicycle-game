@@ -1,4 +1,4 @@
-import { Vector3 } from 'super-three';
+import { Vector3, Vector2, SplineCurve } from 'super-three';
 import { GAME_STATE, GAME_STATES } from "./game-manager";
 import { lerp } from './helpers/math'
 import { noiseIndicator } from './noise-indicator';
@@ -28,13 +28,23 @@ const INTERACTABLE_LEFT_CROSS_V3_OFFSET = new Vector3( 10, 0, 15 );
 
 // Right Cross
 const INTERACTABLE_RIGHT_CROSS_ATTACK_START_Z_DISTANCE = 4;
-const INTERACTABLE_RIGHT_CROSS_ATTACK_SPEED_MULTIPLIER = 0.3;
-const INTERACTABLE_RIGHT_CROSS_V1_OFFSET = new Vector3( 0, 0, -22 );
-const INTERACTABLE_RIGHT_CROSS_V2_OFFSET = new Vector3( 0, 0, -7 );
-const INTERACTABLE_RIGHT_CROSS_V3_OFFSET = new Vector3( -2, 0, 0 );
-const INTERACTABLE_RIGHT_CROSS_V4_OFFSET = new Vector3( 10, 0, 20 );
+const INTERACTABLE_RIGHT_CROSS_ATTACK_SPEED_MULTIPLIER = 0.03;
+// const INTERACTABLE_RIGHT_CROSS_V1_OFFSET = new Vector3( 0, 0, -22 );
+// const INTERACTABLE_RIGHT_CROSS_V2_OFFSET = new Vector3( 0, 0, -7 );
+// const INTERACTABLE_RIGHT_CROSS_V3_OFFSET = new Vector3( -2, 0, 0 );
+// const INTERACTABLE_RIGHT_CROSS_V4_OFFSET = new Vector3( 10, 0, 20 );
 
 // const INTERACTABLE_RIGHT_CROSS_V0 = [2, 0, -12];
+
+// will use the following structure: Vector2 (x, z)
+const INTERACTABLE_RIGHT_CROSS_SPLINE = new SplineCurve([
+	new Vector2( 0, 0 ),
+	new Vector2( 0, -22 ),
+	new Vector2( -3, -22 ),
+	new Vector2( -3, -30 ),
+	new Vector2( 10, -20 ),
+	new Vector2( 10, -30 )
+] );
 
 
 const INTERACTABLE_DISABLE_Z = 10;
@@ -49,6 +59,7 @@ AFRAME.registerComponent('interactable', {
         this.curveVec1 = new Vector3();
         this.curveVec2 = new Vector3();
         this.curveVec3 = new Vector3();
+        this.splineVec = new Vector2();
         this.isHit = false;
         this.playerEl = document.querySelector('[player-controller]');
         this.tempVec = new Vector3();
@@ -126,14 +137,14 @@ AFRAME.registerComponent('interactable', {
     setBezierCurveRightCross: function() {
         this.curveVec0.copy(this.el.object3D.position);
 
-        this.curveVec1.copy(this.curveVec0);
-        this.curveVec1.add(INTERACTABLE_RIGHT_CROSS_V1_OFFSET);
-        this.curveVec2.copy(this.curveVec0);
-        this.curveVec2.add(INTERACTABLE_RIGHT_CROSS_V2_OFFSET);
-        this.curveVec3.copy(this.curveVec1);
-        this.curveVec3.add(INTERACTABLE_RIGHT_CROSS_V3_OFFSET);
-        this.curveVec3.copy(this.curveVec1);
-        this.curveVec3.add(INTERACTABLE_RIGHT_CROSS_V4_OFFSET);
+        // this.curveVec1.copy(this.curveVec0);
+        // this.curveVec1.add(INTERACTABLE_RIGHT_CROSS_V1_OFFSET);
+        // this.curveVec2.copy(this.curveVec0);
+        // this.curveVec2.add(INTERACTABLE_RIGHT_CROSS_V2_OFFSET);
+        // this.curveVec3.copy(this.curveVec1);
+        // this.curveVec3.add(INTERACTABLE_RIGHT_CROSS_V3_OFFSET);
+        // this.curveVec3.copy(this.curveVec1);
+        // this.curveVec3.add(INTERACTABLE_RIGHT_CROSS_V4_OFFSET);
 
         this.speed = 0;
     },
@@ -158,17 +169,28 @@ AFRAME.registerComponent('interactable', {
     },
     attackPlayerRightCross: function(dt) {
         if(!this.isHit) {
-            const worldZ = this.el.object3D.position.z + this.el.object3D.parent.position.z
-            if(worldZ > -INTERACTABLE_RIGHT_CROSS_ATTACK_START_Z_DISTANCE) {
+            const worldZ = this.el.object3D.position.z + this.el.object3D.parent.position.z;
+            if(worldZ > -INTERACTABLE_RIGHT_CROSS_ATTACK_START_Z_DISTANCE) this.followPlayer = true;
+            if(this.followPlayer) {
                 this.speed += INTERACTABLE_RIGHT_CROSS_ATTACK_SPEED_MULTIPLIER * (dt / 1000);
                 this.speed = Math.min(1, this.speed);
                 if(this.speed === 1) {
                     this.el.object3D.position.x += this.speed / 10;
                 } else {
-                    let pos = getPointOnCurve(this.curveVec0, this.curveVec1, this.curveVec2, this.curveVec3, this.speed);
-                    this.el.object3D.position.copy(pos)
-                    let pos2 = getPointOnCurve(this.curveVec0, this.curveVec1, this.curveVec2, this.curveVec3, this.speed+0.001);
-                    this.el.object3D.lookAt(this.el.object3D.parent.localToWorld(pos2));
+                    INTERACTABLE_RIGHT_CROSS_SPLINE.getPoint(this.speed, this.splineVec);
+                    this.curveVec1.x = this.splineVec.x;
+                    this.curveVec1.y = 0;
+                    this.curveVec1.z = this.splineVec.y;
+                    this.curveVec1.add(this.curveVec0);
+                    this.el.object3D.position.copy(this.curveVec1)
+                    // let pos = getPointOnCurve(this.curveVec0, this.curveVec1, this.curveVec2, this.curveVec3, this.speed);
+                    INTERACTABLE_RIGHT_CROSS_SPLINE.getPoint(this.speed+0.001, this.splineVec);
+                    // let pos2 = getPointOnCurve(this.curveVec0, this.curveVec1, this.curveVec2, this.curveVec3, this.speed+0.001);
+                    this.curveVec1.x = this.splineVec.x;
+                    this.curveVec1.y = 0;
+                    this.curveVec1.z = this.splineVec.y;
+                    this.curveVec1.add(this.curveVec0);
+                    this.el.object3D.lookAt(this.el.object3D.parent.localToWorld(this.curveVec1));
                 }
             }
         }
