@@ -9,7 +9,7 @@ AFRAME.registerComponent('smog-pool', {
         if(this.spawnInterval) return;
         this.spawnInterval = setInterval(() => {
             this.spawnEl()
-        }, 1000);
+        }, 2500);
     },
     stop: function() {
         clearInterval(this.spawnInterval);

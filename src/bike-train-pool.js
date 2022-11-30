@@ -50,6 +50,8 @@ AFRAME.registerComponent('bike-train-pool', {
         }
     },
     returnEl: function (el) {
+        const component = el.components['bike-train-member'];
+        component.despawn();
         this.pool.returnEntity(el);
     },
     update: function() {

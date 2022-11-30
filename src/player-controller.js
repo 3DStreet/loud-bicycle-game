@@ -43,6 +43,17 @@ AFRAME.registerComponent('player-controller', {
 
         this.liveEls = document.querySelector('#life-indicator-container').children;
     },
+    reset: function() {
+        this.lives = 3;
+        this.liveEls[0].style.visibility = 'unset';
+        this.liveEls[1].style.visibility = 'unset';
+        this.liveEls[2].style.visibility = 'unset';
+    },
+    setLane: function(lane) {
+        this.currentLane = lane;
+        this.setPosition();
+        this.el.object3D.position.x = this.currentLane * 2.5;
+    },
     onKeyPressed: function(e) {
         if(GAME_STATE !== GAME_STATES.PLAYING) return;
         switch(e.key) {

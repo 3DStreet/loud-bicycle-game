@@ -3,8 +3,11 @@ import { GAME_STATE, GAME_STATES } from "./game-manager";
 
 const INDICATOR_SPEED = 3;
 
+export let noiseIndicator;
+
 AFRAME.registerComponent('noise-indicator', {
     init: function() {
+        noiseIndicator = this;
         this.isActive = false;
         this.isLoudMini = false;
         this.collider = this.el.children[0].components['aabb-collider']; 
@@ -26,6 +29,9 @@ AFRAME.registerComponent('noise-indicator', {
     },
     upgradeLoudMini: function() {
         this.isLoudMini = true;
+    },
+    downgradeShout: function() {
+        this.isLoudMini = false;
     },
     hide: function() {
         this.el.object3D.visible = false;

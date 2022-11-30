@@ -127,8 +127,6 @@ AFRAME.registerComponent('interactable-pool', {
         el.object3D.quaternion.identity();
         el.object3D.rotateY(Math.PI);
         
-        parent.attach( el.object3D );
-
         el.components.interactable.setBezierCurveRightCross();
 
         el.components.interactable.returnFunction = () => {
@@ -216,7 +214,7 @@ AFRAME.registerComponent('interactable-pool', {
         const root = gameManager.getStreetObject3D(index);
         if(!root) return;
         root.traverse((child) => {
-            if(child.type === "Group") {
+            if(child.type === "Group" && child.el) {
                 if(child.el.classList[0] === "driveway") {
                     child.getWorldPosition(this.tempVec)
                     this.spawnCarOnDriveway(this.tempVec)

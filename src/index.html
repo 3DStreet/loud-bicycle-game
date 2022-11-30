@@ -313,9 +313,7 @@
       <a-entity noise-meter="clickerId:shout; meterId:special-meter; isSmall:true; keyCode:q" sound="src: url(./assets/bell.mp3); loop: true"></a-entity>
       <a-entity id="horn-noise" noise-meter="clickerId:horn; meterId:main-meter; isSmall:false; keyCode:e" sound="src: url(./assets/shout.mp3); loop: true"></a-entity>
 
-      <a-plane id="comic-effect-plane" src="#comic-effect" material="opacity: 1.0; transparent: false; alphaTest: 0.5" position="-0.3 0.7 -10.5" look-at="a-camera" scale="2 2 2" rotation="-90 0 0"></a-plane>
       <a-entity id="level" animation="property: position; to: 0 0 400; autoplay: false; dur: 100000; easing: linear; loop: false">
-        <a-entity item="type: horn" gltf-model="#loud-bicycle-mini-asset" position="0 0.8 -16" scale="4 4 4"></a-entity>
       </a-entity>
 
     </a-scene>
@@ -407,6 +405,9 @@
     sceneEl.addEventListener('loaded', () => {
       document.querySelector('#game-state-header').innerText = "Menu";
       document.querySelector('#landing-label').innerText = "Click to continue...";
+      if(window.innerWidth <= 600) {
+        document.querySelector('a-camera').setAttribute('fov', 110);
+      }
     });
 
     landing.addEventListener('click', () => {
