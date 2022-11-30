@@ -48,6 +48,8 @@ AFRAME.registerComponent('player-controller', {
         this.liveEls[0].style.visibility = 'unset';
         this.liveEls[1].style.visibility = 'unset';
         this.liveEls[2].style.visibility = 'unset';
+        this.collided = false;
+        this.el.object3D.visible = true;
     },
     setLane: function(lane) {
         this.currentLane = lane;
