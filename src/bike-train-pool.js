@@ -1,3 +1,5 @@
+import { gameManager } from "./game-manager";
+
 const BIKE_TRAIN_SPAWN_INTERVAL_MS = 15000;
 
 AFRAME.registerComponent('bike-train-pool', {
@@ -29,7 +31,7 @@ AFRAME.registerComponent('bike-train-pool', {
 
         scene.attach( el.object3D ); 
 
-        let lane = Math.floor(window.lanes);
+        let lane = Math.floor(gameManager.lanes);
         el.object3D.position.set(lane * 2.5, 0, -20);
         el.object3D.rotation.set(0, -Math.PI/2, 0)
 

@@ -51,9 +51,9 @@ AFRAME.registerComponent('interactable-pool', {
         el.components.interactable.isHit = false;
         el.play();
 
-        el.components.interactable.lane = Math.floor(Math.random() * window.lanes);
+        el.components.interactable.lane = Math.floor(Math.random() * gameManager.lanes);
         while(el.components.interactable.lane === playerController.currentLane)
-            el.components.interactable.lane = Math.floor(Math.random() * window.lanes);
+            el.components.interactable.lane = Math.floor(Math.random() * gameManager.lanes);
 
         el.object3D.position.set(el.components.interactable.lane * 2.5,0,5);
         el.components.interactable.speed = 0;

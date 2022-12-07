@@ -34,7 +34,7 @@ AFRAME.registerComponent('player-controller', {
             this.animationMixer = this.el.querySelector('[animation-mixer]').components['animation-mixer'];
             this.sound = this.el.components['sound'];
             this.cameraEl = document.querySelector('a-camera');
-            this.cameraEl.object3D.position.x = 2.5 * Math.floor(window.lanes / 2)
+            this.cameraEl.object3D.position.x = gameManager.laneWidth * Math.floor(gameManager.lanes / 2)
         }, 100);
 
         this.currentPosition = 0;
@@ -54,7 +54,7 @@ AFRAME.registerComponent('player-controller', {
     setLane: function(lane) {
         this.currentLane = lane;
         this.setPosition();
-        this.el.object3D.position.x = this.currentLane * 2.5;
+        this.el.object3D.position.x = this.currentLane * gameManager.laneWidth;
     },
     onKeyPressed: function(e) {
         if(GAME_STATE !== GAME_STATES.PLAYING) return;
@@ -68,10 +68,10 @@ AFRAME.registerComponent('player-controller', {
         }
     },
     goRight: function() {
-        if(this.currentLane === window.lanes - 1) return;
+        if(this.currentLane === gameManager.lanes - 1) return;
         let prevLane = this.currentLane;
         this.currentLane++;
-        this.currentLane = Math.min(this.currentLane, window.lanes);
+        this.currentLane = Math.min(this.currentLane, gameManager.lanes);
         if(prevLane !== this.currentLane)
             this.setPosition();
     },
@@ -85,7 +85,7 @@ AFRAME.registerComponent('player-controller', {
     },
     setPosition: function() {
         this.currentPosition = this.el.object3D.position.x;
-        this.targetPosition = this.currentLane * 2.5
+        this.targetPosition = this.currentLane * gameManager.laneWidth;
         this.lerpT = 0;
     },
     tick: function(t, dt) {

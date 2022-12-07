@@ -29,7 +29,7 @@ AFRAME.registerComponent('smog-pool', {
 
         scene.attach( el.object3D ); 
 
-        let lane = Math.floor(Math.random() * window.lanes);
+        let lane = Math.floor(Math.random() * gameManager.lanes);
         el.object3D.position.set(lane * 2.5, 1, -20);
 
         parent.attach( el.object3D );

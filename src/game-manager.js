@@ -22,6 +22,7 @@ AFRAME.registerComponent('game-manager', {
     init: function() {
         window.gameManager = this;
         gameManager = this;
+        this.lanes = 3;
         this.tempVec = new Vector3();
         this.currentLevelStreetEls = [];
         this.bikeMemberCount = 0;
@@ -124,6 +125,8 @@ AFRAME.registerComponent('game-manager', {
     },
     generateLevel: function(index) {
         const levelData = this.levelData = gameData.levels[index];
+        this.laneWidth = levelData.laneWidth;
+        this.lanes = levelData.amountLanes;
         if(levelData.startWithMini) this.upgradeToHorn();
         else this.downgradeToShout();
         document.querySelector('[player-controller]').components['player-controller'].setLane(levelData.startingLane);

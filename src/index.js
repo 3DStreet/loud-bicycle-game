@@ -15,13 +15,3 @@ require('./bike-train-member');
 require('./noise-meter');
 require('aframe-extras.animation-mixer');
 require('./aframe-street-component');
-
-window.lanes = 3
-const queryString = window.location.search;
-const urlParams = new URLSearchParams(queryString);
-const lanesParam = urlParams.get('lanes');
-
-if(lanesParam) {
-    const lanes = Number(lanesParam);
-    window.lanes = lanes
-}

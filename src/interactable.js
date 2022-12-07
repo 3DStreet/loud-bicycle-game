@@ -1,5 +1,5 @@
 import { Vector3, Vector2, SplineCurve } from 'super-three';
-import { GAME_STATE, GAME_STATES } from "./game-manager";
+import { gameManager, GAME_STATE, GAME_STATES } from "./game-manager";
 import { lerp } from './helpers/math'
 import { noiseIndicator } from './noise-indicator';
 import { playerController } from './player-controller'
@@ -60,6 +60,7 @@ AFRAME.registerComponent('interactable', {
         this.curveVec2 = new Vector3();
         this.curveVec3 = new Vector3();
         this.splineVec = new Vector2();
+        // this.obb = new OBB();
         this.isHit = false;
         this.playerEl = document.querySelector('[player-controller]');
         this.tempVec = new Vector3();
@@ -217,8 +218,8 @@ AFRAME.registerComponent('interactable', {
                 } else {
                     while(this.tempVec > 3 && this.lane === playerController.currentLane){
                         this.changeLane = true;
-                        this.lane = Math.floor(Math.random() * window.lanes);
-                        this.el.object3D.position.set(this.lane * 2.5,0,5);
+                        this.lane = Math.floor(Math.random() * gameManager.lanes);
+                        this.el.object3D.position.set(this.lane * gameManager.laneWidth,0,5);
                     }
                     this.el.object3D.position.z -= INTERACTABLE_BEHIND_ACCELERATION * (dt / 1000) * 75;
                     this.changeLane = false;
