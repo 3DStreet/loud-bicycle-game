@@ -14,6 +14,7 @@ export const gameData = {
         {
             name: 'Level 1 - Lead the kids to school',
             endDistance: 180,
+            startingLane: 2,
             amountBikePool: 3,
             streetLength: 50,
             streetWidth: 20,
@@ -41,7 +42,8 @@ export const gameData = {
         },
         {
             name: 'Level 2 - Lead people to work',
-            endDistance: 180,
+            endDistance: 180,            
+            startingLane: 2,
             streetLength: 100,
             streetWidth: 45,
             startWithMini: true,
