@@ -12,8 +12,7 @@ export const SIDE_STREET_URL = './levels/side_street-26f46f90-bd11-11ec-b3b1-395
 export const gameData = {
     levels: [
         {
-            name: 'Level 1 - Drop off the kids',
-            startingLane: 2,
+            name: 'Level 1 - Lead the kids to school',
             endDistance: 180,
             amountBikePool: 3,
             streetLength: 50,
@@ -41,8 +40,7 @@ export const gameData = {
             }
         },
         {
-            name: 'Level 2 - Get to work',
-            startingLane: 2,
+            name: 'Level 2 - Lead people to work',
             endDistance: 180,
             streetLength: 100,
             streetWidth: 45,
@@ -96,4 +94,4 @@ export const gameData = {
             }
         }
     ]
-} 
+}
