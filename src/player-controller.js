@@ -76,10 +76,10 @@ AFRAME.registerComponent('player-controller', {
             this.setPosition();
     },
     goLeft: function() {
-        if(this.currentLane === 0) return;
+        if(this.currentLane === -1) return;
         let prevLane = this.currentLane;
         this.currentLane--;
-        this.currentLane = Math.max(this.currentLane, 0);
+        this.currentLane = Math.max(this.currentLane, -1);
         if(prevLane !== this.currentLane)
             this.setPosition();
     },

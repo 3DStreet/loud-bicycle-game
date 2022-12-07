@@ -55,7 +55,7 @@ AFRAME.registerComponent('interactable-pool', {
         while(el.components.interactable.lane === playerController.currentLane)
             el.components.interactable.lane = Math.floor(Math.random() * gameManager.lanes);
 
-        el.object3D.position.set(el.components.interactable.lane * 2.5,0,5);
+        el.object3D.position.set(el.components.interactable.lane * gameManager.laneWidth,0,5);
         el.components.interactable.speed = 0;
         el.components.interactable.followPlayerDepth();
 
@@ -197,7 +197,7 @@ AFRAME.registerComponent('interactable-pool', {
 
         const lane = isRight ? 1 : -1;
 
-        el.object3D.position.set(lane * 2.5 + Math.sign(lane - 0.5) * SIDE_INTERCTABLE_START_DISTANCE, 0, position.z - lane * INTERSECTION_CAR_Z_OFFSET);
+        el.object3D.position.set(lane * gameManager.laneWidth + Math.sign(lane - 0.5) * SIDE_INTERCTABLE_START_DISTANCE, 0, position.z - lane * INTERSECTION_CAR_Z_OFFSET);
         el.object3D.rotation.y = -Math.sign(lane - 0.5) * 1.5708;
         el.components.interactable.direction = Math.sign(lane - 0.5) * -1;
         el.components.interactable.speed = 0;
@@ -226,10 +226,10 @@ AFRAME.registerComponent('interactable-pool', {
                     this.spawnCarOnIntersection(this.tempVec, true);
                     this.spawnCarOnIntersection(this.tempVec, false);
                     this.tempVec.z -= 10;
-                    this.tempVec.x -= 2.5;
+                    this.tempVec.x -= gameManager.laneWidth;
                     this.spawnLeftCross(this.tempVec);
                     this.tempVec.z += 25;
-                    this.tempVec.x += 2.7;
+                    this.tempVec.x += gameManager.laneWidth + 0.2;
                     this.spawnRightCross(this.tempVec);
                 }
             }
