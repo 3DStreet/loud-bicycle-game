@@ -32,7 +32,7 @@ AFRAME.registerComponent('bike-train-pool', {
         scene.attach( el.object3D ); 
 
         let lane = Math.floor(gameManager.lanes);
-        el.object3D.position.set(lane * 2.5, 0, -20);
+        el.object3D.position.set(lane * gameManager.levelData.laneWidth + gameManager.levelData.bikePoolSpawnOffset, 0.25, -20);
         el.object3D.rotation.set(0, -Math.PI/2, 0)
 
         parent.attach( el.object3D );
