@@ -1,10 +1,12 @@
-import { Vector3 } from 'super-three';
+import { Vector3, Box3 } from 'super-three';
 import {interactableTypes, isSideType} from './interactable'
 import { gameManager } from './game-manager';
 import { playerController } from './player-controller'
 
 const SIDE_INTERCTABLE_START_DISTANCE = 10;
 const INTERSECTION_CAR_Z_OFFSET = 2;
+
+export let rightCrossInitialBox;
 
 AFRAME.registerComponent('interactable-pool', {
     init: function() {
@@ -117,6 +119,17 @@ AFRAME.registerComponent('interactable-pool', {
         el.removeAttribute("gltf-model");
         el.setAttribute('gltf-model', '#box-truck-rigged');
 
+        // Needed for OBB calculation in aabb-collider
+        if(!rightCrossInitialBox) {
+            setTimeout(() => {
+                if(!rightCrossInitialBox) {
+                    rightCrossInitialBox = new Box3();
+                    rightCrossInitialBox.setFromObject(el.object3D);
+                    rightCrossInitialBox.setFromCenterAndSize(new Vector3(0,0,0), rightCrossInitialBox.getSize(this.tempVec))
+                }
+            }, 1000);
+        }
+
         el.components.interactable.isHit = false;
 
         let parent = el.object3D.parent;
@@ -220,7 +233,7 @@ AFRAME.registerComponent('interactable-pool', {
             if(child.type === "Group" && child.el) {
                 if(child.el.classList[0] === "driveway") {
                     child.getWorldPosition(this.tempVec)
-                    this.spawnCarOnDriveway(this.tempVec)
+                    // this.spawnCarOnDriveway(this.tempVec)
                 } else if(child.el.classList[0] === "intersection") {
                     child.getWorldPosition(this.tempVec)
                     this.spawnCarOnIntersection(this.tempVec, true);

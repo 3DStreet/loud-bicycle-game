@@ -1,5 +1,8 @@
 /* global AFRAME, THREE */
 
+import { rightCrossInitialBox } from './interactable-pool';
+import { OBB } from './OBB'
+
 /**
  * Implement AABB collision detection for entities with a mesh.
  * (https://en.wikipedia.org/wiki/Minimum_bounding_box#Axis-aligned_minimum_bounding_box)
@@ -20,6 +23,8 @@ AFRAME.registerComponent('aabb-collider', {
     this.collisions = [];
     this.elMax = new THREE.Vector3();
     this.elMin = new THREE.Vector3();
+    this.obb = new OBB();
+    this.boundingBox = new THREE.Box3();
   },
 
   /**
@@ -76,16 +81,26 @@ AFRAME.registerComponent('aabb-collider', {
         var elMin;
         var elMax;
         if (!mesh) { return; }
-        boundingBox.setFromObject(mesh);
-        elMin = boundingBox.min;
-        elMax = boundingBox.max;
+        if(el.components?.interactable?.data?.type === "rightCross") {
+          if(rightCrossInitialBox) {
+            self.obb.fromBox3(rightCrossInitialBox);
+            self.obb.applyMatrix4(mesh.matrixWorld);
+            intersected = self.obb.intersectsBox3(self.boundingBox);
+          }
+        } else {
+          boundingBox.setFromObject(mesh);
+          elMin = boundingBox.min;
+          elMax = boundingBox.max;
+          intersected = (self.elMin.x <= elMax.x && self.elMax.x >= elMin.x) &&
+          (self.elMin.y <= elMax.y && self.elMax.y >= elMin.y) &&
+          (self.elMin.z <= elMax.z && self.elMax.z >= elMin.z);
+        }
+
         // Bounding boxes are always aligned with the world coordinate system.
         // The collision test checks for the conditions where cubes intersect.
         // It's an extension to 3 dimensions of this approach (with the condition negated)
         // https://www.youtube.com/watch?v=ghqD3e37R7E
-        intersected = (self.elMin.x <= elMax.x && self.elMax.x >= elMin.x) &&
-                      (self.elMin.y <= elMax.y && self.elMax.y >= elMin.y) &&
-                      (self.elMin.z <= elMax.z && self.elMax.z >= elMin.z);
+
         if (!intersected) { return; }
         collisions.push(el);
       }
@@ -99,6 +114,7 @@ AFRAME.registerComponent('aabb-collider', {
       }
 
       function updateBoundingBox () {
+        self.boundingBox.setFromObject(mesh);
         boundingBox.setFromObject(mesh);
         self.elMin.copy(boundingBox.min);
         self.elMax.copy(boundingBox.max);
