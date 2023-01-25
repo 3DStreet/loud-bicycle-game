@@ -138,7 +138,8 @@ AFRAME.registerComponent('game-manager', {
         this.currentLevelStreetEls = []
         let isIntersection = false;
         let spawnDistance = levelData.streetLength / 2;
-        for (let i = 0; i < 7; i++) {
+        let lastSpawnPosition = 0;
+        for (let i = 0; i < levelData.streetUrls.length; i++) {
             const el = document.createElement('a-entity');
 
             if(isIntersection) {    
@@ -164,19 +165,28 @@ AFRAME.registerComponent('game-manager', {
                 this.currentLevel.append(left);
 
                 el.halfLength = levelData.streetWidth / 2;
+                lastSpawnPosition = positionZ - el.halfLength;
                 spawnDistance += levelData.streetLength;
             } else {
-                el.setAttribute('position', {x: 1.5, y: 0, z: -(spawnDistance - levelData.streetLength / 2)})
+                let positionZ = -(spawnDistance - levelData.streetLength / 2);
+                el.setAttribute('position', {x: 1.5, y: 0, z: positionZ})
                 el.setAttribute('street', {length: levelData.streetLength, showVehicles: false})
                 el.setAttribute('streetmix-loader', {streetmixAPIURL: levelData.streetUrls[i]})
                 el.setAttribute('class', `street`)  
                 el.halfLength = levelData.streetLength                                                                                                                                                                                                                                                                                   / 2;
+                lastSpawnPosition = positionZ - el.halfLength;
                 spawnDistance += levelData.streetWidth;
             }
             isIntersection = !isIntersection;
             this.currentLevel.append(el);
             this.currentLevelStreetEls.push(el);
         }
+        const el = document.createElement('a-entity');
+
+        el.setAttribute('position', {x: 1.5, y: 0, z: lastSpawnPosition})
+        el.setAttribute('rotation', {x: 0, y: 180, z: 0})
+        el.setAttribute('gltf-model', '#building-school-asset')
+        this.currentLevel.append(el);
     },
     removeLevel: function() {
         this.interactablePool.returnAll();
