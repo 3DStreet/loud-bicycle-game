@@ -251,6 +251,7 @@
         <audio id="muffled-voice" src="./assets/muffled_voice.mp3" preload="auto"></audio>
         <audio id="win-sound" src="./assets/win.mp3" preload="auto"></audio>
         <img id="comic-effect" src="./assets/comic_effect.png">
+        <img id="grass-floor" src="./3dstreet-assets/materials/TexturesCom_Grass0052_1_seamless_S.jpg">
         <img id="sky" src="https://github.3dstreet.org/assets/CGSkies_0343_doubled_2048.jpg">
         <a-mixin id="interactable-mixin" interactable sound="src:#muffled-voice" material="color: red" color="#4CC3D9"></a-mixin>
         <a-mixin id="smog-mixin" smog geometry="primitive: box; width: 1; height: 1; depth: 0.2"></a-mixin>
@@ -314,6 +315,7 @@
       <a-entity id="horn-noise" noise-meter="clickerId:horn; meterId:main-meter; isSmall:false; keyCode:e" sound="src: url(./assets/shout.mp3); loop: true"></a-entity>
 
       <a-entity id="level" animation="property: position; to: 0 0 400; autoplay: false; dur: 100000; easing: linear; loop: false">
+        <a-plane src="#grass-floor" height="1000" width="1000" rotation="-90 0 0" position="0 -0.05 0" material="repeat: 20 20"></a-plane>
       </a-entity>
 
     </a-scene>

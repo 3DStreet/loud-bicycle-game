@@ -4,6 +4,9 @@ import { lerp } from './helpers/math'
 import { noiseIndicator } from './noise-indicator';
 import { playerController } from './player-controller'
 
+var DbgDraw = require('three-debug-draw')(THREE);
+const isDebug = true;
+
 export const interactableTypes = ['rightHook', 'side', 'leftCross', 'rightCross', 'driveway'];
 export const isSideType = (type) => {
     return type === 'side' || type === 'driveway';
@@ -64,6 +67,7 @@ AFRAME.registerComponent('interactable', {
         this.curveVec1 = new Vector3();
         this.curveVec2 = new Vector3();
         this.curveVec3 = new Vector3();
+        this.interactableWorldPosition = new Vector3();
         this.splineVec = new Vector2();
         // this.obb = new OBB();
         this.isHit = false;
@@ -102,6 +106,7 @@ AFRAME.registerComponent('interactable', {
         var data = this.data;
     },
     tick: function(t, dt) {
+
         if(GAME_STATE === GAME_STATES.PLAYING) {
             switch(this.data.type) {
                 case 'rightHook':
@@ -123,6 +128,9 @@ AFRAME.registerComponent('interactable', {
         if(this.returnFunction && this.tempVec.z > INTERACTABLE_DISABLE_Z) {
             this.returnFunction();
         }
+        if(isDebug && this.el.sceneEl.object3D) {
+            DbgDraw.render(this.el.sceneEl.object3D);
+        }
     },
     setBezierCurveLeftCross: function(startZ) {
         this.startZ = startZ;
@@ -142,7 +150,7 @@ AFRAME.registerComponent('interactable', {
     },
     setBezierCurveRightCross: function() {
         this.curveVec0.copy(this.el.object3D.position);
-
+        
         // this.curveVec1.copy(this.curveVec0);
         // this.curveVec1.add(INTERACTABLE_RIGHT_CROSS_V1_OFFSET);
         // this.curveVec2.copy(this.curveVec0);
@@ -175,6 +183,23 @@ AFRAME.registerComponent('interactable', {
     },
     attackPlayerRightCross: function(dt) {
         if(!this.isHit) {
+            if(isDebug) {
+                this.interactableWorldPosition.copy(this.el.object3D.parent.position);
+                this.interactableWorldPosition.add(this.curveVec0);
+                for (let i = 0; i < 50; i++) {
+                    INTERACTABLE_RIGHT_CROSS_SPLINE.getPoint( i / 50.0, this.splineVec);
+                    this.curveVec1.x = this.splineVec.x;
+                    this.curveVec1.y = 0.4;
+                    this.curveVec1.z = this.splineVec.y;
+    
+                    this.curveVec1.add(this.interactableWorldPosition);
+                    
+                    DbgDraw.drawSphere(
+                        this.curveVec1,
+                        0.5,
+                    'red');
+                }
+            }
             const worldZ = this.el.object3D.position.z + this.el.object3D.parent.position.z;
             if(worldZ > -INTERACTABLE_RIGHT_CROSS_ATTACK_START_Z_DISTANCE) this.followPlayer = true;
             if(this.followPlayer) {
