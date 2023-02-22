@@ -40,7 +40,7 @@ const INTERACTABLE_RIGHT_CROSS_ATTACK_SPEED_MULTIPLIER = 0.3;
 // const INTERACTABLE_RIGHT_CROSS_V0 = [2, 0, -12];
 
 // will use the following structure: Vector2 (x, z)
-const INTERACTABLE_RIGHT_CROSS_SPLINE = new SplineCurve([
+const SPLINE_VECTORS_RIGHT_CROSS = [    
     new Vector2( 0, 14 ),
 	new Vector2( 0, -8 ),
 	new Vector2( -3, -13 ),
@@ -49,8 +49,9 @@ const INTERACTABLE_RIGHT_CROSS_SPLINE = new SplineCurve([
 	new Vector2( 10, -30 ),
 	new Vector2( 20, -30 ),
 	new Vector2( 40, -30 )
-] );
+]
 
+const INTERACTABLE_RIGHT_CROSS_SPLINE = new SplineCurve(SPLINE_VECTORS_RIGHT_CROSS);
 
 const INTERACTABLE_DISABLE_Z = 10;
 
@@ -200,7 +201,7 @@ AFRAME.registerComponent('interactable', {
             const worldZ = this.el.object3D.position.z + this.el.object3D.parent.position.z;
             if(worldZ > -INTERACTABLE_RIGHT_CROSS_ATTACK_START_Z_DISTANCE) this.followPlayer = true;
             if(this.followPlayer) {
-                this.speed += INTERACTABLE_RIGHT_CROSS_ATTACK_SPEED_MULTIPLIER * (dt / 1000);
+                this.speed += (INTERACTABLE_RIGHT_CROSS_ATTACK_SPEED_MULTIPLIER * (dt / 1000)) / (SPLINE_VECTORS_RIGHT_CROSS.length);
                 this.speed = Math.min(1, this.speed);
                 if(this.speed === 1) {
                     this.el.object3D.position.x += this.speed / 10;
