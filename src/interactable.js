@@ -30,23 +30,29 @@ const INTERACTABLE_LEFT_CROSS_V3_OFFSET = new Vector3( 10, 0, 15 );
 
 
 // Right Cross
-const INTERACTABLE_RIGHT_CROSS_ATTACK_START_Z_DISTANCE = 15;
-const INTERACTABLE_RIGHT_CROSS_ATTACK_SPEED_MULTIPLIER = 0.06;
+// const INTERACTABLE_RIGHT_CROSS_ATTACK_START_Z_DISTANCE = 15;
+// const INTERACTABLE_RIGHT_CROSS_ATTACK_START_Z_DISTANCE = 40;
+const INTERACTABLE_RIGHT_CROSS_ATTACK_START_Z_DISTANCE = 32;
+
+const INTERACTABLE_RIGHT_CROSS_ATTACK_SPEED_MULTIPLIER = .7;
 
 // will use the following structure: Vector2 (x, z)
-const INTERACTABLE_RIGHT_CROSS_SPLINE = new SplineCurve([
-	new Vector2(0.0, 12.0),
-	new Vector2(0.0, -1.0),
-	new Vector2(-0.2, -6.0),
-	new Vector2(-1.0, -14.0),
-	new Vector2(-2.8, -23.0),
-	new Vector2(-3.0, -29.0),
-	new Vector2(0.0, -31.0),
-	new Vector2(10.0, -32.0),
-	new Vector2(20.0, -32.0),
-	new Vector2(40.0, -32.0),
-] );
+const SPLINE_VECTORS_RIGHT_CROSS = [    
+	new Vector2(0.0, 32.0),
+	new Vector2(0.0, 26.5),
+	new Vector2(0.0, 21.0),
+	new Vector2(0.0, 14.3),
+	new Vector2(-0.0, 7.0),
+	new Vector2(-1.0, -1.5),
+	new Vector2(-3.0, -9.0),
+	new Vector2(2.0, -11.5),
+	new Vector2(10.0, -12.0),
+	new Vector2(20.0, -12.0),
+	new Vector2(30.0, -12.0),
+	new Vector2(40.0, -12.0),
+]
 
+const INTERACTABLE_RIGHT_CROSS_SPLINE = new SplineCurve(SPLINE_VECTORS_RIGHT_CROSS);
 
 const INTERACTABLE_DISABLE_Z = 10;
 
@@ -196,7 +202,7 @@ AFRAME.registerComponent('interactable', {
             const worldZ = this.el.object3D.position.z + this.el.object3D.parent.position.z;
             if(worldZ > -INTERACTABLE_RIGHT_CROSS_ATTACK_START_Z_DISTANCE) this.followPlayer = true;
             if(this.followPlayer) {
-                this.speed += INTERACTABLE_RIGHT_CROSS_ATTACK_SPEED_MULTIPLIER * (dt / 1000);
+                this.speed += (INTERACTABLE_RIGHT_CROSS_ATTACK_SPEED_MULTIPLIER * (dt / 1000)) / (SPLINE_VECTORS_RIGHT_CROSS.length);
                 this.speed = Math.min(1, this.speed);
                 if(this.speed === 1) {
                     this.el.object3D.position.x += this.speed / 10;

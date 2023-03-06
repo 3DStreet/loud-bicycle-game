@@ -107,7 +107,8 @@ AFRAME.registerComponent('interactable-pool', {
         }
     },
     spawnRightCross: function(position) {
-        position.z = position.z + 20
+        // position.z = position.z + 20
+        position.z = position.z + 0
         const type = 'rightCross';
         if(!gameManager.levelData.interactables.includes(type)) return;
 
