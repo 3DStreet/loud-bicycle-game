@@ -43,6 +43,9 @@ AFRAME.registerComponent('player-controller', {
 
         this.liveEls = document.querySelector('#life-indicator-container').children;
     },
+    setAnimationPaused: function(b) {
+        b ? this.animationMixer.pause() : this.animationMixer.play();
+    },
     reset: function() {
         this.lives = 3;
         this.liveEls[0].style.visibility = 'unset';
@@ -64,6 +67,9 @@ AFRAME.registerComponent('player-controller', {
                 break;
             case 'a':
                 this.goLeft()
+                break;
+            case 'p': 
+                gameManager.togglePauseLevel()
                 break;
         }
     },

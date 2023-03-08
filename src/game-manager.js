@@ -4,8 +4,9 @@ import { playerController } from './player-controller';
 
 export const GAME_STATES = {
     PLAYING: 0,
-    END: 1,
-    MENU: 2,
+    PAUSED: 1,
+    END: 2,
+    MENU: 3,
 }
 
 export let GAME_STATE = GAME_STATES.MENU;
@@ -38,12 +39,26 @@ AFRAME.registerComponent('game-manager', {
             this.gameScoreLabel = document.querySelector('#score');
             this.smogAudio = this.el.components.sound;
             
+            // Pause Menu
+            let pauseContinueButton = document.querySelector('#pause-menu-container #continue');
+            let pauseQuitButton = document.querySelector('#pause-menu-container #quit');
+
+            pauseContinueButton.addEventListener('click', () => {
+                this.togglePauseLevel();
+            })
+
+            pauseQuitButton.addEventListener('click', () => {
+                this.quitLevel();
+            })
+
+            // Level Buttons
             for (let i = 0; i < 6; i++) {
                 const id = `#level-${i+1}-button`;
                 document.querySelector(id).addEventListener('click', () => {
                     this.generateLevel(i);
                     this.playLevel();
                     setMenuEnabled(false);
+                    setLevelSelectionEnabled(false)
                 })
             }
 
@@ -68,6 +83,31 @@ AFRAME.registerComponent('game-manager', {
         setEndScreenEnabled(true, this.levelData.getLevelEndMessage(this.bikeMemberCount));
         this.winSoundEl.play();
         this.removeLevel();
+    },
+    quitLevel: function() {
+        this.stopLevel();
+        setMenuEnabled();
+        this.removeLevel();
+        setPauseEnabled(false);
+        setLevelSelectionEnabled(true);
+        this.levelAnimation.animation.play();
+        this.el.sceneEl.play();
+        playerController.setAnimationPaused(false);
+    },
+    togglePauseLevel: function() {
+        if(!(GAME_STATE === GAME_STATES.PLAYING || GAME_STATE === GAME_STATES.PAUSED)) return;
+        GAME_STATE = GAME_STATE === GAME_STATES.PAUSED ? GAME_STATES.PLAYING : GAME_STATES.PAUSED;
+        if(GAME_STATE === GAME_STATES.PAUSED) {
+            this.levelAnimation.animation.pause();
+            this.el.sceneEl.pause();
+            playerController.setAnimationPaused(true);
+            setPauseEnabled(true);
+        } else {
+            this.levelAnimation.animation.play();
+            this.el.sceneEl.play();
+            playerController.setAnimationPaused(false);
+            setPauseEnabled(false);
+        }
     },
     failLevel: function() {
         this.stopLevel();
