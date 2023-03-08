@@ -16,7 +16,7 @@ export const gameData = {
             endDistance: 180,
             startingLane: 2,
             amountLanes: 3,
-            laneWidth: 2.5,
+            laneWidth: 3.048,
             amountBikePool: 3,
             bikePoolSpawnOffset: 1.0,
             streetLength: 50,
@@ -25,7 +25,7 @@ export const gameData = {
             spawnMinis: true,
             interactables: [
                 'driveway',
-                'side',
+                // 'side',
                 'rightCross'
             ],
             streetUrls: [
@@ -56,10 +56,13 @@ export const gameData = {
             startWithMini: true,
             streetLengthAdditionalRange: 10,
             interactables: [
+                'rightHook',
+                'rightCross',
                 'driveway'
+
             ],
             streetUrls: [
-                './levels/street_1-51136070-c1f7-11ec-877c-abfad556cfc6.json'
+                './levels/street_3-6a184410-c1fb-11ec-877c-abfad556cfc6.json',
             ],
             intersectionUrls: [
                 'https://cdn.glitch.global/4cbfc52c-9f40-485c-b7ff-e3ed0494f9a0/intersection.jpeg?v=1650059985944'
