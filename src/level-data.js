@@ -14,9 +14,9 @@ export const gameData = {
         {
             name: 'Level 1 - Lead the kids to school',
             endDistance: 180,
-            startingLane: 0,
+            startingLane: 2,
             amountLanes: 3,
-            laneWidth: 2.5,
+            laneWidth: 3.048,
             amountBikePool: 3,
             bikePoolSpawnOffset: 1.0,
             streetLength: 50,
@@ -25,16 +25,16 @@ export const gameData = {
             spawnMinis: true,
             interactables: [
                 'driveway',
-                'side',
+                // 'side',
                 'rightCross'
             ],
             streetUrls: [
                 './levels/street_1-51136070-c1f7-11ec-877c-abfad556cfc6.json',
                 './levels/street_1-51136070-c1f7-11ec-877c-abfad556cfc6.json',
+                './levels/street_1-51136070-c1f7-11ec-877c-abfad556cfc6.json',
                 './levels/street_2-b4112510-c1fa-11ec-877c-abfad556cfc6.json',
                 './levels/street_2-b4112510-c1fa-11ec-877c-abfad556cfc6.json',
-                './levels/street_3-6a184410-c1fb-11ec-877c-abfad556cfc6.json',
-                './levels/street_3-6a184410-c1fb-11ec-877c-abfad556cfc6.json',
+                './levels/street_2-b4112510-c1fa-11ec-877c-abfad556cfc6.json',
             ],
             intersectionUrls: [
                 'https://cdn.glitch.global/4cbfc52c-9f40-485c-b7ff-e3ed0494f9a0/intersection.jpeg?v=1650059985944'
@@ -45,21 +45,29 @@ export const gameData = {
         },
         {
             name: 'Level 2 - Lead people to work',
-            endDistance: 180,            
+            endDistance: 180,
             startingLane: 2,
-            amountLanes: 2,
+            amountLanes: 4,
             amountBikePool: 3,
-            bikePoolSpawnOffset: 0.5,
-            laneWidth: 2.5,
-            streetLength: 100,
-            streetWidth: 45,
+            bikePoolSpawnOffset: 1,
+            laneWidth: 3.048,
+            streetLength: 50,
+            streetWidth: 20,
             startWithMini: true,
             streetLengthAdditionalRange: 10,
             interactables: [
+                'rightHook',
+                'rightCross',
                 'driveway'
+
             ],
             streetUrls: [
-                './levels/street_1-51136070-c1f7-11ec-877c-abfad556cfc6.json'
+                './levels/street_3-6a184410-c1fb-11ec-877c-abfad556cfc6.json',
+                './levels/street_3-6a184410-c1fb-11ec-877c-abfad556cfc6.json',
+                './levels/street_3-6a184410-c1fb-11ec-877c-abfad556cfc6.json',
+                './levels/street_4-1da4bec0-c1ff-11ec-877c-abfad556cfc6.json',
+                './levels/street_4-1da4bec0-c1ff-11ec-877c-abfad556cfc6.json',
+                './levels/street_4-1da4bec0-c1ff-11ec-877c-abfad556cfc6.json',
             ],
             intersectionUrls: [
                 'https://cdn.glitch.global/4cbfc52c-9f40-485c-b7ff-e3ed0494f9a0/intersection.jpeg?v=1650059985944'
@@ -70,17 +78,30 @@ export const gameData = {
         },
         {
             name: 'Level 3 - Get to the bar!',
-            startingLane: 2,
-            laneWidth: 2.5,
-            amountLanes: 2,
-            amountBikePool: 3,
-            bikePoolSpawnOffset: 0.5,
             endDistance: 180,
-            streetLength: 100,
-            streetWidth: 45,
+            startingLane: 2,
+            amountLanes: 4,
+            amountBikePool: 3,
+            bikePoolSpawnOffset: 1,
+            laneWidth: 3.048,
+            streetLength: 50,
+            streetWidth: 20,
+            startWithMini: true,
             streetLengthAdditionalRange: 10,
+            interactables: [
+                'rightHook',
+                'rightCross',
+                'driveway',
+                'side'
+            ],
             streetUrls: [
-                './levels/street_1-51136070-c1f7-11ec-877c-abfad556cfc6.json'
+                './levels/street_4-1da4bec0-c1ff-11ec-877c-abfad556cfc6.json',
+                './levels/street_4-1da4bec0-c1ff-11ec-877c-abfad556cfc6.json',
+                './levels/street_4-1da4bec0-c1ff-11ec-877c-abfad556cfc6.json',
+                './levels/street_5-93937ae0-c1ff-11ec-877c-abfad556cfc6.json',
+                './levels/street_5-93937ae0-c1ff-11ec-877c-abfad556cfc6.json',
+                './levels/street_5-93937ae0-c1ff-11ec-877c-abfad556cfc6.json',
+
             ],
             intersectionUrls: [
                 'https://cdn.glitch.global/4cbfc52c-9f40-485c-b7ff-e3ed0494f9a0/intersection.jpeg?v=1650059985944'
@@ -91,17 +112,29 @@ export const gameData = {
         },
         {
             name: 'Level 4 - Get home safely',
-            startingLane: 2,
-            amountLanes: 2,
-            laneWidth: 2.5,
-            amountBikePool: 3,
-            bikePoolSpawnOffset: 0.6,
             endDistance: 180,
-            streetLength: 100,
-            streetWidth: 45,
+            startingLane: 2,
+            amountLanes: 4,
+            amountBikePool: 3,
+            bikePoolSpawnOffset: 1,
+            laneWidth: 3.048,
+            streetLength: 50,
+            streetWidth: 20,
+            startWithMini: true,
             streetLengthAdditionalRange: 10,
+            interactables: [
+                'rightHook',
+                'rightCross',
+                'driveway',
+                'side'
+            ],
             streetUrls: [
-                './levels/street_1-51136070-c1f7-11ec-877c-abfad556cfc6.json'
+                './levels/street_5-93937ae0-c1ff-11ec-877c-abfad556cfc6.json',
+                './levels/street_5-93937ae0-c1ff-11ec-877c-abfad556cfc6.json',
+                './levels/street_4-1da4bec0-c1ff-11ec-877c-abfad556cfc6.json',
+                './levels/street_3-6a184410-c1fb-11ec-877c-abfad556cfc6.json',
+                './levels/street_2-b4112510-c1fa-11ec-877c-abfad556cfc6.json',
+                './levels/street_1-51136070-c1f7-11ec-877c-abfad556cfc6.json',
             ],
             intersectionUrls: [
                 'https://cdn.glitch.global/4cbfc52c-9f40-485c-b7ff-e3ed0494f9a0/intersection.jpeg?v=1650059985944'
