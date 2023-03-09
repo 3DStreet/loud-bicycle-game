@@ -299,7 +299,7 @@
         player-controller="speed: 2.0"
         aabb-collider="objects:[interactable], [smog]"
       >
-        <a-entity mixin="cyclist1" animation-mixer rotation="0 180 0"></a-entity>
+        <a-entity id="player-cyclist" mixin="cyclist1" animation-mixer rotation="0 180 0"></a-entity>
         <a-entity id="noise-indicator" gltf-model="#wave" visible="false" noise-indicator>
           <a-sphere id="noise-indicator-collider" visible="false" aabb-collider="objects:[interactable], [bike-train-member]"></a-sphere>
         </a-entity>
@@ -354,7 +354,13 @@
           <button id="level-5-button" class="button"><span class="text">Level 5</span></button>
           <button id="level-6-button" class="button"><span class="text">Level 6</span></button>
         </div>
-        <button class="button" onclick="setLevelSelectionEnabled(false)"><span class="text">Back</span></button>
+        <button class="button" onclick="setLevelSelectionEnabled(false); setMenuEnabled(true)"><span class="text">Back</span></button>
+      </div>
+      <div id="pause-menu" class="disabled">
+        <div id="pause-menu-container">
+          <button id="continue" class="button"><span class="text">Continue</span></button>
+          <button id="quit" class="button"><span class="text">Quit</span></button>
+        </div>
       </div>
       <div id="credits" class="disabled">
         <p>
@@ -403,6 +409,7 @@
     let endScreen = document.querySelector('#level-end-screen');
     let settings = document.querySelector('#settings');
     let levelSelection = document.querySelector('#level-selection');
+    let pauseMenu = document.querySelector('#pause-menu');
 
     sceneEl.addEventListener('loaded', () => {
       document.querySelector('#game-state-header').innerText = "Menu";
@@ -465,6 +472,16 @@
       }
     }
 
+    function setPauseEnabled(b) {
+      if(b) {
+        pauseMenu.classList.add('enabled');
+        pauseMenu.classList.remove('disabled');
+      } else {
+        pauseMenu.classList.remove('enabled');
+        pauseMenu.classList.add('disabled');
+      }
+    }
+
     function setLevelSelectionEnabled(b) {
       if(b) {
         let hasPlayedBefore = localStorage.getItem("played-loud-bicycle");
@@ -497,11 +514,11 @@
     function setMenuEnabled(b) {
       landing.classList.add('disabled');
       if(b) {
-        gameMenu.classList.remove('disabled');
-        gameMenu.style.display = 'unset';
+        mainMenu.classList.remove('disabled');
+        mainMenu.style.display = 'flex';
       } else {
-        gameMenu.classList.add('disabled');
-        gameMenu.style.display = 'none';
+        mainMenu.classList.add('disabled');
+        mainMenu.style.display = 'none';
       }
     }
   </script>

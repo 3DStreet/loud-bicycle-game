@@ -104,6 +104,7 @@ AFRAME.registerComponent('interactable', {
         var data = this.data;
     },
     tick: function(t, dt) {
+        if(GAME_STATE === GAME_STATES.PAUSED) return;
 
         if(GAME_STATE === GAME_STATES.PLAYING) {
             switch(this.data.type) {
