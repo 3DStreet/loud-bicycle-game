@@ -64,6 +64,8 @@ export const gameData = {
             streetUrls: [
                 './levels/street_3-6a184410-c1fb-11ec-877c-abfad556cfc6.json',
                 './levels/street_3-6a184410-c1fb-11ec-877c-abfad556cfc6.json',
+                './levels/street_3-6a184410-c1fb-11ec-877c-abfad556cfc6.json',
+                './levels/street_4-1da4bec0-c1ff-11ec-877c-abfad556cfc6.json',
                 './levels/street_4-1da4bec0-c1ff-11ec-877c-abfad556cfc6.json',
                 './levels/street_4-1da4bec0-c1ff-11ec-877c-abfad556cfc6.json',
             ],

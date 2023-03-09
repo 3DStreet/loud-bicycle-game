@@ -107,7 +107,6 @@ AFRAME.registerComponent('interactable-pool', {
         }
     },
     spawnRightCross: function(position) {
-        position.z = position.z + 20
         const type = 'rightCross';
         if(!gameManager.levelData.interactables.includes(type)) return;
 
@@ -238,10 +237,10 @@ AFRAME.registerComponent('interactable-pool', {
                     child.getWorldPosition(this.tempVec)
                     this.spawnCarOnIntersection(this.tempVec, true);
                     this.spawnCarOnIntersection(this.tempVec, false);
-                    this.tempVec.z -= 10;
+                    this.tempVec.z -= 0;
                     this.tempVec.x -= gameManager.laneWidth;
                     this.spawnLeftCross(this.tempVec);
-                    this.tempVec.z += 25;
+                    this.tempVec.z += 47;
                     this.tempVec.x += gameManager.laneWidth + 0.2;
                     this.spawnRightCross(this.tempVec);
                 }

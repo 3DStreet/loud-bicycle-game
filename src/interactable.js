@@ -30,22 +30,24 @@ const INTERACTABLE_LEFT_CROSS_V3_OFFSET = new Vector3( 10, 0, 15 );
 
 
 // Right Cross
-const INTERACTABLE_RIGHT_CROSS_ATTACK_START_Z_DISTANCE = 15;
-const INTERACTABLE_RIGHT_CROSS_ATTACK_SPEED_MULTIPLIER = 0.06;
+const INTERACTABLE_RIGHT_CROSS_ATTACK_START_Z_DISTANCE = 0;
+const INTERACTABLE_RIGHT_CROSS_ATTACK_SPEED_MULTIPLIER = .7;
 
 // will use the following structure: Vector2 (x, z)
-const INTERACTABLE_RIGHT_CROSS_SPLINE = new SplineCurve([
-	new Vector2(0.0, 12.0),
-	new Vector2(0.0, -1.0),
-	new Vector2(-0.2, -6.0),
-	new Vector2(-1.0, -14.0),
-	new Vector2(-2.8, -23.0),
-	new Vector2(-3.0, -29.0),
-	new Vector2(0.0, -31.0),
-	new Vector2(10.0, -32.0),
-	new Vector2(20.0, -32.0),
-	new Vector2(40.0, -32.0),
-] );
+const SPLINE_VECTORS_RIGHT_CROSS = [    
+	new Vector2(0.0, 0.0),
+	new Vector2(0.0, -5.5),
+	new Vector2(0.0, -11.0),
+	new Vector2(0.0, -17.7),
+	new Vector2(-0.0, -25.0),
+	new Vector2(-1.0, -33.5),
+	new Vector2(-3.0, -41.0),
+	new Vector2(2.0, -43.5),
+	new Vector2(10.0, -44.0),
+	new Vector2(20.0, -44.0),
+	new Vector2(30.0, -44.0),
+	new Vector2(40.0, -44.0),
+]
 
 const INTERACTABLE_RIGHT_CROSS_SPLINE = new SplineCurve(SPLINE_VECTORS_RIGHT_CROSS);
 
