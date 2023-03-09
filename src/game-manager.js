@@ -52,7 +52,7 @@ AFRAME.registerComponent('game-manager', {
             })
 
             // Level Buttons
-            for (let i = 0; i < 6; i++) {
+            for (let i = 0; i < 4; i++) {
                 const id = `#level-${i+1}-button`;
                 document.querySelector(id).addEventListener('click', () => {
                     this.generateLevel(i);
