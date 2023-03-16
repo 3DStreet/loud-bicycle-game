@@ -37,7 +37,6 @@ AFRAME.registerComponent('interactable-pool', {
 
         let el = this.pool.requestEntity();
 
-
         const sideType = isSideType(type);
 
         el.removeAttribute("gltf-model");

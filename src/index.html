@@ -292,7 +292,7 @@
 
       </a-assets>
       <a-sky src="#sky"></a-sky>
-      <a-camera position="0 15 3" rotation="-35 0 0" wasd-controls-enabled="false" look-controls-enabled="false" fov="90"></a-camera>
+      <a-camera position="0 5 3" rotation="-35 0 0" wasd-controls-enabled="false" look-controls-enabled="false" fov="90"></a-camera>
       <a-entity
         id="model"
         geometry="primitive: box; depth: 1.5; width: 0.6"
@@ -302,7 +302,7 @@
         aabb-collider="objects:[interactable], [smog]"
       >
         <a-entity id="player-cyclist" mixin="cyclist1" animation-mixer rotation="0 180 0"></a-entity>
-        <a-entity id="noise-indicator" gltf-model="#wave" visible="false" noise-indicator>
+        <a-entity id="noise-indicator" gltf-model="#wave" visible="false" noise-indicator position="0 0.5 0">
           <a-sphere id="noise-indicator-collider" visible="false" aabb-collider="objects:[interactable], [bike-train-member]"></a-sphere>
         </a-entity>
       </a-entity>
@@ -344,7 +344,7 @@
         <div id="level-end-container">
           <h3 id="level-end-header"></h3>
           <p>Data tbd</p>
-          <button id="level-end-continue" class="button" onclick="setEndScreenEnabled(false)"><span class="text">Continue</span></button>
+          <button id="level-end-continue" class="button" onclick="setEndScreenEnabled(false); setMenuEnabled(false)"><span class="text">Continue</span></button>
         </div>
       </div>
       <div id="level-selection" class="disabled">

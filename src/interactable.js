@@ -5,7 +5,7 @@ import { noiseIndicator } from './noise-indicator';
 import { playerController } from './player-controller'
 
 var DbgDraw = require('three-debug-draw')(THREE);
-const isDebug = true;
+const isDebug = false;
 
 export const interactableTypes = ['rightHook', 'side', 'leftCross', 'rightCross', 'driveway'];
 export const isSideType = (type) => {
