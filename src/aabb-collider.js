@@ -81,7 +81,7 @@ AFRAME.registerComponent('aabb-collider', {
         var elMin;
         var elMax;
         if (!mesh) { return; }
-        if(el.components?.interactable?.data?.type === "rightCross") {
+        if(el.components && el.components.interactable && el.components.interactable.data && el.components.interactable.data.type === "rightCross") {
           if(rightCrossInitialBox) {
             self.obb.fromBox3(rightCrossInitialBox);
             self.obb.applyMatrix4(mesh.matrixWorld);
