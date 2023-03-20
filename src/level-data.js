@@ -22,6 +22,12 @@ export const gameData = {
             streetLength: 50,
             streetWidth: 20,
             intersectionWidthOffset: 10,
+            intersectionCurbMargins: {
+                top: 4.6,
+                bottom: 4.6,
+                left: 10.0,
+                right: 7.0
+            },
             streetLengthAdditionalRange: 10,
             lastBuildingOffset: 20,
             lastBuildingAssetId: '#building-school-asset',
@@ -57,6 +63,12 @@ export const gameData = {
             streetLength: 50,
             streetWidth: 20,
             intersectionWidthOffset: 10,
+            intersectionCurbMargins: {
+                top: 4.6,
+                bottom: 4.6,
+                left: 10.0,
+                right: 7.0
+            },
             startWithMini: true,
             streetLengthAdditionalRange: 10,
             lastBuildingOffset: 20,
@@ -93,6 +105,12 @@ export const gameData = {
             streetLength: 50,
             streetWidth: 20,
             intersectionWidthOffset: 10,
+            intersectionCurbMargins: {
+                top: 4.6,
+                bottom: 4.6,
+                left: 10.0,
+                right: 7.0
+            },
             startWithMini: true,
             streetLengthAdditionalRange: 10,
             lastBuildingOffset: 20,
@@ -130,10 +148,17 @@ export const gameData = {
             streetLength: 50,
             streetWidth: 20,
             intersectionWidthOffset: 10,
+            intersectionCurbMargins: {
+                top: 4.6,
+                bottom: 4.6,
+                left: 10.0,
+                right: 7.0
+            },
             startWithMini: true,
             streetLengthAdditionalRange: 10,
             lastBuildingOffset: 20,
             lastBuildingAssetId: '#building-bar.asset',
+
             interactables: [
                 'rightHook',
                 'rightCross',
