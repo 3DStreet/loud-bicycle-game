@@ -104,6 +104,7 @@ AFRAME.registerComponent('game-manager', {
         this.levelAnimation.animation.play();
         this.el.sceneEl.play();
         playerController.setAnimationPaused(false);
+        document.querySelector('#game-menu-bg').style.opacity = 1;
     },
     togglePauseLevel: function() {
         if(!(GAME_STATE === GAME_STATES.PLAYING || GAME_STATE === GAME_STATES.PAUSED)) return;
@@ -143,6 +144,7 @@ AFRAME.registerComponent('game-manager', {
         this.smogPool.start();
         this.bikePool.start();
         GAME_STATE = GAME_STATES.PLAYING;
+        document.querySelector('#game-menu-bg').style.opacity = 0;
     },
     increaseScore: function() {
         gameScore += SMOG_SCORE;
