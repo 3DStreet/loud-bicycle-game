@@ -43,13 +43,6 @@
         left: 150px;
       }
 
-      #game-state-header {
-        position: absolute;
-        top: 0;
-        right: 0;
-        font-size: larger;
-      }
-
       #life-indicator-container {
         position: absolute;
         left: 5;
@@ -81,6 +74,15 @@
         width: 100%;
         height: 100%;
         pointer-events: none;
+        z-index: 10;
+      }
+
+      #game-menu-bg {
+        background-color: #5c698b;
+        opacity: 1;
+        width: 100%;
+        height: 100%;
+        transition: opacity 1s;
       }
 
       #game-menu > * {
@@ -331,6 +333,8 @@
     <progress id="main-meter" class="high-meter" value="0" max="100"></progress>
 
     <div id="game-menu">
+      <div id="game-menu-bg">
+      </div>
       <div id="landing">
         <img src="./assets/logo__loud-bicycle.svg" alt="Loud Bicycle Logo">
         <p id="landing-label">Loading</p>
@@ -390,7 +394,6 @@
       </div>
     </div>
 
-    <p id="game-state-header">Loading</p>
     <div id="life-indicator-container">
       <div class="life-indicator"></div>
       <div class="life-indicator"></div>
@@ -412,7 +415,6 @@
     let pauseMenu = document.querySelector('#pause-menu');
 
     sceneEl.addEventListener('loaded', () => {
-      document.querySelector('#game-state-header').innerText = "Menu";
       document.querySelector('#landing-label').innerText = "Click to continue...";
       if(window.innerWidth <= 600) {
         document.querySelector('a-camera').setAttribute('fov', 110);
@@ -455,6 +457,7 @@
     }
 
     function setEndScreenEnabled(b, message) {
+      document.querySelector('#game-menu-bg').style.opacity = 0;
       setMenuEnabled(true);
       if(b) {
         endScreen.classList.add('enabled');

@@ -15,6 +15,8 @@ export let gameManager;
 
 export let gameScore = 0;
 
+export let finalAnimationTimeMS = 2000;
+
 const SMOG_SCORE = 1;
 
 AFRAME.registerComponent('game-manager', {
@@ -35,10 +37,14 @@ AFRAME.registerComponent('game-manager', {
             this.bikePool = document.querySelector('[bike-train-pool]').components['bike-train-pool'];
             this.level = document.querySelector('#level');
             this.levelAnimation = level.components.animation;
-            this.headerLabel = document.querySelector('#game-state-header');
             this.gameScoreLabel = document.querySelector('#score');
             this.smogAudio = this.el.components.sound;
             
+            document.querySelector('#model').setAttribute('animation__position',
+                {'property': 'position', 'to': {x: -3, y: 0, z: -5}, 'startEvents': 'playend', 'dur': finalAnimationTimeMS});
+            document.querySelector('#model').setAttribute('animation__rotation',
+                {'property': 'rotation', 'to': '0 90 0', 'startEvents': 'playend', 'dur': finalAnimationTimeMS});
+
             // Pause Menu
             let pauseContinueButton = document.querySelector('#pause-menu-container #continue');
             let pauseQuitButton = document.querySelector('#pause-menu-container #quit');
@@ -77,12 +83,17 @@ AFRAME.registerComponent('game-manager', {
             this.tick = AFRAME.utils.throttleTick(this.tick, 500, this);
         }, 100);
     },
+    playEndAnimation: function() {
+        document.querySelector('#model').emit('playend', null, false);
+    },
     endLevel: function() {
+        this.playEndAnimation();
         this.stopLevel();
-        this.headerLabel.innerText = "Finished";
-        setEndScreenEnabled(true, this.levelData.getLevelEndMessage(this.bikeMemberCount));
         this.winSoundEl.play();
-        this.removeLevel();
+        setTimeout(() => {
+            setEndScreenEnabled(true, this.levelData.getLevelEndMessage(this.bikeMemberCount));
+            this.removeLevel();
+        }, finalAnimationTimeMS);
     },
     quitLevel: function() {
         this.stopLevel();
@@ -93,6 +104,7 @@ AFRAME.registerComponent('game-manager', {
         this.levelAnimation.animation.play();
         this.el.sceneEl.play();
         playerController.setAnimationPaused(false);
+        document.querySelector('#game-menu-bg').style.opacity = 1;
     },
     togglePauseLevel: function() {
         if(!(GAME_STATE === GAME_STATES.PLAYING || GAME_STATE === GAME_STATES.PAUSED)) return;
@@ -111,7 +123,6 @@ AFRAME.registerComponent('game-manager', {
     },
     failLevel: function() {
         this.stopLevel();
-        this.headerLabel.innerText = "Failed";
         setEndScreenEnabled(true, "Try again!");
         // this.winSoundEl.play();
         this.removeLevel();
@@ -122,7 +133,6 @@ AFRAME.registerComponent('game-manager', {
         this.smogPool.stop();
         this.bikePool.stop();
         GAME_STATE = GAME_STATES.END;
-        this.headerLabel.innerText = "Stopped"
     },
     playLevel: function() {
         gameScore = 0;
@@ -134,7 +144,7 @@ AFRAME.registerComponent('game-manager', {
         this.smogPool.start();
         this.bikePool.start();
         GAME_STATE = GAME_STATES.PLAYING;
-        this.headerLabel.innerText = "Playing"
+        document.querySelector('#game-menu-bg').style.opacity = 0;
     },
     increaseScore: function() {
         gameScore += SMOG_SCORE;

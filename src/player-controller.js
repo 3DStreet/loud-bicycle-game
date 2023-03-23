@@ -108,12 +108,12 @@ AFRAME.registerComponent('player-controller', {
                             this.onCollided();
                         } else if(element.components.item){
                             element.components.item.onCollision();
-                            console.log('this', this.collider.collisions[index]);
                         }
                     }
                 }
             }
             this.el.object3D.position.x = lerp(this.currentPosition, this.targetPosition, this.lerpT)
+            this.el.object3D.position.z -= this.el.object3D.position.z / 100;
             this.lerpT += this.data.speed * dt / 1000;
             this.lerpT = Math.max(Math.min(this.lerpT,1),0);
 
