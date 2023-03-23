@@ -7,10 +7,14 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    container: node:16-alpine
     steps:
       - name: Checkout the repository
         uses: actions/checkout@master
+
+      - name: Use Node.js 16.x
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16.x
 
       - name: Checkout submodules
         run: git submodule update --init --recursive
