@@ -460,9 +460,9 @@
     }
 
     function setEndScreenEnabled(b, message) {
-      document.querySelector('#game-menu-bg').style.opacity = 0;
       setMenuEnabled(true);
       if(b) {
+        document.querySelector('#game-menu-bg').style.opacity = 1;
         endScreen.classList.add('enabled');
         endScreen.classList.remove('disabled');
         levelSelection.classList.remove('enabled');

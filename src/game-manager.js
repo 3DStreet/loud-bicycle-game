@@ -93,6 +93,7 @@ AFRAME.registerComponent('game-manager', {
         setTimeout(() => {
             setEndScreenEnabled(true, this.levelData.getLevelEndMessage(this.bikeMemberCount));
             this.removeLevel();
+            document.querySelector('#game-menu-bg').style.opacity = 1;
         }, finalAnimationTimeMS);
     },
     quitLevel: function() {
