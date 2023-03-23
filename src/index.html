@@ -43,13 +43,6 @@
         left: 150px;
       }
 
-      #game-state-header {
-        position: absolute;
-        top: 0;
-        right: 0;
-        font-size: larger;
-      }
-
       #life-indicator-container {
         position: absolute;
         left: 5;
@@ -390,7 +383,6 @@
       </div>
     </div>
 
-    <p id="game-state-header">Loading</p>
     <div id="life-indicator-container">
       <div class="life-indicator"></div>
       <div class="life-indicator"></div>
@@ -412,7 +404,6 @@
     let pauseMenu = document.querySelector('#pause-menu');
 
     sceneEl.addEventListener('loaded', () => {
-      document.querySelector('#game-state-header').innerText = "Menu";
       document.querySelector('#landing-label').innerText = "Click to continue...";
       if(window.innerWidth <= 600) {
         document.querySelector('a-camera').setAttribute('fov', 110);
