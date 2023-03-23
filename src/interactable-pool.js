@@ -231,7 +231,7 @@ AFRAME.registerComponent('interactable-pool', {
             if(child.type === "Group" && child.el) {
                 if(child.el.classList[0] === "driveway") {
                     child.getWorldPosition(this.tempVec)
-                    // this.spawnCarOnDriveway(this.tempVec)
+                    this.spawnCarOnDriveway(this.tempVec)
                 } else if(child.el.classList[0] === "intersection") {
                     child.getWorldPosition(this.tempVec)
                     this.spawnCarOnIntersection(this.tempVec, true);

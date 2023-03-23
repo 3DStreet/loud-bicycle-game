@@ -185,7 +185,19 @@ AFRAME.registerComponent('game-manager', {
         this.currentLevel = document.createElement('a-entity');
         this.level.append(this.currentLevel);
         if(levelData.spawnMinis) this.spawnMinis();
-        
+
+        // Lights & Fog
+        let scene = document.querySelector('a-scene');
+        scene.setAttribute('fog', {'near': levelData.fogNear, 'far': levelData.fogFar, 'color': levelData.fogColor});
+        let ambientLight = document.querySelector('#ambient-light');
+        ambientLight.setAttribute('light', {'color': levelData.ambientLightColor});
+        let directionalLight = document.querySelector('#directional-light');
+        directionalLight.setAttribute('light', {'color': levelData.directionalLightColor, 'intensity': 0.6});
+        directionalLight.setAttribute('rotation', {'rotation': levelData.directionalRotation});
+        let spotLight = document.querySelector('#spot-light');
+        spotLight.setAttribute('visible', levelData.hasBikeLight);
+
+
         this.currentLevelStreetEls = []
         let isIntersection = false;
         let spawnDistance = levelData.streetLength / 2;
