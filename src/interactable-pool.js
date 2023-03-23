@@ -240,7 +240,7 @@ AFRAME.registerComponent('interactable-pool', {
                     this.tempVec.x -= gameManager.laneWidth;
                     this.spawnLeftCross(this.tempVec);
                     this.tempVec.z += 47;
-                    this.tempVec.x += gameManager.laneWidth + 0.2;
+                    this.tempVec.x += gameManager.laneWidth * 2;
                     this.spawnRightCross(this.tempVec);
                 }
             }
