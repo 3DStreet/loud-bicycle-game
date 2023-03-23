@@ -121,6 +121,9 @@ AFRAME.registerComponent('player-controller', {
             const targetRotation = Math.sin(-dist) / 2;
             this.el.object3D.rotation.y = lerp(this.el.object3D.rotation.y, targetRotation, this.lerpT)
 
+            if(this.cameraEl) this.cameraEl.object3D.position.x = this.el.object3D.position.x;
+
+
             if(this.collided) {
                 this.collidedTimer += dt / 1000;
                 if(Math.floor((this.collidedTimer % 1) * 10) % 2) {
