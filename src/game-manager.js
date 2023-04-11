@@ -193,7 +193,7 @@ AFRAME.registerComponent('game-manager', {
         ambientLight.setAttribute('light', {'color': levelData.ambientLightColor});
         let directionalLight = document.querySelector('#directional-light');
         directionalLight.setAttribute('light', {'color': levelData.directionalLightColor, 'intensity': levelData.directionalLightIntensity});
-        directionalLight.setAttribute('rotation', {'rotation': levelData.directionalRotation});
+        directionalLight.setAttribute('position', levelData.directionalLightPosition);
         let spotLight = document.querySelector('#spot-light');
         spotLight.setAttribute('visible', levelData.hasBikeLight);
 
