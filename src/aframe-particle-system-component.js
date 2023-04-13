@@ -142,7 +142,7 @@
 	        },
 	        texture: {
 	            type: 'asset',
-	            default: 'https://cdn.rawgit.com/IdeaSpaceVR/aframe-particle-system-component/master/dist/images/star2.png'
+	            default: 'https://cdn.rawgit.com/c-frame/aframe-particle-system-component/master/dist/images/star2.png'
 	        },
 	        randomise: {
 	            type: 'boolean',
@@ -188,7 +188,7 @@
 	            velocitySpread: {x: 0.5, y: 1, z: 0.5},
 	            color: ['#FFFFFF'],
 	            particleCount: 100,
-	            texture: 'https://cdn.rawgit.com/IdeaSpaceVR/aframe-particle-system-component/master/dist/images/smokeparticle.png'
+	            texture: 'https://cdn.rawgit.com/c-frame/aframe-particle-system-component/master/dist/images/smokeparticle.png'
 	        };
 
 
@@ -202,7 +202,7 @@
 	            velocitySpread: {x: 2, y: 0, z: 2},
 	            color: ['#FFFFFF'],
 	            particleCount: 200,
-	            texture: 'https://cdn.rawgit.com/IdeaSpaceVR/aframe-particle-system-component/master/dist/images/smokeparticle.png'
+	            texture: 'https://cdn.rawgit.com/c-frame/aframe-particle-system-component/master/dist/images/smokeparticle.png'
 	        };
 
 
@@ -215,8 +215,8 @@
 	            velocityValue: {x: 0, y: 75, z: 0},
 	            velocitySpread: {x: 10, y: 50, z: 10},
 	            color: ['#FFFFFF'],
-	            size: 0.4,
-	            texture: 'https://cdn.rawgit.com/IdeaSpaceVR/aframe-particle-system-component/master/dist/images/raindrop.png'
+	            size: [0.4],
+	            texture: 'https://cdn.rawgit.com/c-frame/aframe-particle-system-component/master/dist/images/raindrop.png'
 	        };
 
 
@@ -344,7 +344,7 @@
 	            size: { value: settings.size.map(function (s) { return parseFloat(s); }),
 	                    spread: settings.sizeSpread.map(function (s) { return parseFloat(s); }) },
 	            
-	            wiggle: { value: 4, spread: 2 }, //settings.wiggle,
+	            /*wiggle: { value: 4, spread: 2 }, //settings.wiggle,*/
 	            /*drag: {
 	                value: settings.drag
 	            },*/
@@ -2281,7 +2281,7 @@
 	    options.texture = utils.ensureTypedArg( options.texture, types.OBJECT, {} );
 
 	    // Assign a UUID to this instance
-	    this.uuid = THREE.Math.generateUUID();
+	    this.uuid = THREE.MathUtils.generateUUID();
 
 	    // If no `deltaTime` value is passed to the `SPE.Group.tick` function,
 	    // the value of this property will be used to advance the simulation.
@@ -3143,7 +3143,7 @@
 	        console.warn( 'onParticleSpawn has been removed. Please set properties directly to alter values at runtime.' );
 	    }
 
-	    this.uuid = THREE.Math.generateUUID();
+	    this.uuid = THREE.MathUtils.generateUUID();
 
 	    this.type = utils.ensureTypedArg( options.type, types.NUMBER, SPE.distributions.BOX );
 

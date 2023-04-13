@@ -13,5 +13,4 @@ require('./item');
 require('./bike-train-pool');
 require('./bike-train-member');
 require('./noise-meter');
-require('aframe-extras.animation-mixer');
 require('./aframe-street-component');
