@@ -31,7 +31,7 @@ AFRAME.registerComponent('interactable-pool', {
     },
     spawnRightHook: function (){
         const type = 'rightHook'
-        if(!gameManager.levelData.interactables.includes(type)) return;
+        if(!gameManager.levelData.interactables[type] || gameManager.levelData.interactables[type] < Math.random()) return;
         if(this.spawnedRightHook) return;
         this.spawnedRightHook = true;
 
@@ -75,7 +75,7 @@ AFRAME.registerComponent('interactable-pool', {
     },
     spawnLeftCross: function(position) {
         const type = 'leftCross'
-        if(!gameManager.levelData.interactables.includes(type)) return;
+        if(!gameManager.levelData.interactables[type] || gameManager.levelData.interactables[type] < Math.random()) return;
 
         let el = this.pool.requestEntity();
 
@@ -107,7 +107,7 @@ AFRAME.registerComponent('interactable-pool', {
     },
     spawnRightCross: function(position) {
         const type = 'rightCross';
-        if(!gameManager.levelData.interactables.includes(type)) return;
+        if(!gameManager.levelData.interactables[type] || gameManager.levelData.interactables[type] < Math.random()) return;
 
         let el = this.pool.requestEntity();
 
@@ -150,7 +150,7 @@ AFRAME.registerComponent('interactable-pool', {
     },
 
     spawnCarOnDriveway: function (position){
-        if(!gameManager.levelData.interactables.includes('driveway')) return;
+        if(!gameManager.levelData.interactables['driveway'] || gameManager.levelData.interactables['driveway'] < Math.random()) return;
         const type = "side"
 
         let el = this.pool.requestEntity();
@@ -188,7 +188,7 @@ AFRAME.registerComponent('interactable-pool', {
     },
     spawnCarOnIntersection: function (position, isRight){
         const type = "side"
-        if(!gameManager.levelData.interactables.includes(type)) return;
+        if(!gameManager.levelData.interactables[type] || gameManager.levelData.interactables[type] < Math.random()) return;
 
         let el = this.pool.requestEntity();
 

@@ -134,14 +134,14 @@ AFRAME.registerComponent('interactable', {
 
         this.curveVec0.copy(this.el.object3D.position);
 
-        this.curveVec1.copy(this.curveVec0);
-        this.curveVec1.add(INTERACTABLE_LEFT_CROSS_V1_OFFSET);
-        this.curveVec2.copy(this.curveVec1);
-        this.curveVec2.add(INTERACTABLE_LEFT_CROSS_V2_OFFSET);
-        this.curveVec3.copy(this.curveVec1);
-        this.curveVec3.add(INTERACTABLE_LEFT_CROSS_V3_OFFSET);
-        this.curveVec3.copy(this.curveVec1);
-        this.curveVec3.add(INTERACTABLE_LEFT_CROSS_V4_OFFSET);
+        // this.curveVec1.copy(this.curveVec0);
+        // this.curveVec1.add(INTERACTABLE_LEFT_CROSS_V1_OFFSET);
+        // this.curveVec2.copy(this.curveVec1);
+        // this.curveVec2.add(INTERACTABLE_LEFT_CROSS_V2_OFFSET);
+        // this.curveVec3.copy(this.curveVec1);
+        // this.curveVec3.add(INTERACTABLE_LEFT_CROSS_V3_OFFSET);
+        // this.curveVec3.copy(this.curveVec1);
+        // this.curveVec3.add(INTERACTABLE_LEFT_CROSS_V4_OFFSET);
 
         this.speed = 0;
     },

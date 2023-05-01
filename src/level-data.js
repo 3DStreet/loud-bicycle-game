@@ -40,11 +40,11 @@ export const gameData = {
             lastBuildingOffset: 20,
             lastBuildingAssetId: '#building-school-asset',
             spawnMinis: true,
-            interactables: [
-                'driveway',
+            interactables: {
+                'driveway': 0.3,
                 // 'side',
-                'rightCross'
-            ],
+                'rightCross': 0.8
+            },
             streetUrls: [
                 './levels/street_1-51136070-c1f7-11ec-877c-abfad556cfc6.json',
                 './levels/street_1-51136070-c1f7-11ec-877c-abfad556cfc6.json',
@@ -89,12 +89,11 @@ export const gameData = {
             streetLengthAdditionalRange: 10,
             lastBuildingOffset: 20,
             lastBuildingAssetId: '#building-school-asset',
-            interactables: [
-                'rightHook',
-                'rightCross',
-                'driveway'
-
-            ],
+            interactables: {
+                'rightHook': 0.4,
+                'rightCross': 0.8,
+                'driveway': 0.3
+            },
             streetUrls: [
                 './levels/street_3-6a184410-c1fb-11ec-877c-abfad556cfc6.json',
                 './levels/street_3-6a184410-c1fb-11ec-877c-abfad556cfc6.json',
@@ -139,12 +138,12 @@ export const gameData = {
             streetLengthAdditionalRange: 10,
             lastBuildingOffset: 20,
             lastBuildingAssetId: '#building-bar-asset',
-            interactables: [
-                'rightHook',
-                'rightCross',
-                'driveway',
-                'side'
-            ],
+            interactables: {
+                'rightHook': 0.4,
+                'rightCross': 0.8,
+                'driveway': 0.3,
+                'side': 0.7
+            },
             streetUrls: [
                 './levels/street_4-1da4bec0-c1ff-11ec-877c-abfad556cfc6.json',
                 './levels/street_4-1da4bec0-c1ff-11ec-877c-abfad556cfc6.json',
@@ -191,12 +190,12 @@ export const gameData = {
             lastBuildingOffset: 20,
             lastBuildingAssetId: '#building-bar.asset',
 
-            interactables: [
-                'rightHook',
-                'rightCross',
-                'driveway',
-                'side'
-            ],
+            interactables: {
+                'rightHook': 0.4,
+                'rightCross': 0.8,
+                'driveway': 0.3,
+                'side': 0.7
+            },
             streetUrls: [
                 './levels/street_5-93937ae0-c1ff-11ec-877c-abfad556cfc6.json',
                 './levels/street_5-93937ae0-c1ff-11ec-877c-abfad556cfc6.json',
