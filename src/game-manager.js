@@ -249,6 +249,17 @@ AFRAME.registerComponent('game-manager', {
         el.setAttribute('position', {x: 1.5, y: 0, z: lastSpawnPosition - levelData.lastBuildingOffset})
         el.setAttribute('rotation', {x: 0, y: 180, z: 0})
         el.setAttribute('gltf-model', levelData.lastBuildingAssetId)
+        if(levelData.lastBuildingAdditionalAssetId) {
+            const additionalEl = document.createElement('a-entity');
+
+            additionalEl.setAttribute('position', {x: -2.33, y: 5.477, z: lastSpawnPosition - levelData.lastBuildingOffset + 6})
+            additionalEl.setAttribute('rotation', {x: 90, y: 0, z: 0})
+            additionalEl.setAttribute('scale', {x: 9.520, y: 9.520, z: 9.520})
+            additionalEl.setAttribute('gltf-model', levelData.lastBuildingAdditionalAssetId)
+
+            this.currentLevel.append(additionalEl);
+        }
+
         this.currentLevel.append(el);
     },
     removeLevel: function() {

@@ -88,7 +88,8 @@ export const gameData = {
             startWithMini: true,
             streetLengthAdditionalRange: 10,
             lastBuildingOffset: 20,
-            lastBuildingAssetId: '#building-school-asset',
+            lastBuildingAssetId: '#prop-suburban-houses-asset',
+            lastBuildingAdditionalAssetId: '#prop-banner-wfh-asset',
             interactables: {
                 'rightHook': 0.4,
                 'rightCross': 0.8,
