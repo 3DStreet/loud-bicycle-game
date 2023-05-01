@@ -9,8 +9,8 @@ const BROKEN_REACTIVATE_THRESHHOLD = 60;
 
 
 const NOISE_USAGE = {
-                     bell: 0,
-                     shout: 30,
+                     'special-meter': 50,
+                     'main-meter': 30,
                      classic: 10,
                      mini: 5
                    }
@@ -46,7 +46,7 @@ AFRAME.registerComponent('noise-meter', {
             } else {
               // This should come from the NOISE_USAGE dictionary
                 // const decrease = (dt * (NOISE_USAGE[this.data.clickerId]))/METER_INTERVAL_MS;
-                const decrease = (dt * (this.data.isSmall ? SMALL_NOISE_USAGE : BIG_NOISE_USAGE))/METER_INTERVAL_MS;
+                const decrease = (dt * NOISE_USAGE[this.data.meterId])/METER_INTERVAL_MS;
                 this.meter -= decrease;
                 this.meter = Math.max(0, this.meter);
                 if(this.hasLowMeter()) {
@@ -78,7 +78,7 @@ AFRAME.registerComponent('noise-meter', {
             }
         });
         document.addEventListener('pointerup', () => {
-            this.hideIndicator();
+            if(this.data.meterId !== 'special-meter') this.hideIndicator();
         });
     },
     onSceneLoaded: function() {
@@ -91,7 +91,7 @@ AFRAME.registerComponent('noise-meter', {
         }
     },
     onKeyReleased: function(e) {
-        if (e.key === this.data.keyCode) {
+        if (e.key === this.data.keyCode && this.data.meterId !== 'special-meter') {
             this.hideIndicator();
         }
     },
