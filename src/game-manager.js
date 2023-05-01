@@ -143,7 +143,7 @@ AFRAME.registerComponent('game-manager', {
         this.levelAnimation.animation.restart();
         this.interactablePool.start();
         this.smogPool.start();
-        this.bikePool.start();
+        if(!level.disableBikePool) this.bikePool.start();
         GAME_STATE = GAME_STATES.PLAYING;
         document.querySelector('#game-menu-bg').style.opacity = 0;
     },

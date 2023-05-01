@@ -34,10 +34,26 @@ AFRAME.registerComponent('bike-train-member', {
         amountBikeTrainMembers++;
 
         this.bellOffset = 0;
+        this.el.setAttribute('animation-mixer', 'timeScale: 1.0');
         gameManager.incrementBikePoolMemberCount();
         this.setBellActive(false);
     },
+    getRandomAdultBikeId: function() {
+        const index = Math.floor(Math.random() * 2) + 2;
+        return `#cyclist${index}-asset`
+
+    },
     spawn: function() {
+        if(gameManager.levelData.bikePoolIsAdult) {
+            let url = document.querySelector(this.getRandomAdultBikeId()).getAttribute('src');
+            this.el.setAttribute('gltf-model', url);
+        } else {
+            let url = document.querySelector('#cyclist-kid-asset').getAttribute('src');
+            this.el.setAttribute('gltf-model', url);
+        }
+
+        this.el.setAttribute('animation-mixer', 'timeScale: 0.0');
+
         this.isHit = false;
         this.spawned = true;
         this.el.object3D.visible = true;
