@@ -22,7 +22,8 @@ AFRAME.registerComponent('noise-meter', {
         clickerId: {default: ''},
         meterId: {default: ''},
         isSmall: {default: false, type: 'boolean'},
-        keyCode: {default: ''}
+        keyCode: {default: ''},
+        alwaysOn: {default: false, type: 'boolean'}
     },
     init: function() {
         this.meter = 100;
@@ -49,6 +50,8 @@ AFRAME.registerComponent('noise-meter', {
                 const decrease = (dt * NOISE_USAGE[this.data.meterId])/METER_INTERVAL_MS;
                 this.meter -= decrease;
                 this.meter = Math.max(0, this.meter);
+                if(this.data.alwaysOn)
+                    this.meter = 100;
                 if(this.hasLowMeter()) {
                     this.breakIndicator();
                 }
@@ -77,6 +80,14 @@ AFRAME.registerComponent('noise-meter', {
                 this.displayIndicator();
             }
         });
+
+        if(this.data.meterId === 'special-meter') {
+            this.el.addEventListener('sound-ended', () => {
+                console.log('HIFDE');
+                this.hideIndicator();
+            });
+        }
+        
         document.addEventListener('pointerup', () => {
             if(this.data.meterId === 'main-meter') this.hideIndicator();
         });
