@@ -83,11 +83,10 @@ AFRAME.registerComponent('noise-meter', {
 
         if(this.data.meterId === 'special-meter') {
             this.el.addEventListener('sound-ended', () => {
-                console.log('HIFDE');
                 this.hideIndicator();
             });
         }
-        
+
         document.addEventListener('pointerup', () => {
             if(this.data.meterId === 'main-meter') this.hideIndicator();
         });
