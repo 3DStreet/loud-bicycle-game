@@ -12,7 +12,7 @@ module.exports = {
         type: 'asset/resource',
       },
       {
-        test: /\.mp3$/,
+        test: /\.(mp3|webm)$/,
         loader: 'file-loader'
       }
     ]
