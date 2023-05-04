@@ -114,6 +114,11 @@ AFRAME.registerComponent('noise-meter', {
     displayIndicator: function() {
         let otherIds = Object.keys(noiseMeters);
         if (this.hasLowMeter() || this.broken || noiseMeters[otherIds[0]].displaying|| noiseMeters[otherIds[1]].displaying|| noiseMeters[otherIds[2]].displaying) {
+            if(this.data.meterId === 'special-meter') {
+                this.sound.stopSound();
+                this.sound.playSound();
+            } 
+            
             return;
         }
         this.sound.playSound();
