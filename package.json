@@ -11,7 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "aframe": "^1.4.1",
+    "aframe": "^1.4.2",
     "three-debug-draw": "^0.1.0"
   },
   "devDependencies": {
