@@ -1,4 +1,5 @@
 import { GAME_STATE, GAME_STATES } from "./game-manager";
+import { interactablePool } from "./interactable-pool";
 
 const LOW_METER_THRESHOLD = 20;
 const METER_INTERVAL_MS = 300;
@@ -6,11 +7,13 @@ const METER_INTERVAL_INCREASE = 5;
 const SMALL_NOISE_USAGE = 5;
 const BIG_NOISE_USAGE = 30;
 const BROKEN_REACTIVATE_THRESHHOLD = 60;
+const BROKEN_REACTIVATE_THRESHHOLD_RAY = 100;
 
 
 const NOISE_USAGE = {
-                     'special-meter': 50,
+                     'special-meter': 0,
                      'main-meter': 30,
+                     'ray-meter': 100,
                      classic: 10,
                      mini: 5
                    }
@@ -23,11 +26,11 @@ AFRAME.registerComponent('noise-meter', {
         meterId: {default: ''},
         isSmall: {default: false, type: 'boolean'},
         keyCode: {default: ''},
-        alwaysOn: {default: false, type: 'boolean'}
     },
     init: function() {
         this.meter = 100;
         this.lastTickUpdate = 0;
+        this.threshhold = this.data.clickerId === 'ray' ? BROKEN_REACTIVATE_THRESHHOLD_RAY : BROKEN_REACTIVATE_THRESHHOLD;
 
         this.addEvents();
         noiseMeters[this.data.clickerId] = this;
@@ -39,19 +42,15 @@ AFRAME.registerComponent('noise-meter', {
                 const increase = (dt * METER_INTERVAL_INCREASE)/METER_INTERVAL_MS;
                 this.meter += increase;
                 this.meter = Math.min(100, this.meter);
-                if(this.broken && this.meter > BROKEN_REACTIVATE_THRESHHOLD ) {
+                if(this.broken && this.meter >= this.threshhold) {
                     this.broken = false;
                     this.meterEl.className = 'high-meter';
                     this.clickerEl.classList.remove('disabled');
                 }
             } else {
-              // This should come from the NOISE_USAGE dictionary
-                // const decrease = (dt * (NOISE_USAGE[this.data.clickerId]))/METER_INTERVAL_MS;
                 const decrease = (dt * NOISE_USAGE[this.data.meterId])/METER_INTERVAL_MS;
                 this.meter -= decrease;
                 this.meter = Math.max(0, this.meter);
-                if(this.data.alwaysOn)
-                    this.meter = 100;
                 if(this.hasLowMeter()) {
                     this.breakIndicator();
                 }
@@ -85,6 +84,10 @@ AFRAME.registerComponent('noise-meter', {
             this.el.addEventListener('sound-ended', () => {
                 this.hideIndicator();
             });
+        } else if(this.data.meterId === 'ray-meter') {
+            this.el.addEventListener('sound-ended', () => {
+                interactablePool.convertAllToBikes();
+            });
         }
 
         document.addEventListener('pointerup', () => {
@@ -97,7 +100,8 @@ AFRAME.registerComponent('noise-meter', {
     },
     onKeyPressed: function(e) {
         if (e.key === this.data.keyCode && GAME_STATE === GAME_STATES.PLAYING) {
-            this.displayIndicator();
+            if(this.data.meterId === 'ray-meter' && !this.displaying) this.displayVFX();
+            else this.displayIndicator();
         }
     },
     onKeyReleased: function(e) {
@@ -111,6 +115,13 @@ AFRAME.registerComponent('noise-meter', {
     hasLowMeter: function() {
         return this.meter < LOW_METER_THRESHOLD;
     },
+    displayVFX: function() {
+        let otherIds = Object.keys(noiseMeters);
+        if (this.hasLowMeter() || this.broken || noiseMeters[otherIds[0]].displaying|| noiseMeters[otherIds[1]].displaying|| noiseMeters[otherIds[2]].displaying) return;
+
+        this.sound.playSound();
+        this.displaying = true;
+    },
     displayIndicator: function() {
         let otherIds = Object.keys(noiseMeters);
         if (this.hasLowMeter() || this.broken || noiseMeters[otherIds[0]].displaying|| noiseMeters[otherIds[1]].displaying|| noiseMeters[otherIds[2]].displaying) {
@@ -118,7 +129,6 @@ AFRAME.registerComponent('noise-meter', {
                 this.sound.stopSound();
                 this.sound.playSound();
             } 
-            
             return;
         }
         this.sound.playSound();
@@ -137,6 +147,6 @@ AFRAME.registerComponent('noise-meter', {
         this.broken = true;
         this.meterEl.className = 'low-meter';
         this.clickerEl.classList.add('disabled');
-        this.sound.stopSound();
+        if(!this.data.meterId === 'ray-meter') this.sound.stopSound();
     }
   });

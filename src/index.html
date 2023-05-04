@@ -40,11 +40,11 @@
       }
 
       #ray, #ray-meter {
-        left: 150px;
+        left: 300px;
       }
 
       #horn, #main-meter {
-        left: 300px;
+        left: 150px;
       }
 
       #life-indicator-container {
@@ -328,9 +328,9 @@
       <a-entity id="bike-train-spawner" bike-train-pool></a-entity>
 
       <a-entity id="game-manager" game-manager sound="src: url(./assets/breath_caugh.mp3);"></a-entity>
-      <a-entity noise-meter="clickerId:shout; meterId:special-meter; isSmall:true; keyCode:q; alwaysOn: true" sound="src: url(./assets/bell.webm);"></a-entity>
-      <a-entity id="horn-noise" noise-meter="clickerId:horn; meterId:main-meter; isSmall:false; keyCode:e" sound="src: url(./assets/shout.webm); loop: true"></a-entity>
-      <a-entity id="ray" noise-meter="clickerId:ray; meterId:ray-meter;  keyCode:w" sound="src: url(./assets/ray.webm);"></a-entity>
+      <a-entity noise-meter="clickerId:shout; meterId:special-meter; isSmall:true; keyCode:q;" sound="src: url(./assets/bell.webm);"></a-entity>
+      <a-entity id="horn-noise" noise-meter="clickerId:horn; meterId:main-meter; isSmall:false; keyCode:w" sound="src: url(./assets/shout.webm); loop: true"></a-entity>
+      <a-entity id="ray-noise" noise-meter="clickerId:ray; meterId:ray-meter; keyCode:e" sound="src: url(./assets/ray.webm);"></a-entity>
 
       <a-entity id="level" animation="property: position; to: 0 0 400; autoplay: false; dur: 100000; easing: linear; loop: false">
         <a-plane src="#grass-floor" height="1000" width="1000" rotation="-90 0 0" position="0 -0.05 0" material="repeat: 20 20"></a-plane>
@@ -343,7 +343,7 @@
     <progress id="special-meter" class="high-meter" value="0" max="100"></progress>
 
   <!-- main weapon, shout, Loud Classic, Loud Mini -->
-    <img id="ray" height="200" width="200" src="./assets/shout.jpg" >
+    <img id="ray" height="200" width="200" src="./assets/gun-ray.svg" >
     <progress id="ray-meter" class="high-meter" value="0" max="100"></progress>
 
 <!-- main weapon, shout, Loud Classic, Loud Mini -->

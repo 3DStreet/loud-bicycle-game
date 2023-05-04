@@ -2,16 +2,18 @@ import { Vector3, Box3 } from 'super-three';
 import {interactableTypes, isSideType} from './interactable'
 import { gameManager } from './game-manager';
 import { playerController } from './player-controller'
+import { getRandomAdultBikeId } from './bike-train-member';
 
 const SIDE_INTERCTABLE_START_DISTANCE = 10;
 const INTERSECTION_CAR_Z_OFFSET = 2;
 
 export let rightCrossInitialBox;
+export let interactablePool;
 
 AFRAME.registerComponent('interactable-pool', {
     init: function() {
         this.tempVec = new Vector3();
-
+        interactablePool = this;
         this.streetIndex = 0;
         setTimeout(() => {
             this.pool = this.el.sceneEl.components.pool__interactable;
@@ -247,6 +249,17 @@ AFRAME.registerComponent('interactable-pool', {
         });
 
 
+    },
+    convertAllToBikes: function() {
+        for (let i = 0; i < this.pool.usedEls.length; i++) {
+            const el = this.pool.usedEls[i];
+            
+            el.setAttribute('interactable', {type: 'bike'});
+            el.play();
+
+            el.removeAttribute("gltf-model");
+            el.setAttribute('gltf-model', getRandomAdultBikeId());
+        }
     },
     returnAll: function() {
         const els = [...this.pool.usedEls];

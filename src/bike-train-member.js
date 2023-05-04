@@ -38,14 +38,9 @@ AFRAME.registerComponent('bike-train-member', {
         gameManager.incrementBikePoolMemberCount();
         this.setBellActive(false);
     },
-    getRandomAdultBikeId: function() {
-        const index = Math.floor(Math.random() * 2) + 2;
-        return `#cyclist${index}-asset`
-
-    },
     spawn: function() {
         if(gameManager.levelData.bikePoolIsAdult) {
-            let url = document.querySelector(this.getRandomAdultBikeId()).getAttribute('src');
+            let url = document.querySelector(getRandomAdultBikeId()).getAttribute('src');
             this.el.setAttribute('gltf-model', url);
         } else {
             let url = document.querySelector('#cyclist-kid-asset').getAttribute('src');
@@ -81,3 +76,8 @@ AFRAME.registerComponent('bike-train-member', {
         }
     }
 });
+
+export function getRandomAdultBikeId() {
+    const index = Math.floor(Math.random() * 2) + 2;
+    return `#cyclist${index}-asset`;
+}
