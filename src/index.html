@@ -7,7 +7,7 @@
         color: white
       }
 
-      #shout, #horn {
+      #shout, #horn, #ray {
         position: absolute;
         top: 0;
         height: 150px;
@@ -27,7 +27,7 @@
       #shout.disabled {
         border: 2px solid red;
       }
-      #special-meter, #main-meter {
+      #special-meter, #main-meter, #ray-meter {
         position: absolute;
         top: 200px;
         width: 150px;
@@ -39,8 +39,12 @@
         accent-color: coral;
       }
 
-      #horn, #main-meter {
+      #ray, #ray-meter {
         left: 150px;
+      }
+
+      #horn, #main-meter {
+        left: 300px;
       }
 
       #life-indicator-container {
@@ -253,8 +257,9 @@
       gltf-model="dracoDecoderPath: https://www.gstatic.com/draco/versioned/decoders/1.4.3/; meshoptDecoderPath: https://unpkg.com/meshoptimizer@0.16.0/meshopt_decoder.js;">
       <a-assets>
         <streetmix-assets url="./3dstreet-assets/"></streetmix-assets>
-        <audio id="muffled-voice" src="./assets/muffled_voice.mp3" preload="auto"></audio>
-        <audio id="win-sound" src="./assets/win.mp3" preload="auto"></audio>
+        <audio id="muffled-voice" src="./assets/muffled_voice.webm" preload="auto"></audio>
+        <audio id="win-sound" src="./assets/win.webm" preload="auto"></audio>
+        <audio id="ambient-sound" src="./assets/ambience.webm" preload="auto"></audio>
         <img id="comic-effect" src="./assets/comic_effect.png">
         <img id="grass-floor" src="./3dstreet-assets/materials/TexturesCom_Grass0052_1_seamless_S.jpg">
         <img id="sky" src="https://github.3dstreet.org/assets/CGSkies_0343_doubled_2048.jpg">
@@ -296,6 +301,7 @@
         <a-mixin id="prop-raygun" gltf-model="#prop-raygun-asset"></a-mixin>
 
       </a-assets>
+      <a-entity id="ambient-audio" sound="src: #ambient-sound; autoplay: false; loop: true; volume: 0.3"></a-entity>
       <a-entity id="ambient-light" light="type: ambient; color: #222"></a-entity>
       <a-entity id="directional-light" light="type: directional; color: #444; intensity: 0.6" position="-0.5 1 1"></a-entity>
       <a-sky src="#sky"></a-sky>
@@ -322,8 +328,9 @@
       <a-entity id="bike-train-spawner" bike-train-pool></a-entity>
 
       <a-entity id="game-manager" game-manager sound="src: url(./assets/breath_caugh.mp3);"></a-entity>
-      <a-entity noise-meter="clickerId:shout; meterId:special-meter; isSmall:true; keyCode:q" sound="src: url(./assets/bell.mp3); loop: true"></a-entity>
-      <a-entity id="horn-noise" noise-meter="clickerId:horn; meterId:main-meter; isSmall:false; keyCode:e" sound="src: url(./assets/shout.mp3); loop: true"></a-entity>
+      <a-entity noise-meter="clickerId:shout; meterId:special-meter; isSmall:true; keyCode:q" sound="src: url(./assets/bell.webm); loop: true"></a-entity>
+      <a-entity id="horn-noise" noise-meter="clickerId:horn; meterId:main-meter; isSmall:false; keyCode:e" sound="src: url(./assets/shout.webm); loop: true"></a-entity>
+      <a-entity id="ray" noise-meter="clickerId:ray; meterId:ray-meter;  keyCode:w" sound="src: url(./assets/ray.webm);"></a-entity>
 
       <a-entity id="level" animation="property: position; to: 0 0 400; autoplay: false; dur: 100000; easing: linear; loop: false">
         <a-plane src="#grass-floor" height="1000" width="1000" rotation="-90 0 0" position="0 -0.05 0" material="repeat: 20 20"></a-plane>
@@ -334,6 +341,10 @@
 <!-- special weapon, bell, green ray gun -->
     <img id="shout" height="200" width="200" src="./assets/bell.jpg" >
     <progress id="special-meter" class="high-meter" value="0" max="100"></progress>
+
+  <!-- main weapon, shout, Loud Classic, Loud Mini -->
+    <img id="ray" height="200" width="200" src="./assets/shout.jpg" >
+    <progress id="ray-meter" class="high-meter" value="0" max="100"></progress>
 
 <!-- main weapon, shout, Loud Classic, Loud Mini -->
     <img id="horn" height="200" width="200" src="./assets/shout.jpg" >

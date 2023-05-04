@@ -78,7 +78,7 @@ AFRAME.registerComponent('noise-meter', {
             }
         });
         document.addEventListener('pointerup', () => {
-            if(this.data.meterId !== 'special-meter') this.hideIndicator();
+            if(this.data.meterId === 'main-meter') this.hideIndicator();
         });
     },
     onSceneLoaded: function() {
@@ -91,7 +91,7 @@ AFRAME.registerComponent('noise-meter', {
         }
     },
     onKeyReleased: function(e) {
-        if (e.key === this.data.keyCode && this.data.meterId !== 'special-meter') {
+        if (e.key === this.data.keyCode && this.data.meterId === 'main-meter') {
             this.hideIndicator();
         }
     },
@@ -102,7 +102,8 @@ AFRAME.registerComponent('noise-meter', {
         return this.meter < LOW_METER_THRESHOLD;
     },
     displayIndicator: function() {
-        if (this.hasLowMeter() || this.displaying || this.broken || noiseMeters[this.otherId].displaying) {
+        let otherIds = Object.keys(noiseMeters);
+        if (this.hasLowMeter() || this.broken || noiseMeters[otherIds[0]].displaying|| noiseMeters[otherIds[1]].displaying|| noiseMeters[otherIds[2]].displaying) {
             return;
         }
         this.sound.playSound();

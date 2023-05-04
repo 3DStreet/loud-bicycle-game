@@ -39,7 +39,8 @@ AFRAME.registerComponent('game-manager', {
             this.levelAnimation = level.components.animation;
             this.gameScoreLabel = document.querySelector('#score');
             this.smogAudio = this.el.components.sound;
-            
+            this.ambientAudio = document.querySelector('#ambient-audio').components.sound;
+
             document.querySelector('#model').setAttribute('animation__position',
                 {'property': 'position', 'to': {x: -3, y: 0, z: -5}, 'startEvents': 'playend', 'dur': finalAnimationTimeMS});
             document.querySelector('#model').setAttribute('animation__rotation',
@@ -129,6 +130,7 @@ AFRAME.registerComponent('game-manager', {
         this.removeLevel();
     },
     stopLevel: function() {
+        this.ambientAudio.pauseSound();
         this.levelAnimation.animation.pause();
         this.interactablePool.stop();
         this.smogPool.stop();
@@ -136,6 +138,7 @@ AFRAME.registerComponent('game-manager', {
         GAME_STATE = GAME_STATES.END;
     },
     playLevel: function() {
+        this.ambientAudio.playSound();
         gameScore = 0;
         this.bikeMemberCount = 0;
         this.gameScoreLabel.innerText = gameScore;
