@@ -1,4 +1,5 @@
 require('aframe');
+require('./aframe-street-component');
 require('./aframe-particle-system-component')
 require('./look-at');
 require('./game-manager');
@@ -13,4 +14,3 @@ require('./item');
 require('./bike-train-pool');
 require('./bike-train-member');
 require('./noise-meter');
-require('./aframe-street-component');
