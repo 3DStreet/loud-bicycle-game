@@ -197,8 +197,8 @@ AFRAME.registerComponent('interactable-pool', {
         el.setAttribute('interactable', {type});
         el.play();
 
-        el.removeAttribute("gltf-model");
-        el.setAttribute('gltf-model', '#vehicle-bmw-m2-asset');
+        el.removeAttribute("mixin");
+        el.setAttribute('mixin', 'vehicle-bmw-m2');
 
         el.components.interactable.isHit = false;
 
@@ -257,8 +257,8 @@ AFRAME.registerComponent('interactable-pool', {
             el.setAttribute('interactable', {type: 'bike'});
             el.play();
 
-            el.removeAttribute("gltf-model");
-            el.setAttribute('gltf-model', getRandomAdultBikeId());
+            el.removeAttribute("mixin");
+            el.setAttribute('mixin', getRandomAdultBikeId());
         }
     },
     returnAll: function() {

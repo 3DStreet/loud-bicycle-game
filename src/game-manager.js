@@ -166,11 +166,10 @@ AFRAME.registerComponent('game-manager', {
         document.querySelector('#horn-noise').setAttribute('sound', {src: 'url(./assets/shout.mp3)'});
     },
     spawnMinis: function() {
-        // <a-entity item="type: horn" gltf-model="#loud-bicycle-mini-asset" position="0 0.8 -16" scale="4 4 4"></a-entity>
         for (let i = 0; i < 3; i++) {
             const element = document.createElement('a-entity');
             element.setAttribute('item', {type: 'horn'});
-            element.setAttribute('gltf-model', '#loud-bicycle-mini-asset');
+            element.setAttribute('mixin', 'loud-bicycle-mini');
             element.setAttribute('scale', '4 4 4');
             element.setAttribute('position', (i * 2.5) + ' 0.8 -' + (this.levelData.endDistance - 10));
             this.currentLevel.append(element);

@@ -40,11 +40,9 @@ AFRAME.registerComponent('bike-train-member', {
     },
     spawn: function() {
         if(gameManager.levelData.bikePoolIsAdult) {
-            let url = document.querySelector(getRandomAdultBikeId()).getAttribute('src');
-            this.el.setAttribute('gltf-model', url);
+            this.el.setAttribute('mixin', getRandomAdultBikeId())
         } else {
-            let url = document.querySelector('#cyclist-kid-asset').getAttribute('src');
-            this.el.setAttribute('gltf-model', url);
+            this.el.setAttribute('mixin', 'cyclist-kid');
         }
 
         this.el.setAttribute('animation-mixer', 'timeScale: 0.0');
@@ -79,5 +77,5 @@ AFRAME.registerComponent('bike-train-member', {
 
 export function getRandomAdultBikeId() {
     const index = Math.floor(Math.random() * 2) + 2;
-    return `#cyclist${index}-asset`;
+    return `cyclist${index}`;
 }
