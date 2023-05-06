@@ -41,8 +41,8 @@ AFRAME.registerComponent('interactable-pool', {
 
         const sideType = isSideType(type);
 
-        el.removeAttribute("gltf-model");
-        el.setAttribute('gltf-model', '#sedan-taxi-rigged');
+        el.removeAttribute("mixin");
+        el.setAttribute('mixin', 'sedan-taxi');
 
         el.setAttribute('interactable', {type});
 
@@ -84,8 +84,8 @@ AFRAME.registerComponent('interactable-pool', {
         el.setAttribute('interactable', {type});
         el.play();
 
-        el.removeAttribute("gltf-model");
-        el.setAttribute('gltf-model', '#sedan-rigged');
+        el.removeAttribute("mixin");
+        el.setAttribute('mixin', 'sedan-rigged');
 
         el.components.interactable.isHit = false;
 
@@ -199,6 +199,7 @@ AFRAME.registerComponent('interactable-pool', {
 
         el.removeAttribute("mixin");
         el.setAttribute('mixin', 'vehicle-bmw-m2');
+        console.log('tried to spawn')
 
         el.components.interactable.isHit = false;
 
