@@ -88,6 +88,8 @@ AFRAME.registerComponent('noise-meter', {
             this.el.addEventListener('sound-ended', () => {
                 interactablePool.convertAllToBikes();
                 gameManager.clearFog()
+
+
             });
         }
 
@@ -148,6 +150,6 @@ AFRAME.registerComponent('noise-meter', {
         this.broken = true;
         this.meterEl.className = 'low-meter';
         this.clickerEl.classList.add('disabled');
-        if(!this.data.meterId === 'ray-meter') this.sound.stopSound();
+        if(this.data.meterId !== 'ray-meter') this.sound.stopSound();
     }
   });
