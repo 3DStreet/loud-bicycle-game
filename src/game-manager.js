@@ -1,6 +1,7 @@
 import { Vector3 } from 'super-three';
 import { gameData, SIDE_STREET_URL } from "./level-data";
 import { playerController } from './player-controller';
+import { lerp } from './helpers/math'
 
 export const GAME_STATES = {
     PLAYING: 0,
@@ -191,6 +192,7 @@ AFRAME.registerComponent('game-manager', {
 
         // Lights & Fog
         let scene = document.querySelector('a-scene');
+        this.currentNearFog = levelData.fogNear;
         scene.setAttribute('fog', {'near': levelData.fogNear, 'far': levelData.fogFar, 'color': levelData.fogColor});
         let ambientLight = document.querySelector('#ambient-light');
         ambientLight.setAttribute('light', {'color': levelData.ambientLightColor});
@@ -276,6 +278,12 @@ AFRAME.registerComponent('game-manager', {
         this.level.object3D.getWorldPosition(this.tempVec);
         return this.tempVec.z;
     },
+    clearFog: function() {
+        this.targetNearFog = 400;
+        this.lerpFog = true;
+        this.lerpFogTimer = 10.0;
+        this.lerpFogAmount = 0.0;
+    },
     getCurrentStreetIndex: function() {
         if(!this.currentLevelStreetEls) return;
 
@@ -295,9 +303,27 @@ AFRAME.registerComponent('game-manager', {
     incrementBikePoolMemberCount: function() {
         this.bikeMemberCount++;
     },
-    tick: function() {
+    tick: function(t, dt) {
         if(GAME_STATE === GAME_STATES.PLAYING && this.getLevelPosition() > this.levelData.endDistance) {
             this.endLevel();
+        }
+
+        if(this.lerpFog && GAME_STATE === GAME_STATES.PLAYING) {
+            if(this.lerpFogTimer >= 0) {
+                this.currentNearFog = lerp(this.levelData.fogNear, this.targetNearFog, this.lerpFogAmount);
+                this.lerpFogAmount = Math.min(1.0, this.lerpFogAmount + dt/1000);
+                this.lerpFogTimer -= dt/1000;
+            } else {
+                this.currentNearFog = lerp(this.levelData.fogNear, this.targetNearFog, this.lerpFogAmount);
+                this.lerpFogAmount -= dt/1000;
+                if(this.lerpFogAmount <= 0) {
+                    this.lerpFog = false;
+                }
+            }
+
+            let scene = document.querySelector('a-scene');
+            scene.setAttribute('fog', {'near': this.currentNearFog});
+
         }
     }
 });

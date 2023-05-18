@@ -1,4 +1,4 @@
-import { GAME_STATE, GAME_STATES } from "./game-manager";
+import { GAME_STATE, GAME_STATES, gameManager } from "./game-manager";
 import { interactablePool } from "./interactable-pool";
 
 const LOW_METER_THRESHOLD = 20;
@@ -87,6 +87,7 @@ AFRAME.registerComponent('noise-meter', {
         } else if(this.data.meterId === 'ray-meter') {
             this.el.addEventListener('sound-ended', () => {
                 interactablePool.convertAllToBikes();
+                gameManager.clearFog()
             });
         }
 
