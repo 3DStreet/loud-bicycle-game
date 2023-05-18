@@ -72,6 +72,10 @@ AFRAME.registerComponent('interactable', {
         setTimeout(() => {
             this.sound = this.el.components['sound'];
         }, 100);
+
+        this.el.addEventListener('raycaster-intersection', evt => {
+            this.isHit = true;
+        });
     },
     play: function() {
         this.fromX = this.el.object3D.position.x;
@@ -120,6 +124,7 @@ AFRAME.registerComponent('interactable', {
                     break;
             }
         }
+
         this.el.object3D.getWorldPosition(this.tempVec);
 
         if(this.returnFunction && this.tempVec.z > INTERACTABLE_DISABLE_Z) {

@@ -7,6 +7,8 @@ import { getRandomAdultBikeId } from './bike-train-member';
 const SIDE_INTERCTABLE_START_DISTANCE = 10;
 const INTERSECTION_CAR_Z_OFFSET = 2;
 
+const DEBUG_RAYCAST_LINE = true;
+
 export let rightCrossInitialBox;
 export let interactablePool;
 
@@ -43,6 +45,8 @@ AFRAME.registerComponent('interactable-pool', {
 
         el.removeAttribute("gltf-model");
         el.setAttribute('gltf-model', '#sedan-taxi-rigged');
+
+        el.setAttribute('raycaster', {objects: '[interactable]', showLine: DEBUG_RAYCAST_LINE, far: 4, interval: 100, origin: '0, 1, 3', direction: '0 0 1'});
 
         el.setAttribute('interactable', {type});
 
@@ -84,6 +88,8 @@ AFRAME.registerComponent('interactable-pool', {
         el.setAttribute('interactable', {type});
         el.play();
 
+        el.setAttribute('raycaster', {objects: '[interactable]', showLine: DEBUG_RAYCAST_LINE, far: 4, interval: 100, origin: '0, 1, 3', direction: '0 0 1'});
+
         el.removeAttribute("gltf-model");
         el.setAttribute('gltf-model', '#sedan-rigged');
 
@@ -115,6 +121,8 @@ AFRAME.registerComponent('interactable-pool', {
 
         el.setAttribute('interactable', {type});
         el.play();
+
+        el.setAttribute('raycaster', {objects: '[interactable]', showLine: DEBUG_RAYCAST_LINE, far: 4, interval: 100, origin: '0, 1, 5', direction: '0, 0, 1'});
 
         el.removeAttribute("gltf-model");
         el.setAttribute('gltf-model', '#box-truck-rigged');
@@ -160,6 +168,8 @@ AFRAME.registerComponent('interactable-pool', {
         el.setAttribute('interactable', {type});
         el.play();
 
+        el.setAttribute('raycaster', {objects: '[interactable]', showLine: DEBUG_RAYCAST_LINE, far: 4, interval: 100, origin: '0, 1, -3', direction: '0 0 -1'});
+
         el.removeAttribute("gltf-model");
         el.setAttribute('gltf-model', '#suv-rigged');
 
@@ -196,6 +206,8 @@ AFRAME.registerComponent('interactable-pool', {
 
         el.setAttribute('interactable', {type});
         el.play();
+
+        el.setAttribute('raycaster', {objects: '[interactable]', showLine: DEBUG_RAYCAST_LINE, far: 4, interval: 100, origin: '0, 1, 3', direction: '0 0 1'});
 
         el.removeAttribute("gltf-model");
         el.setAttribute('gltf-model', '#vehicle-bmw-m2-asset');
