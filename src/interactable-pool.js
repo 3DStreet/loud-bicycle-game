@@ -7,7 +7,7 @@ import { getRandomAdultBikeId } from './bike-train-member';
 const SIDE_INTERCTABLE_START_DISTANCE = 10;
 const INTERSECTION_CAR_Z_OFFSET = 2;
 
-const DEBUG_RAYCAST_LINE = true;
+const DEBUG_RAYCAST_LINE = false;
 
 export let rightCrossInitialBox;
 export let interactablePool;
