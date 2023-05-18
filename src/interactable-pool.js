@@ -41,6 +41,8 @@ AFRAME.registerComponent('interactable-pool', {
 
         let el = this.pool.requestEntity();
 
+        if(!el) return console.error("Interactable pool is too small, failed to spawn");
+
         const sideType = isSideType(type);
 
         el.removeAttribute("gltf-model");
@@ -85,6 +87,8 @@ AFRAME.registerComponent('interactable-pool', {
 
         let el = this.pool.requestEntity();
 
+        if(!el) return console.error("Interactable pool is too small, failed to spawn");
+
         el.setAttribute('interactable', {type});
         el.play();
 
@@ -118,6 +122,8 @@ AFRAME.registerComponent('interactable-pool', {
         if(!gameManager.levelData.interactables[type] || gameManager.levelData.interactables[type] < Math.random()) return;
 
         let el = this.pool.requestEntity();
+
+        if(!el) return console.error("Interactable pool is too small, failed to spawn");
 
         el.setAttribute('interactable', {type});
         el.play();
@@ -165,6 +171,8 @@ AFRAME.registerComponent('interactable-pool', {
 
         let el = this.pool.requestEntity();
 
+        if(!el) return console.error("Interactable pool is too small, failed to spawn");
+
         el.setAttribute('interactable', {type});
         el.play();
 
@@ -203,6 +211,8 @@ AFRAME.registerComponent('interactable-pool', {
         if(!gameManager.levelData.interactables[type] || gameManager.levelData.interactables[type] < Math.random()) return;
 
         let el = this.pool.requestEntity();
+
+        if(!el) return console.error("Interactable pool is too small, failed to spawn");
 
         el.setAttribute('interactable', {type});
         el.play();
