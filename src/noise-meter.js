@@ -26,15 +26,21 @@ AFRAME.registerComponent('noise-meter', {
         meterId: {default: ''},
         isSmall: {default: false, type: 'boolean'},
         keyCode: {default: ''},
+        lightId: {default: ''}
     },
     init: function() {
         this.meter = 100;
         this.lastTickUpdate = 0;
         this.threshhold = this.data.clickerId === 'ray' ? BROKEN_REACTIVATE_THRESHHOLD_RAY : BROKEN_REACTIVATE_THRESHHOLD;
+        this.tempVec = new THREE.Vector3();
 
         this.addEvents();
         noiseMeters[this.data.clickerId] = this;
         this.otherId = this.data.clickerId === 'horn' ? 'shout' : 'horn';
+
+        if(this.data.lightId) {
+            this.light = document.getElementById(this.data.lightId);
+        }
     },
     tick: function(_t, dt) {
         if (GAME_STATE === GAME_STATES.PLAYING && this.noiseIndicator) {
@@ -56,6 +62,12 @@ AFRAME.registerComponent('noise-meter', {
                 }
             }
             this.updateMeter();
+        
+            if(this.light) {
+                this.noiseIndicator.el.object3D.getWorldPosition(this.tempVec);
+                this.tempVec.y += 2.0;
+                this.light.object3D.position.copy(this.tempVec);
+            }
         }
     },
     addEvents: function() {
@@ -88,8 +100,6 @@ AFRAME.registerComponent('noise-meter', {
             this.el.addEventListener('sound-ended', () => {
                 interactablePool.convertAllToBikes();
                 gameManager.clearFog()
-
-
             });
         }
 
@@ -120,7 +130,9 @@ AFRAME.registerComponent('noise-meter', {
     },
     displayVFX: function() {
         let otherIds = Object.keys(noiseMeters);
-        if (this.hasLowMeter() || this.broken || noiseMeters[otherIds[0]].displaying|| noiseMeters[otherIds[1]].displaying|| noiseMeters[otherIds[2]].displaying) return;
+        if (this.hasLowMeter() || !this.enabled || this.broken || noiseMeters[otherIds[0]].displaying|| noiseMeters[otherIds[1]].displaying|| noiseMeters[otherIds[2]].displaying) return;
+
+        if(this.light) this.light.emit('startAnimation');
 
         this.sound.playSound();
         this.displaying = true;

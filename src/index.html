@@ -263,7 +263,7 @@
         <img id="comic-effect" src="./assets/comic_effect.png">
         <img id="grass-floor" src="./3dstreet-assets/materials/TexturesCom_Grass0052_1_seamless_S.jpg">
         <img id="sky" src="https://github.3dstreet.org/assets/CGSkies_0343_doubled_2048.jpg">
-        <a-mixin id="interactable-mixin" interactable sound="src:#muffled-voice" material="color: red" color="#4CC3D9"></a-mixin>
+        <a-mixin id="interactable-mixin" interactable  sound="src:#muffled-voice" material="color: red" color="#4CC3D9"></a-mixin>
         <a-mixin id="smog-mixin" smog geometry="primitive: box; width: 1; height: 1; depth: 0.2"></a-mixin>
         <a-mixin id="bike-pool-mixin" gltf-model="#cyclist-kid-asset" animation-mixer bike-train-member></a-mixin>
         <a-asset-item id="wave" src="./assets/wave.glb"></a-asset-item>
@@ -298,7 +298,6 @@
         <a-mixin id="vehicle-bmw-m2" gltf-model="#vehicle-bmw-m2-asset"></a-mixin>
         <a-mixin id="prop-suburban-houses" gltf-model="#prop-suburban-houses-asset"></a-mixin>
         <a-mixin id="prop-banner-wfh" gltf-model="#prop-banner-wfh-asset"></a-mixin>
-        <a-mixin id="prop-raygun" gltf-model="#prop-raygun-asset"></a-mixin>
 
       </a-assets>
       <a-entity id="ambient-audio" sound="src: #ambient-sound; autoplay: false; loop: true; volume: 0.5"></a-entity>
@@ -322,6 +321,7 @@
         </a-entity>
       </a-entity>
       <a-entity id="bell-indicator" gltf-model="#bell" visible="false" scale="0.75 0.75 0.75"></a-entity>
+      <a-entity id="flash-light" light="type: point; color: #f2ad13; decay: 0.23; distance: 25.35; intensity: 0.0" animation="property: light.intensity; from: 0.0; to: 80.0; dur: 400; dir: alternate; loop: 1; startEvents: startAnimation" position="0 1 -0.40039" rotation="-19.74 0 0"></a-entity>
 
       <a-entity id="interactable-spawner" interactable-pool></a-entity>
       <a-entity id="smog-spawner" smog-pool></a-entity>
@@ -330,7 +330,7 @@
       <a-entity id="game-manager" game-manager sound="src: url(./assets/breath_caugh.mp3);"></a-entity>
       <a-entity noise-meter="clickerId:shout; meterId:special-meter; isSmall:true; keyCode:q;" sound="src: url(./assets/bell.webm);"></a-entity>
       <a-entity id="horn-noise" noise-meter="clickerId:horn; meterId:main-meter; isSmall:false; keyCode:w" sound="src: url(./assets/shout.webm); loop: true"></a-entity>
-      <a-entity id="ray-noise" noise-meter="clickerId:ray; meterId:ray-meter; keyCode:e" sound="src: url(./assets/ray.webm);"></a-entity>
+      <a-entity id="ray-noise" noise-meter="clickerId:ray; meterId:ray-meter; keyCode:e; lightId: flash-light" sound="src: url(./assets/ray.webm);"></a-entity>
 
       <a-entity id="level" animation="property: position; to: 0 0 400; autoplay: false; dur: 100000; easing: linear; loop: false">
         <a-plane src="#grass-floor" height="1000" width="1000" rotation="-90 0 0" position="0 -0.05 0" material="repeat: 20 20"></a-plane>
@@ -338,13 +338,13 @@
 
     </a-scene>
 
-<!-- special weapon, bell, green ray gun -->
+<!-- special weapon, bell-->
     <img id="shout" height="200" width="200" src="./assets/bell.jpg" >
     <progress id="special-meter" class="high-meter" value="0" max="100"></progress>
 
-  <!-- main weapon, shout, Loud Classic, Loud Mini -->
-    <img id="ray" height="200" width="200" src="./assets/gun-ray.svg" >
-    <progress id="ray-meter" class="high-meter" value="0" max="100"></progress>
+  <!-- Raygun -->
+    <img id="ray" style="display: none" height="200" width="200" src="./assets/gun-ray.svg" >
+    <progress id="ray-meter" style="display: none" class="high-meter" value="0" max="100"></progress>
 
 <!-- main weapon, shout, Loud Classic, Loud Mini -->
     <img id="horn" height="200" width="200" src="./assets/shout.jpg" >
