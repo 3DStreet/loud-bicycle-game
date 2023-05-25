@@ -161,6 +161,13 @@ AFRAME.registerComponent('game-manager', {
         document.querySelector('#horn').src = './assets/loud_mini.jpg';
         document.querySelector('#horn-noise').setAttribute('sound', {src: 'url(./assets/horn.mp3)'});
     },
+    setRaygunActive: function(b) {
+        document.querySelector('#ray').style.display = b ? 'unset' : 'none';
+        document.querySelector('#ray-meter').style.display = b ? 'unset' : 'none';
+        const rayNoise = document.querySelector('#ray-noise')
+        if(rayNoise && rayNoise.components['noise-meter'])
+            rayNoise.components['noise-meter'].enabled = b;
+    },
     downgradeToShout: function() {
         document.querySelector('[noise-indicator]').components['noise-indicator'].downgradeShout();
         document.querySelector('#horn').src = './assets/shout.jpg';
@@ -172,11 +179,21 @@ AFRAME.registerComponent('game-manager', {
             const element = document.createElement('a-entity');
             element.setAttribute('item', {type: 'horn'});
             element.setAttribute('gltf-model', '#loud-bicycle-mini-asset');
-            element.setAttribute('scale', '4 4 4');
+            element.setAttribute('scale', '2 2 2');
             element.setAttribute('position', (i * 2.5) + ' 0.8 -' + (this.levelData.endDistance - 10));
             this.currentLevel.append(element);
         };
-
+    },
+    spawnRaygun: function() {
+        for (let i = 0; i < 3; i++) {
+            const element = document.createElement('a-entity');
+            element.setAttribute('item', {type: 'raygun'});
+            element.setAttribute('gltf-model', '#prop-raygun-asset');
+            element.setAttribute('scale', '2 2 2');
+            // element.setAttribute('position', (i * 2.5) + ' 0.8 -10');
+            element.setAttribute('position', (i * 2.5) + ' 0.8 -' + (this.levelData.endDistance - 10));
+            this.currentLevel.append(element);
+        };
     },
     generateLevel: function(index) {
         const levelData = this.levelData = gameData.levels[index];
@@ -184,11 +201,13 @@ AFRAME.registerComponent('game-manager', {
         this.lanes = levelData.amountLanes;
         if(levelData.startWithMini) this.upgradeToHorn();
         else this.downgradeToShout();
+        this.setRaygunActive(!!levelData.startWithRaygun);
         document.querySelector('[player-controller]').components['player-controller'].setLane(levelData.startingLane);
         
         this.currentLevel = document.createElement('a-entity');
         this.level.append(this.currentLevel);
         if(levelData.spawnMinis) this.spawnMinis();
+        if(levelData.spawnRaygun) this.spawnRaygun();
 
         // Lights & Fog
         let scene = document.querySelector('a-scene');

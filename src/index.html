@@ -298,7 +298,6 @@
         <a-mixin id="vehicle-bmw-m2" gltf-model="#vehicle-bmw-m2-asset"></a-mixin>
         <a-mixin id="prop-suburban-houses" gltf-model="#prop-suburban-houses-asset"></a-mixin>
         <a-mixin id="prop-banner-wfh" gltf-model="#prop-banner-wfh-asset"></a-mixin>
-        <a-mixin id="prop-raygun" gltf-model="#prop-raygun-asset"></a-mixin>
 
       </a-assets>
       <a-entity id="ambient-audio" sound="src: #ambient-sound; autoplay: false; loop: true; volume: 0.5"></a-entity>
@@ -339,13 +338,13 @@
 
     </a-scene>
 
-<!-- special weapon, bell, green ray gun -->
+<!-- special weapon, bell-->
     <img id="shout" height="200" width="200" src="./assets/bell.jpg" >
     <progress id="special-meter" class="high-meter" value="0" max="100"></progress>
 
-  <!-- main weapon, shout, Loud Classic, Loud Mini -->
-    <img id="ray" height="200" width="200" src="./assets/gun-ray.svg" >
-    <progress id="ray-meter" class="high-meter" value="0" max="100"></progress>
+  <!-- Raygun -->
+    <img id="ray" style="display: none" height="200" width="200" src="./assets/gun-ray.svg" >
+    <progress id="ray-meter" style="display: none" class="high-meter" value="0" max="100"></progress>
 
 <!-- main weapon, shout, Loud Classic, Loud Mini -->
     <img id="horn" height="200" width="200" src="./assets/shout.jpg" >

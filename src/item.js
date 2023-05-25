@@ -37,6 +37,8 @@ AFRAME.registerComponent('item', {
         this.comicEffectObject.visible = false;
         if(this.data.type === 'horn') {
             gameManager.upgradeToHorn();
+        } else if(this.data.type === 'raygun') {
+            gameManager.setRaygunActive(true);
         }
     },
     spawn: function() {

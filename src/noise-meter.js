@@ -100,8 +100,6 @@ AFRAME.registerComponent('noise-meter', {
             this.el.addEventListener('sound-ended', () => {
                 interactablePool.convertAllToBikes();
                 gameManager.clearFog()
-
-
             });
         }
 
@@ -132,8 +130,7 @@ AFRAME.registerComponent('noise-meter', {
     },
     displayVFX: function() {
         let otherIds = Object.keys(noiseMeters);
-        if (this.hasLowMeter() || this.broken || noiseMeters[otherIds[0]].displaying|| noiseMeters[otherIds[1]].displaying|| noiseMeters[otherIds[2]].displaying) return;
-
+        if (this.hasLowMeter() || !this.enabled || this.broken || noiseMeters[otherIds[0]].displaying|| noiseMeters[otherIds[1]].displaying|| noiseMeters[otherIds[2]].displaying) return;
 
         if(this.light) this.light.emit('startAnimation');
 

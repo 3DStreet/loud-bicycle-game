@@ -88,6 +88,7 @@ export const gameData = {
                 right: 7.0
             },
             startWithMini: true,
+            spawnRaygun: true,
             streetLengthAdditionalRange: 10,
             lastBuildingOffset: 20,
             lastBuildingAssetId: '#prop-suburban-houses-asset',
@@ -139,6 +140,7 @@ export const gameData = {
                 right: 7.0
             },
             startWithMini: true,
+            startWithRaygun: true,
             streetLengthAdditionalRange: 10,
             lastBuildingOffset: 20,
             lastBuildingAssetId: '#building-bar-asset',
@@ -191,10 +193,10 @@ export const gameData = {
                 right: 7.0
             },
             startWithMini: true,
+            startWithRaygun: true,
             streetLengthAdditionalRange: 10,
             lastBuildingOffset: 20,
             lastBuildingAssetId: '#building-bar.asset',
-
             interactables: {
                 'rightHook': 0.4,
                 'rightCross': 0.8,
