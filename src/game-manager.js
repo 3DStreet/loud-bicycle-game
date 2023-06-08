@@ -12,6 +12,8 @@ export const GAME_STATES = {
 
 export let GAME_STATE = GAME_STATES.MENU;
 
+const SIDE_STREET_LENGTH = 160;
+
 export let gameManager;
 
 export let gameScore = 0;
@@ -236,17 +238,17 @@ AFRAME.registerComponent('game-manager', {
                 el.setAttribute('class', 'intersection');
 
                 const rightSideStreet = document.createElement('a-entity');
-                rightSideStreet.setAttribute('position', {x: (levelData.streetWidth / 2) + 18 + levelData.intersectionWidthOffset / 2, y: 0, z: positionZ})
+                rightSideStreet.setAttribute('position', {x: (levelData.streetWidth / 2) + ((SIDE_STREET_LENGTH / 2)) + levelData.intersectionWidthOffset / 2, y: 0, z: positionZ})
                 rightSideStreet.setAttribute('rotation', {x: 0, y: 90, z: 0})
-                rightSideStreet.setAttribute('street', {length: 40, showVehicles: false})
+                rightSideStreet.setAttribute('street', {length: SIDE_STREET_LENGTH, showVehicles: false})
                 rightSideStreet.setAttribute('streetmix-loader', {streetmixAPIURL: SIDE_STREET_URL, showBuildings: false})
                 rightSideStreet.setAttribute('class', `side-street`)  
                 this.currentLevel.append(rightSideStreet);
 
                 const left = document.createElement('a-entity');
-                left.setAttribute('position', {x: -(levelData.streetWidth / 2) - 18 - levelData.intersectionWidthOffset / 2, y: 0, z: positionZ})
+                left.setAttribute('position', {x: -(levelData.streetWidth / 2) - ((SIDE_STREET_LENGTH / 2)) - levelData.intersectionWidthOffset / 2, y: 0, z: positionZ})
                 left.setAttribute('rotation', {x: 0, y: 90, z: 0})
-                left.setAttribute('street', {length: 40, showVehicles: false})
+                left.setAttribute('street', {length: SIDE_STREET_LENGTH, showVehicles: false})
                 left.setAttribute('streetmix-loader', {streetmixAPIURL: SIDE_STREET_URL, showBuildings: false})
                 left.setAttribute('class', `side-street`)  
                 this.currentLevel.append(left);

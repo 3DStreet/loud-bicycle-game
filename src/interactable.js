@@ -13,11 +13,14 @@ export const isSideType = (type) => {
 }
 
 const INTERACTABLE_HORIZONTAL_ACCELERATION = 0.1;
+const INTERACTABLE_HORIZONTAL_ACCELERATION_INTERSECTION = 0.4;
+const INTERACTABLE_HORIZONTAL_MAX_SPEED = 0.4;
 const HORIZONTAL_ATTACK_WAIT_TIME = 2.0;
 const HORIZONTAL_FOLLOW_ATTACK_SPEED = 1.0;
 const INTERACTABLE_BEHIND_ACCELERATION = 0.1;
 // const INTERACTABLE_SIDE_ATTACK_DELAY_AFTER_SPAWN = 3.7;
 const INTERACTABLE_SIDE_ATTACK_START_Z_DISTANCE = 5;
+const INTERACTABLE_SIDE_ATTACK_START_Z_DISTANCE_INTERSECTION = 15;
 
 // Left Cross
 const INTERACTABLE_LEFT_CROSS_ATTACK_START_Z_DISTANCE = 25;
@@ -120,6 +123,9 @@ AFRAME.registerComponent('interactable', {
                     this.attackPlayerRightCross(dt)
                     break;
                 case 'side':
+                    this.attackPlayerFromSide(dt);
+                    break;
+                case 'driveway':
                     this.attackPlayerFromSide(dt);
                     break;
             }
@@ -229,14 +235,17 @@ AFRAME.registerComponent('interactable', {
         }
     },
     attackPlayerFromSide: function(dt) {
+        let acceleration = this.data.type === 'side' ? INTERACTABLE_HORIZONTAL_ACCELERATION_INTERSECTION : INTERACTABLE_HORIZONTAL_ACCELERATION;
+        let startZDistance = this.data.type === 'side' ? INTERACTABLE_SIDE_ATTACK_START_Z_DISTANCE_INTERSECTION : INTERACTABLE_SIDE_ATTACK_START_Z_DISTANCE;
         if(!this.isHit) {
             const worldZ = this.el.object3D.position.z + this.el.object3D.parent.position.z
-            if(worldZ > -INTERACTABLE_SIDE_ATTACK_START_Z_DISTANCE) {
-                this.speed += INTERACTABLE_HORIZONTAL_ACCELERATION * (dt / 1000);
+            if(worldZ > -startZDistance) {
+                this.speed += acceleration * (dt / 1000);
+                this.speed = Math.min(this.speed, INTERACTABLE_HORIZONTAL_MAX_SPEED);
                 this.el.object3D.position.x += this.direction * this.speed;
             }
         } else {
-            this.speed -= INTERACTABLE_HORIZONTAL_ACCELERATION * (dt / 1000) * 3;
+            this.speed -= acceleration * (dt / 1000) * 3;
             this.speed = Math.max(0, this.speed);
             this.el.object3D.position.x += this.direction * this.speed;
         }

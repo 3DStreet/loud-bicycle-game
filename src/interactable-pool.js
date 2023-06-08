@@ -4,7 +4,7 @@ import { gameManager } from './game-manager';
 import { playerController } from './player-controller'
 import { getRandomAdultBikeId } from './bike-train-member';
 
-const SIDE_INTERCTABLE_START_DISTANCE = 10;
+const SIDE_INTERCTABLE_START_DISTANCE = 60;
 const INTERSECTION_CAR_Z_OFFSET = 2;
 
 const DEBUG_RAYCAST_LINE = false;
@@ -167,7 +167,7 @@ AFRAME.registerComponent('interactable-pool', {
 
     spawnCarOnDriveway: function (position){
         if(!gameManager.levelData.interactables['driveway'] || gameManager.levelData.interactables['driveway'] < Math.random()) return;
-        const type = "side"
+        const type = "driveway"
 
         let el = this.pool.requestEntity();
 
