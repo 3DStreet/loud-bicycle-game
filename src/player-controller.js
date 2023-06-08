@@ -7,12 +7,13 @@ const TOUCH_SWIPE_THRESHHOLD = 20;
 
 AFRAME.registerComponent('player-controller', {
     schema: {
+        defaultLives: {default: 3},
         speed: {default: 1.0},
     },
     init: function () {
         playerController = this;
         this.currentLane = 0;
-        this.lives = 3;
+        this.lives = this.data.defaultLives;
         window.addEventListener("keypress", this.onKeyPressed.bind(this));
         
         let touchStartX = 0;
@@ -47,7 +48,7 @@ AFRAME.registerComponent('player-controller', {
         b ? this.animationMixer.pause() : this.animationMixer.play();
     },
     reset: function() {
-        this.lives = 3;
+        this.lives = this.data.defaultLives;
         this.liveEls[0].style.visibility = 'unset';
         this.liveEls[1].style.visibility = 'unset';
         this.liveEls[2].style.visibility = 'unset';
@@ -140,7 +141,8 @@ AFRAME.registerComponent('player-controller', {
         this.collided = true;
         this.collidedTimer = 0;
         this.lives--;
-        this.liveEls[this.liveEls.length - this.lives - 1].style.visibility = 'hidden';
+        if(this.liveEls[this.liveEls.length - this.lives - 1])
+            this.liveEls[this.liveEls.length - this.lives - 1].style.visibility = 'hidden';
         this.sound.playSound();
         if(this.lives === 0) {
             gameManager.failLevel();

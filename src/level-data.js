@@ -10,6 +10,7 @@ export const SIDE_STREET_URL = './levels/side_street-26f46f90-bd11-11ec-b3b1-395
 */
 
 export const gameData = {
+    cheatSpeed: 5.0,
     levels: [
         {
             name: 'Level 1 - Lead the kids to school',

@@ -76,7 +76,14 @@ AFRAME.registerComponent('game-manager', {
             const queryString = window.location.search;
             const urlParams = new URLSearchParams(queryString);
             const showMenu = urlParams.get('menu');
+            const isCheat = urlParams.get('cheat');
             
+            if(isCheat) {
+                AFRAME.ANIME.speed = gameData.cheatSpeed;
+                document.querySelector('[player-controller]').setAttribute('player-controller', {defaultLives: 1000})
+                document.querySelector('[player-controller]').components['player-controller'].lives = 1000;
+            }
+
             if(!showMenu) {
                 const levelParam = Number(urlParams.get('level')) || 0;
                 this.generateLevel(levelParam);
