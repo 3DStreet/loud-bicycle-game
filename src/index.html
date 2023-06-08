@@ -28,6 +28,13 @@
         -ms-user-select: none;
         -webkit-touch-callout:none;
       }
+
+      #shout > img, #horn > img, #ray > img {
+        pointer-events: none;
+        width: 100%;
+        height: 100%;
+      }
+
       #horn.disabled {
         border: 2px solid red;
       }
@@ -347,15 +354,21 @@
     </a-scene>
 
 <!-- special weapon, bell-->
-    <img id="shout" height="200" width="200" src="./assets/bell.jpg" >
+    <div id="shout">
+      <img height="200" width="200" src="./assets/bell.jpg" >
+    </div>
     <progress id="special-meter" class="high-meter" value="0" max="100"></progress>
 
   <!-- Raygun -->
-    <img id="ray" style="display: none" height="200" width="200" src="./assets/gun-ray.svg" >
+    <div id="ray">
+      <img style="display: none" height="200" width="200" src="./assets/gun-ray.svg" >
+    </div>
     <progress id="ray-meter" style="display: none" class="high-meter" value="0" max="100"></progress>
 
 <!-- main weapon, shout, Loud Classic, Loud Mini -->
-    <img id="horn" height="200" width="200" src="./assets/shout.jpg" >
+    <div id="horn">
+      <img height="200" width="200" src="./assets/shout.jpg" >
+    </div>
     <progress id="main-meter" class="high-meter" value="0" max="100"></progress>
 
     <div id="game-menu">
