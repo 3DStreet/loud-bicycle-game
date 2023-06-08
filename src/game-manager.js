@@ -161,7 +161,7 @@ AFRAME.registerComponent('game-manager', {
     upgradeToHorn: function() {
         document.querySelector('[noise-indicator]').components['noise-indicator'].upgradeLoudMini();
         document.querySelector('#horn').src = './assets/loud_mini.jpg';
-        document.querySelector('#horn-noise').setAttribute('sound', {src: 'url(./assets/horn.mp3)'});
+        document.querySelector('#horn-noise').setAttribute('sound', {src: 'url(./assets/horn.webm)'});
     },
     setRaygunActive: function(b) {
         document.querySelector('#ray').style.display = b ? 'unset' : 'none';
@@ -173,7 +173,7 @@ AFRAME.registerComponent('game-manager', {
     downgradeToShout: function() {
         document.querySelector('[noise-indicator]').components['noise-indicator'].downgradeShout();
         document.querySelector('#horn').src = './assets/shout.jpg';
-        document.querySelector('#horn-noise').setAttribute('sound', {src: 'url(./assets/shout.mp3)'});
+        document.querySelector('#horn-noise').setAttribute('sound', {src: 'url(./assets/shout.webm)'});
     },
     spawnMinis: function() {
         // <a-entity item="type: horn" gltf-model="#loud-bicycle-mini-asset" position="0 0.8 -16" scale="4 4 4"></a-entity>
