@@ -14,15 +14,27 @@ export const gameData = {
     levels: [
         {
             name: 'Level 1 - Lead the kids to school',
-            fogNear: 200,
-            fogFar: 400,
-            fogColor: '#AAA',
-            ambientLightColor: '#222', 
-            directionalLightColor: '#222', 
-            directionalLightIntensity: 10.6, 
-            directionalLightPosition: '0.2 0.3 0.1', 
-            hasBikeLight: true, 
-            endDistance: 180,
+            fogNear: 40000,
+            fogFar: 40000,
+            fogColor: '#00FFFFFF',
+            ambientLightColor: '#0000', 
+            directionalLightColor: '#FFFFFF', 
+            directionalLightIntensity: 1.0, 
+            // directionalLightPosition: '0.2 0.3 0.1',
+            //           [right/-left, up/down, forward/back]
+
+            // morning
+            directionalLightPosition: '-5 8 4',
+
+            // afternoon
+            // directionalLightPosition: '5 8 -4',
+
+            // sunset
+            // directionalLightPosition: '5 5 -10',
+
+            hasBikeLight: false, 
+            //  (n streets*length +  )
+            endDistance: 5 * 50 + 4 * 10 + 30,
             startingLane: 2,
             amountLanes: 3,
             laneWidth: 3.048,
@@ -43,17 +55,16 @@ export const gameData = {
             lastBuildingAssetId: '#building-school-asset',
             spawnMinis: true,
             interactables: {
-                'driveway': 0.3,
-                // 'side',
+                'driveway': 0.5,
+                // 'side': 0.5,
                 'rightCross': 0.8
             },
             streetUrls: [
-                './levels/street_1-51136070-c1f7-11ec-877c-abfad556cfc6.json',
-                './levels/street_1-51136070-c1f7-11ec-877c-abfad556cfc6.json',
-                './levels/street_1-51136070-c1f7-11ec-877c-abfad556cfc6.json',
-                './levels/street_2-b4112510-c1fa-11ec-877c-abfad556cfc6.json',
-                './levels/street_2-b4112510-c1fa-11ec-877c-abfad556cfc6.json',
-                './levels/street_2-b4112510-c1fa-11ec-877c-abfad556cfc6.json',
+                './levels/street_1.json',
+                './levels/street_1.json',
+                './levels/street_1.json',
+                './levels/street_2.json',
+                './levels/street_2.json',
             ],
             intersectionUrls: [
                 'https://cdn.glitch.global/4cbfc52c-9f40-485c-b7ff-e3ed0494f9a0/intersection.jpeg?v=1650059985944'
@@ -67,14 +78,23 @@ export const gameData = {
             fogNear: 200,
             fogFar: 400,
             fogColor: '#AAA',
-            ambientLightColor: '#222', 
-            directionalLightColor: '#222', 
-            directionalLightIntensity: 0.6, 
-            directionalLightPosition: '0 0 0', 
+            directionalLightColor: '#FFFFFF', 
+            directionalLightIntensity: 1.0, 
+            // directionalLightPosition: '0.2 0.3 0.1',
+            //           [right/-left, up/down, forward/back]
+
+            // morning
+            directionalLightPosition: '-5 8 4',
+
+            // afternoon
+            // directionalLightPosition: '5 8 -4',
+
+            // sunset
+            // directionalLightPosition: '5 5 -10',
             hasBikeLight: false, 
-            endDistance: 180,
-            startingLane: 2,
-            amountLanes: 4,
+            endDistance: 5 * 50 + 4 * 10 + 35,
+            startingLane: 1,
+            amountLanes: 3,
             amountBikePool: 3,
             bikePoolSpawnOffset: 1,
             bikePoolIsAdult: true,
@@ -100,12 +120,12 @@ export const gameData = {
                 'driveway': 0.3
             },
             streetUrls: [
-                './levels/street_3-6a184410-c1fb-11ec-877c-abfad556cfc6.json',
-                './levels/street_3-6a184410-c1fb-11ec-877c-abfad556cfc6.json',
-                './levels/street_3-6a184410-c1fb-11ec-877c-abfad556cfc6.json',
-                './levels/street_4-1da4bec0-c1ff-11ec-877c-abfad556cfc6.json',
-                './levels/street_4-1da4bec0-c1ff-11ec-877c-abfad556cfc6.json',
-                './levels/street_4-1da4bec0-c1ff-11ec-877c-abfad556cfc6.json',
+                './levels/street_3.json',
+                './levels/street_3.json',
+                './levels/street_3.json',
+                './levels/street_4.json',
+                './levels/street_4.json',
+                // './levels/street_4-1da4bec0-c1ff-11ec-877c-abfad556cfc6.json',
             ],
             intersectionUrls: [
                 'https://cdn.glitch.global/4cbfc52c-9f40-485c-b7ff-e3ed0494f9a0/intersection.jpeg?v=1650059985944'
@@ -124,14 +144,14 @@ export const gameData = {
             directionalLightIntensity: 0.6, 
             directionalLightPosition: '0 0 0', 
             hasBikeLight: true, 
-            endDistance: 180,
+            endDistance: 60 * 4 + 20 * 3 + 30,
             startingLane: 2,
             amountLanes: 4,
             amountBikePool: 3,
             bikePoolSpawnOffset: 1,
             disableBikePool: true,
             laneWidth: 3.048,
-            streetLength: 50,
+            streetLength: 60,
             streetWidth: 20,
             intersectionWidthOffset: 10,
             intersectionCurbMargins: {
@@ -156,8 +176,8 @@ export const gameData = {
                 './levels/street_4-1da4bec0-c1ff-11ec-877c-abfad556cfc6.json',
                 './levels/street_4-1da4bec0-c1ff-11ec-877c-abfad556cfc6.json',
                 './levels/street_5-93937ae0-c1ff-11ec-877c-abfad556cfc6.json',
-                './levels/street_5-93937ae0-c1ff-11ec-877c-abfad556cfc6.json',
-                './levels/street_5-93937ae0-c1ff-11ec-877c-abfad556cfc6.json',
+                // './levels/street_5-93937ae0-c1ff-11ec-877c-abfad556cfc6.json',
+                // './levels/street_5-93937ae0-c1ff-11ec-877c-abfad556cfc6.json',
 
             ],
             intersectionUrls: [
