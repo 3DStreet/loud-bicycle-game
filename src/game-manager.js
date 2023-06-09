@@ -167,7 +167,7 @@ AFRAME.registerComponent('game-manager', {
     },
     upgradeToHorn: function() {
         document.querySelector('[noise-indicator]').components['noise-indicator'].upgradeLoudMini();
-        document.querySelector('#horn').src = './assets/loud_mini.jpg';
+        document.querySelector('#horn img').src = './assets/loud_mini.jpg';
         document.querySelector('#horn-noise').setAttribute('sound', {src: 'url(./assets/horn.webm)'});
     },
     setRaygunActive: function(b) {
@@ -179,7 +179,7 @@ AFRAME.registerComponent('game-manager', {
     },
     downgradeToShout: function() {
         document.querySelector('[noise-indicator]').components['noise-indicator'].downgradeShout();
-        document.querySelector('#horn').src = './assets/shout.jpg';
+        document.querySelector('#horn img').src = './assets/shout.jpg';
         document.querySelector('#horn-noise').setAttribute('sound', {src: 'url(./assets/shout.webm)'});
     },
     spawnMinis: function() {
