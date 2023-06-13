@@ -9,13 +9,15 @@ AFRAME.registerComponent('bike-train-pool', {
             document.querySelector('[player-controller]').components['aabb-collider'].update();      
         }, 1000);
     },
-    start: function() {
+    startSpawn: function() {
         if(this.spawnInterval) return;
+        console.log('start');
         this.spawnInterval = setInterval(() => {
             this.spawnEl()
         }, BIKE_TRAIN_SPAWN_INTERVAL_MS);
     },
-    stop: function() {
+    stopSpawn: function() {
+        console.log('stop');
         clearInterval(this.spawnInterval);
         this.spawnInterval = null;
     },

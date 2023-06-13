@@ -144,7 +144,7 @@ AFRAME.registerComponent('game-manager', {
         this.levelAnimation.animation.pause();
         this.interactablePool.stop();
         this.smogPool.stop();
-        this.bikePool.stop();
+        this.bikePool.stopSpawn();
         GAME_STATE = GAME_STATES.END;
     },
     playLevel: function() {
@@ -156,7 +156,7 @@ AFRAME.registerComponent('game-manager', {
         this.levelAnimation.animation.restart();
         this.interactablePool.start();
         this.smogPool.start();
-        if(!level.disableBikePool) this.bikePool.start();
+        if(!this.levelData.disableBikePool) this.bikePool.startSpawn();
         GAME_STATE = GAME_STATES.PLAYING;
         document.querySelector('#game-menu-bg').style.opacity = 0;
     },
@@ -189,7 +189,7 @@ AFRAME.registerComponent('game-manager', {
             element.setAttribute('item', {type: 'horn'});
             element.setAttribute('gltf-model', '#loud-bicycle-mini-asset');
             element.setAttribute('scale', '2 2 2');
-            element.setAttribute('position', (i * 2.5) + ' 0.8 -' + (this.levelData.endDistance - 10));
+            element.setAttribute('position', (i * 3.3) + ' 0.8 -' + (this.levelData.endDistance - 10));
             this.currentLevel.append(element);
         };
     },
@@ -200,7 +200,7 @@ AFRAME.registerComponent('game-manager', {
             element.setAttribute('gltf-model', '#prop-raygun-asset');
             element.setAttribute('scale', '2 2 2');
             // element.setAttribute('position', (i * 2.5) + ' 0.8 -10');
-            element.setAttribute('position', (i * 2.5) + ' 0.8 -' + (this.levelData.endDistance - 10));
+            element.setAttribute('position', (i * 3.3) + ' 0.8 -' + (this.levelData.endDistance - 20));
             this.currentLevel.append(element);
         };
     },
@@ -307,10 +307,10 @@ AFRAME.registerComponent('game-manager', {
         return this.tempVec.z;
     },
     clearFog: function() {
-        this.targetNearFog = 400;
-        this.lerpFog = true;
-        this.lerpFogTimer = 10.0;
-        this.lerpFogAmount = 0.0;
+        // this.targetNearFog = 400;
+        // this.lerpFog = true;
+        // this.lerpFogTimer = 10.0;
+        // this.lerpFogAmount = 0.0;
     },
     getCurrentStreetIndex: function() {
         if(!this.currentLevelStreetEls) return;
