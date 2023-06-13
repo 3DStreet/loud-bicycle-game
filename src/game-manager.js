@@ -307,10 +307,10 @@ AFRAME.registerComponent('game-manager', {
         return this.tempVec.z;
     },
     clearFog: function() {
-        this.targetNearFog = 400;
-        this.lerpFog = true;
-        this.lerpFogTimer = 10.0;
-        this.lerpFogAmount = 0.0;
+        // this.targetNearFog = 400;
+        // this.lerpFog = true;
+        // this.lerpFogTimer = 10.0;
+        // this.lerpFogAmount = 0.0;
     },
     getCurrentStreetIndex: function() {
         if(!this.currentLevelStreetEls) return;
