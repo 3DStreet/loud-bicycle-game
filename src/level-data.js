@@ -34,7 +34,7 @@ export const gameData = {
 
             hasBikeLight: false, 
             //  (n streets*length +  )
-            endDistance: 5 * 50 + 4 * 10 + 30,
+            endDistance: 4 * 50 + 3 * 10 + 20,
             startingLane: 2,
             amountLanes: 3,
             laneWidth: 3.048,
@@ -57,14 +57,14 @@ export const gameData = {
             interactables: {
                 'driveway': 0.5,
                 // 'side': 0.5,
-                'rightCross': 0.8
+                'rightCross': 0.9
             },
             streetUrls: [
                 './levels/street_1.json',
                 './levels/street_1.json',
-                './levels/street_1.json',
-                './levels/street_2.json',
-                './levels/street_2.json',
+                // './levels/street_1.json',
+                './levels/street_1b.json',
+                './levels/street_1b.json',
             ],
             intersectionUrls: [
                 'https://cdn.glitch.global/4cbfc52c-9f40-485c-b7ff-e3ed0494f9a0/intersection.jpeg?v=1650059985944'
@@ -75,8 +75,8 @@ export const gameData = {
         },
         {
             name: 'Level 2 - Lead people to work',
-            fogNear: 200,
-            fogFar: 400,
+            fogNear: 40000,
+            fogFar: 40000,
             fogColor: '#AAA',
             directionalLightColor: '#FFFFFF', 
             directionalLightIntensity: 1.0, 
@@ -92,7 +92,7 @@ export const gameData = {
             // sunset
             // directionalLightPosition: '5 5 -10',
             hasBikeLight: false, 
-            endDistance: 5 * 50 + 4 * 10 + 35,
+            endDistance: 5 * 50 + 4 * 10 + 32,
             startingLane: 1,
             amountLanes: 3,
             amountBikePool: 3,
@@ -115,16 +115,16 @@ export const gameData = {
             lastBuildingAssetId: '#prop-suburban-houses-asset',
             lastBuildingAdditionalAssetId: '#prop-banner-wfh-asset',
             interactables: {
-                'rightHook': 0.4,
-                'rightCross': 0.8,
-                'driveway': 0.3
+                'rightHook': 0.7,
+                'rightCross': 0.5,
+                'driveway': 0.8
             },
             streetUrls: [
-                './levels/street_3.json',
-                './levels/street_3.json',
-                './levels/street_3.json',
-                './levels/street_4.json',
-                './levels/street_4.json',
+                './levels/street_2.json',
+                './levels/street_2.json',
+                './levels/street_2b.json',
+                './levels/street_2b.json',
+                './levels/street_2b.json',
                 // './levels/street_4-1da4bec0-c1ff-11ec-877c-abfad556cfc6.json',
             ],
             intersectionUrls: [
@@ -172,12 +172,11 @@ export const gameData = {
                 'side': 0.7
             },
             streetUrls: [
-                './levels/street_4-1da4bec0-c1ff-11ec-877c-abfad556cfc6.json',
-                './levels/street_4-1da4bec0-c1ff-11ec-877c-abfad556cfc6.json',
-                './levels/street_4-1da4bec0-c1ff-11ec-877c-abfad556cfc6.json',
-                './levels/street_5-93937ae0-c1ff-11ec-877c-abfad556cfc6.json',
-                // './levels/street_5-93937ae0-c1ff-11ec-877c-abfad556cfc6.json',
-                // './levels/street_5-93937ae0-c1ff-11ec-877c-abfad556cfc6.json',
+                './levels/street_3.json',
+                './levels/street_3.json',
+                './levels/street_3.json',
+                './levels/street_3b.json',
+                './levels/street_3b.json',
 
             ],
             intersectionUrls: [
