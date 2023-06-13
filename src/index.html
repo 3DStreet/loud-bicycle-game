@@ -275,7 +275,7 @@
       gltf-model="dracoDecoderPath: https://www.gstatic.com/draco/versioned/decoders/1.4.3/; meshoptDecoderPath: https://unpkg.com/meshoptimizer@0.16.0/meshopt_decoder.js;">
       <a-assets>
         <streetmix-assets url="./3dstreet-assets/"></streetmix-assets>
-        <audio id="muffled-voice" src="./assets/muffled_voice.webm" preload="auto"></audio>
+        <audio id="muffled-voice" src="./assets/tires.mp3" preload="auto"></audio>
         <audio id="win-sound" src="./assets/win.webm" preload="auto"></audio>
         <audio id="ambient-sound" src="./assets/ambience.webm" preload="auto"></audio>
         <img id="comic-effect" src="./assets/comic_effect.png">
@@ -327,7 +327,7 @@
         id="model"
         geometry="primitive: box; depth: 1.5; width: 0.6"
         material="visible: false;"
-        sound="src: url(./assets/damage.webm);"
+        sound="src: url(./assets/ES_Human Voice Clip 200 - SFX Producer.wav);"
         player-controller="speed: 2.0"
         aabb-collider="objects:[interactable], [smog]"
       >
@@ -348,7 +348,7 @@
       <a-entity id="game-manager" game-manager sound="src: url(./assets/breath_caugh.webm);"></a-entity>
       <a-entity noise-meter="clickerId:shout; meterId:special-meter; isSmall:true; keyCode:q;" sound="src: url(./assets/bell.webm);"></a-entity>
       <a-entity id="horn-noise" noise-meter="clickerId:horn; meterId:main-meter; isSmall:false; keyCode:w" sound="src: url(./assets/shout.webm); loop: true"></a-entity>
-      <a-entity id="ray-noise" noise-meter="clickerId:ray; meterId:ray-meter; keyCode:e; lightId: flash-light" sound="src: url(./assets/ray.webm);"></a-entity>
+      <a-entity id="ray-noise" noise-meter="clickerId:ray; meterId:ray-meter; keyCode:e; lightId: flash-light" sound="src: url(./assets/raygun.wav);"></a-entity>
 
       <a-entity id="level" animation="property: position; to: 0 0 400; autoplay: false; dur: 100000; easing: linear; loop: false">
         <a-plane src="#grass-floor" height="1000" width="1000" rotation="-90 0 0" position="0 -0.05 0" material="repeat: 20 20"></a-plane>
@@ -364,7 +364,7 @@
 
   <!-- Raygun -->
     <div id="ray">
-      <img style="display: none" height="200" width="200" src="./assets/gun-ray.svg" >
+      <img style="display: none" height="200" width="200" src="./assets/gun-ray.png" >
     </div>
     <progress id="ray-meter" style="display: none" class="high-meter" value="0" max="100"></progress>
 
