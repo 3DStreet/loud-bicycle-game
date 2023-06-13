@@ -144,7 +144,7 @@ AFRAME.registerComponent('game-manager', {
         this.levelAnimation.animation.pause();
         this.interactablePool.stop();
         this.smogPool.stop();
-        this.bikePool.stop();
+        this.bikePool.stopSpawn();
         GAME_STATE = GAME_STATES.END;
     },
     playLevel: function() {
@@ -156,7 +156,7 @@ AFRAME.registerComponent('game-manager', {
         this.levelAnimation.animation.restart();
         this.interactablePool.start();
         this.smogPool.start();
-        if(!level.disableBikePool) this.bikePool.start();
+        if(!this.levelData.disableBikePool) this.bikePool.startSpawn();
         GAME_STATE = GAME_STATES.PLAYING;
         document.querySelector('#game-menu-bg').style.opacity = 0;
     },
