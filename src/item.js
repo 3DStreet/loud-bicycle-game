@@ -3,7 +3,7 @@ import { gameManager } from './game-manager';
 
 AFRAME.registerComponent('item', {
     schema: {
-        type: {default: 'horn', oneOf: ['horn', 'raygun']},
+        type: {default: 'horn', oneOf: ['horn', 'raygun', 'heart']},
     },
     init: function() {
         this.isHit = false;
@@ -39,6 +39,8 @@ AFRAME.registerComponent('item', {
             gameManager.upgradeToHorn();
         } else if(this.data.type === 'raygun') {
             gameManager.setRaygunActive(true);
+        } else if(this.data.tpye === 'heart') {
+            gameManager.addLife();
         }
     },
     spawn: function() {

@@ -54,6 +54,7 @@ export const gameData = {
             lastBuildingOffset: 20,
             lastBuildingAssetId: '#building-school-asset',
             spawnMinis: true,
+            spawnHearts: true,
             interactables: {
                 'driveway': 0.5,
                 // 'side': 0.5,
@@ -167,9 +168,9 @@ export const gameData = {
             lastBuildingAssetId: '#building-bar-asset',
             interactables: {
                 'rightHook': 0.4,
-                // 'rightCross': 0,
-                'driveway': 0.3,
-                'side': 0.7
+                'rightCross': 0.2,
+                'driveway': 0.5,
+                'side': 0.8
             },
             streetUrls: [
                 './levels/street_3.json',
@@ -212,6 +213,7 @@ export const gameData = {
             },
             startWithMini: true,
             startWithRaygun: true,
+            spawnHearts: true,
             streetLengthAdditionalRange: 10,
             lastBuildingOffset: 20,
             lastBuildingAssetId: '#building-bar.asset',

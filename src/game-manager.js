@@ -177,6 +177,12 @@ AFRAME.registerComponent('game-manager', {
         if(rayNoise && rayNoise.components['noise-meter'])
             rayNoise.components['noise-meter'].enabled = b;
     },
+    addLife: function() {
+        this.lives++;
+        if(this.liveEls[this.liveEls.length + this.lives + 1])
+            this.liveEls[this.liveEls.length + this.lives + 1].style.visibility = 'hidden';
+        console.log('add life', this.lives);
+    },
     downgradeToShout: function() {
         document.querySelector('[noise-indicator]').components['noise-indicator'].downgradeShout();
         document.querySelector('#horn img').src = './assets/shout.jpg';
@@ -188,7 +194,7 @@ AFRAME.registerComponent('game-manager', {
             const element = document.createElement('a-entity');
             element.setAttribute('item', {type: 'horn'});
             element.setAttribute('gltf-model', '#loud-bicycle-mini-asset');
-            element.setAttribute('scale', '2 2 2');
+            element.setAttribute('scale', '3 3 3');
             element.setAttribute('position', (i * 3.3) + ' 0.8 -' + (this.levelData.endDistance - 10));
             this.currentLevel.append(element);
         };
@@ -199,10 +205,20 @@ AFRAME.registerComponent('game-manager', {
             element.setAttribute('item', {type: 'raygun'});
             element.setAttribute('gltf-model', '#prop-raygun-asset');
             element.setAttribute('scale', '2 2 2');
-            // element.setAttribute('position', (i * 2.5) + ' 0.8 -10');
             element.setAttribute('position', (i * 3.3) + ' 0.8 -' + (this.levelData.endDistance - 20));
             this.currentLevel.append(element);
         };
+    },
+    spawnHearts: function() {
+        let i = 2;
+        const element = document.createElement('a-entity');
+        element.setAttribute('item', {type: 'heart'});
+        element.setAttribute('gltf-model', '#prop-heart-asset');
+        element.setAttribute('scale', '.1 .1 .1');
+        element.setAttribute('rotation', '-90 90 90');
+        element.setAttribute('position', (i * 3.3) + ' 0.8 -' + (this.levelData.endDistance - 134));
+
+        this.currentLevel.append(element);
     },
     generateLevel: function(index) {
         const levelData = this.levelData = gameData.levels[index];
@@ -217,6 +233,7 @@ AFRAME.registerComponent('game-manager', {
         this.level.append(this.currentLevel);
         if(levelData.spawnMinis) this.spawnMinis();
         if(levelData.spawnRaygun) this.spawnRaygun();
+        if(levelData.spawnHearts) this.spawnHearts();
 
         // Lights & Fog
         let scene = document.querySelector('a-scene');
