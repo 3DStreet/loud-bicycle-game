@@ -194,7 +194,7 @@ AFRAME.registerComponent('game-manager', {
             const element = document.createElement('a-entity');
             element.setAttribute('item', {type: 'horn'});
             element.setAttribute('gltf-model', '#loud-bicycle-mini-asset');
-            element.setAttribute('scale', '3 3 3');
+            element.setAttribute('scale', '6 6 6');
             element.setAttribute('position', (i * 3.3) + ' 0.8 -' + (this.levelData.endDistance - 10));
             this.currentLevel.append(element);
         };
@@ -214,8 +214,7 @@ AFRAME.registerComponent('game-manager', {
         const element = document.createElement('a-entity');
         element.setAttribute('item', {type: 'heart'});
         element.setAttribute('gltf-model', '#prop-heart-asset');
-        element.setAttribute('scale', '.1 .1 .1');
-        element.setAttribute('rotation', '-90 90 90');
+        element.setAttribute('scale', '1 1 1');
         element.setAttribute('position', (i * 3.3) + ' 0.8 -' + (this.levelData.endDistance - 134));
 
         this.currentLevel.append(element);
