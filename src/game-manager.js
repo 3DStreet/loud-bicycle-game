@@ -148,6 +148,7 @@ AFRAME.registerComponent('game-manager', {
         GAME_STATE = GAME_STATES.END;
     },
     playLevel: function() {
+        this.ambientAudio.el.setAttribute('sound', {src: this.levelData.ambientSoundId})
         this.ambientAudio.playSound();
         gameScore = 0;
         this.bikeMemberCount = 0;
