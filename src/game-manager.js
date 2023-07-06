@@ -209,7 +209,7 @@ AFRAME.registerComponent('game-manager', {
         element.setAttribute('item', {type: 'heart'});
         element.setAttribute('gltf-model', '#prop-heart-asset');
         element.setAttribute('scale', '1 1 1');
-        element.setAttribute('position', (i * 3.3) + ' 0.8 -' + '10');
+        element.setAttribute('position', (i * 3.3) + ' 0.8 -' + (this.levelData.endDistance - 134));
 
         this.currentLevel.append(element);
     },
