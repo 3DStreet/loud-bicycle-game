@@ -1,9 +1,10 @@
 import { Vector3 } from 'super-three';
 import { gameManager } from './game-manager';
+import { playerController } from './player-controller';
 
 AFRAME.registerComponent('item', {
     schema: {
-        type: {default: 'horn', oneOf: ['horn', 'raygun']},
+        type: {default: 'horn', oneOf: ['horn', 'raygun', 'heart']},
     },
     init: function() {
         this.isHit = false;
@@ -39,6 +40,8 @@ AFRAME.registerComponent('item', {
             gameManager.upgradeToHorn();
         } else if(this.data.type === 'raygun') {
             gameManager.setRaygunActive(true);
+        } else if(this.data.type === 'heart') {
+            playerController.addLife();
         }
     },
     spawn: function() {
