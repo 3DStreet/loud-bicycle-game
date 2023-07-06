@@ -14,7 +14,7 @@ AFRAME.registerComponent('player-controller', {
         playerController = this;
         this.currentLane = 0;
         this.lives = this.data.defaultLives;
-        window.addEventListener("keypress", this.onKeyPressed.bind(this));
+        window.addEventListener("keydown", this.onKeyPressed.bind(this));
         
         let touchStartX = 0;
         let touchEndX = 0;
@@ -64,15 +64,18 @@ AFRAME.registerComponent('player-controller', {
         this.el.object3D.position.x = this.currentLane * gameManager.laneWidth;
     },
     onKeyPressed: function(e) {
-        if(GAME_STATE !== GAME_STATES.PLAYING) return;
+        if(GAME_STATE !== GAME_STATES.PLAYING || e.repeat) return;
         switch(e.key) {
             case 'd':
+            case 'ArrowRight':
                 this.goRight()
                 break;
             case 'a':
+            case 'ArrowLeft':
                 this.goLeft()
                 break;
             case 'p': 
+            case 'Escape': 
                 gameManager.togglePauseLevel()
                 break;
         }

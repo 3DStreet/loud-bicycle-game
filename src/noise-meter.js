@@ -112,7 +112,7 @@ AFRAME.registerComponent('noise-meter', {
         this.sound = this.el.components.sound;
     },
     onKeyPressed: function(e) {
-        if (e.key === this.data.keyCode && GAME_STATE === GAME_STATES.PLAYING) {
+        if (e.key === this.data.keyCode && GAME_STATE === GAME_STATES.PLAYING && !e.repeat) {
             if(this.data.meterId === 'ray-meter' && !this.displaying) this.displayVFX();
             else this.displayIndicator();
         }
