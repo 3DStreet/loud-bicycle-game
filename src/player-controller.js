@@ -135,7 +135,7 @@ AFRAME.registerComponent('player-controller', {
 
             if(this.cameraEl) this.cameraEl.object3D.position.x = this.el.object3D.position.x;
 
-
+            // make the person blink when collided
             if(this.collided) {
                 this.collidedTimer += dt / 1000;
                 if(Math.floor((this.collidedTimer % 1) * 10) % 2) {
@@ -165,10 +165,11 @@ AFRAME.registerComponent('player-controller', {
         if(this.lives === 0) {
             gameManager.failLevel();
         } else {
+            // set the time for how long somebody will blink for when collided
             setTimeout(() => {
                 this.collided = false;
                 this.el.object3D.visible = true;
-            }, 1000);
+            }, 2000);
         }
     }
   });

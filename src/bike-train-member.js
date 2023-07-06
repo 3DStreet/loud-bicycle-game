@@ -34,7 +34,7 @@ AFRAME.registerComponent('bike-train-member', {
         amountBikeTrainMembers++;
 
         this.bellOffset = 0;
-        this.el.setAttribute('animation-mixer', 'timeScale: 1.0');
+        this.el.setAttribute('animation-mixer', 'timeScale: 1.5');
         gameManager.incrementBikePoolMemberCount();
         this.setBellActive(false);
     },
