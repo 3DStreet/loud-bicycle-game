@@ -264,18 +264,20 @@
   </head>
   <body>
     <a-scene
-      keyboard-shortcuts="enterVR: false"
-      fog="type: linear; color: #AAA; far: 100"
-      renderer="gammaOutput: true"
-      vr-mode-ui="enabled: false" 
-      ar-mode-ui="enabled: false" 
-      pool__interactable="container: #level; mixin: interactable-mixin; size: 10" 
-      pool__bikes="container: #level; mixin: bike-pool-mixin; size: 6" 
-      pool__smogs="container: #level; mixin: smog-mixin; size: 20" >
-      <a-assets>
+    keyboard-shortcuts="enterVR: false"
+    fog="type: linear; color: #AAA; far: 100"
+    renderer="gammaOutput: true"
+    vr-mode-ui="enabled: false" 
+    ar-mode-ui="enabled: false" 
+    pool__interactable="container: #level; mixin: interactable-mixin; size: 10" 
+    pool__bikes="container: #level; mixin: bike-pool-mixin; size: 6" 
+    pool__smogs="container: #level; mixin: smog-mixin; size: 20" >
+    <a-assets>
         <audio id="muffled-voice" src="./assets/tires.webm" preload="auto"></audio>
         <audio id="win-sound" src="./assets/win.webm" preload="auto"></audio>
         <audio id="ambient-sound" src="./assets/ambience.webm" preload="auto"></audio>
+        
+        <audio id="horn-sound" src="./assets/horn.webm" loop preload="auto"></audio>
 
         <audio id="shout-female-sound-0" src="./assets/shout_woman_1.wav" preload="auto"></audio>
         <audio id="shout-female-sound-1" src="./assets/shout_woman_2.wav" preload="auto"></audio>

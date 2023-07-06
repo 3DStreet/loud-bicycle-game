@@ -176,11 +176,22 @@ AFRAME.registerComponent('game-manager', {
         return avatarData[index];
     },
     playShout: function() {
-        let path = `#shout-${this.avatarObject.type}-sound-${this.currentShoutIndex}`;
-        console.log('path', path);
-        let audio = document.querySelector(path);
-        audio.play();
-        this.currentShoutIndex = (this.currentShoutIndex + 1) % 3;
+        if(this.isLoudMini) {
+            let audio = document.querySelector('#horn-sound');
+            audio.play();
+        } else {
+            let path = `#shout-${this.avatarObject.type}-sound-${this.currentShoutIndex}`;
+            console.log('path', path);
+            let audio = document.querySelector(path);
+            audio.play();
+            this.currentShoutIndex = (this.currentShoutIndex + 1) % 3;
+        }
+    },
+    stopShout: function() {
+        if(this.isLoudMini) {
+            let audio = document.querySelector('#horn-sound');
+            audio.pause();
+        }
     },
     playLevel: function() {
         this.avatarObject = this.getAvatarObject();
@@ -205,6 +216,7 @@ AFRAME.registerComponent('game-manager', {
         this.smogAudio.playSound();
     },
     upgradeToHorn: function() {
+        this.isLoudMini = true;
         document.querySelector('[noise-indicator]').components['noise-indicator'].upgradeLoudMini();
         document.querySelector('#horn img').src = './assets/loud_mini.jpg';
         // document.querySelector('#horn-noise').setAttribute('sound', {src: 'url(./assets/horn.webm)'});
@@ -256,6 +268,7 @@ AFRAME.registerComponent('game-manager', {
         const levelData = this.levelData = gameData.levels[index];
         this.laneWidth = levelData.laneWidth;
         this.lanes = levelData.amountLanes;
+        this.isLoudMini = false;
         if(levelData.startWithMini) this.upgradeToHorn();
         else this.downgradeToShout();
         this.setRaygunActive(!!levelData.startWithRaygun);

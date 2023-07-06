@@ -165,7 +165,8 @@ AFRAME.registerComponent('noise-meter', {
         if(!this.displaying) return;
         this.noiseIndicator.hide();
         this.displaying = false;
-        if(this.data.meterId !== 'main-meter') this.sound.stopSound();
+        if(this.data.meterId === 'main-meter') gameManager.stopShout();
+        else this.sound.stopSound();
     },
     breakIndicator: function() {
         this.noiseIndicator.hide();
@@ -173,6 +174,7 @@ AFRAME.registerComponent('noise-meter', {
         this.broken = true;
         this.meterEl.className = 'low-meter';
         this.clickerEl.classList.add('disabled');
+        if(this.data.meterId === 'main-meter') gameManager.stopShout();
         if(this.data.meterId === 'special-meter') this.sound.stopSound();
     }
   });
