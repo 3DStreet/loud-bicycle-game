@@ -161,7 +161,7 @@ AFRAME.registerComponent('player-controller', {
         this.lives--;
         if(this.lifeContainer.children.length > this.lives)
             this.lifeContainer.removeChild(this.lifeContainer.lastChild);
-        this.sound.playSound();
+        gameManager.playGetHurt();
         if(this.lives === 0) {
             gameManager.failLevel();
         } else {

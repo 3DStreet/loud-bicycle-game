@@ -181,7 +181,6 @@ AFRAME.registerComponent('game-manager', {
             audio.play();
         } else {
             let path = `#shout-${this.avatarObject.type}-sound-${this.currentShoutIndex}`;
-            console.log('path', path);
             let audio = document.querySelector(path);
             audio.play();
             this.currentShoutIndex = (this.currentShoutIndex + 1) % 3;
@@ -191,6 +190,17 @@ AFRAME.registerComponent('game-manager', {
         if(this.isLoudMini) {
             let audio = document.querySelector('#horn-sound');
             audio.pause();
+        }
+    },
+    playGetHurt: function() {
+        if(this.bikeMemberCount > 0) {
+            let path = `#ouch-baby-sound-${Math.floor(Math.random() * 2)}`; // 0 or 1
+            let audio = document.querySelector(path);
+            audio.play();
+        } else {
+            let path = `#ouch-${this.avatarObject.type}-sound`;
+            let audio = document.querySelector(path);
+            audio.play();
         }
     },
     playLevel: function() {
