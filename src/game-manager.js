@@ -94,6 +94,13 @@ AFRAME.registerComponent('game-manager', {
             this.tick = AFRAME.utils.throttleTick(this.tick, 500, this);
         }, 100);
     },
+    disableAmbientAudio: function() {
+        this.originalAmbientVolume = this.ambientAudio.data.volume;
+        this.ambientAudio.el.setAttribute('sound', {volume: 0.0})        
+    },
+    enableAmbientAudio: function() {
+        this.ambientAudio.el.setAttribute('sound', {volume: this.originalAmbientVolume})        
+    },
     playEndAnimation: function() {
         document.querySelector('#model').emit('playend', null, false);
     },

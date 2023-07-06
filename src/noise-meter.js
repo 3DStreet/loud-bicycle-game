@@ -98,8 +98,7 @@ AFRAME.registerComponent('noise-meter', {
             });
         } else if(this.data.meterId === 'ray-meter') {
             this.el.addEventListener('sound-ended', () => {
-                interactablePool.convertAllToBikes();
-                gameManager.clearFog()
+                gameManager.enableAmbientAudio();
             });
         }
 
@@ -133,6 +132,10 @@ AFRAME.registerComponent('noise-meter', {
         if (this.hasLowMeter() || !this.enabled || this.broken || noiseMeters[otherIds[0]].displaying|| noiseMeters[otherIds[1]].displaying|| noiseMeters[otherIds[2]].displaying) return;
 
         if(this.light) this.light.emit('startAnimation');
+
+        gameManager.disableAmbientAudio();
+        interactablePool.convertAllToBikes();
+        gameManager.clearFog();
 
         this.sound.playSound();
         this.displaying = true;
