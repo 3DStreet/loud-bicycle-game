@@ -42,16 +42,19 @@ AFRAME.registerComponent('player-controller', {
         this.targetPosition = 0;
         this.lerpT = 0;
 
-        this.liveEls = document.querySelector('#life-indicator-container').children;
+        this.lifeContainer = document.querySelector('#life-indicator-container');
     },
     setAnimationPaused: function(b) {
         b ? this.animationMixer.pause() : this.animationMixer.play();
     },
     reset: function() {
         this.lives = this.data.defaultLives;
-        this.liveEls[0].style.visibility = 'unset';
-        this.liveEls[1].style.visibility = 'unset';
-        this.liveEls[2].style.visibility = 'unset';
+        this.lifeContainer.innerHTML = '';
+        for (let i = 0; i < this.lives; i++) {
+            let div = document.createElement('div');
+            div.setAttribute('class', 'life-indicator');
+            this.lifeContainer.appendChild(div);
+        }
         this.collided = false;
         this.el.object3D.visible = true;
     },
@@ -135,14 +138,21 @@ AFRAME.registerComponent('player-controller', {
             }
         }
     },
+    addLife: function() {
+        this.lives++;
+        console.log('ADD LIFE');
+        let div = document.createElement('div');
+        div.setAttribute('class', 'life-indicator');
+        this.lifeContainer.appendChild(div);
+    },
     onCollided: function() {
         if(this.collided) return;
 
         this.collided = true;
         this.collidedTimer = 0;
         this.lives--;
-        if(this.liveEls[this.liveEls.length - this.lives - 1])
-            this.liveEls[this.liveEls.length - this.lives - 1].style.visibility = 'hidden';
+        if(this.lifeContainer.children.length > this.lives)
+            this.lifeContainer.removeChild(this.lifeContainer.lastChild);
         this.sound.playSound();
         if(this.lives === 0) {
             gameManager.failLevel();
