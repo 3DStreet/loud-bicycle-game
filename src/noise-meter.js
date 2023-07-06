@@ -141,6 +141,7 @@ AFRAME.registerComponent('noise-meter', {
         this.displaying = true;
     },
     displayIndicator: function() {
+        console.log('di');
         let otherIds = Object.keys(noiseMeters);
         if (this.hasLowMeter() || this.broken || noiseMeters[otherIds[2]].displaying) {
             if(this.data.meterId === 'special-meter') {
@@ -149,7 +150,14 @@ AFRAME.registerComponent('noise-meter', {
             } 
             return;
         }
-        this.sound.playSound();
+
+        if(this.data.meterId === 'main-meter') {
+            gameManager.playShout();
+        } else {
+            this.sound.stopSound();
+            this.sound.playSound();
+        }
+
         this.displaying = true;
         this.noiseIndicator.display(this.data.isSmall);
     },
@@ -157,7 +165,7 @@ AFRAME.registerComponent('noise-meter', {
         if(!this.displaying) return;
         this.noiseIndicator.hide();
         this.displaying = false;
-        this.sound.stopSound();
+        if(this.data.meterId !== 'main-meter') this.sound.stopSound();
     },
     breakIndicator: function() {
         this.noiseIndicator.hide();
@@ -165,6 +173,6 @@ AFRAME.registerComponent('noise-meter', {
         this.broken = true;
         this.meterEl.className = 'low-meter';
         this.clickerEl.classList.add('disabled');
-        if(this.data.meterId !== 'ray-meter') this.sound.stopSound();
+        if(this.data.meterId === 'special-meter') this.sound.stopSound();
     }
   });

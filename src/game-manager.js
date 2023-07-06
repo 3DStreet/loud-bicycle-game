@@ -10,6 +10,17 @@ export const GAME_STATES = {
     MENU: 3,
 }
 
+export const avatarData = [
+    {
+        type: 'female',
+        id: '#cyclist1-asset'
+    },
+    {
+        type: 'male',
+        id: '#cyclist2-asset'
+    },
+]
+
 export let GAME_STATE = GAME_STATES.MENU;
 
 const SIDE_STREET_LENGTH = 160;
@@ -33,6 +44,8 @@ AFRAME.registerComponent('game-manager', {
         this.currentLevelStreetEls = [];
         this.bikeMemberCount = 0;
         this.winSoundEl = document.querySelector('#win-sound');
+        this.currentAvatarIndex = -1;
+        this.currentShoutIndex = 0;
 
         setTimeout(() => {
             this.interactablePool = document.querySelector('[interactable-pool]').components['interactable-pool'];
@@ -154,7 +167,25 @@ AFRAME.registerComponent('game-manager', {
         this.bikePool.stopSpawn();
         GAME_STATE = GAME_STATES.END;
     },
+    getAvatarObject: function() {
+        let index = Math.floor(Math.random() * avatarData.length);
+        while(index === this.currentAvatarIndex) {
+            index = Math.floor(Math.random() * avatarData.length);
+        }
+        this.currentAvatarIndex = index;
+        return avatarData[index];
+    },
+    playShout: function() {
+        let path = `#shout-${this.avatarObject.type}-sound-${this.currentShoutIndex}`;
+        console.log('path', path);
+        let audio = document.querySelector(path);
+        audio.play();
+        this.currentShoutIndex = (this.currentShoutIndex + 1) % 3;
+    },
     playLevel: function() {
+        this.avatarObject = this.getAvatarObject();
+        playerController.setAvatar(this.avatarObject.id);
+        this.currentShoutIndex = 0;
         this.ambientAudio.el.setAttribute('sound', {src: this.levelData.ambientSoundId})
         this.ambientAudio.playSound();
         gameScore = 0;
@@ -176,7 +207,7 @@ AFRAME.registerComponent('game-manager', {
     upgradeToHorn: function() {
         document.querySelector('[noise-indicator]').components['noise-indicator'].upgradeLoudMini();
         document.querySelector('#horn img').src = './assets/loud_mini.jpg';
-        document.querySelector('#horn-noise').setAttribute('sound', {src: 'url(./assets/horn.webm)'});
+        // document.querySelector('#horn-noise').setAttribute('sound', {src: 'url(./assets/horn.webm)'});
     },
     setRaygunActive: function(b) {
         document.querySelector('#ray').style.display = b ? 'unset' : 'none';
@@ -188,7 +219,7 @@ AFRAME.registerComponent('game-manager', {
     downgradeToShout: function() {
         document.querySelector('[noise-indicator]').components['noise-indicator'].downgradeShout();
         document.querySelector('#horn img').src = './assets/shout.jpg';
-        document.querySelector('#horn-noise').setAttribute('sound', {src: 'url(./assets/shout.webm)'});
+        // document.querySelector('#horn-noise').setAttribute('sound', {src: 'url(./assets/shout.webm)'});
     },
     spawnMinis: function() {
         // <a-entity item="type: horn" gltf-model="#loud-bicycle-mini-asset" position="0 0.8 -16" scale="4 4 4"></a-entity>

@@ -42,6 +42,7 @@ AFRAME.registerComponent('player-controller', {
         this.targetPosition = 0;
         this.lerpT = 0;
 
+        this.playerAvatar = document.querySelector('#player-cyclist');
         this.lifeContainer = document.querySelector('#life-indicator-container');
     },
     setAnimationPaused: function(b) {
@@ -62,6 +63,10 @@ AFRAME.registerComponent('player-controller', {
         this.currentLane = lane;
         this.setPosition();
         this.el.object3D.position.x = this.currentLane * gameManager.laneWidth;
+    },
+    setAvatar: function(gltfPath) {
+        this.playerAvatar.removeAttribute("gltf-model");
+        this.playerAvatar.setAttribute('gltf-model', gltfPath);
     },
     onKeyPressed: function(e) {
         if(GAME_STATE !== GAME_STATES.PLAYING || e.repeat) return;
