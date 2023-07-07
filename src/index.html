@@ -317,6 +317,7 @@
         <a-asset-item id="prop-suburban-houses-asset" src="./3dstreet-assets/objects/suburbia/suburban-houses.glb"></a-asset-item>
         <a-asset-item id="prop-banner-wfh-asset" src="./3dstreet-assets/sets/wfh-banner/gltf-exports/draco/wfh-banner.glb"></a-asset-item>
         <a-asset-item id="prop-raygun-asset" src="./3dstreet-assets/sets/ray-gun/gltf-exports/draco/rayGun.glb"></a-asset-item>
+        <a-asset-item id="scrubber-asset" src="./3dstreet-assets/sets/c02-scrubber/gltf-exports/draco/co2-scrubber.glb"></a-asset-item>
         <a-asset-item id="prop-heart-asset" src="./assets/heart-model_v01.glb"></a-asset-item>
         <a-mixin id="cyclist-cargo" gltf-model="#cyclist-cargo-asset"></a-mixin>
         <a-mixin id="cyclist1" gltf-model="#cyclist1-asset"></a-mixin>
@@ -331,6 +332,7 @@
         <a-mixin id="vehicle-bmw-m2" gltf-model="#vehicle-bmw-m2-asset"></a-mixin>
         <a-mixin id="prop-suburban-houses" gltf-model="#prop-suburban-houses-asset"></a-mixin>
         <a-mixin id="prop-banner-wfh" gltf-model="#prop-banner-wfh-asset"></a-mixin>
+        <a-mixin id="scrubber" gltf-model="#scrubber-asset"></a-mixin>
 
       </a-assets>
       <a-entity id="ambient-audio" sound="src: #ambient-sound; autoplay: false; loop: true; volume: 0.6; positional: false"></a-entity>
@@ -352,6 +354,7 @@
         <a-entity id="noise-indicator" gltf-model="#wave" visible="false" noise-indicator position="0 0.5 0">
           <a-sphere id="noise-indicator-collider" visible="false" aabb-collider="objects:[interactable], [bike-train-member]"></a-sphere>
         </a-entity>
+        <a-entity mixin="scrubber" position="-0.03 0.81 -0.77" rotation="0 180 0"></a-entity>
       </a-entity>
       <a-entity id="bell-indicator" gltf-model="#bell" visible="false" scale="0.75 0.75 0.75"></a-entity>
       <a-entity id="flash-light" light="type: point; color: #f2ad13; decay: 0.23; distance: 25.35; intensity: 0.0" animation="property: light.intensity; from: 0.0; to: 80.0; dur: 400; dir: alternate; loop: 1; startEvents: startAnimation" position="0 1 -0.40039" rotation="-19.74 0 0"></a-entity>
