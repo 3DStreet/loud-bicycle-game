@@ -13,7 +13,9 @@ AFRAME.registerComponent('noise-indicator', {
         this.collider = this.el.children[0].components['aabb-collider']; 
         this.yOffset = 0;
         this.el.addEventListener('object3dset', () => {
-            this.texture = this.el.getObject3D('mesh').children[0].material.map;
+            this.material = this.el.getObject3D('mesh').children[0].material;
+            window.ni = this.material;
+            this.texture = this.material.map;
         })      
     },
     display: function(isBell) {
@@ -21,6 +23,11 @@ AFRAME.registerComponent('noise-indicator', {
 
         this.isBell = isBell;
         isBell ? this.scaleSmall() : this.isLoudMini ? this.scaleLarge() : this.scaleSmall();
+        if(isBell) {
+            this.material.color.b = 0.0;
+        } else {
+            this.material.color.b = 1.0;
+        }
 
         // this.el.object3D.position.x = playerController.el.object3D.position.x;
         

@@ -14,7 +14,7 @@ AFRAME.registerComponent('player-controller', {
         playerController = this;
         this.currentLane = 0;
         this.lives = this.data.defaultLives;
-        window.addEventListener("keypress", this.onKeyPressed.bind(this));
+        window.addEventListener("keydown", this.onKeyPressed.bind(this));
         
         let touchStartX = 0;
         let touchEndX = 0;
@@ -42,16 +42,20 @@ AFRAME.registerComponent('player-controller', {
         this.targetPosition = 0;
         this.lerpT = 0;
 
-        this.liveEls = document.querySelector('#life-indicator-container').children;
+        this.playerAvatar = document.querySelector('#player-cyclist');
+        this.lifeContainer = document.querySelector('#life-indicator-container');
     },
     setAnimationPaused: function(b) {
         b ? this.animationMixer.pause() : this.animationMixer.play();
     },
     reset: function() {
         this.lives = this.data.defaultLives;
-        this.liveEls[0].style.visibility = 'unset';
-        this.liveEls[1].style.visibility = 'unset';
-        this.liveEls[2].style.visibility = 'unset';
+        this.lifeContainer.innerHTML = '';
+        for (let i = 0; i < this.lives; i++) {
+            let div = document.createElement('div');
+            div.setAttribute('class', 'life-indicator');
+            this.lifeContainer.appendChild(div);
+        }
         this.collided = false;
         this.el.object3D.visible = true;
     },
@@ -60,16 +64,23 @@ AFRAME.registerComponent('player-controller', {
         this.setPosition();
         this.el.object3D.position.x = this.currentLane * gameManager.laneWidth;
     },
+    setAvatar: function(gltfPath) {
+        this.playerAvatar.removeAttribute("gltf-model");
+        this.playerAvatar.setAttribute('gltf-model', gltfPath);
+    },
     onKeyPressed: function(e) {
-        if(GAME_STATE !== GAME_STATES.PLAYING) return;
+        if(GAME_STATE !== GAME_STATES.PLAYING || e.repeat) return;
         switch(e.key) {
             case 'd':
+            case 'ArrowRight':
                 this.goRight()
                 break;
             case 'a':
+            case 'ArrowLeft':
                 this.goLeft()
                 break;
             case 'p': 
+            case 'Escape': 
                 gameManager.togglePauseLevel()
                 break;
         }
@@ -124,7 +135,7 @@ AFRAME.registerComponent('player-controller', {
 
             if(this.cameraEl) this.cameraEl.object3D.position.x = this.el.object3D.position.x;
 
-
+            // make the person blink when collided
             if(this.collided) {
                 this.collidedTimer += dt / 1000;
                 if(Math.floor((this.collidedTimer % 1) * 10) % 2) {
@@ -135,22 +146,30 @@ AFRAME.registerComponent('player-controller', {
             }
         }
     },
+    addLife: function() {
+        this.lives++;
+        console.log('ADD LIFE');
+        let div = document.createElement('div');
+        div.setAttribute('class', 'life-indicator');
+        this.lifeContainer.appendChild(div);
+    },
     onCollided: function() {
         if(this.collided) return;
 
         this.collided = true;
         this.collidedTimer = 0;
         this.lives--;
-        if(this.liveEls[this.liveEls.length - this.lives - 1])
-            this.liveEls[this.liveEls.length - this.lives - 1].style.visibility = 'hidden';
-        this.sound.playSound();
+        if(this.lifeContainer.children.length > this.lives)
+            this.lifeContainer.removeChild(this.lifeContainer.lastChild);
+        gameManager.playGetHurt();
         if(this.lives === 0) {
             gameManager.failLevel();
         } else {
+            // set the time for how long somebody will blink for when collided
             setTimeout(() => {
                 this.collided = false;
                 this.el.object3D.visible = true;
-            }, 1000);
+            }, 2000);
         }
     }
   });

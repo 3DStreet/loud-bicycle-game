@@ -10,6 +10,17 @@ export const GAME_STATES = {
     MENU: 3,
 }
 
+export const avatarData = [
+    {
+        type: 'female',
+        id: '#cyclist1-asset'
+    },
+    {
+        type: 'male',
+        id: '#cyclist2-asset'
+    },
+]
+
 export let GAME_STATE = GAME_STATES.MENU;
 
 const SIDE_STREET_LENGTH = 160;
@@ -33,6 +44,8 @@ AFRAME.registerComponent('game-manager', {
         this.currentLevelStreetEls = [];
         this.bikeMemberCount = 0;
         this.winSoundEl = document.querySelector('#win-sound');
+        this.currentAvatarIndex = -1;
+        this.currentShoutIndex = 0;
 
         setTimeout(() => {
             this.interactablePool = document.querySelector('[interactable-pool]').components['interactable-pool'];
@@ -94,6 +107,13 @@ AFRAME.registerComponent('game-manager', {
             this.tick = AFRAME.utils.throttleTick(this.tick, 500, this);
         }, 100);
     },
+    disableAmbientAudio: function() {
+        this.originalAmbientVolume = this.ambientAudio.data.volume;
+        this.ambientAudio.el.setAttribute('sound', {volume: 0.0})        
+    },
+    enableAmbientAudio: function() {
+        this.ambientAudio.el.setAttribute('sound', {volume: this.originalAmbientVolume})        
+    },
     playEndAnimation: function() {
         document.querySelector('#model').emit('playend', null, false);
     },
@@ -147,7 +167,47 @@ AFRAME.registerComponent('game-manager', {
         this.bikePool.stopSpawn();
         GAME_STATE = GAME_STATES.END;
     },
+    getAvatarObject: function() {
+        let index = Math.floor(Math.random() * avatarData.length);
+        while(index === this.currentAvatarIndex) {
+            index = Math.floor(Math.random() * avatarData.length);
+        }
+        this.currentAvatarIndex = index;
+        return avatarData[index];
+    },
+    playShout: function() {
+        if(this.isLoudMini) {
+            let audio = document.querySelector('#horn-sound');
+            audio.play();
+        } else {
+            let path = `#shout-${this.avatarObject.type}-sound-${this.currentShoutIndex}`;
+            let audio = document.querySelector(path);
+            audio.play();
+            this.currentShoutIndex = (this.currentShoutIndex + 1) % 3;
+        }
+    },
+    stopShout: function() {
+        if(this.isLoudMini) {
+            let audio = document.querySelector('#horn-sound');
+            audio.pause();
+        }
+    },
+    playGetHurt: function() {
+        if(this.bikeMemberCount > 0) {
+            let path = `#ouch-baby-sound-${Math.floor(Math.random() * 2)}`; // 0 or 1
+            let audio = document.querySelector(path);
+            audio.play();
+        } else {
+            let path = `#ouch-${this.avatarObject.type}-sound`;
+            let audio = document.querySelector(path);
+            audio.play();
+        }
+    },
     playLevel: function() {
+        this.avatarObject = this.getAvatarObject();
+        playerController.setAvatar(this.avatarObject.id);
+        this.currentShoutIndex = 0;
+        this.ambientAudio.el.setAttribute('sound', {src: this.levelData.ambientSoundId})
         this.ambientAudio.playSound();
         gameScore = 0;
         this.bikeMemberCount = 0;
@@ -166,9 +226,10 @@ AFRAME.registerComponent('game-manager', {
         this.smogAudio.playSound();
     },
     upgradeToHorn: function() {
+        this.isLoudMini = true;
         document.querySelector('[noise-indicator]').components['noise-indicator'].upgradeLoudMini();
         document.querySelector('#horn img').src = './assets/loud_mini.jpg';
-        document.querySelector('#horn-noise').setAttribute('sound', {src: 'url(./assets/horn.webm)'});
+        // document.querySelector('#horn-noise').setAttribute('sound', {src: 'url(./assets/horn.webm)'});
     },
     setRaygunActive: function(b) {
         document.querySelector('#ray').style.display = b ? 'unset' : 'none';
@@ -180,7 +241,7 @@ AFRAME.registerComponent('game-manager', {
     downgradeToShout: function() {
         document.querySelector('[noise-indicator]').components['noise-indicator'].downgradeShout();
         document.querySelector('#horn img').src = './assets/shout.jpg';
-        document.querySelector('#horn-noise').setAttribute('sound', {src: 'url(./assets/shout.webm)'});
+        // document.querySelector('#horn-noise').setAttribute('sound', {src: 'url(./assets/shout.webm)'});
     },
     spawnMinis: function() {
         // <a-entity item="type: horn" gltf-model="#loud-bicycle-mini-asset" position="0 0.8 -16" scale="4 4 4"></a-entity>
@@ -188,7 +249,7 @@ AFRAME.registerComponent('game-manager', {
             const element = document.createElement('a-entity');
             element.setAttribute('item', {type: 'horn'});
             element.setAttribute('gltf-model', '#loud-bicycle-mini-asset');
-            element.setAttribute('scale', '2 2 2');
+            element.setAttribute('scale', '6 6 6');
             element.setAttribute('position', (i * 3.3) + ' 0.8 -' + (this.levelData.endDistance - 10));
             this.currentLevel.append(element);
         };
@@ -199,15 +260,25 @@ AFRAME.registerComponent('game-manager', {
             element.setAttribute('item', {type: 'raygun'});
             element.setAttribute('gltf-model', '#prop-raygun-asset');
             element.setAttribute('scale', '2 2 2');
-            // element.setAttribute('position', (i * 2.5) + ' 0.8 -10');
             element.setAttribute('position', (i * 3.3) + ' 0.8 -' + (this.levelData.endDistance - 20));
             this.currentLevel.append(element);
         };
+    },
+    spawnHearts: function() {
+        let i = 2;
+        const element = document.createElement('a-entity');
+        element.setAttribute('item', {type: 'heart'});
+        element.setAttribute('gltf-model', '#prop-heart-asset');
+        element.setAttribute('scale', '1 1 1');
+        element.setAttribute('position', (i * 3.3) + ' 0.8 -' + (this.levelData.endDistance - 134));
+
+        this.currentLevel.append(element);
     },
     generateLevel: function(index) {
         const levelData = this.levelData = gameData.levels[index];
         this.laneWidth = levelData.laneWidth;
         this.lanes = levelData.amountLanes;
+        this.isLoudMini = false;
         if(levelData.startWithMini) this.upgradeToHorn();
         else this.downgradeToShout();
         this.setRaygunActive(!!levelData.startWithRaygun);
@@ -217,6 +288,7 @@ AFRAME.registerComponent('game-manager', {
         this.level.append(this.currentLevel);
         if(levelData.spawnMinis) this.spawnMinis();
         if(levelData.spawnRaygun) this.spawnRaygun();
+        if(levelData.spawnHearts) this.spawnHearts();
 
         // Lights & Fog
         let scene = document.querySelector('a-scene');

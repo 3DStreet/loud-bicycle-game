@@ -98,8 +98,7 @@ AFRAME.registerComponent('noise-meter', {
             });
         } else if(this.data.meterId === 'ray-meter') {
             this.el.addEventListener('sound-ended', () => {
-                interactablePool.convertAllToBikes();
-                gameManager.clearFog()
+                gameManager.enableAmbientAudio();
             });
         }
 
@@ -112,7 +111,7 @@ AFRAME.registerComponent('noise-meter', {
         this.sound = this.el.components.sound;
     },
     onKeyPressed: function(e) {
-        if (e.key === this.data.keyCode && GAME_STATE === GAME_STATES.PLAYING) {
+        if (e.key === this.data.keyCode && GAME_STATE === GAME_STATES.PLAYING && !e.repeat) {
             if(this.data.meterId === 'ray-meter' && !this.displaying) this.displayVFX();
             else this.displayIndicator();
         }
@@ -134,19 +133,31 @@ AFRAME.registerComponent('noise-meter', {
 
         if(this.light) this.light.emit('startAnimation');
 
+        gameManager.disableAmbientAudio();
+        interactablePool.convertAllToBikes();
+        gameManager.clearFog();
+
         this.sound.playSound();
         this.displaying = true;
     },
     displayIndicator: function() {
+        console.log('di');
         let otherIds = Object.keys(noiseMeters);
-        if (this.hasLowMeter() || this.broken || noiseMeters[otherIds[0]].displaying|| noiseMeters[otherIds[1]].displaying|| noiseMeters[otherIds[2]].displaying) {
+        if (this.hasLowMeter() || this.broken || noiseMeters[otherIds[2]].displaying) {
             if(this.data.meterId === 'special-meter') {
                 this.sound.stopSound();
                 this.sound.playSound();
             } 
             return;
         }
-        this.sound.playSound();
+
+        if(this.data.meterId === 'main-meter') {
+            gameManager.playShout();
+        } else {
+            this.sound.stopSound();
+            this.sound.playSound();
+        }
+
         this.displaying = true;
         this.noiseIndicator.display(this.data.isSmall);
     },
@@ -154,7 +165,8 @@ AFRAME.registerComponent('noise-meter', {
         if(!this.displaying) return;
         this.noiseIndicator.hide();
         this.displaying = false;
-        this.sound.stopSound();
+        if(this.data.meterId === 'main-meter') gameManager.stopShout();
+        else this.sound.stopSound();
     },
     breakIndicator: function() {
         this.noiseIndicator.hide();
@@ -162,6 +174,7 @@ AFRAME.registerComponent('noise-meter', {
         this.broken = true;
         this.meterEl.className = 'low-meter';
         this.clickerEl.classList.add('disabled');
-        if(this.data.meterId !== 'ray-meter') this.sound.stopSound();
+        if(this.data.meterId === 'main-meter') gameManager.stopShout();
+        if(this.data.meterId === 'special-meter') this.sound.stopSound();
     }
   });

@@ -264,19 +264,34 @@
   </head>
   <body>
     <a-scene
-      keyboard-shortcuts="enterVR: false"
-      fog="type: linear; color: #AAA; far: 100"
-      renderer="gammaOutput: true"
-      vr-mode-ui="enabled: false" 
-      ar-mode-ui="enabled: false" 
-      pool__interactable="container: #level; mixin: interactable-mixin; size: 10" 
-      pool__bikes="container: #level; mixin: bike-pool-mixin; size: 6" 
-      pool__smogs="container: #level; mixin: smog-mixin; size: 20" >
-      <a-assets>
-        <streetmix-assets url="./3dstreet-assets/"></streetmix-assets>
+    keyboard-shortcuts="enterVR: false"
+    fog="type: linear; color: #AAA; far: 100"
+    renderer="gammaOutput: true"
+    vr-mode-ui="enabled: false" 
+    ar-mode-ui="enabled: false" 
+    pool__interactable="container: #level; mixin: interactable-mixin; size: 10" 
+    pool__bikes="container: #level; mixin: bike-pool-mixin; size: 6" 
+    pool__smogs="container: #level; mixin: smog-mixin; size: 20" >
+    <a-assets>
         <audio id="muffled-voice" src="./assets/tires.webm" preload="auto"></audio>
         <audio id="win-sound" src="./assets/win.webm" preload="auto"></audio>
         <audio id="ambient-sound" src="./assets/ambience.webm" preload="auto"></audio>
+        
+        <audio id="horn-sound" src="./assets/horn.webm" loop preload="auto"></audio>
+
+        <audio id="shout-female-sound-0" src="./assets/shout_woman_1.wav" preload="auto"></audio>
+        <audio id="shout-female-sound-1" src="./assets/shout_woman_2.wav" preload="auto"></audio>
+        <audio id="shout-female-sound-2" src="./assets/shout_woman_3.wav" preload="auto"></audio>
+
+        <audio id="shout-male-sound-0" src="./assets/shout_man_1.wav" preload="auto"></audio>
+        <audio id="shout-male-sound-1" src="./assets/shout_man_2.wav" preload="auto"></audio>
+        <audio id="shout-male-sound-2" src="./assets/shout_man_3.wav" preload="auto"></audio>
+        
+        <audio id="ouch-female-sound" src="./assets/ouch_woman.wav" preload="auto"></audio>
+        <audio id="ouch-male-sound" src="./assets/ouch_man.wav" preload="auto"></audio>
+        <audio id="ouch-baby-sound-0" src="./assets/ouch_baby1.wav" preload="auto"></audio>
+        <audio id="ouch-baby-sound-1" src="./assets/ouch_baby2.wav" preload="auto"></audio>
+
         <img id="comic-effect" src="./assets/comic_effect.png">
         <img id="grass-floor" src="./3dstreet-assets/materials/TexturesCom_Grass0052_1_seamless_S.jpg">
         <img id="sky" src="./3dstreet-assets/CGSkies_0343_doubled_2048.jpg">
@@ -303,6 +318,7 @@
         <a-asset-item id="prop-banner-wfh-asset" src="./3dstreet-assets/sets/wfh-banner/gltf-exports/draco/wfh-banner.glb"></a-asset-item>
         <a-asset-item id="prop-raygun-asset" src="./3dstreet-assets/sets/ray-gun/gltf-exports/draco/rayGun.glb"></a-asset-item>
         <a-asset-item id="scrubber-asset" src="./3dstreet-assets/sets/c02-scrubber/gltf-exports/draco/co2-scrubber.glb"></a-asset-item>
+        <a-asset-item id="prop-heart-asset" src="./assets/heart-model_v01.glb"></a-asset-item>
         <a-mixin id="cyclist-cargo" gltf-model="#cyclist-cargo-asset"></a-mixin>
         <a-mixin id="cyclist1" gltf-model="#cyclist1-asset"></a-mixin>
         <a-mixin id="cyclist2" gltf-model="#cyclist2-asset"></a-mixin>
@@ -319,7 +335,7 @@
         <a-mixin id="scrubber" gltf-model="#scrubber-asset"></a-mixin>
 
       </a-assets>
-      <a-entity id="ambient-audio" sound="src: #ambient-sound; autoplay: false; loop: true; volume: 0.5"></a-entity>
+      <a-entity id="ambient-audio" sound="src: #ambient-sound; autoplay: false; loop: true; volume: 0.6; positional: false"></a-entity>
       <a-entity id="ambient-light" light="type: ambient; color: #222"></a-entity>
       <a-entity id="directional-light" light="type: directional; color: #444; intensity: 0.6" position="-0.5 1 1"></a-entity>
       <a-sky src="#sky"></a-sky>
@@ -334,7 +350,7 @@
       >
         <a-entity id="spot-light" light="type: spot; angle: 15.97; color: #f5f0e5; penumbra: 0.54; decay: 0.23; distance: 25.35; intensity: 1.47" position="0 1 -0.40039" rotation="-19.74 0 0"></a-entity>
         <!-- <a-entity id="back-light" geometry="primitive: plane; height: 0.02; width: 0.06" material="shader: flat; color: red" position="-0.02, 0.949 0.432"></a-entity> -->
-        <a-entity id="player-cyclist" mixin="cyclist1" animation-mixer rotation="0 180 0"></a-entity>
+        <a-entity id="player-cyclist" gltf-model="#cyclist1-asset" animation-mixer rotation="0 180 0"></a-entity>
         <a-entity id="noise-indicator" gltf-model="#wave" visible="false" noise-indicator position="0 0.5 0">
           <a-sphere id="noise-indicator-collider" visible="false" aabb-collider="objects:[interactable], [bike-train-member]"></a-sphere>
         </a-entity>
@@ -349,7 +365,7 @@
 
       <a-entity id="game-manager" game-manager sound="src: url(./assets/breath_caugh.webm);"></a-entity>
       <a-entity noise-meter="clickerId:shout; meterId:special-meter; isSmall:true; keyCode:q;" sound="src: url(./assets/bell.webm);"></a-entity>
-      <a-entity id="horn-noise" noise-meter="clickerId:horn; meterId:main-meter; isSmall:false; keyCode:w" sound="src: url(./assets/shout.webm); loop: true"></a-entity>
+      <a-entity id="horn-noise" noise-meter="clickerId:horn; meterId:main-meter; isSmall:false; keyCode:w"></a-entity>
       <a-entity id="ray-noise" noise-meter="clickerId:ray; meterId:ray-meter; keyCode:e; lightId: flash-light" sound="src: url(./assets/raygun.webm);"></a-entity>
 
       <a-entity id="level" animation="property: position; to: 0 0 400; autoplay: false; dur: 100000; easing: linear; loop: false">

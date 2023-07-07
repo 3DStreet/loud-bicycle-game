@@ -54,6 +54,7 @@ const SPLINE_VECTORS_RIGHT_CROSS = [
 
 const INTERACTABLE_RIGHT_CROSS_SPLINE = new SplineCurve(SPLINE_VECTORS_RIGHT_CROSS);
 
+// the distance behind the player where the objects will dissapear (they are already out of view)
 const INTERACTABLE_DISABLE_Z = 10;
 
 AFRAME.registerComponent('interactable', {
