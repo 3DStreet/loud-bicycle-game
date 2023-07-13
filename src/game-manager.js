@@ -208,9 +208,12 @@ AFRAME.registerComponent('game-manager', {
         this.avatarObject = this.getAvatarObject();
         playerController.setAvatar(this.avatarObject.id);
         this.currentShoutIndex = 0;
+
+        console.log(this.ambientAudio);
         this.ambientAudio.el.setAttribute('sound', {src: this.levelData.ambientSoundId})
         this.ambientAudio.playSound();
 
+        this.musicAudio.el.setAttribute('sound', {src: this.levelData.musicSoundId})
         this.musicAudio.playSound();
 
         gameScore = 0;
