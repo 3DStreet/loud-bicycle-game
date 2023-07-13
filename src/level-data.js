@@ -53,7 +53,7 @@ export const gameData = {
             streetLengthAdditionalRange: 10,
             lastBuildingOffset: 20,
             lastBuildingAssetId: '#building-school-asset',
-            ambientSoundId: '#ambient-sound',
+            ambientSoundId: '#music-1',
             spawnMinis: true,
             spawnHearts: true,
             interactables: {
@@ -116,7 +116,7 @@ export const gameData = {
             lastBuildingOffset: 20,
             lastBuildingAssetId: '#prop-suburban-houses-asset',
             lastBuildingAdditionalAssetId: '#prop-banner-wfh-asset',
-            ambientSoundId: 'url(./3dstreet-assets/audio/AMB_Suburbs_Afternoon_Woods_Spring_Small_ST_MKH8050-30shortened.mp3)',
+            ambientSoundId: 'url(./assets/background/level_1-2.mp3)',
             interactables: {
                 'rightHook': 0.7,
                 'rightCross': 0.5,

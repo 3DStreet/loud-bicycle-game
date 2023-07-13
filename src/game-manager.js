@@ -55,7 +55,8 @@ AFRAME.registerComponent('game-manager', {
             this.levelAnimation = level.components.animation;
             this.gameScoreLabel = document.querySelector('#score');
             this.smogAudio = this.el.components.sound;
-            this.ambientAudio = document.querySelector('#ambient-audio').components.sound;
+            this.musicAudio = document.querySelector('#music-1').components.sound;
+            this.ambientAudio = document.querySelector('#ambient-audio-a').components.sound;
 
             document.querySelector('#model').setAttribute('animation__position',
                 {'property': 'position', 'to': {x: -3, y: 0, z: -5}, 'startEvents': 'playend', 'dur': finalAnimationTimeMS});
@@ -209,6 +210,9 @@ AFRAME.registerComponent('game-manager', {
         this.currentShoutIndex = 0;
         this.ambientAudio.el.setAttribute('sound', {src: this.levelData.ambientSoundId})
         this.ambientAudio.playSound();
+
+        this.musicAudio.playSound();
+
         gameScore = 0;
         this.bikeMemberCount = 0;
         this.gameScoreLabel.innerText = gameScore;
