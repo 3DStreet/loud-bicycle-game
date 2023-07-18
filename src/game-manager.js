@@ -210,14 +210,12 @@ AFRAME.registerComponent('game-manager', {
         playerController.setAvatar(this.avatarObject.id);
         this.currentShoutIndex = 0;
 
-        console.log(this.ambientAudio);
         this.ambientAudio = document.querySelector(this.levelData.ambientSoundId)
         this.ambientAudio.volume = this.levelData.ambientSoundVolume;
         this.ambientAudio.play();
-        // this.ambientAudio.el.setAttribute('sound', {src: this.levelData.ambientSoundId})
 
-        // this.musicAudio.el.setAttribute('sound', {src: this.levelData.musicSoundId})
-        // this.musicAudio.playSound();
+        this.musicAudio.el.setAttribute('sound', {src: this.levelData.musicSoundId})
+        this.musicAudio.playSound();
 
         gameScore = 0;
         this.bikeMemberCount = 0;
