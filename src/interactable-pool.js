@@ -248,6 +248,42 @@ AFRAME.registerComponent('interactable-pool', {
         }
     },
 
+    spawnCarParking: function (position, isRight){
+        const type = "parking"
+        if(!gameManager.levelData.interactables[type] || gameManager.levelData.interactables[type] < Math.random()) return;
+
+        let el = this.pool.requestEntity();
+
+        if(!el) return console.error("Interactable pool is too small, failed to spawn");
+
+        el.setAttribute('interactable', {type});
+        el.play();
+
+        // el.setAttribute('raycaster', {objects: '[interactable]', showLine: DEBUG_RAYCAST_LINE, far: 4, interval: 100, origin: '0, 1, 3', direction: '0 0 1'});
+
+        el.removeAttribute("gltf-model");
+        el.setAttribute('gltf-model', '#vehicle-bmw-m2-asset');
+
+        el.components.interactable.isHit = true;
+
+        let parent = el.object3D.parent;
+        let scene = this.el.sceneEl.object3D;
+
+        scene.attach( el.object3D );
+        el.object3D.position.copy(position);
+
+        const lane = -1;
+
+        el.object3D.position.set(position.x, 0, position.z);
+        el.object3D.rotation.y = Math.PI;
+
+        parent.attach( el.object3D );
+
+        el.components.interactable.returnFunction = () => {
+            if(this.pool.usedEls.includes(el))
+                this.returnEl(el);
+        }
+    },
     spawnCarsOnStreet: function(index) {
         const root = gameManager.getStreetObject3D(index);
         if(!root) return;
@@ -266,11 +302,19 @@ AFRAME.registerComponent('interactable-pool', {
                     this.tempVec.z += 47;
                     this.tempVec.x += gameManager.laneWidth * 2;
                     this.spawnRightCross(this.tempVec);
+                    if(gameManager.levelData.interactables.parking) {
+                        child.getWorldPosition(this.tempVec)
+                        this.tempVec.x -= gameManager.laneWidth * 1.5;
+                        this.tempVec.z += gameManager.laneWidth * 2;
+                        const amount = Math.floor(Math.random()*2) + 4;
+                        for (let i = 0; i < amount; i++) {
+                            this.tempVec.z += gameManager.laneWidth * 3;
+                            this.spawnCarParking(this.tempVec);
+                        }
+                    }
                 }
             }
         });
-
-
     },
     convertAllToBikes: function() {
         for (let i = 0; i < this.pool.usedEls.length; i++) {
