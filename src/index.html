@@ -275,8 +275,8 @@
     <a-assets>
         <audio id="muffled-voice" src="./assets/tires.webm" preload="auto"></audio>
         <audio id="win-sound" src="./assets/win.webm" preload="auto"></audio>
-        <audio id="ambient-sound-a" src="./assets/background/ambience_1-2.webm" preload="auto"></audio>
-        <audio id="ambient-sound-b" src="./assets/background/ambience_3-4.mp3" preload="auto"></audio>
+        <audio id="ambient-sound-a" src="./assets/background/ambience_1-2.webm" loop preload="auto"></audio>
+        <audio id="ambient-sound-b" src="./assets/background/ambience_3-4.mp3" loop preload="auto"></audio>
         <audio id="music--1" src="./assets/background/level_1.mp3" preload="auto"></audio>
         <audio id="music--2" src="./assets/background/level_2.mp3" preload="auto"></audio>
         <audio id="music--3" src="./assets/background/level_3.mp3" preload="auto"></audio>
@@ -340,8 +340,8 @@
         <a-mixin id="scrubber" gltf-model="#scrubber-asset"></a-mixin>
 
       </a-assets>
-      <a-entity id="ambient-audio-a" sound="src: #ambient-sound-a; autoplay: false; loop: true; volume: 8.6; positional: false"></a-entity>
-      <a-entity id="ambient-audio-b" sound="src: #ambient-sound-b; autoplay: false; loop: true; volume: 8.6; positional: false"></a-entity>
+      <!-- <a-entity id="ambient-audio-a" sound="src: #ambient-sound-a; autoplay: false; loop: true; volume: 8.6; positional: false"></a-entity> -->
+      <!-- <a-entity id="ambient-audio-b" sound="src: #ambient-sound-b; autoplay: false; loop: true; volume: 8.6; positional: false"></a-entity> -->
       <a-entity id="music-1" sound="src: #music--1; autoplay: false; loop: false; volume: 0.6; positional: false"></a-entity>
       <a-entity id="music-2" sound="src: #music--2; autoplay: false; loop: false; volume: 0.6; positional: false"></a-entity>
       <a-entity id="music-3" sound="src: #music--3; autoplay: false; loop: false; volume: 0.6; positional: false"></a-entity>
