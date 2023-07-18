@@ -88,7 +88,7 @@ AFRAME.registerComponent('game-manager', {
             // TODO: Disables menu by default, remove in the future
             const queryString = window.location.search;
             const urlParams = new URLSearchParams(queryString);
-            const showMenu = urlParams.get('menu');
+            const hideMenu = urlParams.get('menu');
             const isCheat = urlParams.get('cheat');
             
             if(isCheat) {
@@ -96,12 +96,17 @@ AFRAME.registerComponent('game-manager', {
                 document.querySelector('[player-controller]').setAttribute('player-controller', {defaultLives: 1000})
                 document.querySelector('[player-controller]').components['player-controller'].lives = 1000;
             }
-
-            if(!showMenu) {
-                const levelParam = Number(urlParams.get('level')) || 0;
-                this.generateLevel(levelParam);
+            
+            // Important for initial setup
+            const levelParam = Number(urlParams.get('level')) || 0;
+            this.generateLevel(levelParam);
+            if(hideMenu) {
                 this.playLevel();
                 setMenuEnabled(false);
+            } else {
+                setTimeout(() => {
+                    this.removeLevel();
+                }, 1000);
             }
 
             this.tick = AFRAME.utils.throttleTick(this.tick, 500, this);

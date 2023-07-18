@@ -139,6 +139,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        flex-direction: column;
         gap: 20px;
       }
 
@@ -246,9 +247,36 @@
         opacity: .75;
       }
 
+      #pause-menu-container {
+        display: flex;
+        gap: 20px;
+      }
+
+      #intro-modal {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        background-color: #fc894d;
+        border: 2px solid black;
+        border-radius: 10px;
+        align-items: center;
+        justify-content: center;
+      }
+
+      #main-menu-top {
+        width: 90%;
+        height: 15em;
+      }
+
+      #main-menu-bottom {
+       display: flex;
+       flex-direction: row; 
+       gap: inherit;  
+      }
+
       @media screen and (max-width: 991px) {
-        #main-menu {
-          flex-direction: column;
+        #main-menu-bottom {
+          flex-direction: column;   
         }
 
         .btn {
@@ -400,9 +428,14 @@
         <p id="landing-label">Loading</p>
       </div>
       <div id="main-menu" class="disabled">
-        <button class="btn" onclick="setLevelSelectionEnabled(true)"><span class="text">Play</span></button>
-        <button class="btn" onclick="setSettingsEnabled(true)"><span class="text">Settings</span></button>
-        <button class="btn" onclick="setCreditsEnabled(true)"><span class="text">Credits</span></button>
+        <div id="main-menu-top">
+          <div id="intro-modal">This is an intro panel!</div>
+        </div>
+        <div id="main-menu-bottom">
+          <button class="btn" onclick="setLevelSelectionEnabled(true)"><span class="text">Play</span></button>
+          <button class="btn" onclick="setSettingsEnabled(true)"><span class="text">Settings</span></button>
+          <button class="btn" onclick="setCreditsEnabled(true)"><span class="text">Credits</span></button>
+        </div>
       </div>
       <div id="level-end-screen" class="disabled">
         <div id="level-end-container">
@@ -517,7 +550,6 @@
     }
 
     function setEndScreenEnabled(b, message) {
-      setMenuEnabled(true);
       if(b) {
         document.querySelector('#game-menu-bg').style.opacity = 1;
         endScreen.classList.add('enabled');
@@ -561,8 +593,6 @@
           setMenuEnabled(false);
         }
       } else {
-        mainMenu.classList.remove('disabled');
-        mainMenu.classList.add('enabled');
         levelSelection.classList.remove('enabled');
         levelSelection.classList.add('disabled');
       }
@@ -578,10 +608,10 @@
       landing.classList.add('disabled');
       if(b) {
         mainMenu.classList.remove('disabled');
-        mainMenu.style.display = 'flex';
+        mainMenu.classList.add('enabled');
       } else {
         mainMenu.classList.add('disabled');
-        mainMenu.style.display = 'none';
+        mainMenu.classList.remove('enabled');
       }
     }
   </script>
