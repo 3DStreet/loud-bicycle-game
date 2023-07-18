@@ -174,7 +174,8 @@ export const gameData = {
                 'rightCross': 0.2,
                 'driveway': 0.5,
                 'side': 0.8,
-                'parking': 1.0
+                'parking': 1.0,
+                'double-parking': 1.0
             },
             streetUrls: [
                 './levels/street_3.json',

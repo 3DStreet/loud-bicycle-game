@@ -272,8 +272,6 @@ AFRAME.registerComponent('interactable-pool', {
         scene.attach( el.object3D );
         el.object3D.position.copy(position);
 
-        const lane = -1;
-
         el.object3D.position.set(position.x, 0, position.z);
         el.object3D.rotation.y = Math.PI;
 
@@ -307,9 +305,15 @@ AFRAME.registerComponent('interactable-pool', {
                         this.tempVec.x -= gameManager.laneWidth * 1.5;
                         this.tempVec.z += gameManager.laneWidth * 2;
                         const amount = Math.floor(Math.random()*2) + 4;
+                        let doublePark = !!gameManager.levelData.interactables['double-parking'];
                         for (let i = 0; i < amount; i++) {
                             this.tempVec.z += gameManager.laneWidth * 3;
                             this.spawnCarParking(this.tempVec);
+                            if(doublePark && i % 2) {
+                                this.tempVec.x += gameManager.laneWidth;
+                                this.spawnCarParking(this.tempVec);
+                                this.tempVec.x -= gameManager.laneWidth;
+                            }
                         }
                     }
                 }
