@@ -143,8 +143,8 @@ AFRAME.registerComponent('game-manager', {
     },
     endLevel: function() {
         this.playEndAnimation();
-        this.stopLevel();
-        this.winSoundEl.play();
+        this.stopLevel(false);
+        //this.winSoundEl.play();
         setTimeout(() => {
             setEndScreenEnabled(true, this.levelData.getLevelEndMessage(this.bikeMemberCount));
             this.removeLevel();
@@ -152,7 +152,11 @@ AFRAME.registerComponent('game-manager', {
         }, finalAnimationTimeMS);
     },
     quitLevel: function() {
-        this.stopLevel();
+        this.stopLevel(true);
+
+        this.musicAudio.pause();
+        this.musicAudio.currentTime = 0;
+
         setMenuEnabled();
         this.removeLevel();
         setPauseEnabled(false);
@@ -180,17 +184,20 @@ AFRAME.registerComponent('game-manager', {
         }
     },
     failLevel: function() {
-        this.stopLevel();
+        this.stopLevel(true);
         setEndScreenEnabled(true, "Try again!");
         // this.winSoundEl.play();
         
         this.removeLevel();
     },
-    stopLevel: function() {
+    stopLevel: function(shouldMusicStop) {
         this.ambientAudio.pause();
+    // The music stops only if shouldMusicStop is true
+    if (shouldMusicStop) {
         this.musicAudio.pause();
         this.musicAudio.currentTime = 0;
-
+    }
+    
         this.levelAnimation.animation.pause();
         this.interactablePool.stop();
         this.smogPool.stop();
