@@ -55,7 +55,8 @@ AFRAME.registerComponent('game-manager', {
             this.levelAnimation = level.components.animation;
             this.gameScoreLabel = document.querySelector('#score');
             this.smogAudio = this.el.components.sound;
-            this.ambientAudio = document.querySelector('#ambient-audio').components.sound;
+            this.musicAudio = document.querySelector('#music-1').components.sound;
+            this.ambientAudio = document.querySelector('#ambient-sound-a');
 
             document.querySelector('#model').setAttribute('animation__position',
                 {'property': 'position', 'to': {x: -3, y: 0, z: -5}, 'startEvents': 'playend', 'dur': finalAnimationTimeMS});
@@ -113,11 +114,12 @@ AFRAME.registerComponent('game-manager', {
         }, 100);
     },
     disableAmbientAudio: function() {
-        this.originalAmbientVolume = this.ambientAudio.data.volume;
-        this.ambientAudio.el.setAttribute('sound', {volume: 0.0})        
+        // this.originalAmbientVolume = this.ambientAudio.data.volume;
+        // this.ambientAudio.el.setAttribute('sound', {volume: 0.0})     
+        this.ambientAudio.pause();   
     },
     enableAmbientAudio: function() {
-        this.ambientAudio.el.setAttribute('sound', {volume: this.originalAmbientVolume})        
+        this.ambientAudio.play();   
     },
     playEndAnimation: function() {
         document.querySelector('#model').emit('playend', null, false);
@@ -165,7 +167,7 @@ AFRAME.registerComponent('game-manager', {
         this.removeLevel();
     },
     stopLevel: function() {
-        this.ambientAudio.pauseSound();
+        this.ambientAudio.pause();
         this.levelAnimation.animation.pause();
         this.interactablePool.stop();
         this.smogPool.stop();
@@ -212,8 +214,14 @@ AFRAME.registerComponent('game-manager', {
         this.avatarObject = this.getAvatarObject();
         playerController.setAvatar(this.avatarObject.id);
         this.currentShoutIndex = 0;
-        this.ambientAudio.el.setAttribute('sound', {src: this.levelData.ambientSoundId})
-        this.ambientAudio.playSound();
+
+        this.ambientAudio = document.querySelector(this.levelData.ambientSoundId)
+        this.ambientAudio.volume = this.levelData.ambientSoundVolume;
+        this.ambientAudio.play();
+
+        this.musicAudio.el.setAttribute('sound', {src: this.levelData.musicSoundId})
+        this.musicAudio.playSound();
+
         gameScore = 0;
         this.bikeMemberCount = 0;
         this.gameScoreLabel.innerText = gameScore;

@@ -88,7 +88,7 @@ AFRAME.registerComponent('noise-meter', {
 
         this.clickerEl.addEventListener('pointerdown', () => {
             if (!this.clickerEl.classList.contains('disabled')) {
-                this.displayIndicator();
+                this.onPressed();
             }
         });
 
@@ -110,10 +110,13 @@ AFRAME.registerComponent('noise-meter', {
         this.noiseIndicator = document.getElementById('noise-indicator').components['noise-indicator'];
         this.sound = this.el.components.sound;
     },
+    onPressed: function() {
+        if(this.data.meterId === 'ray-meter' && !this.displaying) this.displayVFX();
+        else this.displayIndicator();
+    },
     onKeyPressed: function(e) {
         if (e.key === this.data.keyCode && GAME_STATE === GAME_STATES.PLAYING && !e.repeat) {
-            if(this.data.meterId === 'ray-meter' && !this.displaying) this.displayVFX();
-            else this.displayIndicator();
+            this.onPressed();
         }
     },
     onKeyReleased: function(e) {
