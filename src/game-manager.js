@@ -55,8 +55,9 @@ AFRAME.registerComponent('game-manager', {
             this.levelAnimation = level.components.animation;
             this.gameScoreLabel = document.querySelector('#score');
             this.smogAudio = this.el.components.sound;
-            this.musicAudio = document.querySelector('#music-1').components.sound;
+
             this.ambientAudio = document.querySelector('#ambient-sound-a');
+            this.musicAudio = document.querySelector('#music-1');
 
             document.querySelector('#model').setAttribute('animation__position',
                 {'property': 'position', 'to': {x: -3, y: 0, z: -5}, 'startEvents': 'playend', 'dur': finalAnimationTimeMS});
@@ -116,10 +117,26 @@ AFRAME.registerComponent('game-manager', {
     disableAmbientAudio: function() {
         // this.originalAmbientVolume = this.ambientAudio.data.volume;
         // this.ambientAudio.el.setAttribute('sound', {volume: 0.0})     
-        this.ambientAudio.pause();   
+        // this.ambientAudio.pause();
+        // this.musicAudio.pause();     
+        this.ambientAudio.volume = 0.0;
+        this.musicAudio.volume = 0.0;
     },
     enableAmbientAudio: function() {
-        this.ambientAudio.play();   
+        this.ambientAudio.volume = 0.2;   
+        this.musicAudio.volume = 0.1;
+    },
+    pauseAmbientAudio: function() {
+        this.ambientAudio.pause();
+        this.musicAudio.pause();
+    },
+    resumeAmbientAudio: function() {
+        this.ambientAudio.play();
+        this.musicAudio.play();
+    },
+    stopAmbientAudio: function() {
+        this.ambientAudio.stop();
+        this.musicAudio.stop();
     },
     playEndAnimation: function() {
         document.querySelector('#model').emit('playend', null, false);
@@ -152,11 +169,13 @@ AFRAME.registerComponent('game-manager', {
             this.levelAnimation.animation.pause();
             this.el.sceneEl.pause();
             playerController.setAnimationPaused(true);
+            this.pauseAmbientAudio();
             setPauseEnabled(true);
         } else {
             this.levelAnimation.animation.play();
             this.el.sceneEl.play();
             playerController.setAnimationPaused(false);
+            this.resumeAmbientAudio();
             setPauseEnabled(false);
         }
     },
@@ -164,10 +183,14 @@ AFRAME.registerComponent('game-manager', {
         this.stopLevel();
         setEndScreenEnabled(true, "Try again!");
         // this.winSoundEl.play();
+        
         this.removeLevel();
     },
     stopLevel: function() {
         this.ambientAudio.pause();
+        this.musicAudio.pause();
+        this.musicAudio.currentTime = 0;
+
         this.levelAnimation.animation.pause();
         this.interactablePool.stop();
         this.smogPool.stop();
@@ -216,11 +239,12 @@ AFRAME.registerComponent('game-manager', {
         this.currentShoutIndex = 0;
 
         this.ambientAudio = document.querySelector(this.levelData.ambientSoundId)
-        this.ambientAudio.volume = this.levelData.ambientSoundVolume;
+        this.ambientAudio.volume = 0.2;
         this.ambientAudio.play();
 
-        this.musicAudio.el.setAttribute('sound', {src: this.levelData.musicSoundId})
-        this.musicAudio.playSound();
+        this.musicAudio = document.querySelector(this.levelData.musicSoundId)
+        this.musicAudio.volume = 0.1;
+        this.musicAudio.play();
 
         gameScore = 0;
         this.bikeMemberCount = 0;
