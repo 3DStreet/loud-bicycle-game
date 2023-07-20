@@ -192,11 +192,11 @@ AFRAME.registerComponent('game-manager', {
     },
     stopLevel: function(shouldMusicStop) {
         this.ambientAudio.pause();
-    // The music stops only if shouldMusicStop is true
-    if (shouldMusicStop) {
-        this.musicAudio.pause();
-        this.musicAudio.currentTime = 0;
-    }
+        // The music stops only if shouldMusicStop is true
+        if (shouldMusicStop) {
+            this.musicAudio.pause();
+            this.musicAudio.currentTime = 0;
+        }
     
         this.levelAnimation.animation.pause();
         this.interactablePool.stop();
@@ -245,10 +245,15 @@ AFRAME.registerComponent('game-manager', {
         playerController.setAvatar(this.avatarObject.id);
         this.currentShoutIndex = 0;
 
+        this.ambientAudio.pause();
         this.ambientAudio = document.querySelector(this.levelData.ambientSoundId)
         this.ambientAudio.volume = 0.2;
         this.ambientAudio.play();
 
+        // reset the previous song
+        this.musicAudio.pause();
+        this.musicAudio.currentTime = 0;
+        // start playing the new song.
         this.musicAudio = document.querySelector(this.levelData.musicSoundId)
         this.musicAudio.volume = 0.1;
         this.musicAudio.play();
