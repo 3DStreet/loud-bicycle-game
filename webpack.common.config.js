@@ -14,6 +14,10 @@ module.exports = {
       {
         test: /\.(mp3|webm|wav)$/,
         loader: 'file-loader'
+      },
+      {
+        test: /\.css$/i,
+        use: ['style-loader', 'css-loader'],
       }
     ]
   }
