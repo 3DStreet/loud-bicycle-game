@@ -181,10 +181,10 @@ export const gameData = {
             ambientSoundVolume: 0.2,
             musicSoundId: '#music-3',
             interactables: {
-                'rightHook': 0.4,
-                'rightCross': 0.2,
-                'driveway': 0.5,
-                'side': 0.8,
+                'rightHook': 0.8,
+                'rightCross': 0.9,
+                'driveway': 0.8,
+                'side': 0.9,
                 'parking': 1.0,
                 'double-parking': 1.0
             },
