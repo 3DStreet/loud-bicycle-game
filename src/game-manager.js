@@ -143,8 +143,10 @@ AFRAME.registerComponent('game-manager', {
     },
     endLevel: function() {
         this.playEndAnimation();
+
+        // stop the sound, but not the music
         this.stopLevel(false);
-        //this.winSoundEl.play();
+
         setTimeout(() => {
             setEndScreenEnabled(true, this.levelData.getLevelEndMessage(this.bikeMemberCount));
             this.removeLevel();
