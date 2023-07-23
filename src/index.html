@@ -126,19 +126,19 @@
 
 <!-- special weapon, bell-->
     <div id="shout">
-      <img height="200" width="200" src="./assets/bell.png" >
+      <img class="icon" src="./assets/bell.svg" >
     </div>
     <progress id="special-meter" class="high-meter" value="0" max="100"></progress>
 
   <!-- Raygun -->
     <div id="ray">
-      <img height="200" width="200" src="./assets/gun-ray.png" >
+      <img class="icon" src="./assets/gun-ray.png" >
     </div>
     <progress id="ray-meter" style="display: none" class="high-meter" value="0" max="100"></progress>
 
 <!-- main weapon, shout, Loud Classic, Loud Mini -->
     <div id="horn">
-      <img height="200" width="200" src="./assets/shout.svg" >
+      <img class="icon" src="./assets/shout.svg" >
     </div>
     <progress id="main-meter" class="high-meter" value="0" max="100"></progress>
 
@@ -147,30 +147,34 @@
       </div>
       <div id="landing">
         <img src="./assets/logo__loud-bicycle.svg" alt="Loud Bicycle Logo">
-        <p id="landing-label">Loading</p>
+        <h1>Welcome to the Loud Bicycle game!</h1>
+        <p>
+          You are leading a group of children to school. Tap the bell for them to follow you.
+          Tap the voice icon to help people driving notice you and keep the children safe.
+
+          Good luck!
+        </p>
+
+        <p id="landing-label">Loading ... </p>
+        <!-- <img src="./assets/loading_spinner.svg"> -->
       </div>
       <div id="main-menu" class="disabled">
         <div id="main-menu-top">
           <div id="intro-modal">
-            
-            <div id="text-column">
-              <h1>Welcome to the Loud Bicycle game!</h1>
-              <p>
-                Help the chilren reach school.
-                <br>
-                <!-- <img src="./assets/bell.svg width="" class="icon"><img src="./assets/shout.svg" class="icon"> -->
-                Ring the bell to tell the children to follow you. Use your voice
-                 to help people driving notice you and keep the children safe until the end of the level.
-              
-              </p>
+            <div>
+              <button class="btn" onclick="setLevelSelectionEnabled(true)"><span class="text">Play</span></button>
+              <button class="btn" onclick="setSettingsEnabled(true)"><span class="text">Settings</span></button>
+              <button class="btn" onclick="setCreditsEnabled(true)"><span class="text">Credits</span></button>
             </div>
-            <div id="image-column"><img src="./assets/riding_still.jpg"></div>
+            <div>
+              <img src="./assets/instructions.jpg">
+            </div>
           </div>
         </div>
         <div id="main-menu-bottom">
-          <button class="btn" onclick="setLevelSelectionEnabled(true)"><span class="text">Play</span></button>
+          <!-- <button class="btn" onclick="setLevelSelectionEnabled(true)"><span class="text">Play</span></button>
           <button class="btn" onclick="setSettingsEnabled(true)"><span class="text">Settings</span></button>
-          <button class="btn" onclick="setCreditsEnabled(true)"><span class="text">Credits</span></button>
+          <button class="btn" onclick="setCreditsEnabled(true)"><span class="text">Credits</span></button> -->
         </div>
       </div>
       <div id="level-end-screen" class="disabled">
