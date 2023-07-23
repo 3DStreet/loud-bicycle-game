@@ -7,7 +7,7 @@ const TOUCH_SWIPE_THRESHHOLD = 20;
 
 AFRAME.registerComponent('player-controller', {
     schema: {
-        defaultLives: {default: 3},
+        defaultLives: {default: 4},
         speed: {default: 1.0},
     },
     init: function () {

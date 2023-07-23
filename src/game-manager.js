@@ -260,6 +260,12 @@ AFRAME.registerComponent('game-manager', {
         this.musicAudio.volume = 0.4;
         this.musicAudio.play();
 
+        if (this.levelData.tutorial) {
+            this.blinkIcon('#shout', 2500, 16500); // Start blinking the #shout icon 20 seconds into the game
+            this.blinkIcon('#horn', 2000, 23000);  // Start blinking the #horn icon 23 seconds into the game
+          }
+        
+        
         gameScore = 0;
         this.bikeMemberCount = 0;
         this.gameScoreLabel.innerText = gameScore;
@@ -454,6 +460,32 @@ AFRAME.registerComponent('game-manager', {
     incrementBikePoolMemberCount: function() {
         this.bikeMemberCount++;
     },
+
+    // Function to toggle the border color of one icon div
+    // Function to toggle the border color of one icon div
+    toggleIconBorder(selector) {
+        const iconDiv = document.querySelector(selector);
+        // blink the border
+        iconDiv.style.border = iconDiv.style.border === '2px solid rgb(255, 175, 83)' ? 'none' : '2px solid rgb(255, 175, 83)';
+        iconDiv.style.boxShadow = '0 0 40px rgb(255, 175, 83, 1.0)';
+    },
+    // Start blinking an icon and stop after a certain duration
+// Start blinking an icon and stop after a certain duration
+blinkIcon(selector, blinkDuration = 2000, blinkStartDelay = 0) {
+    setTimeout(() => {
+        const blinkingInterval = setInterval(() => this.toggleIconBorder(selector), 200);
+
+        // Stop the blinking after blinkDuration milliseconds
+        setTimeout(() => {
+            clearInterval(blinkingInterval);
+            // Clear border and boxShadow styles after blinking
+            const iconDiv = document.querySelector(selector);
+            iconDiv.style.border = 'none';
+            iconDiv.style.boxShadow = 'none';
+        }, blinkDuration);
+    }, blinkStartDelay);
+},
+
     tick: function(t, dt) {
         if(GAME_STATE === GAME_STATES.PLAYING && this.getLevelPosition() > this.levelData.endDistance) {
             this.endLevel();

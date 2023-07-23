@@ -17,7 +17,9 @@
         top: 0;
         height: 120px;
         width: 120px;
-        border: 0px solid green;
+        /* border: 0px solid green; */
+        border-radius: 50%;
+
         user-drag: none;
         -webkit-user-drag: none;
         user-select: none;
@@ -314,6 +316,9 @@
 
     .icon{
       width: 150px;
+      border-radius: 50%;
+      /* box-shadow: 0 0 20px rgb(255, 175, 83); */
+
     }
 
 

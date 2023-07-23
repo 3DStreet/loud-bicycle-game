@@ -58,13 +58,15 @@ export const gameData = {
             ambientSoundVolume: 0.7,
 
             musicSoundId: '#music-1',
+
+            tutorial: true,
             
             spawnMinis: true,
             spawnHearts: true,
             interactables: {
                 'driveway': 0.5,
                 // 'side': 0.5,
-                'rightCross': 0.9
+                'rightCross': 1.0
             },
             streetUrls: [
                 './levels/street_1.json',
@@ -133,6 +135,7 @@ export const gameData = {
             ambientSoundVolume: 0.2,
 
             musicSoundId: '#music-2',
+            tutorial: false,
             
             interactables: {
                 'rightHook': 0.7,
@@ -196,6 +199,8 @@ export const gameData = {
             ambientSoundId: '#ambient-sound-b',
             ambientSoundVolume: 0.2,
             musicSoundId: '#music-3',
+            tutorial: false,
+
             interactables: {
                 'rightHook': 0.8,
                 'rightCross': 0.9,
@@ -252,6 +257,8 @@ export const gameData = {
             ambientSoundId: '#ambient-sound-b',
             ambientSoundVolume: 0.2,
             musicSoundId: '#music-4',
+            tutorial: false,
+
             interactables: {
                 'rightHook': 0.4,
                 'rightCross': 0.8,
