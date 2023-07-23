@@ -122,15 +122,19 @@
         align-items: center;
         font-size: 25px;
         font-weight: 700;
-
         transition: opacity 0.4s linear;
       }
       #landing h1 {
         font-family: Oswald;
+        margin:40px;
+        color:#fc894d;
       }
       #landing p {
         width: 90%;
         max-width: 800px;
+      }
+      #landing-label {
+        color:#fc894d;
       }
 
       #landing img {
@@ -179,12 +183,13 @@
         align-items: center;
         justify-content: center;
         flex-direction: column;
-        width: 40%;
-        height: 300px;
+        width: 80%;
         border-radius: 10px;
         gap: 10px;
       }
-
+      #level-end-header {
+        margin: 10px;
+      }
 
       .disabled {
         pointer-events: none !important;
@@ -261,6 +266,7 @@
       }
       #intro-modal {
         display: flex;
+        flex-direction: column;
         /* background-image: url('./assets/instructions.jpg'); */
         /* background-repeat: no-repeat; */
         border: 2px solid black;
@@ -272,9 +278,21 @@
     #intro-modal img {
       width: 100vw;
       height: 100vh;
+      max-height: 94vh;
       object-fit: contain;
-      object-position: center;
+      object-position: center top;
   }
+
+  #button-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 350px;
+    margin: auto;
+}
+
+  
     #h1 {
       font-family: Oswald,Helvetica;
     }

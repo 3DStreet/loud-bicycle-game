@@ -10,7 +10,7 @@ export const SIDE_STREET_URL = './levels/side_street-26f46f90-bd11-11ec-b3b1-395
 */
 
 export const gameData = {
-    cheatSpeed: 5.0,
+    cheatSpeed: 7.0,
     levels: [
         {
             name: 'Level 1 - Lead the kids to school',
@@ -77,7 +77,15 @@ export const gameData = {
                 'https://cdn.glitch.global/4cbfc52c-9f40-485c-b7ff-e3ed0494f9a0/intersection.jpeg?v=1650059985944'
             ],
             getLevelEndMessage: function(score) {
-                return `You brought ${score} kids safely to school!`
+                return `
+                            You brought ${score} kids safely to school!
+                            <p>
+                            You picked up the Loud Mini horn.
+                            It sounds like a car horn and should help you a LOT. <img src="./assets/loud_mini.svg" class="icon">
+                            <br>
+                            $179 <a href="https://loudbicycle.com">loudbicycle.com</a> *not a joke, if you like it you can buy it
+                            </p>
+                        `
             }
         },
         {
@@ -143,7 +151,15 @@ export const gameData = {
                 'https://cdn.glitch.global/4cbfc52c-9f40-485c-b7ff-e3ed0494f9a0/intersection.jpeg?v=1650059985944'
             ],
             getLevelEndMessage: function(score) {
-                return `You brought ${score} colleagues safely to work.`
+                return `
+                        You brought ${score} colleagues safely to work!
+                        <p>
+                        You picked up the Loud Ray Gun.
+                        Turn all the cars into bicycles, awaiting approval by FDA/FCC. <img src="./assets/gun-ray.png" class="icon">
+                        <br>
+                        $$$$ spacebucks.
+                        </p>
+                `
             }
         },
         {
@@ -181,10 +197,10 @@ export const gameData = {
             ambientSoundVolume: 0.2,
             musicSoundId: '#music-3',
             interactables: {
-                'rightHook': 0.4,
-                'rightCross': 0.2,
-                'driveway': 0.5,
-                'side': 0.8,
+                'rightHook': 0.8,
+                'rightCross': 0.9,
+                'driveway': 0.8,
+                'side': 0.9,
                 'parking': 1.0,
                 'double-parking': 1.0
             },

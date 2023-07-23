@@ -80,12 +80,6 @@
         <a-mixin id="scrubber" gltf-model="#scrubber-asset"></a-mixin>
 
       </a-assets>
-      <!-- <a-entity id="ambient-audio-a" sound="src: #ambient-sound-a; autoplay: false; loop: true; volume: 8.6; positional: false"></a-entity> -->
-      <!-- <a-entity id="ambient-audio-b" sound="src: #ambient-sound-b; autoplay: false; loop: true; volume: 8.6; positional: false"></a-entity> -->
-      <!-- <a-entity id="music-1" sound="src: #music--1; autoplay: false; loop: false; volume: 0.6; positional: false"></a-entity>
-      <a-entity id="music-2" sound="src: #music--2; autoplay: false; loop: false; volume: 0.6; positional: false"></a-entity>
-      <a-entity id="music-3" sound="src: #music--3; autoplay: false; loop: false; volume: 0.6; positional: false"></a-entity>
-      <a-entity id="music-4" sound="src: #music--4; autoplay: false; loop: false; volume: 0.6; positional: false"></a-entity> -->
       <a-entity id="ambient-light" light="type: ambient; color: #222"></a-entity>
       <a-entity id="directional-light" light="type: directional; color: #444; intensity: 0.6" position="-0.5 1 1"></a-entity>
       <a-sky src="#sky"></a-sky>
@@ -161,20 +155,15 @@
       <div id="main-menu" class="disabled">
         <div id="main-menu-top">
           <div id="intro-modal">
-            <div>
-              <button class="btn" onclick="setLevelSelectionEnabled(true)"><span class="text">Play</span></button>
-              <button class="btn" onclick="setSettingsEnabled(true)"><span class="text">Settings</span></button>
+            <div id="button-container">
+              <button class="btn" onclick="setLevelSelectionEnabled(true)"><span class="text">Play</span></button> &nbsp;
+              <button class="btn" onclick="setSettingsEnabled(true)"><span class="text">Settings</span></button> &nbsp;
               <button class="btn" onclick="setCreditsEnabled(true)"><span class="text">Credits</span></button>
             </div>
             <div>
               <img src="./assets/instructions.jpg">
             </div>
           </div>
-        </div>
-        <div id="main-menu-bottom">
-          <!-- <button class="btn" onclick="setLevelSelectionEnabled(true)"><span class="text">Play</span></button>
-          <button class="btn" onclick="setSettingsEnabled(true)"><span class="text">Settings</span></button>
-          <button class="btn" onclick="setCreditsEnabled(true)"><span class="text">Credits</span></button> -->
         </div>
       </div>
       <div id="level-end-screen" class="disabled">
@@ -297,7 +286,7 @@
         levelSelection.classList.remove('enabled');
         levelSelection.classList.add('disabled');
         if(message) {
-          endScreen.querySelector('#level-end-header').innerText = message;
+          endScreen.querySelector('#level-end-header').innerHTML = message;
         }
       } else {
         endScreen.classList.remove('enabled');

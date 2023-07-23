@@ -123,8 +123,8 @@ AFRAME.registerComponent('game-manager', {
         this.musicAudio.volume = 0.0;
     },
     enableAmbientAudio: function() {
-        this.ambientAudio.volume = 0.2;   
-        this.musicAudio.volume = 0.1;
+        this.ambientAudio.volume = 0.4;
+        this.musicAudio.volume = 0.2;
     },
     pauseAmbientAudio: function() {
         this.ambientAudio.pause();
@@ -143,8 +143,10 @@ AFRAME.registerComponent('game-manager', {
     },
     endLevel: function() {
         this.playEndAnimation();
+
+        // stop the sound, but not the music
         this.stopLevel(false);
-        //this.winSoundEl.play();
+
         setTimeout(() => {
             setEndScreenEnabled(true, this.levelData.getLevelEndMessage(this.bikeMemberCount));
             this.removeLevel();
@@ -255,7 +257,7 @@ AFRAME.registerComponent('game-manager', {
         this.musicAudio.currentTime = 0;
         // start playing the new song.
         this.musicAudio = document.querySelector(this.levelData.musicSoundId)
-        this.musicAudio.volume = 0.1;
+        this.musicAudio.volume = 0.4;
         this.musicAudio.play();
 
         gameScore = 0;
