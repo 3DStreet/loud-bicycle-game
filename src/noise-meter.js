@@ -99,6 +99,7 @@ AFRAME.registerComponent('noise-meter', {
         } else if(this.data.meterId === 'ray-meter') {
             this.el.addEventListener('sound-ended', () => {
                 gameManager.enableAmbientAudio();
+
             });
         }
 

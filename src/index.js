@@ -14,3 +14,4 @@ require('./bike-train-pool');
 require('./bike-train-member');
 require('./noise-meter');
 require('./aframe-street-component');
+require('./styles.css');

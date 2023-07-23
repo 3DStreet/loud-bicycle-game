@@ -53,9 +53,12 @@ export const gameData = {
             streetLengthAdditionalRange: 10,
             lastBuildingOffset: 20,
             lastBuildingAssetId: '#building-school-asset',
+
             ambientSoundId: '#ambient-sound-a',
-            ambientSoundVolume: 0.2,
+            ambientSoundVolume: 0.7,
+
             musicSoundId: '#music-1',
+            
             spawnMinis: true,
             spawnHearts: true,
             interactables: {
@@ -120,7 +123,9 @@ export const gameData = {
             lastBuildingAdditionalAssetId: '#prop-banner-wfh-asset',
             ambientSoundId: '#ambient-sound-a',
             ambientSoundVolume: 0.2,
+
             musicSoundId: '#music-2',
+            
             interactables: {
                 'rightHook': 0.7,
                 'rightCross': 0.5,
