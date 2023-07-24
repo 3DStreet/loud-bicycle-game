@@ -273,7 +273,9 @@ AFRAME.registerComponent('interactable-pool', {
         el.object3D.position.copy(position);
 
         el.object3D.position.set(position.x, 0, position.z);
-        el.object3D.rotation.y = Math.PI;
+        // el.object3D.rotation.y = Math.PI;
+        el.object3D.rotation.y = -Math.PI;
+
 
         parent.attach( el.object3D );
 

@@ -37,6 +37,8 @@
         <audio id="ouch-baby-sound-0" src="./assets/ouch_baby1.wav" preload="auto"></audio>
         <audio id="ouch-baby-sound-1" src="./assets/ouch_baby2.wav" preload="auto"></audio>
 
+        <audio id="powerup-sound" src="./assets/powerup.wav" preload="auto"></audio>
+
         <img id="comic-effect" src="./assets/comic_effect.png">
         <img id="grass-floor" src="./3dstreet-assets/materials/TexturesCom_Grass0052_1_seamless_S.jpg">
         <img id="sky" src="./3dstreet-assets/CGSkies_0343_doubled_2048.jpg">
@@ -110,7 +112,7 @@
       <a-entity id="game-manager" game-manager sound="src: url(./assets/breath_caugh.webm);"></a-entity>
       <a-entity noise-meter="clickerId:shout; meterId:special-meter; isSmall:true; keyCode:q;" sound="src: url(./assets/bell.webm);"></a-entity>
       <a-entity id="horn-noise" noise-meter="clickerId:horn; meterId:main-meter; isSmall:false; keyCode:w"></a-entity>
-      <a-entity id="ray-noise" noise-meter="clickerId:ray; meterId:ray-meter; keyCode:e; lightId: flash-light" sound="src: url(./assets/raygun.webm);"></a-entity>
+      <a-entity id="ray-noise" noise-meter="clickerId:ray; meterId:ray-meter; keyCode:e; lightId: flash-light" sound="src: url(./assets/raygun2.wav);"></a-entity>
 
       <a-entity id="level" animation="property: position; to: 0 0 400; autoplay: false; dur: 100000; easing: linear; loop: false">
         <a-plane src="#grass-floor" height="1000" width="1000" rotation="-90 0 0" position="0 -0.05 0" material="repeat: 20 20"></a-plane>

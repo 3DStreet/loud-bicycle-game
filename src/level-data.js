@@ -204,7 +204,7 @@ export const gameData = {
                 'rightHook': 0.8,
                 'rightCross': 0.9,
                 'driveway': 0.8,
-                'side': 0.9,
+                'side': 1.0,
                 'parking': 1.0,
                 'double-parking': 1.0
             },
