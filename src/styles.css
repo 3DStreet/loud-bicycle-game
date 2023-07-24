@@ -14,10 +14,10 @@
 
       #shout, #horn, #ray {
         position: absolute;
-        top: 0;
+        bottom: 5px;
         height: 120px;
+        left: 50px;
         width: 120px;
-        /* border: 0px solid green; */
         border-radius: 50%;
 
         user-drag: none;
@@ -43,9 +43,10 @@
       }
       #special-meter, #main-meter, #ray-meter {
         position: absolute;
-        top: 120px;
+        bottom: 125px;
         width: 110px;
         height: 50px;
+        left: 50px;
       }
       .high-meter {
         accent-color: green;
@@ -55,11 +56,11 @@
       }
 
       #ray, #ray-meter {
-        left: 240px;
+        left: 290px;
       }
 
       #horn, #main-meter {
-        left: 120px;
+        left: 170px;
       }
 
       #life-indicator-container {
