@@ -260,12 +260,12 @@ AFRAME.registerComponent('game-manager', {
         this.musicAudio.volume = 0.4;
         this.musicAudio.play();
 
+        // flash the UI elemets for the tutorial
         if (this.levelData.tutorial) {
-            this.blinkIcon('#shout', 2500, 16500); // Start blinking the #shout icon 20 seconds into the game
-            this.blinkIcon('#horn', 2000, 23000);  // Start blinking the #horn icon 23 seconds into the game
+            this.blinkIcon('#shout', 3500, 17000); // Start blinking the bell (named shout accidentally)
+            this.blinkIcon('#horn', 2000, 22000);  // Start blinking the #horn icon
           }
-        
-        
+                
         gameScore = 0;
         this.bikeMemberCount = 0;
         this.gameScoreLabel.innerText = gameScore;

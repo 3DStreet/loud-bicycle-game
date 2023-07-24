@@ -64,13 +64,12 @@ export const gameData = {
             spawnMinis: true,
             spawnHearts: true,
             interactables: {
-                'driveway': 0.5,
-                // 'side': 0.5,
+                'driveway': 0.85,
                 'rightCross': 1.0
             },
             streetUrls: [
                 './levels/street_1.json',
-                './levels/street_1.json',
+                './levels/street_0.json',
                 // './levels/street_1.json',
                 './levels/street_1b.json',
                 './levels/street_1b.json',
@@ -80,10 +79,10 @@ export const gameData = {
             ],
             getLevelEndMessage: function(score) {
                 return `
-                            You brought ${score} kids safely to school!
+                            <h1>You brought ${score} kids safely to school!</h1>
                             <p>
                             You picked up the Loud Mini horn.
-                            It sounds like a car horn and should help you a LOT. <img src="./assets/loud_mini.svg" class="icon">
+                            It sounds like a car horn and should help you a LOT. <img src="./assets/loud_mini.png" class="icon">
                             <br>
                             $179 <a href="https://loudbicycle.com">loudbicycle.com</a> *not a joke, if you like it you can buy it
                             </p>
