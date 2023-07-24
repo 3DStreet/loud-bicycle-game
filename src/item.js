@@ -43,6 +43,10 @@ AFRAME.registerComponent('item', {
         } else if(this.data.type === 'heart') {
             playerController.addLife();
         }
+        this.powerupAudio = document.querySelector('#powerup-sound');
+        this.powerupAudio.volume = 1.0;
+        this.powerupAudio.play();
+
     },
     spawn: function() {
         this.isHit = false;
