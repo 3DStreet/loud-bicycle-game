@@ -24,7 +24,7 @@ AFRAME.registerComponent('bike-train-member', {
         if(this.isHit || !this.spawned) return;
         this.isHit = true;
 
-        let x = Math.sign((amountBikeTrainMembers % 2) - 0.5) * 0.7;
+        let x = Math.sign((amountBikeTrainMembers % 2) - 0.5) * 0.5;
         let z = Math.floor(amountBikeTrainMembers / 2) * 2.2 + 1.5;
 
         playerController.el.object3D.attach(this.el.object3D)

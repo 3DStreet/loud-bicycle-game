@@ -260,12 +260,12 @@ AFRAME.registerComponent('game-manager', {
         this.musicAudio.volume = 0.4;
         this.musicAudio.play();
 
+        // flash the UI elemets for the tutorial
         if (this.levelData.tutorial) {
-            this.blinkIcon('#shout', 2500, 16500); // Start blinking the #shout icon 20 seconds into the game
-            this.blinkIcon('#horn', 2000, 23000);  // Start blinking the #horn icon 23 seconds into the game
+            this.blinkIcon('#shout', 3500, 17000); // Start blinking the bell (named shout accidentally)
+            this.blinkIcon('#horn', 2000, 22000);  // Start blinking the #horn icon
           }
-        
-        
+                
         gameScore = 0;
         this.bikeMemberCount = 0;
         this.gameScoreLabel.innerText = gameScore;
@@ -468,6 +468,8 @@ AFRAME.registerComponent('game-manager', {
         // blink the border
         iconDiv.style.border = iconDiv.style.border === '2px solid rgb(255, 175, 83)' ? 'none' : '2px solid rgb(255, 175, 83)';
         iconDiv.style.boxShadow = '0 0 40px rgb(255, 175, 83, 1.0)';
+        iconDiv.style.height = iconDiv.style.height === '110px' ? '120px' : '110px';
+        iconDiv.style.width = iconDiv.style.width === '110px' ? '120px' : '110px';
     },
     // Start blinking an icon and stop after a certain duration
 // Start blinking an icon and stop after a certain duration
@@ -482,6 +484,7 @@ blinkIcon(selector, blinkDuration = 2000, blinkStartDelay = 0) {
             const iconDiv = document.querySelector(selector);
             iconDiv.style.border = 'none';
             iconDiv.style.boxShadow = 'none';
+            iconDiv.style.height = '120px';
         }, blinkDuration);
     }, blinkStartDelay);
 },
