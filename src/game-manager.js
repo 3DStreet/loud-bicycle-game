@@ -187,7 +187,10 @@ AFRAME.registerComponent('game-manager', {
     },
     failLevel: function() {
         this.stopLevel(true);
-        setEndScreenEnabled(true, "Try again!");
+        setEndScreenEnabled(true, `<h1>Nice try!<h1>
+                                    <p>[some stats about how you did]<br>
+                                        Please share how you did for access to a special discount at the Loud Bicycle store.
+                                    </p>`);
         // this.winSoundEl.play();
         
         this.removeLevel();

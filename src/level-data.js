@@ -218,7 +218,9 @@ export const gameData = {
                 'https://cdn.glitch.global/4cbfc52c-9f40-485c-b7ff-e3ed0494f9a0/intersection.jpeg?v=1650059985944'
             ],
             getLevelEndMessage: function() {
-                return `You got to the bar!`
+                return `<h1>Great job you got to the bar!</h1>
+                            <p>Loud Mini isn't a ray gun but it can push people driving out of bike lanes. <a href="https://www.loudbicycle.com>www.loudbicycle.com</a></p>
+                            <p>Beat the next (last) level to get a coupon for free securty screws.</p>`
             }
         },
         {
@@ -276,7 +278,14 @@ export const gameData = {
                 'https://cdn.glitch.global/4cbfc52c-9f40-485c-b7ff-e3ed0494f9a0/intersection.jpeg?v=1650059985944'
             ],
             getLevelEndMessage: function() {
-                return `You got home safely!`
+                return `<h1>You got home safely!</h1>
+                            <p>
+                            You beat the game with the help of Loud Mini, we want to you have Loud Mini to stay safe in real life too!
+                            <br>
+                            To learn more <a href="https://loudbicycle.com/horn">click here</a>.<br>
+                            For your valliant efforts we want to give you the Loud Mini *Security Bolts* for free
+                            For a special one-time order-link <a href="https://loud-bicycle-store.myshopify.com/cart/32290221654067:1,10359316551:1?discount=SUPERSAVERBIKETRAINHERO">Click Here</a>
+                            </p>`
             }
         }
     ]
