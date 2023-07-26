@@ -115,14 +115,10 @@ AFRAME.registerComponent('game-manager', {
         }, 100);
     },
     disableAmbientAudio: function() {
-        // this.originalAmbientVolume = this.ambientAudio.data.volume;
-        // this.ambientAudio.el.setAttribute('sound', {volume: 0.0})     
-        // this.ambientAudio.pause();
-        // this.musicAudio.pause();     
         this.ambientAudio.volume = 0.0;
-        this.musicAudio.volume = 0.0;
+        this.musicAudio.volume = 0.15;
     },
-    enableAmbientAudio: function() {
+        enableAmbientAudio: function() {
         this.ambientAudio.volume = 0.4;
         this.musicAudio.volume = 0.2;
     },
