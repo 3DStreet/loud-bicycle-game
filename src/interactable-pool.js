@@ -322,17 +322,60 @@ AFRAME.registerComponent('interactable-pool', {
             }
         });
     },
-    convertAllToBikes: function() {
-        for (let i = 0; i < this.pool.usedEls.length; i++) {
-            const el = this.pool.usedEls[i];
-            
-            el.setAttribute('interactable', {type: 'bike'});
-            el.play();
+// raygun turn all the cars into bicycles, one by one
+// flash of orange from above first, followed by semi-overlapping flash of blue from below
+convertAllToBikes: function() {
+    for (let i = 0; i < this.pool.usedEls.length; i++) {
+        const el = this.pool.usedEls[i];
+        el.setAttribute('interactable', {type: 'bike'});
+        el.play();
+    }
 
+    for (let i = 0; i < this.pool.usedEls.length; i++) {
+        const el = this.pool.usedEls[i];
+
+        // Create light from the top
+        let topLight = document.createElement('a-light');
+        topLight.setAttribute('type', 'spot');
+        topLight.setAttribute('color', '#f2ad13');
+        topLight.setAttribute('intensity', '40');
+        topLight.setAttribute('distance', '5');
+        topLight.setAttribute('angle', '45');
+        topLight.setAttribute('penumbra', '0.5');
+        topLight.setAttribute('position', {x: 0, y: 3, z: 0}); // position the light at the top
+        topLight.setAttribute('rotation', {x: -90, y: 0, z: 0}); // rotate the light to point downward
+
+        // Create light from the bottom
+        let bottomLight = document.createElement('a-light');
+        bottomLight.setAttribute('type', 'spot');
+        bottomLight.setAttribute('color', '#f2ad13');
+        bottomLight.setAttribute('intensity', '40');
+        bottomLight.setAttribute('distance', '5');
+        bottomLight.setAttribute('angle', '45');
+        bottomLight.setAttribute('penumbra', '0.5');
+        bottomLight.setAttribute('position', {x: 0, y: -1, z: 0}); // position the light at the bottom
+        bottomLight.setAttribute('rotation', {x: 90, y: 0, z: 0}); // rotate the light to point upward
+
+        // Add the lights to the car entity
+        el.appendChild(topLight);
+        // el.appendChild(bottomLight);
+
+        setTimeout(() => {
             el.removeAttribute("gltf-model");
             el.setAttribute('gltf-model', getRandomAdultBikeId());
-        }
-    },
+            topLight.setAttribute('color', '#007BFF');
+            bottomLight.setAttribute('color', '#007BFF');
+            el.appendChild(bottomLight);
+            setTimeout(() => {
+                el.removeChild(bottomLight);
+            }, 200);
+            setTimeout(() => {
+                el.removeChild(topLight);
+            }, 100);
+        }, 200 * i); // stagger the conversion of cars to bikes 
+    }
+},
+
     returnAll: function() {
         const els = [...this.pool.usedEls];
         for (let i = 0; i < els.length; i++) {

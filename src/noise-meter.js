@@ -131,6 +131,7 @@ AFRAME.registerComponent('noise-meter', {
     hasLowMeter: function() {
         return this.meter < LOW_METER_THRESHOLD;
     },
+    // raygun effect flashing
     displayVFX: function() {
         let otherIds = Object.keys(noiseMeters);
         if (this.hasLowMeter() || !this.enabled || this.broken || noiseMeters[otherIds[0]].displaying|| noiseMeters[otherIds[1]].displaying|| noiseMeters[otherIds[2]].displaying) return;
