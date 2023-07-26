@@ -95,6 +95,7 @@
         aabb-collider="objects:[interactable], [smog]"
       >
         <a-entity id="spot-light" light="type: spot; angle: 15.97; color: #f5f0e5; penumbra: 0.54; decay: 0.23; distance: 25.35; intensity: 1.47" position="0 1 -0.40039" rotation="-19.74 0 0"></a-entity>
+
         <!-- <a-entity id="back-light" geometry="primitive: plane; height: 0.02; width: 0.06" material="shader: flat; color: red" position="-0.02, 0.949 0.432"></a-entity> -->
         <a-entity id="player-cyclist" gltf-model="#cyclist1-asset" animation-mixer rotation="0 180 0"></a-entity>
         <a-entity id="noise-indicator" gltf-model="#wave" visible="false" noise-indicator position="0 0.5 0">
@@ -103,7 +104,9 @@
         <!-- <a-entity mixin="scrubber" position="-0.03 0.81 -0.77" rotation="0 180 0"></a-entity> -->
       </a-entity>
       <a-entity id="bell-indicator" gltf-model="#bell" visible="false" scale="0.75 0.75 0.75"></a-entity>
-      <a-entity id="flash-light" light="type: point; color: #f2ad13; decay: 0.23; distance: 25.35; intensity: 0.0" animation="property: light.intensity; from: 0.0; to: 80.0; dur: 400; dir: alternate; loop: 1; startEvents: startAnimation" position="0 1 -0.40039" rotation="-19.74 0 0"></a-entity>
+
+      <!-- the raygun blast wave -->
+      <a-entity id="flash-light" light="type: point; color: #f2ad13; decay: 0.23; distance: 25.35; intensity: 0.0" animation="property: light.intensity; from: 0.0; to: 5.0; dur: 400; dir: alternate; loop: 1; startEvents: startAnimation" position="0 1 -0.40039" rotation="-19.74 0 0"></a-entity>
 
       <a-entity id="interactable-spawner" interactable-pool></a-entity>
       <a-entity id="smog-spawner" smog-pool></a-entity>
