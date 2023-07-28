@@ -271,12 +271,6 @@ AFRAME.registerComponent('game-manager', {
             this.blinkIcon('#shout', 3500, 17000); // Start blinking the bell (named shout accidentally)
             this.blinkIcon('#horn', 2000, 22000);  // Start blinking the #horn icon
             this.blinkSwipeInstrucions() ;
-
-          }
-        else {
-            // make the instructions2 div invisible
-            // document.querySelector('#instructions2').style.display = 'none';
-            blinkSwipeInstrucions() ;
         }
                 
         gameScore = 0;

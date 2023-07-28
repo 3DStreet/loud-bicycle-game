@@ -251,39 +251,43 @@ AFRAME.registerComponent('interactable-pool', {
     spawnCarParking: function (position, isRight){
         const type = "parking"
         if(!gameManager.levelData.interactables[type] || gameManager.levelData.interactables[type] < Math.random()) return;
-
+    
         let el = this.pool.requestEntity();
-
+    
         if(!el) return console.error("Interactable pool is too small, failed to spawn");
-
+    
         el.setAttribute('interactable', {type});
         el.play();
-
+    
         // el.setAttribute('raycaster', {objects: '[interactable]', showLine: DEBUG_RAYCAST_LINE, far: 4, interval: 100, origin: '0, 1, 3', direction: '0 0 1'});
-
+    
         el.removeAttribute("gltf-model");
         el.setAttribute('gltf-model', '#vehicle-bmw-m2-asset');
-
+    
         el.components.interactable.isHit = true;
-
+    
         let parent = el.object3D.parent;
         let scene = this.el.sceneEl.object3D;
-
+    
         scene.attach( el.object3D );
         el.object3D.position.copy(position);
-
+    
         el.object3D.position.set(position.x, 0, position.z);
-        // el.object3D.rotation.y = Math.PI;
-        el.object3D.rotation.y = -Math.PI;
+    
+        // Orient the car towards the positive Z direction
+        let target = new THREE.Vector3(position.x, 0, position.z - 1);
 
-
+        el.object3D.lookAt(target);
+        el.object3D.updateMatrixWorld(true);
+    
         parent.attach( el.object3D );
-
+    
         el.components.interactable.returnFunction = () => {
             if(this.pool.usedEls.includes(el))
                 this.returnEl(el);
         }
     },
+    
     spawnCarsOnStreet: function(index) {
         const root = gameManager.getStreetObject3D(index);
         if(!root) return;
@@ -323,56 +327,52 @@ AFRAME.registerComponent('interactable-pool', {
         });
     },
 // raygun turn all the cars into bicycles, one by one
-// flash of orange from above first, followed by semi-overlapping flash of blue from below
+
 convertAllToBikes: function() {
     for (let i = 0; i < this.pool.usedEls.length; i++) {
         const el = this.pool.usedEls[i];
+        let circles = [];
+
         el.setAttribute('interactable', {type: 'bike'});
         el.play();
-    }
 
-    for (let i = 0; i < this.pool.usedEls.length; i++) {
-        const el = this.pool.usedEls[i];
+        for(let j = 0; j < 4; j++) {
+            // Create the circle geometry and material with double the radius
+            let geometry = new THREE.CircleGeometry(1.5, 16); 
+            let material = new THREE.MeshBasicMaterial({
+                color: new THREE.Color(0xff9900), 
+                opacity: 0.5, 
+                transparent: true, 
+                side: THREE.DoubleSide
+            });
 
-        // Create light from the top
-        let topLight = document.createElement('a-light');
-        topLight.setAttribute('type', 'spot');
-        topLight.setAttribute('color', '#f2ad13');
-        topLight.setAttribute('intensity', '40');
-        topLight.setAttribute('distance', '5');
-        topLight.setAttribute('angle', '45');
-        topLight.setAttribute('penumbra', '0.5');
-        topLight.setAttribute('position', {x: 0, y: 3, z: 0}); // position the light at the top
-        topLight.setAttribute('rotation', {x: -90, y: 0, z: 0}); // rotate the light to point downward
+            // Create the circle mesh and position it in front of the car
+            let circle = new THREE.Mesh(geometry, material);
+            circle.position.set(0, 1.5, 0.5 - j);  // shifted one unit forward
 
-        // Create light from the bottom
-        let bottomLight = document.createElement('a-light');
-        bottomLight.setAttribute('type', 'spot');
-        bottomLight.setAttribute('color', '#f2ad13');
-        bottomLight.setAttribute('intensity', '40');
-        bottomLight.setAttribute('distance', '5');
-        bottomLight.setAttribute('angle', '45');
-        bottomLight.setAttribute('penumbra', '0.5');
-        bottomLight.setAttribute('position', {x: 0, y: -1, z: 0}); // position the light at the bottom
-        bottomLight.setAttribute('rotation', {x: 90, y: 0, z: 0}); // rotate the light to point upward
-
-        // Add the lights to the car entity
-        el.appendChild(topLight);
-        // el.appendChild(bottomLight);
+            // Add the circle to the car entity
+            el.object3D.add(circle);
+            circles.push(circle);
+        }
 
         setTimeout(() => {
             el.removeAttribute("gltf-model");
             el.setAttribute('gltf-model', getRandomAdultBikeId());
-            topLight.setAttribute('color', '#007BFF');
-            bottomLight.setAttribute('color', '#007BFF');
-            el.appendChild(bottomLight);
-            setTimeout(() => {
-                el.removeChild(bottomLight);
-            }, 200);
-            setTimeout(() => {
-                el.removeChild(topLight);
-            }, 100);
-        }, 200 * i); // stagger the conversion of cars to bikes 
+
+            // Change the color of all circles to blue
+            circles.forEach(circle => {
+                circle.material.color.set(0x007BFF);
+            });
+
+            // Remove circles one by one, from front to back
+            for(let j = circles.length - 1; j >= 0; j--) {
+                setTimeout(() => {
+                    // Remove the circle
+                    el.object3D.remove(circles[j]);
+                }, 50 * (circles.length - 1 - j));
+            }
+
+        }, 100 * i + 0); // stagger the conversion of cars to bikes by an additional delay equal to the time taken to create all the circles 
     }
 },
 
