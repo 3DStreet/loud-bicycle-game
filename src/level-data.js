@@ -116,6 +116,7 @@ export const gameData = {
             },
             startWithMini: true,
             spawnRaygun: true,
+            spawnHearts: true,
             streetLengthAdditionalRange: 10,
             lastBuildingOffset: 20,
             lastBuildingAssetId: '#prop-suburban-houses-asset',
@@ -127,8 +128,8 @@ export const gameData = {
             tutorial: false,
             
             interactables: {
-                'rightHook': 0.7,
-                'rightCross': 0.5,
+                'rightHook': 0.3,
+                'rightCross': 0.7,
                 'driveway': 0.8
             },
             streetUrls: [
