@@ -59,6 +59,7 @@ AFRAME.registerComponent('game-manager', {
             this.ambientAudio = document.querySelector('#ambient-sound-a');
             this.musicAudio = document.querySelector('#music-1');
 
+
             document.querySelector('#model').setAttribute('animation__position',
                 {'property': 'position', 'to': {x: -3, y: 0, z: -5}, 'startEvents': 'playend', 'dur': finalAnimationTimeMS});
             document.querySelector('#model').setAttribute('animation__rotation',
@@ -153,7 +154,8 @@ AFRAME.registerComponent('game-manager', {
         this.stopLevel(true);
 
         this.musicAudio.pause();
-        this.musicAudio.currentTime = 0;
+        // this.musicAudio.currentTime = 0;
+        this.musicAudio.currentTime = 17;
 
         setMenuEnabled();
         this.removeLevel();
@@ -196,7 +198,8 @@ AFRAME.registerComponent('game-manager', {
         // The music stops only if shouldMusicStop is true
         if (shouldMusicStop) {
             this.musicAudio.pause();
-            this.musicAudio.currentTime = 0;
+            // this.musicAudio.currentTime = 0;
+            this.musicAudio.currentTime = 17;
         }
     
         this.levelAnimation.animation.pause();
@@ -253,17 +256,28 @@ AFRAME.registerComponent('game-manager', {
 
         // reset the previous song
         this.musicAudio.pause();
-        this.musicAudio.currentTime = 0;
+        // this.musicAudio.currentTime = 0;
+        this.musicAudio.currentTime = 17;
+
         // start playing the new song.
         this.musicAudio = document.querySelector(this.levelData.musicSoundId)
         this.musicAudio.volume = 0.4;
+        this.musicAudio.currentTime = 17;
         this.musicAudio.play();
+        
 
         // flash the UI elemets for the tutorial
         if (this.levelData.tutorial) {
             this.blinkIcon('#shout', 3500, 17000); // Start blinking the bell (named shout accidentally)
             this.blinkIcon('#horn', 2000, 22000);  // Start blinking the #horn icon
+            this.blinkSwipeInstrucions() ;
+
           }
+        else {
+            // make the instructions2 div invisible
+            // document.querySelector('#instructions2').style.display = 'none';
+            blinkSwipeInstrucions() ;
+        }
                 
         gameScore = 0;
         this.bikeMemberCount = 0;
@@ -326,7 +340,8 @@ AFRAME.registerComponent('game-manager', {
         element.setAttribute('item', {type: 'heart'});
         element.setAttribute('gltf-model', '#prop-heart-asset');
         element.setAttribute('scale', '1 1 1');
-        element.setAttribute('position', (i * 3.3) + ' 0.8 -' + (this.levelData.endDistance - 134));
+        // element.setAttribute('position', (i * 3.3) + ' 0.8 -' + (this.levelData.endDistance - 134));
+        element.setAttribute('position', (i * 3.3) + ' 0.8 -' + (this.levelData.endDistance - 54 - 3));
 
         this.currentLevel.append(element);
     },
@@ -471,6 +486,20 @@ AFRAME.registerComponent('game-manager', {
         iconDiv.style.width = iconDiv.style.width === '110px' ? '120px' : '110px';
     },
     // Start blinking an icon and stop after a certain duration
+
+blinkSwipeInstrucions() {
+
+
+    setTimeout(() => {
+        // Stop the blinking after blinkDuration milliseconds
+        setTimeout(() => {
+            document.querySelector('#instructions2').style.display = 'none';
+        }, 10000);
+    document.querySelector('#instructions2').style.display = 'flex';
+
+    }, 3000);
+},
+
 // Start blinking an icon and stop after a certain duration
 blinkIcon(selector, blinkDuration = 2000, blinkStartDelay = 0) {
     setTimeout(() => {
