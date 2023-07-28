@@ -20,21 +20,11 @@ export const gameData = {
             ambientLightColor: '#0000', 
             directionalLightColor: '#FFFFFF', 
             directionalLightIntensity: 1.0, 
-            // directionalLightPosition: '0.2 0.3 0.1',
-            //           [right/-left, up/down, forward/back]
-
-            // morning
             directionalLightPosition: '-5 8 4',
-
-            // afternoon
-            // directionalLightPosition: '5 8 -4',
-
-            // sunset
-            // directionalLightPosition: '5 5 -10',
-
             hasBikeLight: false, 
+
             //  (n streets*length +  )
-            endDistance: 4 * 50 + 3 * 10 + 20,
+            endDistance: 3 * 50 + 2 * 10 + 20 - 5,
             startingLane: 2,
             amountLanes: 3,
             laneWidth: 3.048,
@@ -72,7 +62,7 @@ export const gameData = {
                 './levels/street_0.json',
                 // './levels/street_1.json',
                 './levels/street_1b.json',
-                './levels/street_1b.json',
+                // './levels/street_1b.json',
             ],
             intersectionUrls: [
                 'https://cdn.glitch.global/4cbfc52c-9f40-485c-b7ff-e3ed0494f9a0/intersection.jpeg?v=1650059985944'
@@ -108,7 +98,7 @@ export const gameData = {
             // sunset
             // directionalLightPosition: '5 5 -10',
             hasBikeLight: false, 
-            endDistance: 4 * 50 + 3 * 10 + 20,
+            endDistance: 3 * 50 + 2 * 10 + 20 - 5,
             startingLane: 1,
             amountLanes: 3,
             amountBikePool: 3,
@@ -145,7 +135,7 @@ export const gameData = {
                 './levels/street_2.json',
                 './levels/street_2.json',
                 // './levels/street_2b.json',
-                './levels/street_2b.json',
+                // './levels/street_2b.json',
                 './levels/street_2b.json',
                 // './levels/street_4-1da4bec0-c1ff-11ec-877c-abfad556cfc6.json',
             ],
@@ -173,8 +163,8 @@ export const gameData = {
             directionalLightColor: '#646464', 
             directionalLightIntensity: 1.0, 
             directionalLightPosition: '0 0 0', 
-            hasBikeLight: true, 
-            endDistance: 4 * 50 + 3 * 10 + 20,
+            hasBikeLight: false, 
+            endDistance: 3 * 50 + 2 * 10 + 20 - 5,
             startingLane: 2,
             amountLanes: 3,
             amountBikePool: 0,
@@ -212,7 +202,7 @@ export const gameData = {
                 './levels/street_3.json',
                 './levels/street_3.json',
                 './levels/street_3b.json',
-                './levels/street_3b.json',
+                // './levels/street_3b.json',
             ],
             intersectionUrls: [
                 'https://cdn.glitch.global/4cbfc52c-9f40-485c-b7ff-e3ed0494f9a0/intersection.jpeg?v=1650059985944'
