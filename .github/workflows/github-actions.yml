@@ -9,12 +9,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the repository
-        uses: actions/checkout@master
+        uses: actions/checkout@v2
 
       - name: Use Node.js 16.x
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
-          node-version: 16.x
+          node-version: '16'
 
       - name: Checkout submodules
         run: git submodule update --init --recursive
