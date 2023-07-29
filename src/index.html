@@ -96,9 +96,11 @@
         <a-entity id="spot-light" light="type: spot; angle: 15.97; color: #f5f0e5; penumbra: 0.54; decay: 0.23; distance: 25.35; intensity: 1.47" position="0 1 -0.40039" rotation="-19.74 0 0"></a-entity>
 
         <!-- <a-entity id="back-light" geometry="primitive: plane; height: 0.02; width: 0.06" material="shader: flat; color: red" position="-0.02, 0.949 0.432"></a-entity> -->
-        <a-entity id="player-cyclist" gltf-model="#cyclist1-asset" animation-mixer rotation="0 180 0"></a-entity>
-        <a-entity id="noise-indicator" gltf-model="#wave" visible="false" noise-indicator position="0 0.5 0">
-          <a-sphere id="noise-indicator-collider" visible="false" aabb-collider="objects:[interactable], [bike-train-member]"></a-sphere>
+        <a-entity id="player-cyclist"  gltf-model="#cyclist1-asset" animation-mixer rotation="0 180 0"></a-entity>
+
+        <!-- the wave graphic for bell and horn -->
+        <a-entity id="noise-indicator" gltf-model="#wave" visible="false" noise-indicator position="0 1 0">
+         <a-sphere id="noise-indicator-collider" visible="false" aabb-collider="objects:[interactable], [bike-train-member]"></a-sphere>
         </a-entity>
         <!-- <a-entity mixin="scrubber" position="-0.03 0.81 -0.77" rotation="0 180 0"></a-entity> -->
       </a-entity>

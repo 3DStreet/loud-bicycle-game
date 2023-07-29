@@ -23,10 +23,16 @@ AFRAME.registerComponent('noise-indicator', {
 
         this.isBell = isBell;
         isBell ? this.scaleSmall() : this.isLoudMini ? this.scaleLarge() : this.scaleSmall();
+        this.material.color.b = 0.0;
         if(isBell) {
-            this.material.color.b = 0.0;
-        } else {
-            this.material.color.b = 1.0;
+            this.material.color.set('#FFD700');
+        } else if(this.isLoudMini) {
+            // this.material.color.set('#ff6c36'); 
+            // this.material.color.set('#ff4703'); 
+            this.material.color.set('#ff4703'); 
+        }
+        else {
+            this.material.color.set('#FFFFFF');
         }
 
         // this.el.object3D.position.x = playerController.el.object3D.position.x;
