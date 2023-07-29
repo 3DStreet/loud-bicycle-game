@@ -46,7 +46,6 @@
         <a-mixin id="smog-mixin" smog geometry="primitive: box; width: 1; height: 1; depth: 0.2"></a-mixin>
         <a-mixin id="bike-pool-mixin" gltf-model="#cyclist-kid-asset" animation-mixer bike-train-member></a-mixin>
         <a-asset-item id="wave" src="./assets/wave.glb"></a-asset-item>
-        <!-- <a-asset-item id="car" src="./assets/car.glb"></a-asset-item> -->
         <a-asset-item id="bell" src="./assets/bell.glb"></a-asset-item>
 
         <!-- loud bicycle pack -->
@@ -157,19 +156,14 @@
         <h1 id="landing-label">The Loud Bicycle game is loading ...</h1>
           <div id="quote-container">
             <p id="quote-text">
-              "The one thing that unites all human beings ... is that, deep down inside, we all believe that we are above-average drivers."
             </p>
-            <p id="quote-author" id="quote-author"> - Dave Barry</p>
+            <p id="quote-author" id="quote-author"></p>
           </div>
-        
-
-
-        <!-- <p id="landing-label">Loading ... </p> -->
-        <!-- <img src="./assets/loading_spinner.svg"> -->
       </div>
       <div id="main-menu" class="disabled">
         <div id="main-menu-top">
           <div id="intro-modal">
+
             <div id="button-container">
               <button class="btn" onclick="setLevelSelectionEnabled(true)"><span class="text">Play</span></button> &nbsp;
               <button class="btn" onclick="setSettingsEnabled(true)"><span class="text">Settings</span></button> &nbsp;
@@ -179,6 +173,7 @@
               <img src="./assets/instructions.jpg" onclick="setLevelSelectionEnabled(true)">
             </div>
           </div>
+          
         </div>
       </div>
       <div id="level-end-screen" class="disabled">
@@ -252,17 +247,13 @@
     let pauseMenu = document.querySelector('#pause-menu');
 
     sceneEl.addEventListener('loaded', () => {
-      document.querySelector('#landing-label').innerText = "Click to continue...";
       if(window.innerWidth <= 600) {
         document.querySelector('a-camera').setAttribute('fov', 110);
       }
-    });
-
-    landing.addEventListener('click', () => {
-      if(!sceneEl.hasLoaded) return;
       landing.classList.add('disabled');
       mainMenu.classList.remove('disabled');
       mainMenu.classList.add('enabled');
+      clearInterval(quoteInterval);
     })
 
     function setCreditsEnabled(b) {
@@ -360,6 +351,8 @@
     }
 
 
+let quoteInterval;  // Making it globally available in this script
+
 function displayRandomQuote() {
   const quoteContainer = document.getElementById("quote-text");
   const authorContainer = document.getElementById("quote-author");
@@ -368,8 +361,15 @@ function displayRandomQuote() {
   let indices = [...Array(quotes.length).keys()];
   indices = shuffle(indices);
   let currentIndex = 0;
+  const randomQuote = quotes[indices[currentIndex]];
+  const splitQuote = randomQuote.split(" - ");
 
-  setInterval(() => {
+  quoteContainer.textContent = splitQuote[0];
+  authorContainer.textContent = "- " + splitQuote[1];
+
+  currentIndex = 1;
+
+  quoteInterval = setInterval(() => {
     const randomQuote = quotes[indices[currentIndex]];
     const splitQuote = randomQuote.split(" - ");
     
@@ -377,7 +377,7 @@ function displayRandomQuote() {
     authorContainer.textContent = "- " + splitQuote[1];
 
     currentIndex = (currentIndex + 1) % quotes.length; // Cycle through indices
-  }, 5000); // Change quote every 5 seconds
+  }, 4000); // Change quote every 5 seconds
 }
 
 // Function to shuffle an array
@@ -397,7 +397,6 @@ function shuffle(array) {
 
 const quotes = [
   "\"Four wheels move the body, two wheels move the soul.\" - Gilda Texter",
-  "\"It never gets easier, you just get faster.\" - Greg LeMond",
   "\"My biggest fear is that when I die my wife will sell my bicycles for what I told her they cost.\" - Anonymous",
   "\"Life is like a 10-speed bicycle. Most of us have gears we never use.\" - Charles M. Schulz",
   "\"I thought of that while riding my bicycle.\" - Albert Einstein",

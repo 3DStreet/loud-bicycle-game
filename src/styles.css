@@ -109,10 +109,12 @@
         position: absolute;
         right: 5;
         bottom: 5;
+        display: none;
       }
 
       #score {
         font-size: 50px;
+        
       }
 
       #game-menu {
