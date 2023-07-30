@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Oswald&display=swap');
+/* load needed fonts */
+@import url('https://fonts.googleapis.com/css2?family=Oswald&display=swap&family=Lora:wght@400;700&display=swap');
      
       body {
         font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
@@ -108,10 +109,12 @@
         position: absolute;
         right: 5;
         bottom: 5;
+        display: none;
       }
 
       #score {
         font-size: 50px;
+        
       }
 
       #game-menu {
@@ -150,22 +153,54 @@
         font-weight: 700;
         transition: opacity 0.4s linear;
       }
+
+      
+      #quote-container {
+        font-family: 'Lora', serif;
+        font-style: italic;
+        font-size: 1.2em;
+        line-height: 1.5;
+        color: white;
+        font-weight: 400;
+        color: white;
+
+        text-align: center;
+        max-width: 800px;
+        /* margin: 0 auto; */
+    }
+    #quote-text {
+      text-align: left;
+      margin-left: 50px;
+      margin-right: 50px;
+      margin-bottom: 0px;
+    }
+    #quote-author {
+      text-align: center;
+      font-size: 1em;
+      margin-top: 0.2em;
+       display: block;
+       text-align: center;
+       font-size: 0.9em;
+       font-style: italic;
+       margin-bottom: 50px;
+    }
+    
       #landing h1 {
         font-family: Oswald;
         margin:40px;
-        color:#fc894d;
+        color:#ff6c36;
       }
       #landing p {
         width: 90%;
         max-width: 800px;
       }
       #landing-label {
-        color:#fc894d;
+        color:#ff6c36;
       }
 
       #landing img {
-        flex-grow: 1;
-        width: 400px;
+        /* flex-grow: 1; */
+        width: 200px;
         max-width: 60%;
         animation: float 6s ease-in-out infinite;
         overflow: auto; 

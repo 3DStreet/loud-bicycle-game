@@ -46,7 +46,6 @@
         <a-mixin id="smog-mixin" smog geometry="primitive: box; width: 1; height: 1; depth: 0.2"></a-mixin>
         <a-mixin id="bike-pool-mixin" gltf-model="#cyclist-kid-asset" animation-mixer bike-train-member></a-mixin>
         <a-asset-item id="wave" src="./assets/wave.glb"></a-asset-item>
-        <!-- <a-asset-item id="car" src="./assets/car.glb"></a-asset-item> -->
         <a-asset-item id="bell" src="./assets/bell.glb"></a-asset-item>
 
         <!-- loud bicycle pack -->
@@ -97,9 +96,11 @@
         <a-entity id="spot-light" light="type: spot; angle: 15.97; color: #f5f0e5; penumbra: 0.54; decay: 0.23; distance: 25.35; intensity: 1.47" position="0 1 -0.40039" rotation="-19.74 0 0"></a-entity>
 
         <!-- <a-entity id="back-light" geometry="primitive: plane; height: 0.02; width: 0.06" material="shader: flat; color: red" position="-0.02, 0.949 0.432"></a-entity> -->
-        <a-entity id="player-cyclist" gltf-model="#cyclist1-asset" animation-mixer rotation="0 180 0"></a-entity>
-        <a-entity id="noise-indicator" gltf-model="#wave" visible="false" noise-indicator position="0 0.5 0">
-          <a-sphere id="noise-indicator-collider" visible="false" aabb-collider="objects:[interactable], [bike-train-member]"></a-sphere>
+        <a-entity id="player-cyclist"  gltf-model="#cyclist1-asset" animation-mixer rotation="0 180 0"></a-entity>
+
+        <!-- the wave graphic for bell and horn -->
+        <a-entity id="noise-indicator" gltf-model="#wave" visible="false" noise-indicator position="0 1 0">
+         <a-sphere id="noise-indicator-collider" visible="false" aabb-collider="objects:[interactable], [bike-train-member]"></a-sphere>
         </a-entity>
         <!-- <a-entity mixin="scrubber" position="-0.03 0.81 -0.77" rotation="0 180 0"></a-entity> -->
       </a-entity>
@@ -154,29 +155,27 @@
       </div>
       <div id="landing">
         <img src="./assets/logo__loud-bicycle.svg" alt="Loud Bicycle Logo">
-        <h1>Welcome to the Loud Bicycle game!</h1>
-        <p>
-          You are leading a group of children to school. Tap the bell for them to follow you.
-          Tap the voice icon to help people driving notice you and keep the children safe.
-
-          Good luck!
-        </p>
-
-        <p id="landing-label">Loading ... </p>
-        <!-- <img src="./assets/loading_spinner.svg"> -->
+        <h1 id="landing-label">The Loud Bicycle game is loading ...</h1>
+          <div id="quote-container">
+            <p id="quote-text">
+            </p>
+            <p id="quote-author" id="quote-author"></p>
+          </div>
       </div>
       <div id="main-menu" class="disabled">
         <div id="main-menu-top">
           <div id="intro-modal">
-            <div id="button-container">
+
+            <!-- <div id="button-container">
               <button class="btn" onclick="setLevelSelectionEnabled(true)"><span class="text">Play</span></button> &nbsp;
               <button class="btn" onclick="setSettingsEnabled(true)"><span class="text">Settings</span></button> &nbsp;
               <button class="btn" onclick="setCreditsEnabled(true)"><span class="text">Credits</span></button>
-            </div>
+            </div> -->
             <div>
-              <img src="./assets/instructions.jpg" onclick="setLevelSelectionEnabled(true)">
+              <img src="./assets/instructions.jpg" onclick="startRightAway(0)">
             </div>
           </div>
+          
         </div>
       </div>
       <div id="level-end-screen" class="disabled">
@@ -250,17 +249,13 @@
     let pauseMenu = document.querySelector('#pause-menu');
 
     sceneEl.addEventListener('loaded', () => {
-      document.querySelector('#landing-label').innerText = "Click to continue...";
       if(window.innerWidth <= 600) {
         document.querySelector('a-camera').setAttribute('fov', 110);
       }
-    });
-
-    landing.addEventListener('click', () => {
-      if(!sceneEl.hasLoaded) return;
       landing.classList.add('disabled');
       mainMenu.classList.remove('disabled');
       mainMenu.classList.add('enabled');
+      clearInterval(quoteInterval);
     })
 
     function setCreditsEnabled(b) {
@@ -340,6 +335,13 @@
       }
     }
 
+    function startRightAway(level_id) {
+      setMenuEnabled(false);
+      window.gameManager.generateLevel(level_id);
+      window.gameManager.playLevel();      
+    } 
+
+
     let audioVolume = 1.0;
 
     function setGlobalVolume(amount) {
@@ -356,5 +358,66 @@
         mainMenu.classList.remove('enabled');
       }
     }
+
+
+let quoteInterval;  // Making it globally available in this script
+
+function displayRandomQuote() {
+  const quoteContainer = document.getElementById("quote-text");
+  const authorContainer = document.getElementById("quote-author");
+
+  // Create an array of indices, and shuffle it
+  let indices = [...Array(quotes.length).keys()];
+  indices = shuffle(indices);
+  let currentIndex = 0;
+  const randomQuote = quotes[indices[currentIndex]];
+  const splitQuote = randomQuote.split(" - ");
+
+  quoteContainer.textContent = splitQuote[0];
+  authorContainer.textContent = "- " + splitQuote[1];
+
+  currentIndex = 1;
+
+  quoteInterval = setInterval(() => {
+    const randomQuote = quotes[indices[currentIndex]];
+    const splitQuote = randomQuote.split(" - ");
+    
+    quoteContainer.textContent = splitQuote[0];
+    authorContainer.textContent = "- " + splitQuote[1];
+
+    currentIndex = (currentIndex + 1) % quotes.length; // Cycle through indices
+  }, 4000); // Change quote every 5 seconds
+}
+
+// Function to shuffle an array
+function shuffle(array) {
+  let currentIndex = array.length, randomIndex;
+
+  while (0 !== currentIndex) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+
+    [array[currentIndex], array[randomIndex]] = [
+      array[randomIndex], array[currentIndex]];
+  }
+
+  return array;
+}
+
+const quotes = [
+  "\"Four wheels move the body, two wheels move the soul.\" - Gilda Texter",
+  "\"My biggest fear is that when I die my wife will sell my bicycles for what I told her they cost.\" - Anonymous",
+  "\"Life is like a 10-speed bicycle. Most of us have gears we never use.\" - Charles M. Schulz",
+  "\"I thought of that while riding my bicycle.\" - Albert Einstein",
+  "\"When I see an adult on a bicycle, I do not despair for the future of the human race.\" - H.G. Wells",
+  "\"Nothing compares to the simple pleasure of a bike ride.\" - John F. Kennedy"
+];
+
+window.onload = displayRandomQuote;
+
+
+// // Call the function when the page loads
+// displayRandomQuote();
+
   </script>
 </html>
