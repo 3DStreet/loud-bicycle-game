@@ -341,7 +341,7 @@ convertAllToBikes: function() {
             let geometry = new THREE.CircleGeometry(1.5, 16); 
             let material = new THREE.MeshBasicMaterial({
                 color: new THREE.Color(0xff9900), 
-                opacity: 0.5, 
+                opacity: 0.3,
                 transparent: true, 
                 side: THREE.DoubleSide
             });

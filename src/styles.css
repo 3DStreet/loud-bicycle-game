@@ -250,6 +250,7 @@
       #level-background {
         width: 100%;
         height: auto;
+        pointer-events: none !important;
       }
       
       .level-button {
