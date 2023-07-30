@@ -166,13 +166,13 @@
         <div id="main-menu-top">
           <div id="intro-modal">
 
-            <div id="button-container">
+            <!-- <div id="button-container">
               <button class="btn" onclick="setLevelSelectionEnabled(true)"><span class="text">Play</span></button> &nbsp;
               <button class="btn" onclick="setSettingsEnabled(true)"><span class="text">Settings</span></button> &nbsp;
               <button class="btn" onclick="setCreditsEnabled(true)"><span class="text">Credits</span></button>
-            </div>
+            </div> -->
             <div>
-              <img src="./assets/instructions.jpg" onclick="setLevelSelectionEnabled(true)">
+              <img src="./assets/instructions.jpg" onclick="startRightAway(0)">
             </div>
           </div>
           
@@ -334,6 +334,13 @@
         levelSelection.classList.add('disabled');
       }
     }
+
+    function startRightAway(level_id) {
+      setMenuEnabled(false);
+      window.gameManager.generateLevel(level_id);
+      window.gameManager.playLevel();      
+    } 
+
 
     let audioVolume = 1.0;
 
