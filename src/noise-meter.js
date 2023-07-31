@@ -45,7 +45,12 @@ AFRAME.registerComponent('noise-meter', {
     tick: function(_t, dt) {
         if (GAME_STATE === GAME_STATES.PLAYING && this.noiseIndicator) {
             if(!this.displaying || this.broken) {
-                const increase = (dt * METER_INTERVAL_INCREASE)/METER_INTERVAL_MS;
+                let increase = (dt * METER_INTERVAL_INCREASE)/METER_INTERVAL_MS;
+                // make it recharge more slowly if the ray meter is on
+                if (this.data.clickerId === 'ray') {
+                    increase /= 4;
+                }
+
                 this.meter += increase;
                 this.meter = Math.min(100, this.meter);
                 if(this.broken && this.meter >= this.threshhold) {
