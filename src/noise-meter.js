@@ -4,8 +4,6 @@ import { interactablePool } from "./interactable-pool";
 const LOW_METER_THRESHOLD = 20;
 const METER_INTERVAL_MS = 300;
 const METER_INTERVAL_INCREASE = 5;
-const SMALL_NOISE_USAGE = 5;
-const BIG_NOISE_USAGE = 30;
 const BROKEN_REACTIVATE_THRESHHOLD = 60;
 const BROKEN_REACTIVATE_THRESHHOLD_RAY = 100;
 
@@ -23,7 +21,6 @@ AFRAME.registerComponent('noise-meter', {
         clickerId: {default: ''},
         meterId: {default: ''},
         isSmall: {default: false, type: 'boolean'},
-        isMini: {default: false, type: 'boolean'},
         keyCode: {default: ''},
         lightId: {default: ''}
     },
@@ -32,6 +29,8 @@ AFRAME.registerComponent('noise-meter', {
         this.lastTickUpdate = 0;
         this.threshhold = this.data.clickerId === 'ray' ? BROKEN_REACTIVATE_THRESHHOLD_RAY : BROKEN_REACTIVATE_THRESHHOLD;
         this.tempVec = new THREE.Vector3();
+        // this.isLoudMini = false;
+
 
         this.addEvents();
         noiseMeters[this.data.clickerId] = this;
@@ -58,12 +57,11 @@ AFRAME.registerComponent('noise-meter', {
                     this.clickerEl.classList.remove('disabled');
                 }
             } else {
-                console.log(this.data.isSmall);
-                console.log(this.data.clickerId);
 
-                
-                console.log("APACEAAAP");
-                const decrease = (dt * NOISE_USAGE[this.data.meterId])/METER_INTERVAL_MS;
+                let decrease = (dt * NOISE_USAGE[this.data.meterId])/METER_INTERVAL_MS;
+                if (gameManager.isLoudMini && this.data.clickerId === 'horn') {
+                    decrease /= 2;
+                }
                 this.meter -= decrease;
                 this.meter = Math.max(0, this.meter);
                 if(this.hasLowMeter()) {
@@ -190,5 +188,6 @@ AFRAME.registerComponent('noise-meter', {
         this.clickerEl.classList.add('disabled');
         if(this.data.meterId === 'main-meter') gameManager.stopShout();
         if(this.data.meterId === 'special-meter') this.sound.stopSound();
-    }
+    },
+
   });
