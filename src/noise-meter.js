@@ -11,11 +11,9 @@ const BROKEN_REACTIVATE_THRESHHOLD_RAY = 100;
 
 
 const NOISE_USAGE = {
-                     'special-meter': 0,
+                     'special-meter': 2,
                      'main-meter': 30,
                      'ray-meter': 100,
-                     classic: 10,
-                     mini: 5
                    }
 
 const noiseMeters = {};
@@ -25,6 +23,7 @@ AFRAME.registerComponent('noise-meter', {
         clickerId: {default: ''},
         meterId: {default: ''},
         isSmall: {default: false, type: 'boolean'},
+        isMini: {default: false, type: 'boolean'},
         keyCode: {default: ''},
         lightId: {default: ''}
     },
@@ -45,7 +44,12 @@ AFRAME.registerComponent('noise-meter', {
     tick: function(_t, dt) {
         if (GAME_STATE === GAME_STATES.PLAYING && this.noiseIndicator) {
             if(!this.displaying || this.broken) {
-                const increase = (dt * METER_INTERVAL_INCREASE)/METER_INTERVAL_MS;
+                let increase = (dt * METER_INTERVAL_INCREASE)/METER_INTERVAL_MS;
+                // make it recharge more slowly if the ray meter is on
+                if (this.data.clickerId === 'ray') {
+                    increase /= 4;
+                }
+
                 this.meter += increase;
                 this.meter = Math.min(100, this.meter);
                 if(this.broken && this.meter >= this.threshhold) {
@@ -54,6 +58,11 @@ AFRAME.registerComponent('noise-meter', {
                     this.clickerEl.classList.remove('disabled');
                 }
             } else {
+                console.log(this.data.isSmall);
+                console.log(this.data.clickerId);
+
+                
+                console.log("APACEAAAP");
                 const decrease = (dt * NOISE_USAGE[this.data.meterId])/METER_INTERVAL_MS;
                 this.meter -= decrease;
                 this.meter = Math.max(0, this.meter);

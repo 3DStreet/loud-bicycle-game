@@ -421,5 +421,14 @@ window.onload = displayRandomQuote;
 // // Call the function when the page loads
 // displayRandomQuote();
 
+  let buttons = document.querySelectorAll(".level-button");
+
+  buttons.forEach(button => {
+    button.addEventListener('mousedown', function(e) {
+      e.preventDefault();
+    });
+  });
+
+
   </script>
 </html>

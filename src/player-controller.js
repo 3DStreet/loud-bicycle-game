@@ -79,7 +79,8 @@ AFRAME.registerComponent('player-controller', {
             case 'ArrowLeft':
                 this.goLeft()
                 break;
-            case 'p': 
+            case 'p':
+            case 'P':
             case 'Escape': 
                 gameManager.togglePauseLevel()
                 break;
