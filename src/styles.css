@@ -220,6 +220,8 @@
         flex-direction: column;
       }
 
+
+
       #settings {
         flex-direction: column;
       }
@@ -230,7 +232,7 @@
         left: 0;
         width: 100%;
         height: 100%;
-        max-width: 879;
+        max-width: 700px;
         display: flex;
         justify-content: center;
         align-items: flex-start; /* Change from center to flex-start */
@@ -265,7 +267,7 @@
       }
 
       #level-2-button {
-        top: 39%; /* Adjust these values as needed to position the buttons */
+        top: 41%;
         left: 7%;
       }
 
@@ -275,7 +277,7 @@
       }
       
       #level-4-button {
-        top: 38%;
+        top: 41%;
         right: 5%;
       }
       
@@ -285,7 +287,11 @@
         bottom: 5%; /* Adjust as needed */
         left: 50%;
       }
-      
+      #level-end-screen {
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Add this if you want child divs to be aligned in the center horizontally */
+      }
 
       #level-button-container {
         display: flex;
@@ -309,6 +315,31 @@
       #level-end-header {
         margin: 10px;
       }
+
+      #powered-by-credits {
+        display: flex;
+        flex-direction: column;
+        /* display: block; */
+        color: white;
+      }
+
+      #powered-by-credits img{
+        height: 1em;
+
+      }
+
+      #powered-by-credits a:link, 
+      #powered-by-credits a:visited {
+          color: white;    /* ensures the link text is white */
+          text-decoration: none; /* removes the underline */
+          font-family: 'Oswald', sans-serif;  /* sets the font to Oswald */
+      }
+      
+      #powered-by-credits a:hover, 
+      #powered-by-credits a:active {
+          text-decoration: underline; /* adds the underline back when hovering or active */
+      }
+
 
       .disabled {
         pointer-events: none !important;
