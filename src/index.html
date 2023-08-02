@@ -181,9 +181,12 @@
       <div id="level-end-screen" class="disabled">
         <div id="level-end-container">
           <h3 id="level-end-header"></h3>
-          <p>Data tbd</p>
-          <button id="level-end-continue" class="btn" onclick="setEndScreenEnabled(false); setMenuEnabled(false)"><span class="text">Continue</span></button>
-          
+          <div id="level-end-data"></div>
+          <p>Data tbd</p>          
+          <div id="level-end-buttons" class="horizontal-buttons">
+            <button id="level-end-retry" class="btn" onclick="setEndScreenEnabled(false); setMenuEnabled(false)">   <span class="text">Replay</span> &nbsp   <span class="glyphicon2">↻</span></button>
+            <button id="level-end-continue" class="btn" onclick="setEndScreenEnabled(false); setMenuEnabled(false)"><span class="text">Continue</span> &nbsp <span class="glyphicon">▶</span></button>  
+          </div>
         </div>
         <div id="powered-by-credits">
           <p>Powered by <a href="https://loudbicycle.com">Loud Bicycle</a> and <a href="https://www.3dstreet.org/" target="_blank"><img src="./assets/3dstreet.svg"></a></p>
@@ -197,12 +200,12 @@
           <img id="level-3-button" class="level-button" src="assets/levels/bar.png" alt="Level 3">
           <img id="level-4-button" class="level-button" src="assets/levels/home.png" alt="Level 4">
         </div>
-        <button class="btn back-button" onclick="setLevelSelectionEnabled(false); setMenuEnabled(true)"><span class="text">Back</span></button>
+        <!-- <button class="btn back-button" onclick="setLevelSelectionEnabled(false); setMenuEnabled(true)"><span class="text">Back</span></button> -->
       </div>
       
       <div id="pause-menu" class="disabled">
         <div id="pause-menu-container">
-          <button id="continue" class="btn"><span class="text">Continue</span></button>
+          <button id="continue" class="btn"><span class="text">Continue ▶</span></button>
           <button id="quit" class="btn"><span class="text">Quit</span></button>
         </div>
       </div>
@@ -320,9 +323,57 @@
       }
     }
 
+    function updateLevelButtons() {
+      // Level ids in the same order as userStars object
+      const levelIds = ['level-1-button', 'level-2-button', 'level-3-button', 'level-4-button'];
+
+      // Make sure gameManager and userStars exist
+      if(gameManager && gameManager.userStars) {
+        // Iterate over each level and update the button image
+        for(let i = 0; i < levelIds.length; i++) {
+          // Get current level id
+          let levelId = levelIds[i];
+
+          // Get the corresponding button element
+          let levelButton = document.getElementById(levelId);
+
+          // Check if the user has completed this level or it's the level user is currently at
+          if(gameManager.userStars[`level${i+1}`] !== null) {
+            // Remove grayscale
+            levelButton.style.filter = 'grayscale(0%)';
+
+            // Remove yellow border
+            levelButton.classList.remove('border-yellow');
+          } else if(gameManager.userStars[`level${i}`] !== null) {
+            // This is the level user is currently at
+
+            // Remove grayscale
+            levelButton.style.filter = 'grayscale(0%)';
+
+            // Add yellow border
+            levelButton.classList.add('border-yellow');
+          } else {
+            // The level is not reached yet
+
+            // Apply grayscale
+            levelButton.style.filter = 'grayscale(100%)';
+
+            // Remove yellow border
+            levelButton.classList.remove('border-yellow');
+          }
+        }
+      }
+    }
+
+
+
     function setLevelSelectionEnabled(b) {
+      // update the level buttons based on how far you've gotten in the game
+      updateLevelButtons();
+
       if(b) {
         let hasPlayedBefore = localStorage.getItem("played-loud-bicycle");
+
         mainMenu.classList.remove('enabled');
         mainMenu.classList.add('disabled');
         if(hasPlayedBefore) {
@@ -355,6 +406,7 @@
     }
 
     function setMenuEnabled(b) {
+      updateLevelButtons();
       landing.classList.add('disabled');
       if(b) {
         mainMenu.classList.remove('disabled');
@@ -432,6 +484,9 @@ window.onload = displayRandomQuote;
       e.preventDefault();
     });
   });
+
+ 
+
 
 
   </script>

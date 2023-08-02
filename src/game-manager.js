@@ -47,6 +47,8 @@ AFRAME.registerComponent('game-manager', {
         this.currentAvatarIndex = -1;
         this.currentShoutIndex = 0;
 
+        this.userStars = this.getUserStars();
+
         setTimeout(() => {
             this.interactablePool = document.querySelector('[interactable-pool]').components['interactable-pool'];
             this.smogPool = document.querySelector('[smog-pool]').components['smog-pool'];
@@ -470,7 +472,6 @@ AFRAME.registerComponent('game-manager', {
     },
 
     // Function to toggle the border color of one icon div
-    // Function to toggle the border color of one icon div
     toggleIconBorder(selector) {
         const iconDiv = document.querySelector(selector);
         // blink the border
@@ -481,35 +482,52 @@ AFRAME.registerComponent('game-manager', {
     },
     // Start blinking an icon and stop after a certain duration
 
-blinkSwipeInstrucions() {
+    blinkSwipeInstrucions() {
 
 
-    setTimeout(() => {
-        // Stop the blinking after blinkDuration milliseconds
         setTimeout(() => {
-            document.querySelector('#instructions2').style.display = 'none';
-        }, 10000);
-    document.querySelector('#instructions2').style.display = 'flex';
+            // Stop the blinking after blinkDuration milliseconds
+            setTimeout(() => {
+                document.querySelector('#instructions2').style.display = 'none';
+            }, 10000);
+        document.querySelector('#instructions2').style.display = 'flex';
 
-    }, 3000);
-},
+        }, 3000);
+    },
 
-// Start blinking an icon and stop after a certain duration
-blinkIcon(selector, blinkDuration = 2000, blinkStartDelay = 0) {
-    setTimeout(() => {
-        const blinkingInterval = setInterval(() => this.toggleIconBorder(selector), 200);
-
-        // Stop the blinking after blinkDuration milliseconds
+    // Start blinking an icon and stop after a certain duration
+    blinkIcon(selector, blinkDuration = 2000, blinkStartDelay = 0) {
         setTimeout(() => {
-            clearInterval(blinkingInterval);
-            // Clear border and boxShadow styles after blinking
-            const iconDiv = document.querySelector(selector);
-            iconDiv.style.border = 'none';
-            iconDiv.style.boxShadow = 'none';
-            iconDiv.style.height = '120px';
-        }, blinkDuration);
-    }, blinkStartDelay);
-},
+            const blinkingInterval = setInterval(() => this.toggleIconBorder(selector), 200);
+
+            // Stop the blinking after blinkDuration milliseconds
+            setTimeout(() => {
+                clearInterval(blinkingInterval);
+                // Clear border and boxShadow styles after blinking
+                const iconDiv = document.querySelector(selector);
+                iconDiv.style.border = 'none';
+                iconDiv.style.boxShadow = 'none';
+                iconDiv.style.height = '120px';
+            }, blinkDuration);
+        }, blinkStartDelay);
+    },
+
+    getUserStars: function() {
+        let userStars = localStorage.getItem("userStars");
+
+        if (false){//userStars) {
+            // Parse stored JSON string to object
+            return JSON.parse(userStars);
+        } else {
+            // First time running, set initial stars
+            let initialStars = { level1: 3, level2: null, level3: null, level4: null };
+
+            // Save initial stars to localStorage
+            // localStorage.setItem("userStars", JSON.stringify(initialStars));
+
+            return initialStars;
+        }
+    },
 
     tick: function(t, dt) {
         if(GAME_STATE === GAME_STATES.PLAYING && this.getLevelPosition() > this.levelData.endDistance) {
