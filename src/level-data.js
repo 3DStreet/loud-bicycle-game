@@ -16,12 +16,17 @@ export const gameData = {
             name: 'Level 1 - Lead the kids to school',
             fogNear: 40000,
             fogFar: 40000,
-            fogColor: '#00FFFFFF',
+            fogColor: '#00ffff',
             ambientLightColor: '#0000', 
             directionalLightColor: '#FFFFFF', 
             directionalLightIntensity: 1.0, 
             directionalLightPosition: '-5 8 4',
             hasBikeLight: false, 
+
+// tmp
+            // directionalLightIntensity: 1.0, 
+            // directionalLightPosition: '5 5 -5',
+
 
             //  (n streets*length +  )
             endDistance: 3 * 50 + 2 * 10 + 20 - 5,
@@ -72,7 +77,7 @@ export const gameData = {
                             <h1>You brought ${score} kids safely to school!</h1>
                             <p>
                             You picked up the Loud Mini horn.
-                            It sounds like a car horn and should help you a LOT. <img src="./assets/loud_mini.png" class="icon">
+                            It sounds like a car horn and should help you a LOT.<br> <img src="./assets/loud_mini.png" class="icon">
                             <br>
                             $179 <a href="https://loudbicycle.com">loudbicycle.com</a> *not a joke, if you like it you can buy it
                             </p>

@@ -259,6 +259,8 @@
         position: absolute;
         width: 24%; /* Adjust as needed */
         height: auto;
+        border: 5px solid #4caf50;
+        border-radius: 50%;
       }
             
       #level-1-button {
@@ -281,6 +283,10 @@
         right: 5%;
       }
       
+      /* the highlighted level image that you are currently on */
+      .border-yellow{
+        border: 5px solid yellow !important;
+      }
       
       .back-button {
         position: absolute;
