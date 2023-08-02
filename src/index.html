@@ -183,15 +183,15 @@
 
           <div id="level-end-image-container">
             <div id="level-end-levelId-container">
-            <img id="level-end-image" src="./assets/levels/school.png" style="display: none;">
+            <img id="level-end-image" class="level-end-images" src="./assets/levels/school.png" style="display: none;">
             </div>
             <div id="level-end-star-container">
-            <img id="level-end-stars" src="./assets/levels/1-stars.png" style="display: none;">
+            <img id="level-end-stars" class="level-end-images" src="./assets/levels/1-stars.png" style="display: none;">
             </div>
 
           </div>
 
-          <h3 id="level-end-header"></h3>
+          <div id="level-end-content"></div>
           <div id="level-end-data"></div>
           <p>Data tbd</p>          
           <div id="level-end-buttons" class="horizontal-buttons">
@@ -320,7 +320,7 @@
         levelSelection.classList.remove('enabled');
         levelSelection.classList.add('disabled');
         if(message) {
-          endScreen.querySelector('#level-end-header').innerHTML = message;
+          endScreen.querySelector('#level-end-content').innerHTML = message;
         }
 
         // // Get the image elements

@@ -76,13 +76,14 @@ export const gameData = {
             ],
             getLevelEndMessage: function(score) {
                 return `
-                            <h1>You brought ${score} kids safely to school!</h1>
-                            <p>
-                            You picked up the Loud Mini horn.
-                            It sounds like a car horn and should help you a LOT.<br> <img src="./assets/loud_mini.png" class="icon">
+                            <h1>You got Loud Mini!</h1>
+                            It sounds like a car horn so now you can “Speak Car" and enjoy an equal voice on the road
+                            <br> <img src="./assets/loud_mini.png" class="icon" style="  float: right; margin: 0 10px 10px 10px;">
+
+                            You got ${score} kid(s) safely to school
                             <br>
                             $179 <a href="https://loudbicycle.com">loudbicycle.com</a> *not a joke, if you like it you can buy it
-                            </p>
+                            
                         `
             }
         },
