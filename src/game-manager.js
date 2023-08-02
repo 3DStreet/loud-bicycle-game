@@ -147,11 +147,32 @@ AFRAME.registerComponent('game-manager', {
         this.stopLevel(false);
 
         setTimeout(() => {
+            // Calculate user stars for the completed level
+            let levelIndex = this.getLevelIndex(); // Get the index of the completed level
+            let bikeMemberCount = this.bikeMemberCount;
+            let lives = playerController.lives;
+            let stars = this.calculateUserStars(levelIndex, bikeMemberCount, lives);
+
+            // Update this.userStars with the new stars for the completed level
+            this.userStars[`level${levelIndex + 1}`] = stars;
+            localStorage.setItem("userStars", JSON.stringify(this.userStars));
+
+
             setEndScreenEnabled(true, this.levelData.getLevelEndMessage(this.bikeMemberCount));
             this.removeLevel();
             document.querySelector('#game-menu-bg').style.opacity = 1;
         }, finalAnimationTimeMS);
     },
+    getLevelIndex: function() {
+        // Find the index of the completed level in the gameData.levels array
+        for (let i = 0; i < gameData.levels.length; i++) {
+            if (this.levelData === gameData.levels[i]) {
+                return i;
+            }
+        }
+        return -1; // If levelData not found in the gameData.levels array
+    },
+    
     quitLevel: function() {
         this.stopLevel(true);
 
@@ -515,12 +536,12 @@ AFRAME.registerComponent('game-manager', {
     getUserStars: function() {
         let userStars = localStorage.getItem("userStars");
 
-        if (false){//userStars) {
+        if (userStars) {
             // Parse stored JSON string to object
             return JSON.parse(userStars);
         } else {
             // First time running, set initial stars
-            let initialStars = { level1: 3, level2: 3, level3: 3, level4: 3 };
+            let initialStars = { level1: null, level2: null, level3: null, level4: null };
 
             // Save initial stars to localStorage
             // localStorage.setItem("userStars", JSON.stringify(initialStars));
@@ -528,6 +549,40 @@ AFRAME.registerComponent('game-manager', {
             return initialStars;
         }
     },
+
+    calculateUserStars: function(level, bikeMemberCount, lives) {
+        console.log("calculateUserStars");
+        console.log("level", level);
+        console.log("bikeMemberCount", bikeMemberCount);
+        console.log("end..");
+
+        let curLevel = level + 1;
+        // perfect number of hearts is 4 except on level 3 where it's 3
+        let perfectHearts = curLevel === 3 ? 3 : 4;
+        // perfect number of bike pool members is 2 except on levels 3, 4, where it is zero
+        let perfectBikeMembers = curLevel === 3 || curLevel === 4 ? 0 : 2;
+    
+        // calculate if you have a perfect score
+        let perfectScore = bikeMemberCount === perfectBikeMembers && lives === perfectHearts;
+    
+        let stars;
+        
+        if (perfectScore) {
+            // if you have a perfect score, return 3
+            stars = 3;
+        } else if (curLevel === 1 || curLevel === 2) {
+            // if you don't have a perfect score, for levels 1 and 2,
+            // assign 1 or 2 depending on how many bike members you saved
+            stars = bikeMemberCount === 0 ? 1 : 2;
+        } else {
+            // if you don't have a perfect score, for levels 3 and 4,
+            // assign 1 or 2 depending on how many lives you have left
+            stars = lives === 1 ? 1 : 2;
+        }
+    
+        return stars;
+    },
+    
 
     tick: function(t, dt) {
         if(GAME_STATE === GAME_STATES.PLAYING && this.getLevelPosition() > this.levelData.endDistance) {
