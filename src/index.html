@@ -181,9 +181,12 @@
       <div id="level-end-screen" class="disabled">
         <div id="level-end-container">
           <h3 id="level-end-header"></h3>
-          <p>Data tbd</p>
-          <button id="level-end-continue" class="btn" onclick="setEndScreenEnabled(false); setMenuEnabled(false)"><span class="text">Continue</span></button>
-          
+          <div id="level-end-data"></div>
+          <p>Data tbd</p>          
+          <div id="level-end-buttons" class="horizontal-buttons">
+            <button id="level-end-retry" class="btn" onclick="setEndScreenEnabled(false); setMenuEnabled(false)">   <span class="text">Replay</span> &nbsp   <span class="glyphicon2">↻</span></button>
+            <button id="level-end-continue" class="btn" onclick="setEndScreenEnabled(false); setMenuEnabled(false)"><span class="text">Continue</span> &nbsp <span class="glyphicon">▶</span></button>  
+          </div>
         </div>
         <div id="powered-by-credits">
           <p>Powered by <a href="https://loudbicycle.com">Loud Bicycle</a> and <a href="https://www.3dstreet.org/" target="_blank"><img src="./assets/3dstreet.svg"></a></p>
@@ -202,7 +205,7 @@
       
       <div id="pause-menu" class="disabled">
         <div id="pause-menu-container">
-          <button id="continue" class="btn"><span class="text">Continue</span></button>
+          <button id="continue" class="btn"><span class="text">Continue ▶</span></button>
           <button id="quit" class="btn"><span class="text">Quit</span></button>
         </div>
       </div>
