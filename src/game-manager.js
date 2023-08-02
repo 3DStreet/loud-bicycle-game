@@ -520,7 +520,7 @@ AFRAME.registerComponent('game-manager', {
             return JSON.parse(userStars);
         } else {
             // First time running, set initial stars
-            let initialStars = { level1: 3, level2: null, level3: null, level4: null };
+            let initialStars = { level1: 3, level2: 3, level3: 3, level4: 3 };
 
             // Save initial stars to localStorage
             // localStorage.setItem("userStars", JSON.stringify(initialStars));

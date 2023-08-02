@@ -199,6 +199,12 @@
           <img id="level-2-button" class="level-button" src="assets/levels/office.png" alt="Level 2">
           <img id="level-3-button" class="level-button" src="assets/levels/bar.png" alt="Level 3">
           <img id="level-4-button" class="level-button" src="assets/levels/home.png" alt="Level 4">
+
+
+          <img id="level-1-stars" class="level-star" src="assets/levels/1-stars.png">
+          <img id="level-2-stars" class="level-star" src="assets/levels/2-stars.png">
+          <img id="level-3-stars" class="level-star" src="assets/levels/2-stars.png">
+          <img id="level-4-stars" class="level-star" src="assets/levels/2-stars.png">
         </div>
         <!-- <button class="btn back-button" onclick="setLevelSelectionEnabled(false); setMenuEnabled(true)"><span class="text">Back</span></button> -->
       </div>
@@ -327,6 +333,9 @@
       // Level ids in the same order as userStars object
       const levelIds = ['level-1-button', 'level-2-button', 'level-3-button', 'level-4-button'];
 
+      // Star ids in the same order
+      const starIds = ['level-1-stars', 'level-2-stars', 'level-3-stars', 'level-4-stars'];
+
       // Make sure gameManager and userStars exist
       if(gameManager && gameManager.userStars) {
         // Iterate over each level and update the button image
@@ -337,6 +346,15 @@
           // Get the corresponding button element
           let levelButton = document.getElementById(levelId);
 
+          // Get the corresponding star element
+          let starImage = document.getElementById(starIds[i]);
+
+          let stars = gameManager.userStars[`level${i+1}`];
+
+          console.log(gameManager.userStars);
+          console.log(i);
+          console.log(stars);
+
           // Check if the user has completed this level or it's the level user is currently at
           if(gameManager.userStars[`level${i+1}`] !== null) {
             // Remove grayscale
@@ -344,6 +362,11 @@
 
             // Remove yellow border
             levelButton.classList.remove('border-yellow');
+
+            // add stars
+            starImage.src = `assets/levels/${stars}-stars.png`;
+            starImage.style.display = 'inline-block'; 
+
           } else if(gameManager.userStars[`level${i}`] !== null) {
             // This is the level user is currently at
 
@@ -352,6 +375,11 @@
 
             // Add yellow border
             levelButton.classList.add('border-yellow');
+
+            // remove any stars
+            starImage.style.display = 'none';
+
+
           } else {
             // The level is not reached yet
 
@@ -360,6 +388,9 @@
 
             // Remove yellow border
             levelButton.classList.remove('border-yellow');
+
+            // remove any stars
+            starImage.style.display = 'none';
           }
         }
       }
