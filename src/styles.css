@@ -262,6 +262,12 @@
         border: 5px solid #4caf50;
         border-radius: 50%;
       }
+
+      .level-star {
+        position: absolute;
+        width: 24%; /* Adjust as needed */
+        height: auto;
+      }
             
       #level-1-button {
         top: 11%;
@@ -282,6 +288,28 @@
         top: 41%;
         right: 5%;
       }
+
+
+      #level-1-stars {
+        top: 27%;
+        left: 38%;
+      }
+
+      #level-2-stars {
+        top: 58%;
+        left: 7%;
+      }
+
+      #level-3-stars {
+        top: 84%;
+        left: 40%;
+      }
+      
+      #level-4-stars {
+        top: 57%;
+        right: 5%;
+      }
+
       
       /* the highlighted level image that you are currently on */
       .border-yellow{
