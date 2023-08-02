@@ -13,6 +13,8 @@ export const gameData = {
     cheatSpeed: 7.0,
     levels: [
         {
+            nameId: 'school',
+            levelNumber: 1,
             name: 'Level 1 - Lead the kids to school',
             fogNear: 40000,
             fogFar: 40000,
@@ -85,6 +87,8 @@ export const gameData = {
             }
         },
         {
+            nameId: 'office',
+            levelNumber: 2, 
             name: 'Level 2 - Lead people to work',
             fogNear: 40000,
             fogFar: 40000,
@@ -161,6 +165,8 @@ export const gameData = {
             }
         },
         {
+            nameId: 'bar',
+            levelNumber: 3,
             name: 'Level 3 - Get to the bar!',
             fogNear: 0,
             fogFar: 250,
@@ -220,6 +226,8 @@ export const gameData = {
             }
         },
         {
+            nameId: 'home',
+            levelNumber: 4,
             name: 'Level 4 - Get home safely',
             fogNear: 3,
             fogFar: 40,

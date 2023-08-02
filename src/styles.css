@@ -335,6 +335,7 @@
         gap: 10px;
       }
 
+
       #level-end-container {
         color: black;
         background-color: aliceblue;
@@ -350,6 +351,22 @@
         margin: 10px;
       }
 
+      #level-end-image-container{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 0px;
+      }
+      #level-end-star-container{
+        top:-25px;
+  
+      }
+
+      #level-end-levelId-container{
+        top:-10px;
+
+      }
       #powered-by-credits {
         display: flex;
         flex-direction: column;

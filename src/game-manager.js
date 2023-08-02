@@ -140,6 +140,18 @@ AFRAME.registerComponent('game-manager', {
     playEndAnimation: function() {
         document.querySelector('#model').emit('playend', null, false);
     },
+    updateEndScreenImages: function(levelId, currentStars) {
+        // Get the image elements
+        let levelImage = document.getElementById("level-end-image");
+        let starsImage = document.getElementById("level-end-stars");
+
+        // Update the src attributes
+        // let levelNumber = this.level_id + 1;
+        levelImage.src = `assets/levels/${levelId}.png`;
+        starsImage.src = `assets/levels/${currentStars}-stars.png`;
+        levelImage.style.display = "block";
+        starsImage.style.display = "block";
+    },
     endLevel: function() {
         this.playEndAnimation();
 
@@ -148,17 +160,26 @@ AFRAME.registerComponent('game-manager', {
 
         setTimeout(() => {
             // Calculate user stars for the completed level
-            let levelIndex = this.getLevelIndex(); // Get the index of the completed level
+            let currentLevel = this.getLevelIndex(); // Get the index of the completed level
             let bikeMemberCount = this.bikeMemberCount;
             let lives = playerController.lives;
-            let stars = this.calculateUserStars(levelIndex, bikeMemberCount, lives);
+            
+            // if you did better than the last time, update your score
+            let newStars = this.calculateUserStars(currentLevel, bikeMemberCount, lives);
+            let currentStars = this.userStars[`level${currentLevel + 1}`];
+            if (currentStars === null || newStars > currentStars) {
+                this.userStars[`level${currentLevel + 1}`] = newStars;
+            }
 
-            // Update this.userStars with the new stars for the completed level
-            this.userStars[`level${levelIndex + 1}`] = stars;
-            localStorage.setItem("userStars", JSON.stringify(this.userStars));
-
+            // console.log("HEY MORE LOGS");
+            // console.log("levelNumber", this.levelData.levelNumber);
+            // console.log("nameId", this.levelData.nameId);
+            // prepare to make the screen visible by updating the images 
+            this.updateEndScreenImages(this.levelData.nameId, newStars);
 
             setEndScreenEnabled(true, this.levelData.getLevelEndMessage(this.bikeMemberCount));
+
+            
             this.removeLevel();
             document.querySelector('#game-menu-bg').style.opacity = 1;
         }, finalAnimationTimeMS);
@@ -533,6 +554,7 @@ AFRAME.registerComponent('game-manager', {
         }, blinkStartDelay);
     },
 
+    // get the initial user stars from localStorage, or create it
     getUserStars: function() {
         let userStars = localStorage.getItem("userStars");
 
@@ -543,8 +565,8 @@ AFRAME.registerComponent('game-manager', {
             // First time running, set initial stars
             let initialStars = { level1: null, level2: null, level3: null, level4: null };
 
-            // Save initial stars to localStorage
-            // localStorage.setItem("userStars", JSON.stringify(initialStars));
+            // Save initial stars to localStorage .... seems like this one isn't needed???
+            localStorage.setItem("userStars", JSON.stringify(initialStars));
 
             return initialStars;
         }
@@ -552,10 +574,6 @@ AFRAME.registerComponent('game-manager', {
 
     calculateUserStars: function(level, bikeMemberCount, lives) {
         console.log("calculateUserStars");
-        console.log("level", level);
-        console.log("bikeMemberCount", bikeMemberCount);
-        console.log("end..");
-
         let curLevel = level + 1;
         // perfect number of hearts is 4 except on level 3 where it's 3
         let perfectHearts = curLevel === 3 ? 3 : 4;

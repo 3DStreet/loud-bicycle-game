@@ -180,6 +180,17 @@
       </div>
       <div id="level-end-screen" class="disabled">
         <div id="level-end-container">
+
+          <div id="level-end-image-container">
+            <div id="level-end-levelId-container">
+            <img id="level-end-image" src="./assets/levels/school.png" style="display: none;">
+            </div>
+            <div id="level-end-star-container">
+            <img id="level-end-stars" src="./assets/levels/1-stars.png" style="display: none;">
+            </div>
+
+          </div>
+
           <h3 id="level-end-header"></h3>
           <div id="level-end-data"></div>
           <p>Data tbd</p>          
@@ -311,6 +322,17 @@
         if(message) {
           endScreen.querySelector('#level-end-header').innerHTML = message;
         }
+
+        // // Get the image elements
+        // let levelImage = document.getElementById("level-end-image");
+        // let starsImage = document.getElementById("level-end-stars");
+
+        // // Update the src attributes
+        // let levelNumber = window.gameManager.level_id+1;
+        // levelImage.src = `assets/levels/${levelNumber}.png`;
+        // starsImage.src = `assets/levels/${window.gameManager.userStars[`level${levelNumber}`]}-stars.png`;
+
+
       } else {
         endScreen.classList.remove('enabled');
         endScreen.classList.add('disabled');
@@ -342,60 +364,34 @@
         for(let i = 0; i < levelIds.length; i++) {
           // Get current level id
           let levelId = levelIds[i];
-
           // Get the corresponding button element
           let levelButton = document.getElementById(levelId);
-
           // Get the corresponding star element
           let starImage = document.getElementById(starIds[i]);
 
           let stars = gameManager.userStars[`level${i+1}`];
-
-          console.log(gameManager.userStars);
-          console.log(i);
-          console.log(stars);
-
           // Check if the user has completed this level or it's the level user is currently at
           if(gameManager.userStars[`level${i+1}`] !== null) {
-            // Remove grayscale
             levelButton.style.filter = 'grayscale(0%)';
-
-            // Remove yellow border
             levelButton.classList.remove('border-yellow');
-
             // add stars
             starImage.src = `assets/levels/${stars}-stars.png`;
             starImage.style.display = 'inline-block'; 
 
           } else if(gameManager.userStars[`level${i}`] !== null) {
             // This is the level user is currently at
-
-            // Remove grayscale
             levelButton.style.filter = 'grayscale(0%)';
-
-            // Add yellow border
             levelButton.classList.add('border-yellow');
-
-            // remove any stars
             starImage.style.display = 'none';
-
-
           } else {
             // The level is not reached yet
-
-            // Apply grayscale
             levelButton.style.filter = 'grayscale(100%)';
-
-            // Remove yellow border
             levelButton.classList.remove('border-yellow');
-
-            // remove any stars
             starImage.style.display = 'none';
           }
         }
       }
     }
-
 
 
     function setLevelSelectionEnabled(b) {
