@@ -199,8 +199,8 @@ AFRAME.registerComponent('game-manager', {
         this.stopLevel(true);
 
         this.musicAudio.pause();
-        // this.musicAudio.currentTime = 0;
-        this.musicAudio.currentTime = 17;
+        this.musicAudio.currentTime = 0;
+        // this.musicAudio.currentTime = 17;
 
         setMenuEnabled();
         this.removeLevel();
@@ -230,14 +230,20 @@ AFRAME.registerComponent('game-manager', {
     },
     failLevel: function() {
         this.stopLevel(true);
-        setEndScreenEnabled(true, ` <div>
-                                        <img class="level-end-images" src="./assets/loud_mini.png">                                        
-                                    </div>
-                                    <h1>Nice try!</h1>
+        setEndScreenEnabled(true, ` <h1>Nice try!</h1>
                                     We want you to use Loud Mini in the real world. Please share 
                                     the game to win free security screws at the <a href="https://loudbicycle.com/horn#buy">Loud Bicycle store</a>.
                                     `);
         this.loseSoundEl.play();
+        // <img class="level-end-images" src="./assets/loud_mini.png">                                        
+                                
+        let levelImage = document.getElementById("level-end-image");
+        let starsImage = document.getElementById("level-end-stars");
+
+        // Update the src attributes
+        levelImage.src = `./assets/loud_mini.png`;
+        levelImage.style.display = 'inline-block';
+        starsImage.style.display = 'none';
         
         this.removeLevel();
     },
@@ -246,8 +252,8 @@ AFRAME.registerComponent('game-manager', {
         // The music stops only if shouldMusicStop is true
         if (shouldMusicStop) {
             this.musicAudio.pause();
-            // this.musicAudio.currentTime = 0;
-            this.musicAudio.currentTime = 17;
+            this.musicAudio.currentTime = 0;
+            // this.musicAudio.currentTime = 17;
         }
     
         this.levelAnimation.animation.pause();
@@ -304,13 +310,15 @@ AFRAME.registerComponent('game-manager', {
 
         // reset the previous song
         this.musicAudio.pause();
-        // this.musicAudio.currentTime = 0;
-        this.musicAudio.currentTime = 17;
+        this.musicAudio.currentTime = 0;
+        // this.musicAudio.currentTime = 17;
 
         // start playing the new song.
         this.musicAudio = document.querySelector(this.levelData.musicSoundId)
         this.musicAudio.volume = 0.4;
-        this.musicAudio.currentTime = 17;
+        // this.musicAudio.currentTime = 17;
+        // maybe this one isn't needed
+        this.musicAudio.currentTime = 0;
         this.musicAudio.play();
         
 
