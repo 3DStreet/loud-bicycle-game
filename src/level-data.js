@@ -76,10 +76,9 @@ export const gameData = {
             ],
             getLevelEndMessage: function(score) {
                 return `
-                <img src="./assets/loud_mini.png" class="icon" style="  float: right; margin: 0 10px 10px 10px;">
+                <img src="./assets/loud_mini.png" class="icon" style="float: right; margin: 0 10px 10px 10px;">
                 <h1>You got Loud Mini!</h1>
-                It sounds like a car horn so  you can “Speak Car" and enjoy an equal voice on the road.<br>
-                <br> 
+                The Loud Mini sounds like a car horn so  you can “Speak Car" and enjoy an equal voice on the road.<br>
                 <br>
                 (It's a real thing, to learn more visit <a href="https://www.loudbicycle.com">www.loudbicycle.com</a>)
 
@@ -156,14 +155,11 @@ export const gameData = {
             ],
             getLevelEndMessage: function(score) {
                 return `
-                        You brought ${score} colleagues safely to work!
-                        <p>
-                        You picked up the Loud Ray Gun.
-                        Turn all the cars into bicycles, awaiting approval by FDA/FCC. <img src="./assets/gun-ray.png" class="icon">
-                        <br>
-                        $$$$ spacebucks.
-                        </p>
-                `
+                        <img src="./assets/gun-ray.png" class="icon" style="float: right; margin: 0 10px 10px 10px;">
+                        <h1>You got the Loud Ray Gun!</h1>
+                        The Loud Ray Gun turns cars into bicycles, use wisely, awaiting approval by FDA/FCC. 
+                        <h2>You brought ${score} colleagues safely to work! Good effort!</h2>
+                        `
             }
         },
         {
@@ -223,7 +219,8 @@ export const gameData = {
             ],
             getLevelEndMessage: function() {
                 return `<h1>Great job you got to the bar!</h1>
-                            <p>Loud Mini isn't a ray gun but it can push people driving out of bike lanes. <a href="https://www.loudbicycle.com>www.loudbicycle.com</a></p>
+                            <p>You don't need a raygun to vote for safer streets and walkable neighborhoods.
+                            <a href="https://www.loudbicycle.com">www.loudbicycle.com</a></p>
                             <p>Beat the next (last) level to get a coupon for free securty screws.</p>`
             }
         },

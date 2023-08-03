@@ -372,7 +372,7 @@ AFRAME.registerComponent('game-manager', {
             element.setAttribute('item', {type: 'raygun'});
             element.setAttribute('gltf-model', '#prop-raygun-asset');
             element.setAttribute('scale', '2 2 2');
-            element.setAttribute('position', (i * 3.3) + ' 0.8 -' + (this.levelData.endDistance - 20));
+            element.setAttribute('position', (i * 3.3) + ' 0.8 -' + (this.levelData.endDistance - 2));
             this.currentLevel.append(element);
         };
     },
