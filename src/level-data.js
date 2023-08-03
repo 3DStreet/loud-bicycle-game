@@ -78,12 +78,9 @@ export const gameData = {
                 return `
                 <img src="./assets/loud_mini.png" class="icon" style="float: right; margin: 0 10px 10px 10px;">
                 <h1>You got Loud Mini!</h1>
-                The Loud Mini sounds like a car horn so  you can “Speak Car" and enjoy an equal voice on the road.<br>
-                <br>
+                The Loud Mini sounds like a car horn so  you can “Speak Car" and enjoy an equal voice on the road. 
                 (It's a real thing, to learn more visit <a href="https://www.loudbicycle.com">www.loudbicycle.com</a>)
-
-                <h2>You got ${score} kid(s) safely to school. Good effort.</h2>
-                
+                <h2>You got ${score} kid(s) safely to school. Good effort.</h2>                
             `
             }
         },
@@ -174,7 +171,7 @@ export const gameData = {
             directionalLightIntensity: 1.0, 
             directionalLightPosition: '0 0 0', 
             hasBikeLight: false, 
-            endDistance: 3 * 50 + 2 * 10 + 20 - 5,
+            endDistance: 4 * 50 + 3 * 10 + 20 + 4,
             startingLane: 2,
             amountLanes: 3,
             amountBikePool: 0,
@@ -212,7 +209,7 @@ export const gameData = {
                 './levels/street_3.json',
                 './levels/street_3.json',
                 './levels/street_3b.json',
-                // './levels/street_3b.json',
+                './levels/street_3b.json',
             ],
             intersectionUrls: [
                 'https://cdn.glitch.global/4cbfc52c-9f40-485c-b7ff-e3ed0494f9a0/intersection.jpeg?v=1650059985944'
@@ -236,7 +233,7 @@ export const gameData = {
             directionalLightIntensity: 0.6, 
             directionalLightPosition: '0 0 0', 
             hasBikeLight: true, 
-            endDistance: 6 * 50 + 5 * 10 + 20,
+            endDistance: 6 * 50 + 5 * 10 + 20 + 12,
             startingLane: 2,
             amountLanes: 3,
             amountBikePool: 0,
@@ -281,14 +278,14 @@ export const gameData = {
                 'https://cdn.glitch.global/4cbfc52c-9f40-485c-b7ff-e3ed0494f9a0/intersection.jpeg?v=1650059985944'
             ],
             getLevelEndMessage: function() {
-                return `<h1>You got home safely!</h1>
+                return `<img src="./assets/security-screws.png" class="icon" style="float: right; margin: 0 10px 10px 10px;">
+                        <h1>Congratulations you won!</h1>
                             <p>
-                            You beat the game with the help of Loud Mini, we want to you have Loud Mini to stay safe in real life too!
-                            <br>
+                            You got home safely, beating the Loud Bicycle game with the help of Loud Mini, we want to you have Loud Mini to stay safe in real life too!
                             To learn more <a href="https://loudbicycle.com/horn">click here</a>.<br>
-                            For your valliant efforts we want to give you the Loud Mini *Security Bolts* for free
+                            For your valliant efforts we want to give you the Loud Mini *Security Bolts* for free with secret coupon code SUPERSAVERBIKETRAINHERO
                             For a special one-time order-link <a href="https://loud-bicycle-store.myshopify.com/cart/32290221654067:1,10359316551:1?discount=SUPERSAVERBIKETRAINHERO">Click Here</a>
-                            </p>`
+                        </p>`
             }
         }
     ]
