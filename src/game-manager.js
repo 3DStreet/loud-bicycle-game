@@ -44,6 +44,7 @@ AFRAME.registerComponent('game-manager', {
         this.currentLevelStreetEls = [];
         this.bikeMemberCount = 0;
         this.winSoundEl = document.querySelector('#win-sound');
+        this.loseSoundEl = document.querySelector('#game-over');
         this.currentAvatarIndex = -1;
         this.currentShoutIndex = 0;
 
@@ -229,11 +230,14 @@ AFRAME.registerComponent('game-manager', {
     },
     failLevel: function() {
         this.stopLevel(true);
-        setEndScreenEnabled(true, `<h1>Nice try!<h1>
-                                    <p>[some stats about how you did]<br>
-                                        Please share how you did for access to a special discount at the Loud Bicycle store.
-                                    </p>`);
-        // this.winSoundEl.play();
+        setEndScreenEnabled(true, ` <div>
+                                        <img class="level-end-images" src="./assets/loud_mini.png">                                        
+                                    </div>
+                                    <h1>Nice try!</h1>
+                                    We want you to use Loud Mini in the real world. Please share 
+                                    the game to win free security screws at the <a href="https://loudbicycle.com/horn#buy">Loud Bicycle store</a>.
+                                    `);
+        this.loseSoundEl.play();
         
         this.removeLevel();
     },

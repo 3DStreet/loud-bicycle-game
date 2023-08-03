@@ -14,7 +14,10 @@
     pool__smogs="container: #level; mixin: smog-mixin; size: 20" >
     <a-assets>
         <audio id="muffled-voice" src="./assets/tires.webm" preload="auto"></audio>
+        
+        <audio id="game-over" src="./assets/game-over.wav" preload="auto"></audio>
         <audio id="win-sound" src="./assets/win.webm" preload="auto"></audio>
+
         <audio id="ambient-sound-a" src="./assets/background/ambience_1-2.webm" loop preload="auto"></audio>
         <audio id="ambient-sound-b" src="./assets/background/ambience_3-4.mp3" loop preload="auto"></audio>
         <audio id="music-1" src="./assets/background/level_1.mp3" preload="auto"></audio>
@@ -23,6 +26,7 @@
         <audio id="music-4" src="./assets/background/level_4.mp3" preload="auto"></audio>
         
         <audio id="horn-sound" src="./assets/horn.webm" loop preload="auto"></audio>
+
 
         <audio id="shout-female-sound-0" src="./assets/shout_woman_1.wav" preload="auto"></audio>
         <audio id="shout-female-sound-1" src="./assets/shout_woman_2.wav" preload="auto"></audio>
@@ -449,6 +453,7 @@
         setLevelSelectionEnabled(false)
         setEndScreenEnabled(false);
 
+        // this is somewhat duplicitive, related to the 'hasPlayedBefore' variable which is vestigal
         levelSelection.classList.remove('enabled');
         levelSelection.classList.add('disabled');
         
