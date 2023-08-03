@@ -570,3 +570,40 @@
           line-height: 50px;
         }
       }
+
+      /* things for the share-links */
+      span.action-button-container {
+        display: inline-block;
+        position: relative;
+        vertical-align: middle;
+      }
+      span.action-button {
+        cursor: pointer;
+        margin-left: 10px;
+        display: inline-block;
+        position: relative;
+        vertical-align: middle;
+      }
+      span.action-button img {
+        width: 24px;
+        height: 24px;
+        vertical-align: middle;
+      }
+      span.social-media-group {
+        position: absolute;
+        left: 0;
+        bottom: 100%;
+        display: none;
+        margin-bottom: 5px;
+      }
+      span.action-button:hover span.social-media-group {
+        display: block;
+      }
+      span.social-media-group span.share-facebook,
+      span.social-media-group span.share-twitter,
+      span.social-media-group span.share-whatsapp {
+        display: inline-block;
+        margin-right: 5px;
+        cursor: pointer;
+      }
+      
