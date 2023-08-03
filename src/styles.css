@@ -1,8 +1,9 @@
 /* load needed fonts */
-@import url('https://fonts.googleapis.com/css2?family=Oswald&display=swap&family=Lora:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Oswald&display=swap&family=Lora:wght@400;700&family=Source+Sans+3&display=swap');
      
       body {
-        font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+        /* font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; */
+        font-family: 'Source Sans 3', sans-serif;
         color: white;
         -webkit-touch-callout:none;
         -webkit-user-select:none;
@@ -11,6 +12,10 @@
         -ms-user-select:none;
         user-select:none;
         -webkit-tap-highlight-color:rgba(0,0,0,0);
+      }
+
+      h1, h2{
+        font-family: Oswald,Helvetica;
       }
 
       #instructions2{
@@ -322,9 +327,11 @@
         left: 50%;
       }
       #level-end-screen {
-        display: flex;
         flex-direction: column;
-        align-items: center; /* Add this if you want child divs to be aligned in the center horizontally */
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        margin-top: 0px
       }
 
       #level-button-container {
@@ -334,6 +341,7 @@
         width: 80%;
         gap: 10px;
       }
+
 
       #level-end-container {
         color: black;
@@ -345,9 +353,24 @@
         width: 80%;
         border-radius: 10px;
         gap: 10px;
+        max-width: 600px;
       }
-      #level-end-header {
+      #level-end-content {
         margin: 10px;
+      }
+      
+
+      #level-end-image-container{
+        margin-top: -100px;
+      }
+
+      #level-end-levelId-container{
+        top:-10px;
+      }
+      #level-end-star-container{
+        position: relative;
+        margin-top: -50px;
+        margin-bottom: -10px;
       }
 
       #powered-by-credits {
@@ -547,3 +570,40 @@
           line-height: 50px;
         }
       }
+
+      /* things for the share-links */
+      span.action-button-container {
+        display: inline-block;
+        position: relative;
+        vertical-align: middle;
+      }
+      span.action-button {
+        cursor: pointer;
+        margin-left: 10px;
+        display: inline-block;
+        position: relative;
+        vertical-align: middle;
+      }
+      span.action-button img {
+        width: 24px;
+        height: 24px;
+        vertical-align: middle;
+      }
+      span.social-media-group {
+        position: absolute;
+        left: 0;
+        bottom: 100%;
+        display: none;
+        margin-bottom: 5px;
+      }
+      span.action-button:hover span.social-media-group {
+        display: block;
+      }
+      span.social-media-group span.share-facebook,
+      span.social-media-group span.share-twitter,
+      span.social-media-group span.share-whatsapp {
+        display: inline-block;
+        margin-right: 5px;
+        cursor: pointer;
+      }
+      

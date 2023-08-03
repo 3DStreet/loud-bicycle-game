@@ -13,6 +13,8 @@ export const gameData = {
     cheatSpeed: 7.0,
     levels: [
         {
+            nameId: 'school',
+            levelNumber: 1,
             name: 'Level 1 - Lead the kids to school',
             fogNear: 40000,
             fogFar: 40000,
@@ -74,17 +76,21 @@ export const gameData = {
             ],
             getLevelEndMessage: function(score) {
                 return `
-                            <h1>You brought ${score} kids safely to school!</h1>
-                            <p>
-                            You picked up the Loud Mini horn.
-                            It sounds like a car horn and should help you a LOT.<br> <img src="./assets/loud_mini.png" class="icon">
-                            <br>
-                            $179 <a href="https://loudbicycle.com">loudbicycle.com</a> *not a joke, if you like it you can buy it
-                            </p>
-                        `
+                <img src="./assets/loud_mini.png" class="icon" style="  float: right; margin: 0 10px 10px 10px;">
+                <h1>You got Loud Mini!</h1>
+                It sounds like a car horn so  you can “Speak Car" and enjoy an equal voice on the road.<br>
+                <br> 
+                <br>
+                (It's a real thing, to learn more visit <a href="https://www.loudbicycle.com">www.loudbicycle.com</a>)
+
+                <h2>You got ${score} kid(s) safely to school. Good effort.</h2>
+                
+            `
             }
         },
         {
+            nameId: 'office',
+            levelNumber: 2, 
             name: 'Level 2 - Lead people to work',
             fogNear: 40000,
             fogFar: 40000,
@@ -161,6 +167,8 @@ export const gameData = {
             }
         },
         {
+            nameId: 'bar',
+            levelNumber: 3,
             name: 'Level 3 - Get to the bar!',
             fogNear: 0,
             fogFar: 250,
@@ -220,6 +228,8 @@ export const gameData = {
             }
         },
         {
+            nameId: 'home',
+            levelNumber: 4,
             name: 'Level 4 - Get home safely',
             fogNear: 3,
             fogFar: 40,

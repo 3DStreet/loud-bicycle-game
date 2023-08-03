@@ -14,7 +14,10 @@
     pool__smogs="container: #level; mixin: smog-mixin; size: 20" >
     <a-assets>
         <audio id="muffled-voice" src="./assets/tires.webm" preload="auto"></audio>
+
+        <audio id="game-over" src="./assets/game-over.wav" preload="auto"></audio>
         <audio id="win-sound" src="./assets/win.webm" preload="auto"></audio>
+
         <audio id="ambient-sound-a" src="./assets/background/ambience_1-2.webm" loop preload="auto"></audio>
         <audio id="ambient-sound-b" src="./assets/background/ambience_3-4.mp3" loop preload="auto"></audio>
         <audio id="music-1" src="./assets/background/level_1.mp3" preload="auto"></audio>
@@ -23,6 +26,7 @@
         <audio id="music-4" src="./assets/background/level_4.mp3" preload="auto"></audio>
         
         <audio id="horn-sound" src="./assets/horn.webm" loop preload="auto"></audio>
+
 
         <audio id="shout-female-sound-0" src="./assets/shout_woman_1.wav" preload="auto"></audio>
         <audio id="shout-female-sound-1" src="./assets/shout_woman_2.wav" preload="auto"></audio>
@@ -180,11 +184,43 @@
       </div>
       <div id="level-end-screen" class="disabled">
         <div id="level-end-container">
-          <h3 id="level-end-header"></h3>
+
+          <div id="level-end-image-container">
+            <div id="level-end-levelId-container">
+            <img id="level-end-image" class="level-end-images" src="./assets/levels/school.png" style="display: none;">
+            </div>
+            <div id="level-end-star-container">
+            <img id="level-end-stars" class="level-end-images" src="./assets/levels/1-stars.png" style="display: none;">
+            </div>
+          </div>
+
+          <div id="level-end-content"></div>
           <div id="level-end-data"></div>
-          <p>Data tbd</p>          
+  
+          <div id="share-links">
+            <span class="action-button-container">
+              <span class="action-confirmation" style="display: none;">Text copied!</span>
+              <span class="copy-text action-button">
+                <img src="./assets/social/copy.png" alt="Copy text">                
+              </span>
+              
+              <!-- <span class="share-action action-button"> -->
+                <!-- <img src="./assets/social/share.png" alt="Share button"> -->
+                  <span class="share-facebook action-button">
+                    <img src="./assets/social/facebook_1.png" alt="Share Facebook">
+                  </span>
+                  <span class="share-twitter action-button">
+                    <img src="./assets/social/twitter_1.png" alt="Share Twitter">
+                  </span>
+                  <span class="share-whatsapp action-button">
+                    <img src="./assets/social/whatsapp_1.png" alt="Share Whatsapp">
+                  </span>
+              <!-- </span> -->
+          </div>
+    
+          <p>Crash statistics coming soon...</p>          
           <div id="level-end-buttons" class="horizontal-buttons">
-            <button id="level-end-retry" class="btn" onclick="setEndScreenEnabled(false); setMenuEnabled(false)">   <span class="text">Replay</span> &nbsp   <span class="glyphicon2">↻</span></button>
+            <button id="level-end-retry" class="btn" onclick="replayLevel();">   <span class="text">Replay</span> &nbsp   <span class="glyphicon2">↻</span></button>
             <button id="level-end-continue" class="btn" onclick="setEndScreenEnabled(false); setMenuEnabled(false)"><span class="text">Continue</span> &nbsp <span class="glyphicon">▶</span></button>  
           </div>
         </div>
@@ -309,8 +345,19 @@
         levelSelection.classList.remove('enabled');
         levelSelection.classList.add('disabled');
         if(message) {
-          endScreen.querySelector('#level-end-header').innerHTML = message;
+          endScreen.querySelector('#level-end-content').innerHTML = message;
         }
+
+        // // Get the image elements
+        // let levelImage = document.getElementById("level-end-image");
+        // let starsImage = document.getElementById("level-end-stars");
+
+        // // Update the src attributes
+        // let levelNumber = window.gameManager.level_id+1;
+        // levelImage.src = `assets/levels/${levelNumber}.png`;
+        // starsImage.src = `assets/levels/${window.gameManager.userStars[`level${levelNumber}`]}-stars.png`;
+
+
       } else {
         endScreen.classList.remove('enabled');
         endScreen.classList.add('disabled');
@@ -342,60 +389,34 @@
         for(let i = 0; i < levelIds.length; i++) {
           // Get current level id
           let levelId = levelIds[i];
-
           // Get the corresponding button element
           let levelButton = document.getElementById(levelId);
-
           // Get the corresponding star element
           let starImage = document.getElementById(starIds[i]);
 
           let stars = gameManager.userStars[`level${i+1}`];
-
-          console.log(gameManager.userStars);
-          console.log(i);
-          console.log(stars);
-
           // Check if the user has completed this level or it's the level user is currently at
           if(gameManager.userStars[`level${i+1}`] !== null) {
-            // Remove grayscale
             levelButton.style.filter = 'grayscale(0%)';
-
-            // Remove yellow border
             levelButton.classList.remove('border-yellow');
-
             // add stars
             starImage.src = `assets/levels/${stars}-stars.png`;
             starImage.style.display = 'inline-block'; 
 
           } else if(gameManager.userStars[`level${i}`] !== null) {
             // This is the level user is currently at
-
-            // Remove grayscale
             levelButton.style.filter = 'grayscale(0%)';
-
-            // Add yellow border
             levelButton.classList.add('border-yellow');
-
-            // remove any stars
             starImage.style.display = 'none';
-
-
           } else {
             // The level is not reached yet
-
-            // Apply grayscale
             levelButton.style.filter = 'grayscale(100%)';
-
-            // Remove yellow border
             levelButton.classList.remove('border-yellow');
-
-            // remove any stars
             starImage.style.display = 'none';
           }
         }
       }
     }
-
 
 
     function setLevelSelectionEnabled(b) {
@@ -448,6 +469,18 @@
       }
     }
 
+    function replayLevel() {
+        setMenuEnabled(false);
+        setLevelSelectionEnabled(false)
+        setEndScreenEnabled(false);
+
+        // this is somewhat duplicitive, related to the 'hasPlayedBefore' variable which is vestigal
+        levelSelection.classList.remove('enabled');
+        levelSelection.classList.add('disabled');
+        
+        window.gameManager.generateLevel(window.gameManager.getLevelIndex());
+        window.gameManager.playLevel();        
+    }
 
 let quoteInterval;  // Making it globally available in this script
 
@@ -516,7 +549,36 @@ window.onload = displayRandomQuote;
     });
   });
 
- 
+  function shareText() {
+    var shareText = `Practice Your Road Safety Knowledge with this Game https://loudbicycle.com/game`;
+
+    document.querySelector('.share-facebook').addEventListener('click', function() {
+        var facebookURL = 'https://www.facebook.com/sharer/sharer.php?u=https://loudbicycle.com/game';
+        window.open(facebookURL, '_blank');
+    });
+
+    document.querySelector('.share-twitter').addEventListener('click', function() {
+        var twitterURL = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(shareText);
+        window.open(twitterURL, '_blank');
+    });
+
+    document.querySelector('.share-whatsapp').addEventListener('click', function() {
+        var whatsappURL = 'https://wa.me/?text=' + encodeURIComponent(shareText);
+        window.open(whatsappURL, '_blank');
+    });
+
+    document.querySelector('.copy-text').addEventListener('click', function() {
+        copyText = shareText;
+        navigator.clipboard.writeText(copyText).then(function() {
+            document.querySelector('.action-confirmation').style.display = "inline";
+            setTimeout(function() {
+                document.querySelector('.action-confirmation').style.display = "none";
+            }, 1000);
+        });
+    });
+}
+  
+window.onload = shareText();
 
 
 
