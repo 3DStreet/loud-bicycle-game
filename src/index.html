@@ -195,7 +195,7 @@
           <div id="level-end-data"></div>
           <p>Crash statistics coming soon...</p>          
           <div id="level-end-buttons" class="horizontal-buttons">
-            <button id="level-end-retry" class="btn" onclick="setEndScreenEnabled(false); setMenuEnabled(false)">   <span class="text">Replay</span> &nbsp   <span class="glyphicon2">↻</span></button>
+            <button id="level-end-retry" class="btn" onclick="replayLevel();">   <span class="text">Replay</span> &nbsp   <span class="glyphicon2">↻</span></button>
             <button id="level-end-continue" class="btn" onclick="setEndScreenEnabled(false); setMenuEnabled(false)"><span class="text">Continue</span> &nbsp <span class="glyphicon">▶</span></button>  
           </div>
         </div>
@@ -444,6 +444,17 @@
       }
     }
 
+    function replayLevel() {
+        setMenuEnabled(false);
+        setLevelSelectionEnabled(false)
+        setEndScreenEnabled(false);
+
+        levelSelection.classList.remove('enabled');
+        levelSelection.classList.add('disabled');
+        
+        window.gameManager.generateLevel(window.gameManager.getLevelIndex());
+        window.gameManager.playLevel();        
+    }
 
 let quoteInterval;  // Making it globally available in this script
 
