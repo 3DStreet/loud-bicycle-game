@@ -361,7 +361,6 @@ AFRAME.registerComponent('game-manager', {
     downgradeToShout: function() {
         document.querySelector('[noise-indicator]').components['noise-indicator'].downgradeShout();
         document.querySelector('#horn img').src = './assets/shout.svg';
-        // document.querySelector('#horn-noise').setAttribute('sound', {src: 'url(./assets/shout.webm)'});
     },
     spawnMinis: function() {
         // <a-entity item="type: horn" gltf-model="#loud-bicycle-mini-asset" position="0 0.8 -16" scale="4 4 4"></a-entity>
@@ -535,17 +534,13 @@ AFRAME.registerComponent('game-manager', {
         iconDiv.style.width = iconDiv.style.width === '110px' ? '120px' : '110px';
     },
     // Start blinking an icon and stop after a certain duration
-
     blinkSwipeInstrucions() {
-
-
         setTimeout(() => {
             // Stop the blinking after blinkDuration milliseconds
             setTimeout(() => {
                 document.querySelector('#instructions2').style.display = 'none';
             }, 10000);
         document.querySelector('#instructions2').style.display = 'flex';
-
         }, 3000);
     },
 

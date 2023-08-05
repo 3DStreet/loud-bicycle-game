@@ -1,6 +1,70 @@
 <html>
   <head>
     <title>Loud Bicycle Game</title>
+    <script>
+          let quoteInterval;  // Making it globally available in this script
+
+          async function displayRandomQuote() {
+            // Wait for the necessary elements to be available
+            while (!document.getElementById("quote-text") || !document.getElementById("quote-author")) {
+              // Wait for 1/10th of a second before checking again
+              await new Promise(resolve => setTimeout(resolve, 100));
+            }
+
+            const quoteContainer = document.getElementById("quote-text");
+            const authorContainer = document.getElementById("quote-author");
+
+            // Create an array of indices, and shuffle it
+            let indices = [...Array(quotes.length).keys()];
+            indices = shuffle(indices);
+            let currentIndex = 0;
+            const randomQuote = quotes[indices[currentIndex]];
+            const splitQuote = randomQuote.split(" - ");
+
+            quoteContainer.textContent = splitQuote[0];
+            authorContainer.textContent = "- " + splitQuote[1];
+
+            currentIndex = 1;
+
+            quoteInterval = setInterval(() => {
+              const randomQuote = quotes[indices[currentIndex]];
+              const splitQuote = randomQuote.split(" - ");
+              
+              quoteContainer.textContent = splitQuote[0];
+              authorContainer.textContent = "- " + splitQuote[1];
+
+              currentIndex = (currentIndex + 1) % quotes.length; // Cycle through indices
+            }, 4000); // Change quote every 5 seconds
+          }
+
+          // Function to shuffle an array
+          function shuffle(array) {
+            let currentIndex = array.length, randomIndex;
+
+            while (0 !== currentIndex) {
+              randomIndex = Math.floor(Math.random() * currentIndex);
+              currentIndex--;
+
+              [array[currentIndex], array[randomIndex]] = [
+                array[randomIndex], array[currentIndex]];
+            }
+
+            return array;
+          }
+
+          const quotes = [
+            "\"Four wheels move the body, two wheels move the soul.\" - Gilda Texter",
+            "\"My biggest fear is that when I die my wife will sell my bicycles for what I told her they cost.\" - Anonymous",
+            "\"Life is like a 10-speed bicycle. Most of us have gears we never use.\" - Charles M. Schulz",
+            "\"I thought of that while riding my bicycle.\" - Albert Einstein",
+            "\"When I see an adult on a bicycle, I do not despair for the future of the human race.\" - H.G. Wells",
+            "\"Nothing compares to the simple pleasure of a bike ride.\" - John F. Kennedy"
+          ];
+
+          displayRandomQuote();
+
+
+    </script>
   </head>
   <body>
     <a-scene
@@ -118,9 +182,10 @@
       <a-entity id="bike-train-spawner" bike-train-pool></a-entity>
 
       <a-entity id="game-manager" game-manager sound="src: url(./assets/breath_caugh.webm);"></a-entity>
-      <a-entity noise-meter="clickerId:shout; meterId:special-meter; isSmall:true; keyCode:q;" sound="src: url(./assets/bell.webm);"></a-entity>
-      <a-entity id="horn-noise" noise-meter="clickerId:horn; meterId:main-meter; isSmall:false; keyCode:w"></a-entity>
-      <a-entity id="ray-noise" noise-meter="clickerId:ray; meterId:ray-meter; keyCode:e; lightId: flash-light" sound="src: url(./assets/raygun2.wav);"></a-entity>
+      <a-entity noise-meter="clickerId:shout; meterId:special-meter; isSmall:true; keyCode:ArrowUp;" sound="src: url(./assets/bell.webm);"></a-entity>
+      <a-entity id="horn-noise" noise-meter="clickerId:horn; meterId:main-meter; isSmall:false; keyCode:Control"></a-entity>
+      <a-entity id="ray-noise" noise-meter="clickerId:ray; meterId:ray-meter; keyCode:Shift; lightId: flash-light" sound="src: url(./assets/raygun2.wav);"></a-entity>
+
 
       <a-entity id="level" animation="property: position; to: 0 0 400; autoplay: false; dur: 100000; easing: linear; loop: false">
         <a-plane src="#grass-floor" height="1000" width="1000" rotation="-90 0 0" position="0 -0.05 0" material="repeat: 20 20"></a-plane>
@@ -131,9 +196,8 @@
 
 <!-- swipe left/right instructions-->
     <div id="instructions2">
-      <img src="./assets/instructions.gif" >
+      <img src="./assets/instructions/turn-swipe.gif" >
     </div>
-
 
 
 <!-- special weapon, bell-->
@@ -142,18 +206,19 @@
     </div>
     <progress id="special-meter" class="high-meter" value="0" max="100"></progress>
 
-  <!-- Raygun -->
-    <div id="ray">
-      <img class="icon" src="./assets/gun-ray.png" >
-    </div>
-    <progress id="ray-meter" style="display: none" class="high-meter" value="0" max="100"></progress>
-
 <!-- main weapon, shout, Loud Classic, Loud Mini -->
     <div id="horn">
       <img class="icon" src="./assets/shout.svg" >
     </div>
     <progress id="main-meter" class="high-meter" value="0" max="100"></progress>
 
+<!-- Raygun -->
+  <div id="ray">
+    <img class="icon" src="./assets/gun-ray.png" >
+  </div>
+  <progress id="ray-meter" style="display: none" class="high-meter" value="0" max="100"></progress>
+
+<!-- main game menu -->
     <div id="game-menu">
       <div id="game-menu-bg">
       </div>
@@ -175,8 +240,15 @@
               <button class="btn" onclick="setSettingsEnabled(true)"><span class="text">Settings</span></button> &nbsp;
               <button class="btn" onclick="setCreditsEnabled(true)"><span class="text">Credits</span></button>
             </div> -->
-            <div>
-              <img src="./assets/instructions.jpg" onclick="startRightAway(0)">
+            <div id="tutorial">
+              <img src="./assets/instructions/background.jpg">
+            </div>
+            <div id="play-button" onclick="startRightAway(0)">
+              <!-- play button styled like the continue button-->
+              <button id="tutorial-play" class="btn" onclick="startRightAway(0)"><span class="text">Play </span> &nbsp <span class="glyphicon">▶</span></button>
+            </div>
+            <div id="icon-legend">
+              <img src="./assets/instructions/icon-legend.png">
             </div>
           </div>
           
@@ -203,9 +275,6 @@
               <span class="copy-text action-button">
                 <img src="./assets/social/copy.png" alt="Copy text">                
               </span>
-              
-              <!-- <span class="share-action action-button"> -->
-                <!-- <img src="./assets/social/share.png" alt="Share button"> -->
                   <span class="share-facebook action-button">
                     <img src="./assets/social/facebook_1.png" alt="Share Facebook">
                   </span>
@@ -215,7 +284,6 @@
                   <span class="share-whatsapp action-button">
                     <img src="./assets/social/whatsapp_1.png" alt="Share Whatsapp">
                   </span>
-              <!-- </span> -->
           </div>
     
           <p>Crash statistics coming soon...</p>          
@@ -279,6 +347,7 @@
       </div>
     </div>
 
+    <!-- how many lives / hearts you have -->
     <div id="life-indicator-container">
       <div class="life-indicator"></div>
       <div class="life-indicator"></div>
@@ -306,6 +375,11 @@
       landing.classList.add('disabled');
       mainMenu.classList.remove('disabled');
       mainMenu.classList.add('enabled');
+      // raise the horn and shout above the menu for the first bit
+      document.querySelector('#horn').style.zIndex = 11;
+      document.querySelector('#shout').style.zIndex = 11;
+      document.querySelector('#life-indicator-container').style.zIndex = 11;
+
       clearInterval(quoteInterval);
     })
 
@@ -447,7 +521,13 @@
     function startRightAway(level_id) {
       setMenuEnabled(false);
       window.gameManager.generateLevel(level_id);
-      window.gameManager.playLevel();      
+      window.gameManager.playLevel();
+      
+      // bring thse back below the menu
+      document.querySelector('#horn').style.zIndex = 9;
+      document.querySelector('#shout').style.zIndex = 9;
+      document.querySelector('#life-indicator-container').style.zIndex = 9;
+
     } 
 
 
@@ -481,62 +561,6 @@
         window.gameManager.generateLevel(window.gameManager.getLevelIndex());
         window.gameManager.playLevel();        
     }
-
-let quoteInterval;  // Making it globally available in this script
-
-function displayRandomQuote() {
-  const quoteContainer = document.getElementById("quote-text");
-  const authorContainer = document.getElementById("quote-author");
-
-  // Create an array of indices, and shuffle it
-  let indices = [...Array(quotes.length).keys()];
-  indices = shuffle(indices);
-  let currentIndex = 0;
-  const randomQuote = quotes[indices[currentIndex]];
-  const splitQuote = randomQuote.split(" - ");
-
-  quoteContainer.textContent = splitQuote[0];
-  authorContainer.textContent = "- " + splitQuote[1];
-
-  currentIndex = 1;
-
-  quoteInterval = setInterval(() => {
-    const randomQuote = quotes[indices[currentIndex]];
-    const splitQuote = randomQuote.split(" - ");
-    
-    quoteContainer.textContent = splitQuote[0];
-    authorContainer.textContent = "- " + splitQuote[1];
-
-    currentIndex = (currentIndex + 1) % quotes.length; // Cycle through indices
-  }, 4000); // Change quote every 5 seconds
-}
-
-// Function to shuffle an array
-function shuffle(array) {
-  let currentIndex = array.length, randomIndex;
-
-  while (0 !== currentIndex) {
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex--;
-
-    [array[currentIndex], array[randomIndex]] = [
-      array[randomIndex], array[currentIndex]];
-  }
-
-  return array;
-}
-
-const quotes = [
-  "\"Four wheels move the body, two wheels move the soul.\" - Gilda Texter",
-  "\"My biggest fear is that when I die my wife will sell my bicycles for what I told her they cost.\" - Anonymous",
-  "\"Life is like a 10-speed bicycle. Most of us have gears we never use.\" - Charles M. Schulz",
-  "\"I thought of that while riding my bicycle.\" - Albert Einstein",
-  "\"When I see an adult on a bicycle, I do not despair for the future of the human race.\" - H.G. Wells",
-  "\"Nothing compares to the simple pleasure of a bike ride.\" - John F. Kennedy"
-];
-
-window.onload = displayRandomQuote;
-
 
 // // Call the function when the page loads
 // displayRandomQuote();
@@ -580,7 +604,22 @@ window.onload = displayRandomQuote;
   
 window.onload = shareText();
 
+window.addEventListener('resize', checkScreenSize);
+checkScreenSize();  // Also call it once on load
 
+function checkScreenSize() {
+    const turnInstructions = document.querySelector('#instructions2 img');
+    const iconLegend = document.querySelector('#icon-legend img');
+    if (window.innerWidth <= 600) {
+        // For mobile devices
+        turnInstructions.src = './assets/instructions/turn-swipe.gif';
+        iconLegend.src = './assets/instructions/icon-legend.png';
+    } else {
+        // For non-mobile devices
+        turnInstructions.src = './assets/instructions/turn-keys.gif';
+        iconLegend.src = './assets/instructions/icon-legend-keys.png';
+    }
+}
 
   </script>
 </html>

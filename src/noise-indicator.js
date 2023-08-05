@@ -19,7 +19,7 @@ AFRAME.registerComponent('noise-indicator', {
         })      
     },
     display: function(isBell) {
-        if(GAME_STATE !== GAME_STATES.PLAYING) return;
+        // if(GAME_STATE !== GAME_STATES.PLAYING) return;
 
         this.isBell = isBell;
         isBell ? this.scaleSmall() : this.isLoudMini ? this.scaleLarge() : this.scaleSmall();
