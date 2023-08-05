@@ -535,17 +535,13 @@ AFRAME.registerComponent('game-manager', {
         iconDiv.style.width = iconDiv.style.width === '110px' ? '120px' : '110px';
     },
     // Start blinking an icon and stop after a certain duration
-
     blinkSwipeInstrucions() {
-
-
         setTimeout(() => {
             // Stop the blinking after blinkDuration milliseconds
             setTimeout(() => {
                 document.querySelector('#instructions2').style.display = 'none';
             }, 10000);
         document.querySelector('#instructions2').style.display = 'flex';
-
         }, 3000);
     },
 

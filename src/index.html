@@ -588,6 +588,19 @@
   
 window.onload = shareText();
 
+window.addEventListener('resize', checkScreenSize);
+checkScreenSize();  // Also call it once on load
+
+function checkScreenSize() {
+    const instructions2Img = document.querySelector('#instructions2 img');
+    if (window.innerWidth <= 600) {
+        // For mobile devices
+        instructions2Img.src = './assets/instructions.gif';
+    } else {
+        // For non-mobile devices
+        instructions2Img.src = './assets/instructions2.gif';
+    }
+}
 
 
   </script>
