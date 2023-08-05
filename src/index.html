@@ -34,7 +34,7 @@
               authorContainer.textContent = "- " + splitQuote[1];
 
               currentIndex = (currentIndex + 1) % quotes.length; // Cycle through indices
-            }, 4000); // Change quote every 5 seconds
+            }, 3000); // Change quote every 3 seconds
           }
 
           // Function to shuffle an array
@@ -243,9 +243,9 @@
             <div id="tutorial">
               <img src="./assets/instructions/background.jpg">
             </div>
-            <div id="play-button" onclick="startRightAway(0)">
+            <div id="play-button">
               <!-- play button styled like the continue button-->
-              <button id="tutorial-play" class="btn" onclick="startRightAway(0)"><span class="text">Play </span> &nbsp <span class="glyphicon">▶</span></button>
+              <button id="tutorial-play" class="btn"><span class="text">Play </span> &nbsp <span class="glyphicon">▶</span></button>
             </div>
             <div id="icon-legend">
               <img src="./assets/instructions/icon-legend.png">
@@ -421,17 +421,6 @@
         if(message) {
           endScreen.querySelector('#level-end-content').innerHTML = message;
         }
-
-        // // Get the image elements
-        // let levelImage = document.getElementById("level-end-image");
-        // let starsImage = document.getElementById("level-end-stars");
-
-        // // Update the src attributes
-        // let levelNumber = window.gameManager.level_id+1;
-        // levelImage.src = `assets/levels/${levelNumber}.png`;
-        // starsImage.src = `assets/levels/${window.gameManager.userStars[`level${levelNumber}`]}-stars.png`;
-
-
       } else {
         endScreen.classList.remove('enabled');
         endScreen.classList.add('disabled');
@@ -517,19 +506,6 @@
         levelSelection.classList.add('disabled');
       }
     }
-
-    function startRightAway(level_id) {
-      setMenuEnabled(false);
-      window.gameManager.generateLevel(level_id);
-      window.gameManager.playLevel();
-      
-      // bring thse back below the menu
-      document.querySelector('#horn').style.zIndex = 9;
-      document.querySelector('#shout').style.zIndex = 9;
-      document.querySelector('#life-indicator-container').style.zIndex = 9;
-
-    } 
-
 
     let audioVolume = 1.0;
 
