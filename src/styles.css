@@ -57,6 +57,7 @@
         left: 50px;
         width: 120px;
         border-radius: 50%;
+        z-index: 9;
 
         user-drag: none;
         -webkit-user-drag: none;

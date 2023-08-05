@@ -29,8 +29,6 @@ AFRAME.registerComponent('noise-meter', {
         this.lastTickUpdate = 0;
         this.threshhold = this.data.clickerId === 'ray' ? BROKEN_REACTIVATE_THRESHHOLD_RAY : BROKEN_REACTIVATE_THRESHHOLD;
         this.tempVec = new THREE.Vector3();
-        // this.isLoudMini = false;
-
 
         this.addEvents();
         noiseMeters[this.data.clickerId] = this;

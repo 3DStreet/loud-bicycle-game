@@ -199,18 +199,11 @@
     </div>
 
 
-
 <!-- special weapon, bell-->
     <div id="shout">
       <img class="icon" src="./assets/bell.svg" >
     </div>
     <progress id="special-meter" class="high-meter" value="0" max="100"></progress>
-
-  <!-- Raygun -->
-    <div id="ray">
-      <img class="icon" src="./assets/gun-ray.png" >
-    </div>
-    <progress id="ray-meter" style="display: none" class="high-meter" value="0" max="100"></progress>
 
 <!-- main weapon, shout, Loud Classic, Loud Mini -->
     <div id="horn">
@@ -218,6 +211,13 @@
     </div>
     <progress id="main-meter" class="high-meter" value="0" max="100"></progress>
 
+<!-- Raygun -->
+  <div id="ray">
+    <img class="icon" src="./assets/gun-ray.png" >
+  </div>
+  <progress id="ray-meter" style="display: none" class="high-meter" value="0" max="100"></progress>
+
+<!-- main game menu -->
     <div id="game-menu">
       <div id="game-menu-bg">
       </div>
@@ -239,7 +239,7 @@
               <button class="btn" onclick="setSettingsEnabled(true)"><span class="text">Settings</span></button> &nbsp;
               <button class="btn" onclick="setCreditsEnabled(true)"><span class="text">Credits</span></button>
             </div> -->
-            <div>
+            <div id="tutorial">
               <img src="./assets/instructions.jpg" onclick="startRightAway(0)">
             </div>
           </div>
@@ -267,9 +267,6 @@
               <span class="copy-text action-button">
                 <img src="./assets/social/copy.png" alt="Copy text">                
               </span>
-              
-              <!-- <span class="share-action action-button"> -->
-                <!-- <img src="./assets/social/share.png" alt="Share button"> -->
                   <span class="share-facebook action-button">
                     <img src="./assets/social/facebook_1.png" alt="Share Facebook">
                   </span>
@@ -279,7 +276,6 @@
                   <span class="share-whatsapp action-button">
                     <img src="./assets/social/whatsapp_1.png" alt="Share Whatsapp">
                   </span>
-              <!-- </span> -->
           </div>
     
           <p>Crash statistics coming soon...</p>          
@@ -370,6 +366,10 @@
       landing.classList.add('disabled');
       mainMenu.classList.remove('disabled');
       mainMenu.classList.add('enabled');
+      // raise the horn and shout above the menu for the first bit
+      document.querySelector('#horn').style.zIndex = 11;
+      document.querySelector('#shout').style.zIndex = 11;
+
       clearInterval(quoteInterval);
     })
 
@@ -511,7 +511,12 @@
     function startRightAway(level_id) {
       setMenuEnabled(false);
       window.gameManager.generateLevel(level_id);
-      window.gameManager.playLevel();      
+      window.gameManager.playLevel();
+      
+      // bring thse back below the menu
+      document.querySelector('#horn').style.zIndex = 9;
+      document.querySelector('#shout').style.zIndex = 9;
+
     } 
 
 
@@ -601,7 +606,6 @@ function checkScreenSize() {
         instructions2Img.src = './assets/instructions2.gif';
     }
 }
-
 
   </script>
 </html>
