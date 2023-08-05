@@ -40,6 +40,7 @@ AFRAME.registerComponent('noise-meter', {
     },
     tick: function(_t, dt) {
         if (GAME_STATE === GAME_STATES.PLAYING && this.noiseIndicator) {
+        // if (this.noiseIndicator) {
             if(!this.displaying || this.broken) {
                 let increase = (dt * METER_INTERVAL_INCREASE)/METER_INTERVAL_MS;
                 // make it recharge more slowly if the ray meter is on
@@ -121,7 +122,7 @@ AFRAME.registerComponent('noise-meter', {
         else this.displayIndicator();
     },
     onKeyPressed: function(e) {
-        if (e.key === this.data.keyCode && GAME_STATE === GAME_STATES.PLAYING && !e.repeat) {
+        if (e.key === this.data.keyCode && !e.repeat) {
             this.onPressed();
         }
     },
