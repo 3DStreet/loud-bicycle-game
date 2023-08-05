@@ -196,7 +196,7 @@
 
 <!-- swipe left/right instructions-->
     <div id="instructions2">
-      <img src="./assets/instructions.gif" >
+      <img src="./assets/instructions/turn-swipe.gif" >
     </div>
 
 
@@ -241,7 +241,14 @@
               <button class="btn" onclick="setCreditsEnabled(true)"><span class="text">Credits</span></button>
             </div> -->
             <div id="tutorial">
-              <img src="./assets/instructions.jpg" onclick="startRightAway(0)">
+              <img src="./assets/instructions/background.jpg" onclick="startRightAway(0)">
+            </div>
+            <div id="play-button">
+              <!-- play button styled like the continue button-->
+              <button id="tutorial-play" class="btn" onclick="startRightAway(0)"><span class="text">Play </span> &nbsp <span class="glyphicon">▶</span></button>
+            </div>
+            <div id="icon-legend">
+              <img src="./assets/instructions/icon-legend.png">
             </div>
           </div>
           
@@ -600,13 +607,16 @@ window.addEventListener('resize', checkScreenSize);
 checkScreenSize();  // Also call it once on load
 
 function checkScreenSize() {
-    const instructions2Img = document.querySelector('#instructions2 img');
+    const turnInstructions = document.querySelector('#instructions2 img');
+    const iconLegend = document.querySelector('#icon-legend img');
     if (window.innerWidth <= 600) {
         // For mobile devices
-        instructions2Img.src = './assets/instructions.gif';
+        turnInstructions.src = './assets/instructions/turn-swipe.gif';
+        iconLegend.src = './assets/instructions/icon-legend.png';
     } else {
         // For non-mobile devices
-        instructions2Img.src = './assets/instructions2.gif';
+        turnInstructions.src = './assets/instructions/turn-keys.gif';
+        iconLegend.src = './assets/instructions/icon-legend-keys.png';
     }
 }
 
