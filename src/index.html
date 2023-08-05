@@ -340,6 +340,7 @@
       </div>
     </div>
 
+    <!-- how many lives / hearts you have -->
     <div id="life-indicator-container">
       <div class="life-indicator"></div>
       <div class="life-indicator"></div>
@@ -370,6 +371,7 @@
       // raise the horn and shout above the menu for the first bit
       document.querySelector('#horn').style.zIndex = 11;
       document.querySelector('#shout').style.zIndex = 11;
+      document.querySelector('#life-indicator-container').style.zIndex = 11;
 
       clearInterval(quoteInterval);
     })
