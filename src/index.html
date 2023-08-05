@@ -1,6 +1,70 @@
 <html>
   <head>
     <title>Loud Bicycle Game</title>
+    <script>
+          let quoteInterval;  // Making it globally available in this script
+
+          async function displayRandomQuote() {
+            // Wait for the necessary elements to be available
+            while (!document.getElementById("quote-text") || !document.getElementById("quote-author")) {
+              // Wait for 1/10th of a second before checking again
+              await new Promise(resolve => setTimeout(resolve, 100));
+            }
+
+            const quoteContainer = document.getElementById("quote-text");
+            const authorContainer = document.getElementById("quote-author");
+
+            // Create an array of indices, and shuffle it
+            let indices = [...Array(quotes.length).keys()];
+            indices = shuffle(indices);
+            let currentIndex = 0;
+            const randomQuote = quotes[indices[currentIndex]];
+            const splitQuote = randomQuote.split(" - ");
+
+            quoteContainer.textContent = splitQuote[0];
+            authorContainer.textContent = "- " + splitQuote[1];
+
+            currentIndex = 1;
+
+            quoteInterval = setInterval(() => {
+              const randomQuote = quotes[indices[currentIndex]];
+              const splitQuote = randomQuote.split(" - ");
+              
+              quoteContainer.textContent = splitQuote[0];
+              authorContainer.textContent = "- " + splitQuote[1];
+
+              currentIndex = (currentIndex + 1) % quotes.length; // Cycle through indices
+            }, 4000); // Change quote every 5 seconds
+          }
+
+          // Function to shuffle an array
+          function shuffle(array) {
+            let currentIndex = array.length, randomIndex;
+
+            while (0 !== currentIndex) {
+              randomIndex = Math.floor(Math.random() * currentIndex);
+              currentIndex--;
+
+              [array[currentIndex], array[randomIndex]] = [
+                array[randomIndex], array[currentIndex]];
+            }
+
+            return array;
+          }
+
+          const quotes = [
+            "\"Four wheels move the body, two wheels move the soul.\" - Gilda Texter",
+            "\"My biggest fear is that when I die my wife will sell my bicycles for what I told her they cost.\" - Anonymous",
+            "\"Life is like a 10-speed bicycle. Most of us have gears we never use.\" - Charles M. Schulz",
+            "\"I thought of that while riding my bicycle.\" - Albert Einstein",
+            "\"When I see an adult on a bicycle, I do not despair for the future of the human race.\" - H.G. Wells",
+            "\"Nothing compares to the simple pleasure of a bike ride.\" - John F. Kennedy"
+          ];
+
+          displayRandomQuote();
+
+
+    </script>
   </head>
   <body>
     <a-scene
@@ -481,62 +545,6 @@
         window.gameManager.generateLevel(window.gameManager.getLevelIndex());
         window.gameManager.playLevel();        
     }
-
-let quoteInterval;  // Making it globally available in this script
-
-function displayRandomQuote() {
-  const quoteContainer = document.getElementById("quote-text");
-  const authorContainer = document.getElementById("quote-author");
-
-  // Create an array of indices, and shuffle it
-  let indices = [...Array(quotes.length).keys()];
-  indices = shuffle(indices);
-  let currentIndex = 0;
-  const randomQuote = quotes[indices[currentIndex]];
-  const splitQuote = randomQuote.split(" - ");
-
-  quoteContainer.textContent = splitQuote[0];
-  authorContainer.textContent = "- " + splitQuote[1];
-
-  currentIndex = 1;
-
-  quoteInterval = setInterval(() => {
-    const randomQuote = quotes[indices[currentIndex]];
-    const splitQuote = randomQuote.split(" - ");
-    
-    quoteContainer.textContent = splitQuote[0];
-    authorContainer.textContent = "- " + splitQuote[1];
-
-    currentIndex = (currentIndex + 1) % quotes.length; // Cycle through indices
-  }, 4000); // Change quote every 5 seconds
-}
-
-// Function to shuffle an array
-function shuffle(array) {
-  let currentIndex = array.length, randomIndex;
-
-  while (0 !== currentIndex) {
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex--;
-
-    [array[currentIndex], array[randomIndex]] = [
-      array[randomIndex], array[currentIndex]];
-  }
-
-  return array;
-}
-
-const quotes = [
-  "\"Four wheels move the body, two wheels move the soul.\" - Gilda Texter",
-  "\"My biggest fear is that when I die my wife will sell my bicycles for what I told her they cost.\" - Anonymous",
-  "\"Life is like a 10-speed bicycle. Most of us have gears we never use.\" - Charles M. Schulz",
-  "\"I thought of that while riding my bicycle.\" - Albert Einstein",
-  "\"When I see an adult on a bicycle, I do not despair for the future of the human race.\" - H.G. Wells",
-  "\"Nothing compares to the simple pleasure of a bike ride.\" - John F. Kennedy"
-];
-
-window.onload = displayRandomQuote;
-
 
 // // Call the function when the page loads
 // displayRandomQuote();
