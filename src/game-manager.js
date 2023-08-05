@@ -168,6 +168,7 @@ AFRAME.registerComponent('game-manager', {
         levelImage.style.display = "block";
         starsImage.style.display = "block";
     },
+    // this is when you win winlevel (as apposed to fail)
     endLevel: function() {
         this.playEndAnimation();
 
@@ -175,6 +176,14 @@ AFRAME.registerComponent('game-manager', {
         this.stopLevel(false);
 
         setTimeout(() => {
+        // set replay-button-text
+        let replayButtonText = document.getElementById("replay-button-text");
+        replayButtonText.innerText = "Replay";
+
+        // set continue-button-text
+        let continueButtonText = document.getElementById("continue-button-text");
+        continueButtonText.innerText = "Continue";
+
             // Calculate user stars for the completed level
             let currentLevel = this.getLevelIndex(); // Get the index of the completed level
             let bikeMemberCount = this.bikeMemberCount;
@@ -254,6 +263,14 @@ AFRAME.registerComponent('game-manager', {
         levelImage.src = `./assets/loud_mini.png`;
         levelImage.style.display = 'inline-block';
         starsImage.style.display = 'none';
+
+        // set replay-button-text
+        let replayButtonText = document.getElementById("replay-button-text");
+        replayButtonText.innerText = "Retry";
+
+        // set continue-button-text
+        let continueButtonText = document.getElementById("continue-button-text");
+        continueButtonText.innerText = "Levels";
         
         this.removeLevel();
     },
