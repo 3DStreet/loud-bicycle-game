@@ -91,6 +91,21 @@ AFRAME.registerComponent('game-manager', {
                 })
             }
 
+            // create the button action for the very first play button.
+            const id = `#tutorial-play`;
+            document.querySelector(id).addEventListener('click', () => {
+                this.generateLevel(0);
+                this.playLevel();
+                setMenuEnabled(false);
+                setLevelSelectionEnabled(false)
+                
+                document.querySelector('#horn').style.zIndex = 9;
+                document.querySelector('#shout').style.zIndex = 9;
+                document.querySelector('#life-indicator-container').style.zIndex = 9;
+            })
+                       
+           
+
             // TODO: Disables menu by default, remove in the future
             const queryString = window.location.search;
             const urlParams = new URLSearchParams(queryString);
@@ -171,11 +186,6 @@ AFRAME.registerComponent('game-manager', {
             if (currentStars === null || newStars > currentStars) {
                 this.userStars[`level${currentLevel + 1}`] = newStars;
             }
-
-            // console.log("HEY MORE LOGS");
-            // console.log("levelNumber", this.levelData.levelNumber);
-            // console.log("nameId", this.levelData.nameId);
-            // prepare to make the screen visible by updating the images 
             this.updateEndScreenImages(this.levelData.nameId, newStars);
 
             setEndScreenEnabled(true, this.levelData.getLevelEndMessage(this.bikeMemberCount));
@@ -196,11 +206,11 @@ AFRAME.registerComponent('game-manager', {
     },
     
     quitLevel: function() {
+        console.log("quitLevel");
         this.stopLevel(true);
 
         this.musicAudio.pause();
         this.musicAudio.currentTime = 0;
-        // this.musicAudio.currentTime = 17;
 
         setMenuEnabled();
         this.removeLevel();
