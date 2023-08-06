@@ -91,7 +91,7 @@ AFRAME.registerComponent('interactable', {
         if(this.isHit || !this.spawned) return;
         if(isHonk) {
             // Randomization of reaction speed
-            let time = Math.round(noiseIndicator.isLoudMini ? 100 + Math.random() * 200 : 300 + Math.random() * 200) 
+            let time = Math.round(noiseIndicator.isLoudMini ? 100 + Math.random() * 200 : 300 + Math.random() * 600) 
             setTimeout(() => {
                 this.isHit = true;
                 this.sound.playSound();
