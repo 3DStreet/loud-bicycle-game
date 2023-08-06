@@ -176,6 +176,8 @@ AFRAME.registerComponent('game-manager', {
     },
     // this is when you win winlevel (as apposed to fail)
     endLevel: function() {
+        this. clearTitleTimers();
+
         this.playEndAnimation();
 
         // stop the sound, but not the music
@@ -257,6 +259,7 @@ AFRAME.registerComponent('game-manager', {
     },
     failLevel: function() {
         this.stopLevel(true);
+        this.clearTitleTimers();
         setEndScreenEnabled(true, ` <h1>"They said they had the right of way"</h1>
                                     Next time steer clear of their royal highness, the baby princess of parkway.
                                     `);
@@ -593,17 +596,12 @@ AFRAME.registerComponent('game-manager', {
         // first remove the subtitle
         document.querySelector('#subtitle').style.display = 'none';
 
-        // // delete the title after some time
-        // setTimeout(() => {
-        //     document.querySelector('#title').style.display = 'none';
-        // }, 17000);
-
         this.timerSubtitle = setTimeout(() => {
             // Stop the blinking after blinkDuration milliseconds
             this.timerTitle = setTimeout(() => {
                 console.log("setting to non");
                 document.querySelector('#meta-title-container').style.display = 'none';
-            }, 70000);
+            }, 7000);
         document.querySelector('#subtitle').style.display = 'flex';
         }, 13500);
         
@@ -641,6 +639,7 @@ AFRAME.registerComponent('game-manager', {
             }, blinkDuration);
         }, blinkStartDelay);
     },
+
 
     // get the initial user stars from localStorage, or create it
     getUserStars: function() {
