@@ -80,7 +80,8 @@ export const gameData = {
                 <h1>You got Loud Mini!</h1>
                 The Loud Mini sounds like a car horn so  you can “Speak Car" and enjoy an equal voice on the road. 
                 (It's a real thing, to learn more visit <a href="https://www.loudbicycle.com">www.loudbicycle.com</a>)
-                <h2>You got ${score} kid(s) safely to school. Good effort.</h2>                
+                <h2>You got ${score} kid(s) safely to school. Good effort.</h2>
+                Kids are so resilient these days, hehe.
             `
             }
         },
@@ -154,8 +155,9 @@ export const gameData = {
                 return `
                         <img src="./assets/gun-ray.png" class="icon" style="float: right; margin: 0 10px 10px 10px;">
                         <h1>You got the Loud Ray Gun!</h1>
-                        The Loud Ray Gun turns cars into bicycles, use wisely, awaiting approval by FDA/FCC. 
+                        The Loud Ray Gun turns cars into bicycles, awaiting approval by FDA/FCC. 
                         <h2>You brought ${score} colleagues safely to work! Good effort!</h2>
+                        The one's left behind are probably gonna be fine.
                         `
             }
         },
@@ -218,7 +220,9 @@ export const gameData = {
                 return `<h1>Great job you got to the bar!</h1>
                             <p>You don't need a raygun to vote for safer streets and walkable neighborhoods.
                             <a href="https://www.loudbicycle.com">www.loudbicycle.com</a></p>
-                            <p>Beat the next (last) level to get a coupon for free securty screws.</p>`
+                            <p>Beat the next (last) level to get a coupon for free securty screws.</p>
+                            <h2>You were in their blind spot</h2>
+                            It's a good idea to give the blind people driving extra space to careen.`
             }
         },
         {

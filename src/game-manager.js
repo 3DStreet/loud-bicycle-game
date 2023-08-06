@@ -249,9 +249,8 @@ AFRAME.registerComponent('game-manager', {
     },
     failLevel: function() {
         this.stopLevel(true);
-        setEndScreenEnabled(true, ` <h1>Nice try!</h1>
-                                    We want you to use Loud Mini in the real world. Please share 
-                                    the game to win free security screws at the <a href="https://loudbicycle.com/horn#buy">Loud Bicycle store</a>.
+        setEndScreenEnabled(true, ` <h1>"They said they had the right of way"</h1>
+                                    Next time steer clear of their royal highness, the baby princess of parkway...
                                     `);
         this.loseSoundEl.play();
         // <img class="level-end-images" src="./assets/loud_mini.png">                                        
