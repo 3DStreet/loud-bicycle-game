@@ -15,7 +15,8 @@ export const gameData = {
         {
             nameId: 'school',
             levelNumber: 1,
-            name: 'Level 1 - Lead the kids to school',
+            title: 'Lead the kids to school',
+            subtitle: 'Tap the bell to pick up a kid',
             fogNear: 40000,
             fogFar: 40000,
             fogColor: '#00ffff',
@@ -80,14 +81,16 @@ export const gameData = {
                 <h1>You got Loud Mini!</h1>
                 The Loud Mini sounds like a car horn so  you can “Speak Car" and enjoy an equal voice on the road. 
                 (It's a real thing, to learn more visit <a href="https://www.loudbicycle.com">www.loudbicycle.com</a>)
-                <h2>You got ${score} kid(s) safely to school. Good effort.</h2>                
+                <h2>You got ${score} kid(s) safely to school. Good effort.</h2>
+                Kids are so resilient these days, hehe.
             `
             }
         },
         {
             nameId: 'office',
             levelNumber: 2, 
-            name: 'Level 2 - Lead people to work',
+            title: 'Lead work friends to the office',
+            subtitle: 'Tap the bell to pick up a friend',
             fogNear: 40000,
             fogFar: 40000,
             fogColor: '#AAA',
@@ -154,15 +157,17 @@ export const gameData = {
                 return `
                         <img src="./assets/gun-ray.png" class="icon" style="float: right; margin: 0 10px 10px 10px;">
                         <h1>You got the Loud Ray Gun!</h1>
-                        The Loud Ray Gun turns cars into bicycles, use wisely, awaiting approval by FDA/FCC. 
+                        The Loud Ray Gun turns cars into bicycles, awaiting approval by FDA/FCC. 
                         <h2>You brought ${score} colleagues safely to work! Good effort!</h2>
+                        The one's left behind are probably gonna be fine.
                         `
             }
         },
         {
             nameId: 'bar',
             levelNumber: 3,
-            name: 'Level 3 - Get to the bar!',
+            title: 'Get to the bar. <img src="./assets/instructions/shift.png"> raygun time.',
+            subtitle: null,
             fogNear: 0,
             fogFar: 250,
             fogColor: '#646464',
@@ -218,13 +223,16 @@ export const gameData = {
                 return `<h1>Great job you got to the bar!</h1>
                             <p>You don't need a raygun to vote for safer streets and walkable neighborhoods.
                             <a href="https://www.loudbicycle.com">www.loudbicycle.com</a></p>
-                            <p>Beat the next (last) level to get a coupon for free securty screws.</p>`
+                            <p>Beat the next (last) level to get a coupon for free securty screws.</p>
+                            <h2>You were in their blind spot</h2>
+                            It's a good idea to give the blind people driving extra space to careen.`
             }
         },
         {
             nameId: 'home',
             levelNumber: 4,
-            name: 'Level 4 - Get home safely',
+            title: 'Get all the way home',
+            subtitle: null,
             fogNear: 3,
             fogFar: 40,
             fogColor: '#242424',

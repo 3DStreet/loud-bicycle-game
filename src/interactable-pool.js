@@ -17,6 +17,7 @@ AFRAME.registerComponent('interactable-pool', {
         this.tempVec = new Vector3();
         interactablePool = this;
         this.streetIndex = 0;
+        this.pingSoundEl = document.querySelector('#ping');
         setTimeout(() => {
             this.pool = this.el.sceneEl.components.pool__interactable;
             document.querySelector('#noise-indicator-collider').components['aabb-collider'].update();
@@ -327,7 +328,7 @@ AFRAME.registerComponent('interactable-pool', {
         });
     },
 // raygun turn all the cars into bicycles, one by one
-
+// turns cars into bicycles
 convertAllToBikes: function() {
     for (let i = 0; i < this.pool.usedEls.length; i++) {
         const el = this.pool.usedEls[i];
@@ -371,6 +372,9 @@ convertAllToBikes: function() {
                     el.object3D.remove(circles[j]);
                 }, 50 * (circles.length - 1 - j));
             }
+            // play a nice ping sound
+            let audio = new Audio('./assets/ping.wav');
+            audio.play();
 
         }, 100 * i + 0); // stagger the conversion of cars to bikes by an additional delay equal to the time taken to create all the circles 
     }

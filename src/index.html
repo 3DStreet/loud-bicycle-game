@@ -194,11 +194,23 @@
     </a-scene>
 
 
+
+<!-- title and subtitle boxes -->
+<div id="meta-title-container">
+<div id="title-container">
+    <div id="title"><center>
+      Lead the kids to school</center>
+    </div>
+    <div id="subtitle">
+      tap the bell for them to follow you
+      </div>
+</div>
+</div>
+
 <!-- swipe left/right instructions-->
     <div id="instructions2">
       <img src="./assets/instructions/turn-swipe.gif" >
     </div>
-
 
 <!-- special weapon, bell-->
     <div id="shout">
@@ -380,6 +392,7 @@
       document.querySelector('#horn').style.zIndex = 11;
       document.querySelector('#shout').style.zIndex = 11;
       document.querySelector('#life-indicator-container').style.zIndex = 11;
+      document.querySelector('#meta-title-container').style.zIndex = 11;
 
       clearInterval(quoteInterval);
     })

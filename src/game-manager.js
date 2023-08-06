@@ -48,6 +48,12 @@ AFRAME.registerComponent('game-manager', {
         this.currentAvatarIndex = -1;
         this.currentShoutIndex = 0;
 
+        // Add timer properties
+        this.timerTitle = null;
+        this.timerSubtitle = null;
+        this.tutorialTimer1 = null;
+        this.tutorialTimer2 = null;
+
         this.userStars = this.getUserStars();
 
         setTimeout(() => {
@@ -170,6 +176,8 @@ AFRAME.registerComponent('game-manager', {
     },
     // this is when you win winlevel (as apposed to fail)
     endLevel: function() {
+        this. clearTitleTimers();
+
         this.playEndAnimation();
 
         // stop the sound, but not the music
@@ -217,6 +225,8 @@ AFRAME.registerComponent('game-manager', {
     quitLevel: function() {
         console.log("quitLevel");
         this.stopLevel(true);
+        
+        this.clearTitleTimers();
 
         this.musicAudio.pause();
         this.musicAudio.currentTime = 0;
@@ -249,9 +259,9 @@ AFRAME.registerComponent('game-manager', {
     },
     failLevel: function() {
         this.stopLevel(true);
-        setEndScreenEnabled(true, ` <h1>Nice try!</h1>
-                                    We want you to use Loud Mini in the real world. Please share 
-                                    the game to win free security screws at the <a href="https://loudbicycle.com/horn#buy">Loud Bicycle store</a>.
+        this.clearTitleTimers();
+        setEndScreenEnabled(true, ` <h1>"They said they had the right of way"</h1>
+                                    Next time steer clear of their royal highness, the baby princess of parkway.
                                     `);
         this.loseSoundEl.play();
         // <img class="level-end-images" src="./assets/loud_mini.png">                                        
@@ -355,6 +365,8 @@ AFRAME.registerComponent('game-manager', {
             this.blinkIcon('#horn', 2000, 22000);  // Start blinking the #horn icon
             this.blinkSwipeInstrucions() ;
         }
+
+        this.blinkTitle();
                 
         gameScore = 0;
         this.bikeMemberCount = 0;
@@ -562,15 +574,55 @@ AFRAME.registerComponent('game-manager', {
     },
     // Start blinking an icon and stop after a certain duration
     blinkSwipeInstrucions() {
-        setTimeout(() => {
+        this.tutorialTimer1 = setTimeout(() => {
             // Stop the blinking after blinkDuration milliseconds
             setTimeout(() => {
                 document.querySelector('#instructions2').style.display = 'none';
-            }, 10000);
-        document.querySelector('#instructions2').style.display = 'flex';
+            }, 9000);
+        this.tutorialTimer1 = document.querySelector('#instructions2').style.display = 'flex';
         }, 3000);
     },
+    blinkTitle() {
 
+        // change the contenxt of the title and subtitle to be the meta title and subtitle
+        let titleText = document.getElementById("title");
+        let subtitleText = document.getElementById("subtitle");
+        titleText.innerHTML = this.levelData.title;
+        subtitleText.innerHTML = this.levelData.subtitle;
+        
+        document.querySelector('#meta-title-container').style.display = 'flex';
+        document.querySelector('#title').style.display = 'flex';
+        
+        // first remove the subtitle
+        document.querySelector('#subtitle').style.display = 'none';
+
+        this.timerSubtitle = setTimeout(() => {
+            // Stop the blinking after blinkDuration milliseconds
+            this.timerTitle = setTimeout(() => {
+                console.log("setting to non");
+                document.querySelector('#meta-title-container').style.display = 'none';
+            }, 7000);
+        document.querySelector('#subtitle').style.display = 'flex';
+        }, 13500);
+        
+    },
+    // function to clear the title timers
+    clearTitleTimers() {
+
+        let mtcnt = document.querySelector('#meta-title-container');
+        if (mtcnt){
+            mtcnt.style.display = 'none';
+        }
+        let inst = document.querySelector('#instructions2');
+        if (inst){
+            inst.style.display = 'none';
+        }
+
+        clearTimeout(this.timerSubtitle);
+        clearTimeout(this.timerTitle);
+        clearTimeout(this.tutorialTimer1);
+        clearTimeout(this.tutorialTimer2);
+    },
     // Start blinking an icon and stop after a certain duration
     blinkIcon(selector, blinkDuration = 2000, blinkStartDelay = 0) {
         setTimeout(() => {
@@ -587,6 +639,7 @@ AFRAME.registerComponent('game-manager', {
             }, blinkDuration);
         }, blinkStartDelay);
     },
+
 
     // get the initial user stars from localStorage, or create it
     getUserStars: function() {
