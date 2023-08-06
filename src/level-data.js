@@ -15,7 +15,8 @@ export const gameData = {
         {
             nameId: 'school',
             levelNumber: 1,
-            name: 'Level 1 - Lead the kids to school',
+            title: 'Lead kids to school',
+            subtitle: 'Tap the bell to pick up a kid',
             fogNear: 40000,
             fogFar: 40000,
             fogColor: '#00ffff',
@@ -88,7 +89,8 @@ export const gameData = {
         {
             nameId: 'office',
             levelNumber: 2, 
-            name: 'Level 2 - Lead people to work',
+            title: 'Lead work friends to the office',
+            subtitle: 'Tap the bell to pick up a friend',
             fogNear: 40000,
             fogFar: 40000,
             fogColor: '#AAA',
@@ -164,7 +166,8 @@ export const gameData = {
         {
             nameId: 'bar',
             levelNumber: 3,
-            name: 'Level 3 - Get to the bar!',
+            title: 'Get to the bar safely',
+            subtitle: '<img src="./assets/instructions/shift.png"> to fire the raygun',
             fogNear: 0,
             fogFar: 250,
             fogColor: '#646464',
@@ -228,7 +231,8 @@ export const gameData = {
         {
             nameId: 'home',
             levelNumber: 4,
-            name: 'Level 4 - Get home safely',
+            title: 'Get all the way home',
+            subtitle: null,
             fogNear: 3,
             fogFar: 40,
             fogColor: '#242424',

@@ -250,7 +250,7 @@ AFRAME.registerComponent('game-manager', {
     failLevel: function() {
         this.stopLevel(true);
         setEndScreenEnabled(true, ` <h1>"They said they had the right of way"</h1>
-                                    Next time steer clear of their royal highness, the baby princess of parkway...
+                                    Next time steer clear of their royal highness, the baby princess of parkway.
                                     `);
         this.loseSoundEl.play();
         // <img class="level-end-images" src="./assets/loud_mini.png">                                        
@@ -352,6 +352,7 @@ AFRAME.registerComponent('game-manager', {
         if (this.levelData.tutorial) {
             this.blinkIcon('#shout', 3500, 17000); // Start blinking the bell (named shout accidentally)
             this.blinkIcon('#horn', 2000, 22000);  // Start blinking the #horn icon
+            this.blinkTitle();
             this.blinkSwipeInstrucions() ;
         }
                 
@@ -565,9 +566,30 @@ AFRAME.registerComponent('game-manager', {
             // Stop the blinking after blinkDuration milliseconds
             setTimeout(() => {
                 document.querySelector('#instructions2').style.display = 'none';
-            }, 10000);
+            }, 9000);
         document.querySelector('#instructions2').style.display = 'flex';
         }, 3000);
+    },
+    blinkTitle() {
+        document.querySelector('#meta-title-container').style.display = 'flex';
+        document.querySelector('#title').style.display = 'flex';
+        
+        // first remove the subtitle
+        document.querySelector('#subtitle').style.display = 'none';
+
+        // // delete the title after some time
+        // setTimeout(() => {
+        //     document.querySelector('#title').style.display = 'none';
+        // }, 17000);
+
+        setTimeout(() => {
+            // Stop the blinking after blinkDuration milliseconds
+            setTimeout(() => {
+                document.querySelector('#meta-title-container').style.display = 'none';
+            }, 7000);
+        document.querySelector('#subtitle').style.display = 'flex';
+        }, 13500);
+        
     },
 
     // Start blinking an icon and stop after a certain duration
