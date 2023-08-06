@@ -15,7 +15,7 @@ export const gameData = {
         {
             nameId: 'school',
             levelNumber: 1,
-            title: 'Lead kids to school',
+            title: 'Lead the kids to school',
             subtitle: 'Tap the bell to pick up a kid',
             fogNear: 40000,
             fogFar: 40000,
@@ -166,8 +166,8 @@ export const gameData = {
         {
             nameId: 'bar',
             levelNumber: 3,
-            title: 'Get to the bar safely',
-            subtitle: '<img src="./assets/instructions/shift.png"> to fire the raygun',
+            title: 'Get to the bar. <img src="./assets/instructions/shift.png"> raygun time.',
+            subtitle: null,
             fogNear: 0,
             fogFar: 250,
             fogColor: '#646464',

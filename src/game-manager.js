@@ -48,6 +48,12 @@ AFRAME.registerComponent('game-manager', {
         this.currentAvatarIndex = -1;
         this.currentShoutIndex = 0;
 
+        // Add timer properties
+        this.timerTitle = null;
+        this.timerSubtitle = null;
+        this.tutorialTimer1 = null;
+        this.tutorialTimer2 = null;
+
         this.userStars = this.getUserStars();
 
         setTimeout(() => {
@@ -217,6 +223,8 @@ AFRAME.registerComponent('game-manager', {
     quitLevel: function() {
         console.log("quitLevel");
         this.stopLevel(true);
+        
+        this.clearTitleTimers();
 
         this.musicAudio.pause();
         this.musicAudio.currentTime = 0;
@@ -352,9 +360,10 @@ AFRAME.registerComponent('game-manager', {
         if (this.levelData.tutorial) {
             this.blinkIcon('#shout', 3500, 17000); // Start blinking the bell (named shout accidentally)
             this.blinkIcon('#horn', 2000, 22000);  // Start blinking the #horn icon
-            this.blinkTitle();
             this.blinkSwipeInstrucions() ;
         }
+
+        this.blinkTitle();
                 
         gameScore = 0;
         this.bikeMemberCount = 0;
@@ -562,15 +571,22 @@ AFRAME.registerComponent('game-manager', {
     },
     // Start blinking an icon and stop after a certain duration
     blinkSwipeInstrucions() {
-        setTimeout(() => {
+        this.tutorialTimer1 = setTimeout(() => {
             // Stop the blinking after blinkDuration milliseconds
             setTimeout(() => {
                 document.querySelector('#instructions2').style.display = 'none';
             }, 9000);
-        document.querySelector('#instructions2').style.display = 'flex';
+        this.tutorialTimer1 = document.querySelector('#instructions2').style.display = 'flex';
         }, 3000);
     },
     blinkTitle() {
+
+        // change the contenxt of the title and subtitle to be the meta title and subtitle
+        let titleText = document.getElementById("title");
+        let subtitleText = document.getElementById("subtitle");
+        titleText.innerHTML = this.levelData.title;
+        subtitleText.innerHTML = this.levelData.subtitle;
+        
         document.querySelector('#meta-title-container').style.display = 'flex';
         document.querySelector('#title').style.display = 'flex';
         
@@ -582,16 +598,33 @@ AFRAME.registerComponent('game-manager', {
         //     document.querySelector('#title').style.display = 'none';
         // }, 17000);
 
-        setTimeout(() => {
+        this.timerSubtitle = setTimeout(() => {
             // Stop the blinking after blinkDuration milliseconds
-            setTimeout(() => {
+            this.timerTitle = setTimeout(() => {
+                console.log("setting to non");
                 document.querySelector('#meta-title-container').style.display = 'none';
-            }, 7000);
+            }, 70000);
         document.querySelector('#subtitle').style.display = 'flex';
         }, 13500);
         
     },
+    // function to clear the title timers
+    clearTitleTimers() {
 
+        let mtcnt = document.querySelector('#meta-title-container');
+        if (mtcnt){
+            mtcnt.style.display = 'none';
+        }
+        let inst = document.querySelector('#instructions2');
+        if (inst){
+            inst.style.display = 'none';
+        }
+
+        clearTimeout(this.timerSubtitle);
+        clearTimeout(this.timerTitle);
+        clearTimeout(this.tutorialTimer1);
+        clearTimeout(this.tutorialTimer2);
+    },
     // Start blinking an icon and stop after a certain duration
     blinkIcon(selector, blinkDuration = 2000, blinkStartDelay = 0) {
         setTimeout(() => {

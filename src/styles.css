@@ -491,12 +491,17 @@ margin-top: 0.2em;
 
 #title {
   /* position: absolute; */
-  font-size: 50px;
+  font-size: 40px;
   font-family: Oswald,Helvetica;
   color: black;
   text-transform: uppercase;
   font-weight: 800;
   
+}
+#title img{
+  padding-left:5px;
+  padding-right:5px;
+
 }
 #subtitle {
   font-size: 30px;
