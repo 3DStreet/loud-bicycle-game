@@ -14,6 +14,7 @@ AFRAME.registerComponent('player-controller', {
         playerController = this;
         this.currentLane = 0;
         this.lives = this.data.defaultLives;
+        this.hitCounter = 0;
         window.addEventListener("keydown", this.onKeyPressed.bind(this));
         
         let touchStartX = 0;
@@ -155,11 +156,15 @@ AFRAME.registerComponent('player-controller', {
         this.lifeContainer.appendChild(div);
     },
     onCollided: function() {
+
         if(this.collided) return;
 
         this.collided = true;
         this.collidedTimer = 0;
         this.lives--;
+        this.hitCounter++;
+        console.log('HIT COUNTER', this.hitCounter);
+
         if(this.lifeContainer.children.length > this.lives)
             this.lifeContainer.removeChild(this.lifeContainer.lastChild);
         gameManager.playGetHurt();
