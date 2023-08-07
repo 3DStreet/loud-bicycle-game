@@ -119,7 +119,6 @@ AFRAME.registerComponent('game-manager', {
                 
                 document.querySelector('#horn').style.zIndex = 9;
                 document.querySelector('#shout').style.zIndex = 9;
-                // document.querySelector('#life-indicator-container').style.zIndex = 9;
             })
                        
            
@@ -419,7 +418,6 @@ AFRAME.registerComponent('game-manager', {
         this.isLoudMini = true;
         document.querySelector('[noise-indicator]').components['noise-indicator'].upgradeLoudMini();
         document.querySelector('#horn img').src = './assets/loud_mini.png';
-        // document.querySelector('#horn-noise').setAttribute('sound', {src: 'url(./assets/horn.webm)'});
     },
     setRaygunActive: function(b) {
         document.querySelector('#ray').style.display = b ? 'unset' : 'none';
