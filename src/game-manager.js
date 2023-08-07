@@ -2,6 +2,8 @@ import { Vector3 } from 'super-three';
 import { gameData, SIDE_STREET_URL } from "./level-data";
 import { playerController } from './player-controller';
 import { lerp } from './helpers/math'
+import { getRandomMessage } from './messages';
+
 
 export const GAME_STATES = {
     PLAYING: 0,
@@ -51,10 +53,20 @@ AFRAME.registerComponent('game-manager', {
         // Add timer properties
         this.timerTitle = null;
         this.timerSubtitle = null;
+        this.timerSubtitle2 = null;
         this.tutorialTimer1 = null;
         this.tutorialTimer2 = null;
 
         this.userStars = this.getUserStars();
+
+
+
+
+                    // instant fail:
+                    // setTimeout(() => {
+                    //     this.failLevel();
+                        
+                    // }, 1000);
 
         setTimeout(() => {
             this.interactablePool = document.querySelector('[interactable-pool]').components['interactable-pool'];
@@ -137,6 +149,7 @@ AFRAME.registerComponent('game-manager', {
             }
 
             this.tick = AFRAME.utils.throttleTick(this.tick, 500, this);
+
         }, 100);
     },
     disableAmbientAudio: function() {
@@ -257,12 +270,13 @@ AFRAME.registerComponent('game-manager', {
             setPauseEnabled(false);
         }
     },
+    // when you lose the game
     failLevel: function() {
         this.stopLevel(true);
         this.clearTitleTimers();
-        setEndScreenEnabled(true, ` <h1>"They said they had the right of way"</h1>
-                                    Next time steer clear of their royal highness, the baby princess of parkway.
-                                    `);
+        console.log("failLevel");
+        console.log("hitCounter: " + playerController.hitCounter);
+        setEndScreenEnabled(true, getRandomMessage('fail', playerController.hitCounter));
         this.loseSoundEl.play();
         // <img class="level-end-images" src="./assets/loud_mini.png">                                        
                                 
@@ -336,6 +350,7 @@ AFRAME.registerComponent('game-manager', {
         }
     },
     playLevel: function() {
+
         this.avatarObject = this.getAvatarObject();
         playerController.setAvatar(this.avatarObject.id);
         this.currentShoutIndex = 0;
@@ -367,7 +382,7 @@ AFRAME.registerComponent('game-manager', {
 
             // set timeout for the text instructions to pick shout to stay safe
 
-            setTimeout(() => {
+            this.timerSubtitle2 = setTimeout(() => {
                 console.log('starting up the little window');
                     document.querySelector('#title').style.display = 'none';
                     document.querySelector('#meta-title-container').style.display = 'flex';
@@ -375,7 +390,6 @@ AFRAME.registerComponent('game-manager', {
                     document.querySelector('#subtitle').style.display = 'flex';
 
                     this.tutorialTimer1 = setTimeout(() => {
-                        console.log('killing the whole title continer');
                         document.querySelector('#meta-title-container').style.display = 'none';
                     }
                     , 4000);
@@ -636,6 +650,7 @@ AFRAME.registerComponent('game-manager', {
         }
 
         clearTimeout(this.timerSubtitle);
+        clearTimeout(this.timerSubtitle2);
         clearTimeout(this.timerTitle);
         clearTimeout(this.tutorialTimer1);
         clearTimeout(this.tutorialTimer2);

@@ -17,7 +17,7 @@ AFRAME.registerComponent('interactable-pool', {
         this.tempVec = new Vector3();
         interactablePool = this;
         this.streetIndex = 0;
-        this.pingSoundEl = document.querySelector('#ping');
+        // this.pingSoundEl = document.querySelector('#ping');
         setTimeout(() => {
             this.pool = this.el.sceneEl.components.pool__interactable;
             document.querySelector('#noise-indicator-collider').components['aabb-collider'].update();
