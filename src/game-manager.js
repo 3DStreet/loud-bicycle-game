@@ -614,7 +614,6 @@ AFRAME.registerComponent('game-manager', {
         }, 3000);
     },
     blinkTitle() {
-
         // change the contenxt of the title and subtitle to be the meta title and subtitle
         let titleText = document.getElementById("title");
         let subtitleText = document.getElementById("subtitle");
@@ -634,8 +633,7 @@ AFRAME.registerComponent('game-manager', {
                 document.querySelector('#meta-title-container').style.display = 'none';
             }, 7000);
         document.querySelector('#subtitle').style.display = 'flex';
-        }, 13500);
-        
+        }, 13500);  
     },
     // function to clear the title timers
     clearTitleTimers() {
