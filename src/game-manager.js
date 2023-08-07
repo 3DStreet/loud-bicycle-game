@@ -363,7 +363,24 @@ AFRAME.registerComponent('game-manager', {
         if (this.levelData.tutorial) {
             this.blinkIcon('#shout', 3500, 17000); // Start blinking the bell (named shout accidentally)
             this.blinkIcon('#horn', 2000, 22000);  // Start blinking the #horn icon
-            this.blinkSwipeInstrucions() ;
+            this.blinkSwipeInstrucions();
+
+            // set timeout for the text instructions to pick shout to stay safe
+
+            setTimeout(() => {
+                console.log('starting up the little window');
+                    document.querySelector('#title').style.display = 'none';
+                    document.querySelector('#meta-title-container').style.display = 'flex';
+                    document.querySelector('#subtitle').innerHTML = 'Shout to stop people running you over';
+                    document.querySelector('#subtitle').style.display = 'flex';
+
+                    this.tutorialTimer1 = setTimeout(() => {
+                        console.log('killing the whole title continer');
+                        document.querySelector('#meta-title-container').style.display = 'none';
+                    }
+                    , 4000);
+                }
+            , 22000);
         }
 
         this.blinkTitle();
