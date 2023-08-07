@@ -53,7 +53,7 @@ h1, h2{
 
 #icon-legend {
   position: absolute;
-  bottom: 85px !important;
+  bottom: 194px !important;
   /* height: 198px; */
   left: 15px;
   /* width: 451px; */
@@ -90,11 +90,12 @@ h1, h2{
 /* tutorial play button centered */
 #play-button {
   position: absolute;
-  bottom: 50%;
+  bottom: 60%;
   left: 50%;
   width: 200px;
   transform: translate(-50%, 50%);
   z-index: 9;
+  z-index: 10;
 }
 
 #play-button .btn{
@@ -103,7 +104,16 @@ h1, h2{
   font-size: 23pt;
 }
 
+#tutorial {
+  position: relative;
+  margin-top: 100px;
+  
+
+  /* max-width: 739px; */
+}
+
 #tutorial img{
+  max-width: 739px;
   user-drag: none;
   -webkit-user-drag: none;
   user-select: none;
@@ -173,7 +183,7 @@ h1, h2{
   position: absolute;
   left: 5;
   bottom: 5;
-  z-index: 9;
+  /* z-index: 9; */
 }
 
 .life-indicator {
@@ -672,11 +682,12 @@ margin-top: 0.2em;
         flex-direction: column;
         /* background-image: url('./assets/instructions.jpg'); */
         /* background-repeat: no-repeat; */
-        border: 2px solid black;
-        border-radius: 10px;
+        /* border: 2px solid black; */
+        /* border-radius: 10px; */
         position: fixed; /* fix the position of the modal */
         top: 0; /* align the modal to the top */
         left: 0; /* align the modal to the left */
+        width: 100%;
     }
     #intro-modal img {
       width: 100vw;

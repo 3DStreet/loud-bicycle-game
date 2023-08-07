@@ -119,7 +119,7 @@ AFRAME.registerComponent('game-manager', {
                 
                 document.querySelector('#horn').style.zIndex = 9;
                 document.querySelector('#shout').style.zIndex = 9;
-                document.querySelector('#life-indicator-container').style.zIndex = 9;
+                // document.querySelector('#life-indicator-container').style.zIndex = 9;
             })
                        
            

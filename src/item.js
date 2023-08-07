@@ -22,10 +22,7 @@ AFRAME.registerComponent('item', {
 
         this.comicEffectObject = this.comicEffectEl.object3D;
         
-        // document.querySelector('#comic-effect-plane').object3D;
         this.camera = document.querySelector('a-camera').object3D;
-        // this.el.sceneEl.addEventListener('loaded', () => {
-        // });
     },
     remove: function() {
         if(this.comicEffectEl)
