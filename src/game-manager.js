@@ -325,7 +325,11 @@ AFRAME.registerComponent('game-manager', {
             let audio = document.querySelector('#horn-sound');
             audio.play();
         } else {
-            let path = `#shout-${this.avatarObject.type}-sound-${this.currentShoutIndex}`;
+            let path;
+            if(this.avatarObject && this.avatarObject.type)
+                path = `#shout-${this.avatarObject.type}-sound-${this.currentShoutIndex}`;
+            else 
+                path = '#shout-female-sound-0';
             let audio = document.querySelector(path);
             audio.play();
             this.currentShoutIndex = (this.currentShoutIndex + 1) % 3;
@@ -553,6 +557,13 @@ AFRAME.registerComponent('game-manager', {
             this.currentLevel.append(additionalEl);
         }
 
+        const finishEl = document.createElement('a-entity');
+
+        finishEl.setAttribute('position', {x: 1.5, y: 0, z: lastSpawnPosition})
+        finishEl.setAttribute('rotation', {x: 0, y: 0, z: 0})
+        finishEl.setAttribute('gltf-model', '#prop-finish-asset')
+
+        this.currentLevel.append(finishEl);
         this.currentLevel.append(el);
     },
     removeLevel: function() {

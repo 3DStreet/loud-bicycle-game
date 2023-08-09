@@ -51,6 +51,7 @@ AFRAME.registerComponent('interactable-pool', {
         el.setAttribute('raycaster', {objects: '[interactable]', showLine: DEBUG_RAYCAST_LINE, far: 4, interval: 100, origin: '0, 1, 3', direction: '0 0 1'});
 
         el.setAttribute('interactable', {type});
+        el.setAttribute('sound', 'src:' + gameManager.levelData.onInteractableHitSoundId)
 
         let parent = el.object3D.parent;
         let scene = this.el.sceneEl.object3D;
@@ -90,6 +91,7 @@ AFRAME.registerComponent('interactable-pool', {
         if(!el) return console.error("Interactable pool is too small, failed to spawn");
 
         el.setAttribute('interactable', {type});
+        el.setAttribute('sound', 'src:' + gameManager.levelData.onInteractableHitSoundId)
         el.play();
 
         el.setAttribute('raycaster', {objects: '[interactable]', showLine: DEBUG_RAYCAST_LINE, far: 4, interval: 100, origin: '0, 1, 3', direction: '0 0 1'});
@@ -126,6 +128,7 @@ AFRAME.registerComponent('interactable-pool', {
         if(!el) return console.error("Interactable pool is too small, failed to spawn");
 
         el.setAttribute('interactable', {type});
+        el.setAttribute('sound', 'src:' + gameManager.levelData.onInteractableHitSoundId)
         el.play();
 
         el.setAttribute('raycaster', {objects: '[interactable]', showLine: DEBUG_RAYCAST_LINE, far: 4, interval: 100, origin: '0, 1, 5', direction: '0, 0, 1'});
@@ -174,6 +177,7 @@ AFRAME.registerComponent('interactable-pool', {
         if(!el) return console.error("Interactable pool is too small, failed to spawn");
 
         el.setAttribute('interactable', {type});
+        el.setAttribute('sound', 'src:' + gameManager.levelData.onInteractableHitSoundId)
         el.play();
 
         el.setAttribute('raycaster', {objects: '[interactable]', showLine: DEBUG_RAYCAST_LINE, far: 4, interval: 100, origin: '0, 1, -3', direction: '0 0 -1'});
@@ -215,6 +219,7 @@ AFRAME.registerComponent('interactable-pool', {
         if(!el) return console.error("Interactable pool is too small, failed to spawn");
 
         el.setAttribute('interactable', {type});
+        el.setAttribute('sound', 'src:' + gameManager.levelData.onInteractableHitSoundId)
         el.play();
 
         el.setAttribute('raycaster', {objects: '[interactable]', showLine: DEBUG_RAYCAST_LINE, far: 4, interval: 100, origin: '0, 1, 3', direction: '0 0 1'});
@@ -257,6 +262,7 @@ AFRAME.registerComponent('interactable-pool', {
         if(!el) return console.error("Interactable pool is too small, failed to spawn");
     
         el.setAttribute('interactable', {type});
+        el.setAttribute('sound', 'src:' + gameManager.levelData.onInteractableHitSoundId)
         el.play();
     
         // el.setAttribute('raycaster', {objects: '[interactable]', showLine: DEBUG_RAYCAST_LINE, far: 4, interval: 100, origin: '0, 1, 3', direction: '0 0 1'});
