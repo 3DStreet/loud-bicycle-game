@@ -57,6 +57,8 @@ export const gameData = {
 
             musicSoundId: '#music-1',
 
+            onInteractableHitSoundId: '#muffled-voice',
+
             tutorial: true,
             
             spawnMinis: true,
@@ -135,6 +137,9 @@ export const gameData = {
             ambientSoundVolume: 0.2,
 
             musicSoundId: '#music-2',
+
+            onInteractableHitSoundId: '#tires',
+
             tutorial: false,
             
             interactables: {
@@ -200,6 +205,9 @@ export const gameData = {
             ambientSoundId: '#ambient-sound-b',
             ambientSoundVolume: 0.2,
             musicSoundId: '#music-3',
+
+            onInteractableHitSoundId: '#tires',
+
             tutorial: false,
 
             interactables: {
@@ -266,6 +274,9 @@ export const gameData = {
             ambientSoundId: '#ambient-sound-b',
             ambientSoundVolume: 0.2,
             musicSoundId: '#music-4',
+
+            onInteractableHitSoundId: '#tires',
+
             tutorial: false,
             interactables: {
                 'rightHook': 0.4,
