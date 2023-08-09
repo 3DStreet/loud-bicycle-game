@@ -262,12 +262,11 @@ export const gameData = {
             spawnHearts: true,
             streetLengthAdditionalRange: 10,
             lastBuildingOffset: 20,
-            lastBuildingAssetId: '#building-bar.asset',
+            lastBuildingAssetId: '#prop-suburban-houses-asset',
             ambientSoundId: '#ambient-sound-b',
             ambientSoundVolume: 0.2,
             musicSoundId: '#music-4',
             tutorial: false,
-
             interactables: {
                 'rightHook': 0.4,
                 'rightCross': 0.8,
