@@ -79,12 +79,11 @@ export const gameData = {
             ],
             getLevelEndMessage: function(score) {
                 return `
-                <img src="./assets/loud_mini.png" class="icon" style="float: right; margin: 0 10px 10px 10px;">
+                <img src="./assets/loud-mini-onbike.jpg" class="icon" style="float: right; margin: 0 10px 10px 10px;">
                 <h1>You got Loud Mini!</h1>
-                The Loud Mini sounds like a car horn so  you can “Speak Car" and enjoy an equal voice on the road. 
-                (It's a real thing, to learn more visit <a href="https://www.loudbicycle.com">www.loudbicycle.com</a>)
+                <a href="https://www.loudbicycle.com">Learn more ...</a>
                 <h2>You got ${score} kid(s) safely to school. Good effort.</h2>
-                Kids are so resilient these days, hehe.
+                <!-- Kids are so resilient these days, hehe. -->
             `
             }
         },
@@ -162,7 +161,7 @@ export const gameData = {
                 return `
                         <img src="./assets/gun-ray.png" class="icon" style="float: right; margin: 0 10px 10px 10px;">
                         <h1>You got the Loud Ray Gun!</h1>
-                        The Loud Ray Gun turns cars into bicycles, awaiting approval by FDA/FCC. 
+                        Turn cars into bicycles, awaiting approval by FDA/FCC. 
                         <h2>You brought ${score} colleagues safely to work! Good effort!</h2>
                         The one's left behind are probably gonna be fine.
                         `
@@ -297,12 +296,10 @@ export const gameData = {
             ],
             getLevelEndMessage: function() {
                 return `<img src="./assets/security-screws.png" class="icon" style="float: right; margin: 0 10px 10px 10px;">
+                        <img src="./assets/loud-mini-onbike.jpg" class="icon" style="float: right; margin: 0 10px 10px 10px;">
                         <h1>Congratulations you won!</h1>
                             <p>
-                            You got home safely, beating the Loud Bicycle game with the help of Loud Mini, we want to you have Loud Mini to stay safe in real life too!
-                            To learn more <a href="https://loudbicycle.com/horn">click here</a>.<br>
-                            For your valliant efforts we want to give you the Loud Mini *Security Bolts* for free with secret coupon code SUPERSAVERBIKETRAINHERO
-                            For a special one-time order-link <a href="https://loud-bicycle-store.myshopify.com/cart/32290221654067:1,10359316551:1?discount=SUPERSAVERBIKETRAINHERO">Click Here</a>
+                            You get a Loud Mini discount <a href="https://loud-bicycle-store.myshopify.com/cart/32290221654067:1,10359316551:1?discount=SUPERSAVERBIKETRAINHERO">Click here to order</a>
                         </p>`
             }
         }
