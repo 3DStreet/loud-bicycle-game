@@ -553,6 +553,13 @@ AFRAME.registerComponent('game-manager', {
             this.currentLevel.append(additionalEl);
         }
 
+        const finishEl = document.createElement('a-entity');
+
+        finishEl.setAttribute('position', {x: 1.5, y: 0, z: lastSpawnPosition})
+        finishEl.setAttribute('rotation', {x: 0, y: 0, z: 0})
+        finishEl.setAttribute('gltf-model', '#prop-finish-asset')
+
+        this.currentLevel.append(finishEl);
         this.currentLevel.append(el);
     },
     removeLevel: function() {
