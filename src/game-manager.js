@@ -325,7 +325,11 @@ AFRAME.registerComponent('game-manager', {
             let audio = document.querySelector('#horn-sound');
             audio.play();
         } else {
-            let path = `#shout-${this.avatarObject.type}-sound-${this.currentShoutIndex}`;
+            let path;
+            if(this.avatarObject && this.avatarObject.type)
+                path = `#shout-${this.avatarObject.type}-sound-${this.currentShoutIndex}`;
+            else 
+                path = '#shout-female-sound-0';
             let audio = document.querySelector(path);
             audio.play();
             this.currentShoutIndex = (this.currentShoutIndex + 1) % 3;
