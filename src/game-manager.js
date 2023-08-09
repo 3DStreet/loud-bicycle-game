@@ -58,10 +58,7 @@ AFRAME.registerComponent('game-manager', {
         this.tutorialTimer2 = null;
 
         this.userStars = this.getUserStars();
-
-
-
-
+//                  for debugging if you want to fail right away
                     // instant fail:
                     // setTimeout(() => {
                     //     this.failLevel();
@@ -199,7 +196,7 @@ AFRAME.registerComponent('game-manager', {
         this.powerupAudio.currentTime = 0; // Reset the audio to the start
         this.powerupAudio.play();
         starsImage.src = `assets/levels/${starCnt}-stars.png`;
-        if (starCnt > currentStars) {
+        if (starCnt >= currentStars) {
             clearInterval(starInterval);
         }
     },
