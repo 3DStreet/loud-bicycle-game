@@ -5,6 +5,7 @@ body {
   /* font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; */
   font-family: 'Source Sans 3', sans-serif;
   color: white;
+  font-size: 16pt;
   -webkit-touch-callout:none;
   -webkit-user-select:none;
   -khtml-user-select:none;
@@ -16,6 +17,7 @@ body {
 
 h1, h2{
   font-family: Oswald,Helvetica;
+  font-size: 20pt;
 }
 
 #instructions2{
