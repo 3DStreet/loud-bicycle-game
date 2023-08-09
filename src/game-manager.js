@@ -178,13 +178,30 @@ AFRAME.registerComponent('game-manager', {
         // Get the image elements
         let levelImage = document.getElementById("level-end-image");
         let starsImage = document.getElementById("level-end-stars");
-
+    
         // Update the src attributes
-        // let levelNumber = this.level_id + 1;
         levelImage.src = `assets/levels/${levelId}.png`;
-        starsImage.src = `assets/levels/${currentStars}-stars.png`;
+        starsImage.src = `assets/levels/0-stars.png`;
         levelImage.style.display = "block";
         starsImage.style.display = "block";
+    
+        // loop setting star images from 0 to currentStars, with 200ms in between each switch
+        let starCnt = 1;
+        const starInterval = setInterval(() => {
+            // Now using a lambda function (arrow function) to maintain context (the value of `this`)
+            this.updateStarImage(starsImage, starCnt, currentStars, starInterval);
+            starCnt++;
+        }, 300);
+    },
+    updateStarImage: function(starsImage, starCnt, currentStars, starInterval) {
+        // update the star image one at a time. play the pop sound
+        this.powerupAudio = document.querySelector('#pop-sound');
+        this.powerupAudio.currentTime = 0; // Reset the audio to the start
+        this.powerupAudio.play();
+        starsImage.src = `assets/levels/${starCnt}-stars.png`;
+        if (starCnt > currentStars) {
+            clearInterval(starInterval);
+        }
     },
     // this is when you win winlevel (as apposed to fail)
     endLevel: function() {
