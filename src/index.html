@@ -109,7 +109,8 @@
 
         <audio id="powerup-sound" src="./assets/powerup.wav" preload="auto"></audio>
         <audio id="pop-sound" src="./assets/pop.wav" preload="auto"></audio>
-
+        <audio id="sparkle-sound" src="./assets/sparkle.wav" preload="auto"></audio>
+        
         <img id="comic-effect" src="./assets/comic_effect.png">
         <img id="grass-floor" src="./3dstreet-assets/materials/TexturesCom_Grass0052_1_seamless_S.jpg">
         <img id="sky" src="./3dstreet-assets/CGSkies_0343_doubled_2048.jpg">
@@ -206,15 +207,19 @@
 
 
 <!-- title and subtitle boxes -->
-<div id="meta-title-container">
+<div id="meta-title-container" class="disabled">
 <div id="title-container">
     <div id="title"><center>
-      Lead the kids to school</center>
+      1. Lead the kids to school</center>
     </div>
     <div id="subtitle">
       tap the bell for them to follow you
       </div>
 </div>
+</div>
+
+<div id="logo">
+  <img src="./assets/logo-white.svg"
 </div>
 
 <!-- swipe left/right instructions-->
@@ -255,13 +260,13 @@
       </div>
       <div id="main-menu" class="disabled">
         <div id="main-menu-top">
-          <div id="intro-modal">
+          <div id="intro-modal" class="disabled">
 
             <!-- <div id="button-container">
-              <button class="btn" onclick="setLevelSelectionEnabled(true)"><span class="text">Play</span></button> &nbsp;
               <button class="btn" onclick="setSettingsEnabled(true)"><span class="text">Settings</span></button> &nbsp;
               <button class="btn" onclick="setCreditsEnabled(true)"><span class="text">Credits</span></button>
             </div> -->
+
             <div id="play-button">
               <!-- play button styled like the continue button-->
               <button id="tutorial-play" class="btn"><span class="text">Play </span> &nbsp <span class="glyphicon">▶</span></button>
@@ -275,11 +280,13 @@
               </center>
             </div>
 
+            
           </div>
           
         </div>
       </div>
       <div id="level-end-screen" class="disabled">
+
         <div id="level-end-container">
 
           <div id="level-end-image-container">
@@ -287,7 +294,7 @@
             <img id="level-end-image" class="level-end-images" src="./assets/levels/school.png" style="display: none;">
             </div>
             <div id="level-end-star-container">
-            <img id="level-end-stars" class="level-end-images" src="./assets/levels/1-stars.png" style="display: none;">
+            <img id="level-end-stars" class="level-end-images" src="./assets/levels/1-stars.png"  style="display: none;">
             </div>
           </div>
 
@@ -323,18 +330,22 @@
         </div>
       </div>
       <div id="level-selection" class="disabled">
+        <div class="game-title">
+          Welcome to the Loud Bicycle game!
+        </div>
+      
         <div id="level-container">
           <img id="level-background" src="./assets/levels/background.png" alt="Level selection background">
           <img id="level-1-button" class="level-button" src="assets/levels/school.png" alt="Level 1">
           <img id="level-2-button" class="level-button" src="assets/levels/office.png" alt="Level 2">
           <img id="level-3-button" class="level-button" src="assets/levels/bar.png" alt="Level 3">
           <img id="level-4-button" class="level-button" src="assets/levels/home.png" alt="Level 4">
-
-
+          <div id="level-stars-all" class="disabled">
           <img id="level-1-stars" class="level-star" src="assets/levels/0-stars.png">
           <img id="level-2-stars" class="level-star" src="assets/levels/1-stars.png">
           <img id="level-3-stars" class="level-star" src="assets/levels/2-stars.png">
           <img id="level-4-stars" class="level-star" src="assets/levels/3-stars.png">
+        </div>
         </div>
         <!-- <button class="btn back-button" onclick="setLevelSelectionEnabled(false); setMenuEnabled(true)"><span class="text">Back</span></button> -->
       </div>
@@ -406,7 +417,62 @@
       document.querySelector('#shout').style.zIndex = 11;
       document.querySelector('#meta-title-container').style.zIndex = 11;
 
+      // enabel level selection
+      document.querySelector('#level-selection').classList.remove('disabled');
+      this.updateLevelButtons();
+      // change the border color of level-1-button to gray
+      document.querySelector('#level-1-button').classList.remove('border-yellow');
+
+
       clearInterval(quoteInterval);
+
+      // highlight the school level with the sparkle sound after 300 ms
+      setTimeout(() => {
+        this.powerupAudio = document.querySelector('#sparkle-sound');
+        this.powerupAudio.currentTime = 0; // Reset the audio to the start
+        this.powerupAudio.play();
+        
+        // do this a split second later
+        setTimeout(() => {
+            document.querySelector('#level-1-button').classList.add('highlight');        
+          // increase the width of level-1-button
+          document.querySelector('#level-1-button').style.width = '30%';
+          // move to the left by 3%
+          document.querySelector('#level-1-button').style.left = '35%';
+          document.querySelector('#level-1-button').classList.add('border-yellow');
+        }, 300);
+
+
+        // move to the intro-modal screen after 3. seconds
+        setTimeout(() => {
+          document.querySelector('#intro-modal').classList.remove('disabled');
+          document.querySelector('#intro-modal').classList.add('enabled');
+
+          // disable the level-selection screen
+          document.querySelector('#level-selection').classList.add('disabled');
+          document.querySelector('#level-selection').classList.remove('enabled');
+
+          // undo the changes to the level-1-button
+          document.querySelector('#level-1-button').style.width = '24%';
+          document.querySelector('#level-1-button').style.left = '38%';
+
+          // enable the title
+          document.querySelector('#meta-title-container').classList.remove('disabled');
+          document.querySelector('#meta-title-container').classList.add('enabled');
+
+          // remove the game-title
+          document.querySelector('.game-title').classList.add('disabled');
+
+          // reenable level-stars-all
+          document.querySelector('#level-stars-all').classList.remove('disabled');
+          document.querySelector('#level-stars-all').classList.add('enabled');
+          
+        }, 3000);
+
+
+      }, 1000);
+
+
     })
 
     function setCreditsEnabled(b) {
