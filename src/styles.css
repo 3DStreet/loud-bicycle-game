@@ -5,6 +5,7 @@ body {
   /* font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; */
   font-family: 'Source Sans 3', sans-serif;
   color: white;
+  font-size: 16pt;
   -webkit-touch-callout:none;
   -webkit-user-select:none;
   -khtml-user-select:none;
@@ -16,6 +17,7 @@ body {
 
 h1, h2{
   font-family: Oswald,Helvetica;
+  font-size: 20pt;
 }
 
 #instructions2{
@@ -499,15 +501,40 @@ margin-top: 0.2em;
   border-radius: 15px;
 }
 
+.game-title {
+  position: absolute;
+  display: flex;
+  justify-content: center;  /* center the content horizontally */
+  background-color: #ff6c36;
+  color: white;
+  font-size: 40px;
+  font-family: Oswald,Helvetica;
+  font-weight: 800;
+  top: 42%;
+  width: 33%;
+  left: 33%;
+  z-index: 13;
+  padding: 10px;
+  border-radius: 15px;
+
+}
+
+@media screen and (max-width: 600px) {
+  .game-title {
+      font-size: 25px; /* adjusted font size as an example, you can change it */
+  }
+}
+
+
 #title {
   /* position: absolute; */
   font-size: 40px;
   font-family: Oswald,Helvetica;
   color: black;
   text-transform: uppercase;
-  font-weight: 800;
-  
+  font-weight: 800; 
 }
+
 #title img{
   padding-left:5px;
   padding-right:5px;

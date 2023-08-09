@@ -57,11 +57,9 @@ AFRAME.registerComponent('game-manager', {
         this.tutorialTimer1 = null;
         this.tutorialTimer2 = null;
 
+        this.justBeatLevel = null;
         this.userStars = this.getUserStars();
-
-
-
-
+//                  for debugging if you want to fail right away
                     // instant fail:
                     // setTimeout(() => {
                     //     this.failLevel();
@@ -115,10 +113,9 @@ AFRAME.registerComponent('game-manager', {
                 this.generateLevel(0);
                 this.playLevel();
                 setMenuEnabled(false);
-                setLevelSelectionEnabled(false)
-                
-                document.querySelector('#horn').style.zIndex = 9;
-                document.querySelector('#shout').style.zIndex = 9;
+                setLevelSelectionEnabled(false);
+                // set to intro-modal to class to disabled
+                document.querySelector('#intro-modal').classList.add('disabled');
             })
                        
            
@@ -178,13 +175,30 @@ AFRAME.registerComponent('game-manager', {
         // Get the image elements
         let levelImage = document.getElementById("level-end-image");
         let starsImage = document.getElementById("level-end-stars");
-
+    
         // Update the src attributes
-        // let levelNumber = this.level_id + 1;
         levelImage.src = `assets/levels/${levelId}.png`;
-        starsImage.src = `assets/levels/${currentStars}-stars.png`;
+        starsImage.src = `assets/levels/0-stars.png`;
         levelImage.style.display = "block";
         starsImage.style.display = "block";
+    
+        // loop setting star images from 0 to currentStars, with 200ms in between each switch
+        let starCnt = 1;
+        const starInterval = setInterval(() => {
+            // Now using a lambda function (arrow function) to maintain context (the value of `this`)
+            this.updateStarImage(starsImage, starCnt, currentStars, starInterval);
+            starCnt++;
+        }, 300);
+    },
+    updateStarImage: function(starsImage, starCnt, currentStars, starInterval) {
+        // update the star image one at a time. play the pop sound
+        this.powerupAudio = document.querySelector('#pop-sound');
+        this.powerupAudio.currentTime = 0; // Reset the audio to the start
+        this.powerupAudio.play();
+        starsImage.src = `assets/levels/${starCnt}-stars.png`;
+        if (starCnt >= currentStars) {
+            clearInterval(starInterval);
+        }
     },
     // this is when you win winlevel (as apposed to fail)
     endLevel: function() {
@@ -212,6 +226,12 @@ AFRAME.registerComponent('game-manager', {
             // if you did better than the last time, update your score
             let newStars = this.calculateUserStars(currentLevel, bikeMemberCount, lives);
             let currentStars = this.userStars[`level${currentLevel + 1}`];
+            // check if you just unlocked a new level, beat a level you never beat before
+            if ((currentStars === null || currentStars === 0 ) && newStars > 0){
+                console.log("just beat level: " + currentLevel + " for the first time");
+                this.justBeatLevel = currentLevel + 1;
+            }
+
             if (currentStars === null || newStars > currentStars) {
                 this.userStars[`level${currentLevel + 1}`] = newStars;
             }
@@ -219,7 +239,6 @@ AFRAME.registerComponent('game-manager', {
 
             setEndScreenEnabled(true, this.levelData.getLevelEndMessage(this.bikeMemberCount));
 
-            
             this.removeLevel();
             document.querySelector('#game-menu-bg').style.opacity = 1;
         }, finalAnimationTimeMS);

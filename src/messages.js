@@ -115,7 +115,7 @@ export function getRandomMessage(messageType, hitCounter, numKids, numFriends) {
     
     // add you were run over hitCounter times to curMessage
     if (hitCounter > 0) {
-        curMessage = `${selectedMessage.header ? `<h1>"${selectedMessage.header}"</h1>` : ''}You've been run over ${hitCounter} times${selectedMessage.content}`;
+        curMessage = `${selectedMessage.header ? `<h1>"${selectedMessage.header}" – Mr. Car</h1>` : ''}You've been run over ${hitCounter} times${selectedMessage.content}`;
     }
     else {
         curMessage = `${selectedMessage.header ? `<h1>"${selectedMessage.header}"</h1>` : ''}${selectedMessage.content}`;
