@@ -163,7 +163,8 @@
       <a-entity id="ambient-light" light="type: ambient; color: #222"></a-entity>
       <a-entity id="directional-light" light="type: directional; color: #444; intensity: 0.6" position="-0.5 1 1"></a-entity>
       <a-sky src="#sky"></a-sky>
-      <a-camera position="0 5 3" rotation="-35 0 0" wasd-controls-enabled="false" look-controls-enabled="false" fov="90"></a-camera>
+      <!--            center/height/  distance away -->
+      <a-camera position="0 4 4" rotation="-15 0 0" wasd-controls-enabled="false" look-controls-enabled="false" fov="90"></a-camera>
       <a-entity
         id="model"
         geometry="primitive: box; depth: 1.5; width: 0.6"
@@ -405,6 +406,9 @@
     let levelSelection = document.querySelector('#level-selection');
     let pauseMenu = document.querySelector('#pause-menu');
 
+    // Level ids in the same order as userStars object
+    const levelIds = ['level-1-button', 'level-2-button', 'level-3-button', 'level-4-button'];
+
     sceneEl.addEventListener('loaded', () => {
       if(window.innerWidth <= 600) {
         document.querySelector('a-camera').setAttribute('fov', 110);
@@ -412,12 +416,8 @@
       landing.classList.add('disabled');
       mainMenu.classList.remove('disabled');
       mainMenu.classList.add('enabled');
-      // raise the horn and shout above the menu for the first bit
-      document.querySelector('#horn').style.zIndex = 11;
-      document.querySelector('#shout').style.zIndex = 11;
-      document.querySelector('#meta-title-container').style.zIndex = 11;
 
-      // enabel level selection
+      // enable level selection
       document.querySelector('#level-selection').classList.remove('disabled');
       this.updateLevelButtons();
       // change the border color of level-1-button to gray
@@ -466,6 +466,11 @@
           // reenable level-stars-all
           document.querySelector('#level-stars-all').classList.remove('disabled');
           document.querySelector('#level-stars-all').classList.add('enabled');
+
+          // raise the horn and shout above the menu for the first bit
+          document.querySelector('#horn').style.zIndex = 11;
+          document.querySelector('#shout').style.zIndex = 11;
+          document.querySelector('#meta-title-container').style.zIndex = 11;
           
         }, 3000);
 
@@ -518,8 +523,11 @@
         endScreen.classList.add('disabled');
         levelSelection.classList.add('enabled');
         levelSelection.classList.remove('disabled');
+
+        }
       }
-    }
+
+
 
     function setPauseEnabled(b) {
       if(b) {
@@ -532,8 +540,8 @@
     }
 
     function updateLevelButtons() {
-      // Level ids in the same order as userStars object
-      const levelIds = ['level-1-button', 'level-2-button', 'level-3-button', 'level-4-button'];
+
+      console.log("updating level buttons");
 
       // Star ids in the same order
       const starIds = ['level-1-stars', 'level-2-stars', 'level-3-stars', 'level-4-stars'];
@@ -548,6 +556,10 @@
           let levelButton = document.getElementById(levelId);
           // Get the corresponding star element
           let starImage = document.getElementById(starIds[i]);
+
+          // reset it in case we made it extra wide to emphasise it earlier
+          levelButton.style.width = '24%';
+          levelButton.style.transition = '';
 
           let stars = gameManager.userStars[`level${i+1}`];
           // Check if the user has completed this level or it's the level user is currently at
@@ -570,6 +582,36 @@
             starImage.style.display = 'none';
           }
         }
+
+         // if you have just beat the level
+         if (window.gameManager.justBeatLevel != null && window.gameManager.justBeatLevel < 3){
+          console.log("Just beat a level.");
+          // just pause here for half a second see what happens, also play the sparkle sound
+
+          let levelId = levelIds[window.gameManager.justBeatLevel];
+          // Get the corresponding button element
+          let levelButton = document.getElementById(levelId);
+          // change the button
+          levelButton.classList.remove('border-yellow');
+
+          levelButton.style.filter = 'grayscale(100%)';
+          // levelButton.style.transition = 'filter 0.75s';
+          levelButton.style.transition = 'filter 0.75s, width 0.75s';
+
+          setTimeout(() => {
+            this.powerupAudio = document.querySelector('#sparkle-sound');
+            this.powerupAudio.currentTime = 0; // Reset the audio to the start
+            this.powerupAudio.play();
+
+            levelButton.classList.add('highlight'); 
+            levelButton.classList.add('border-yellow');       
+            levelButton.style.filter = 'grayscale(0%)';
+            levelButton.style.width = '28%';
+            console.log("just expanded the business");
+            window.gameManager.justBeatLevel = null;
+
+          }, 500);
+        }
       }
     }
 
@@ -577,6 +619,10 @@
     function setLevelSelectionEnabled(b) {
       // update the level buttons based on how far you've gotten in the game
       updateLevelButtons();
+      
+      // bop these guys down, wherever you came from
+      document.querySelector('#horn').style.zIndex = 9;
+      document.querySelector('#shout').style.zIndex = 9;
 
       if(b) {
         let hasPlayedBefore = localStorage.getItem("played-loud-bicycle");
@@ -597,6 +643,8 @@
         levelSelection.classList.remove('enabled');
         levelSelection.classList.add('disabled');
       }
+
+
     }
 
     let audioVolume = 1.0;

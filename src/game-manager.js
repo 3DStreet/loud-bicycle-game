@@ -57,6 +57,7 @@ AFRAME.registerComponent('game-manager', {
         this.tutorialTimer1 = null;
         this.tutorialTimer2 = null;
 
+        this.justBeatLevel = null;
         this.userStars = this.getUserStars();
 //                  for debugging if you want to fail right away
                     // instant fail:
@@ -112,10 +113,9 @@ AFRAME.registerComponent('game-manager', {
                 this.generateLevel(0);
                 this.playLevel();
                 setMenuEnabled(false);
-                setLevelSelectionEnabled(false)
-                
-                document.querySelector('#horn').style.zIndex = 9;
-                document.querySelector('#shout').style.zIndex = 9;
+                setLevelSelectionEnabled(false);
+                // set to intro-modal to class to disabled
+                document.querySelector('#intro-modal').classList.add('disabled');
             })
                        
            
@@ -226,6 +226,12 @@ AFRAME.registerComponent('game-manager', {
             // if you did better than the last time, update your score
             let newStars = this.calculateUserStars(currentLevel, bikeMemberCount, lives);
             let currentStars = this.userStars[`level${currentLevel + 1}`];
+            // check if you just unlocked a new level, beat a level you never beat before
+            if ((currentStars === null || currentStars === 0 ) && newStars > 0){
+                console.log("just beat level: " + currentLevel + " for the first time");
+                this.justBeatLevel = currentLevel + 1;
+            }
+
             if (currentStars === null || newStars > currentStars) {
                 this.userStars[`level${currentLevel + 1}`] = newStars;
             }
@@ -233,7 +239,6 @@ AFRAME.registerComponent('game-manager', {
 
             setEndScreenEnabled(true, this.levelData.getLevelEndMessage(this.bikeMemberCount));
 
-            
             this.removeLevel();
             document.querySelector('#game-menu-bg').style.opacity = 1;
         }, finalAnimationTimeMS);
