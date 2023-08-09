@@ -83,7 +83,6 @@ export const gameData = {
                 <h1>You got Loud Mini!</h1>
                 <a href="https://www.loudbicycle.com">Learn more ...</a>
                 <h2>You got ${score} kid(s) safely to school. Good effort.</h2>
-                <!-- Kids are so resilient these days, hehe. -->
             `
             }
         },
