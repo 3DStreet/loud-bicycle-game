@@ -31,7 +31,8 @@ export let gameManager;
 
 export let gameScore = 0;
 
-export let finalAnimationTimeMS = 2000;
+// export let finalAnimationTimeMS = 2000;
+export let finalAnimationTimeMS = 3500;
 
 const SMOG_SCORE = 1;
 
@@ -65,6 +66,13 @@ AFRAME.registerComponent('game-manager', {
                     //     this.failLevel();
                         
                     // }, 1000);
+
+                    // for debugging if you want to end screen right away
+                    setTimeout(() => {
+                        this.endLevel();
+                        
+                    }, 1000);
+
 
         setTimeout(() => {
             this.interactablePool = document.querySelector('[interactable-pool]').components['interactable-pool'];
@@ -169,7 +177,7 @@ AFRAME.registerComponent('game-manager', {
         this.musicAudio.stop();
     },
     playEndAnimation: function() {
-        document.querySelector('#model').emit('playend', null, false);
+        document.querySelector('#model').emit('playend', null, false);  
     },
     updateEndScreenImages: function(levelId, currentStars) {
         // Get the image elements
@@ -208,39 +216,86 @@ AFRAME.registerComponent('game-manager', {
 
         // stop the sound, but not the music
         this.stopLevel(false);
+        
+        // Calculate user stars for the completed level
+        let currentLevel = this.getLevelIndex(); // Get the index of the completed level
+        let bikeMemberCount = this.bikeMemberCount;
+        let lives = playerController.lives;
+        
+        // if you did better than the last time, update your score
+        let newStars = this.calculateUserStars(currentLevel, bikeMemberCount, lives);
+        let currentStars = this.userStars[`level${currentLevel + 1}`];
+        // check if you just unlocked a new level, beat a level you never beat before
+        if ((currentStars === null || currentStars === 0 ) && newStars > 0){
+            console.log("just beat level: " + currentLevel + " for the first time");
+            this.justBeatLevel = currentLevel + 1;
+        }
+
+        if (currentStars === null || newStars > currentStars) {
+            this.userStars[`level${currentLevel + 1}`] = newStars;
+        }
+
+        // set level-end-image-container to be enabled
+        let levelEndImageContainer = document.getElementById("level-end-image-container");
+        levelEndImageContainer.classList.remove("disabled");
+        levelEndImageContainer.classList.add("enabled");
+        // update z-index to 13
+        // levelEndImageContainer.style.zIndex = 13;
+
+        let congratsAnimation = document.getElementById("congrats-animation");
+        // set timeout for .5 seconds
+        setTimeout(() => {
+
+            // enable the congrats-animation div
+            congratsAnimation.classList.remove("disabled");
+            congratsAnimation.classList.add("enabled");
+
+            this.updateEndScreenImages(this.levelData.nameId, newStars);
+        }, 500);
+
+
+        // setEndScreenEnabled(true, this.levelData.getLevelEndMessage(this.bikeMemberCount));
+
+        
+
 
         setTimeout(() => {
-        // set replay-button-text
-        let replayButtonText = document.getElementById("replay-button-text");
-        replayButtonText.innerText = "Replay";
+            // set replay-button-text
+            let replayButtonText = document.getElementById("replay-button-text");
+            replayButtonText.innerText = "Replay";
 
-        // set continue-button-text
-        let continueButtonText = document.getElementById("continue-button-text");
-        continueButtonText.innerText = "Continue";
+            // set continue-button-text
+            let continueButtonText = document.getElementById("continue-button-text");
+            continueButtonText.innerText = "Continue";
 
-            // Calculate user stars for the completed level
-            let currentLevel = this.getLevelIndex(); // Get the index of the completed level
-            let bikeMemberCount = this.bikeMemberCount;
-            let lives = playerController.lives;
+            congratsAnimation.classList.remove("enabled");
+            congratsAnimation.classList.add("disabled");
+
+
+            // // Calculate user stars for the completed level
+            // let currentLevel = this.getLevelIndex(); // Get the index of the completed level
+            // let bikeMemberCount = this.bikeMemberCount;
+            // let lives = playerController.lives;
             
-            // if you did better than the last time, update your score
-            let newStars = this.calculateUserStars(currentLevel, bikeMemberCount, lives);
-            let currentStars = this.userStars[`level${currentLevel + 1}`];
-            // check if you just unlocked a new level, beat a level you never beat before
-            if ((currentStars === null || currentStars === 0 ) && newStars > 0){
-                console.log("just beat level: " + currentLevel + " for the first time");
-                this.justBeatLevel = currentLevel + 1;
-            }
+            // // if you did better than the last time, update your score
+            // let newStars = this.calculateUserStars(currentLevel, bikeMemberCount, lives);
+            // let currentStars = this.userStars[`level${currentLevel + 1}`];
+            // // check if you just unlocked a new level, beat a level you never beat before
+            // if ((currentStars === null || currentStars === 0 ) && newStars > 0){
+            //     console.log("just beat level: " + currentLevel + " for the first time");
+            //     this.justBeatLevel = currentLevel + 1;
+            // }
 
-            if (currentStars === null || newStars > currentStars) {
-                this.userStars[`level${currentLevel + 1}`] = newStars;
-            }
-            this.updateEndScreenImages(this.levelData.nameId, newStars);
+            // if (currentStars === null || newStars > currentStars) {
+            //     this.userStars[`level${currentLevel + 1}`] = newStars;
+            // }
+            // this.updateEndScreenImages(this.levelData.nameId, newStars);
 
             setEndScreenEnabled(true, this.levelData.getLevelEndMessage(this.bikeMemberCount));
 
             this.removeLevel();
             document.querySelector('#game-menu-bg').style.opacity = 1;
+            
         }, finalAnimationTimeMS);
     },
     getLevelIndex: function() {
@@ -716,7 +771,9 @@ AFRAME.registerComponent('game-manager', {
             return initialStars;
         }
     },
-
+    getGameState() {
+        return GAME_STATE;
+    },
     calculateUserStars: function(level, bikeMemberCount, lives) {
         console.log("calculateUserStars");
         let curLevel = level + 1;
