@@ -68,10 +68,10 @@ AFRAME.registerComponent('game-manager', {
                     // }, 1000);
 
                     // for debugging if you want to end screen right away
-                    setTimeout(() => {
-                        this.endLevel();
+                    // setTimeout(() => {
+                    //     this.endLevel();
                         
-                    }, 1000);
+                    // }, 1000);
 
 
         setTimeout(() => {
@@ -271,30 +271,85 @@ AFRAME.registerComponent('game-manager', {
             congratsAnimation.classList.remove("enabled");
             congratsAnimation.classList.add("disabled");
 
-
-            // // Calculate user stars for the completed level
-            // let currentLevel = this.getLevelIndex(); // Get the index of the completed level
-            // let bikeMemberCount = this.bikeMemberCount;
-            // let lives = playerController.lives;
-            
-            // // if you did better than the last time, update your score
-            // let newStars = this.calculateUserStars(currentLevel, bikeMemberCount, lives);
-            // let currentStars = this.userStars[`level${currentLevel + 1}`];
-            // // check if you just unlocked a new level, beat a level you never beat before
-            // if ((currentStars === null || currentStars === 0 ) && newStars > 0){
-            //     console.log("just beat level: " + currentLevel + " for the first time");
-            //     this.justBeatLevel = currentLevel + 1;
-            // }
-
-            // if (currentStars === null || newStars > currentStars) {
-            //     this.userStars[`level${currentLevel + 1}`] = newStars;
-            // }
-            // this.updateEndScreenImages(this.levelData.nameId, newStars);
-
             setEndScreenEnabled(true, this.levelData.getLevelEndMessage(this.bikeMemberCount));
 
             this.removeLevel();
             document.querySelector('#game-menu-bg').style.opacity = 1;
+
+            // if you won any new things, then give them to you now:
+            setTimeout(() => {
+                            // log current level
+                console.log("current level: " + currentLevel);
+
+                const handlebarIds = ['handlebar-mini', 'handlebar-raygun', 'handlebar-screws'];
+                // handlebarIds.forEach(id => {
+                //     const element = document.getElementById(id).querySelector('img');
+                //     element.style.borderColor = ""; 
+                //     element.style.borderWidth = ""; 
+                //     element.style.borderStyle = ""; 
+                //     element.style.borderRadius = ""; 
+                //     element.style.filter = "";
+                // });
+
+
+                // for (let i = 0; i < handlebarIds.length; i++) {
+                //     const id = handlebarIds[i];
+                //     const element = document.getElementById(id).querySelector('img');
+                //     // element.style.borderColor = ""; 
+                //     // element.style.borderWidth = ""; 
+                //     element.style.borderStyle = "None"; 
+                //     // element.style.borderRadius = ""; 
+                //     // element.style.filter = "";
+                //         // Ensure class is set
+                //     if (!element.classList.contains('handlebar-class')) {
+                //         element.classList.add('handlebar-class');
+                //     }
+                // }
+
+                    
+
+                let keyElement;
+                // switch case on current level
+                switch (currentLevel) {
+                    case 0:
+                            keyElement = document.getElementById('handlebar-mini').querySelector('img');
+                            keyElement.style.borderStyle = "solid";
+                            keyElement.style.borderColor = "yellow";
+                            keyElement.style.borderWidth = "5px";
+                            keyElement.style.borderStyle = "solid";
+                            keyElement.style.borderRadius = "100px";
+                            keyElement.style.filter = "grayscale(0%)";
+
+                            break;
+                    // case 1:
+                    //         keyElement = document.getElementById('handlebar-raygun').querySelector('img');
+                    //         keyElement.style.borderStyle = "solid";
+
+                    //         break;
+                    // case 3:
+                    //         console.log("level 3 screws getting their color");
+                    //         keyElement = document.getElementById('handlebar-screws').querySelector('img');
+                    //         keyElement.style.borderStyle = "solid";
+
+                    //         break;
+                }
+                        
+                // change the `#handlebar-mini img` from grayscale to color
+                // keyElement.style.borderColor = "yellow";
+                // keyElement.style.borderWidth = "5px";
+                // keyElement.style.borderStyle = "solid";
+                // keyElement.style.borderRadius = "100px";
+                // keyElement.style.filter = "grayscale(0%)";
+
+                this.powerupAudio = document.querySelector('#sparkle-sound');
+                this.powerupAudio.currentTime = 0; // Reset the audio to the start
+                this.powerupAudio.play();
+        
+                }, 300);
+
+
+
+
             
         }, finalAnimationTimeMS);
     },

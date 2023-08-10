@@ -823,6 +823,17 @@ span.social-media-group span.share-whatsapp {
   max-width: 600px;
 }
 
+#level-end-container img {
+  pointer-events: none;
+  user-drag: none;
+  -webkit-user-drag: none;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -webkit-touch-callout:none;
+}
+
 /* media query for smaller screens */
 @media screen and (max-width: 600px) {
   #level-end-container {
@@ -848,6 +859,14 @@ span.social-media-group span.share-whatsapp {
 
 }
 
+.handlebar-class img{
+  width: 100%;
+  border-color: yellow;
+  border-width: 5px;
+  border-radius: 100px;
+  border-style: none;
+  transition: filter 0.6s;
+}
 
 #handlebar-image{
   width: 100%;
@@ -890,6 +909,7 @@ span.social-media-group span.share-whatsapp {
 }
 #handlebar-mini img {
   width: 100%;
+  transition: filter 0.4s;
 }
 
 #handlebar-screws {
@@ -910,4 +930,6 @@ span.social-media-group span.share-whatsapp {
 }
 #handlebar-raygun img {
   width: 100%;
+  transition: opacity 0.4s;
 }
+

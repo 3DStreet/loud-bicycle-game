@@ -298,7 +298,7 @@ export const gameData = {
                         <img src="./assets/loud-mini-onbike.jpg" class="icon" style="float: right; margin: 0 10px 10px 10px;">
                         <h1>Congratulations you won!</h1>
                             <p>
-                            You get a Loud Mini discount <a href="https://loud-bicycle-store.myshopify.com/cart/32290221654067:1,10359316551:1?discount=SUPERSAVERBIKETRAINHERO">Click here to order</a>
+                            You get free Loud Mini security screws in real life <a href="https://loud-bicycle-store.myshopify.com/cart/32290221654067:1,10359316551:1?discount=SUPERSAVERBIKETRAINHERO">Click here to order</a>
                         </p>`
             }
         }
