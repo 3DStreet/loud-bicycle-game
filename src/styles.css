@@ -821,3 +821,32 @@ span.social-media-group span.share-whatsapp {
   margin-right: 5px;
   cursor: pointer;
 }
+
+
+#congrats-animation {
+  transition: opacity 0.4s ease-in-out; /* transitions will take 0.4 seconds */
+  position: absolute;
+  top: 0px;
+  left: 50%;
+  width: 200px;
+  transform: translate(-50%, 50%);
+}
+
+#congrats-animation img {
+  pointer-events: none;
+  user-drag: none;
+  -webkit-user-drag: none;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -webkit-touch-callout:none;
+}
+
+#congrats-animation-stars{
+  position: absolute;
+  top: 110px;
+  left: 50%;
+  width: 200px;
+  transform: translate(-50%, 50%);
+}
