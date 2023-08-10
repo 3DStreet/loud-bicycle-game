@@ -79,10 +79,11 @@ export const gameData = {
             ],
             getLevelEndMessage: function(score) {
                 return `
-                <img src="./assets/loud-mini-onbike.jpg" class="icon" style="float: right; margin: 0 10px 10px 10px;">
-                <h1>You got Loud Mini!</h1>
-                <a href="https://www.loudbicycle.com">Learn more ...</a>
-                <h2>You got ${score} kid(s) safely to school. Good effort.</h2>
+                <img src="./assets/loud-mini-onbike.jpg" class="icon" style="float: right; margin: 0 -10% 10px 10px;">
+                <h1>You won Loud Mini!</h1>
+                It sounds like a car horn. 
+                <a href="https://www.loudbicycle.com" target="_blank">Learn more ...</a>
+                
             `
             }
         },
@@ -160,8 +161,7 @@ export const gameData = {
                 return `
                         <img src="./assets/gun-ray.png" class="icon" style="float: right; margin: 0 10px 10px 10px;">
                         <h1>You got the Loud Ray Gun!</h1>
-                        Turn cars into bicycles, awaiting approval by FDA/FCC. 
-                        <h2>You brought ${score} colleagues safely to work! Good effort!</h2>
+                        Turn cars into bicycles, awaiting approval by FDA/FCC.
                         The one's left behind are probably gonna be fine.
                         `
             }

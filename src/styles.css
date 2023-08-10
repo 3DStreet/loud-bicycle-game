@@ -799,7 +799,9 @@ span.social-media-group span.share-whatsapp {
 
 
 #level-end-image-container{
-  margin-top: -100px;
+  position: relative;
+  top: 30px;
+  width: 130%;;
 }
 
 #level-end-levelId-container{
@@ -872,9 +874,9 @@ span.social-media-group span.share-whatsapp {
 
 #handlebar-bell {
   position: absolute;
-  width: 15%;
-  left: 24%;
-  top: 4%;
+  width: 12%;
+  left: 25%;
+  top: 12%;
 }
 #handlebar-bell img {
   width: 100%;
@@ -884,17 +886,27 @@ span.social-media-group span.share-whatsapp {
   position: absolute;
   width: 20%;
   left: 40%;
-  top: 0%;
+  top: -10%;
 }
 #handlebar-mini img {
   width: 100%;
 }
 
+#handlebar-screws {
+  position: absolute;
+  width: 7%;
+  left: 36%;
+  top: 47%;
+}
+#handlebar-screws img {
+  width: 100%;
+}
+
 #handlebar-raygun {
   position: absolute;
-  width: 15%;
-  right: 24%;
-  top: 4%;
+  width: 14%;
+  right: 25%;
+  top: 12%;
 }
 #handlebar-raygun img {
   width: 100%;
