@@ -716,7 +716,9 @@ AFRAME.registerComponent('game-manager', {
             return initialStars;
         }
     },
-
+    getGameState() {
+        return GAME_STATE;
+    },
     calculateUserStars: function(level, bikeMemberCount, lives) {
         console.log("calculateUserStars");
         let curLevel = level + 1;

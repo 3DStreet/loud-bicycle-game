@@ -270,7 +270,7 @@
 
             <div id="play-button">
               <!-- play button styled like the continue button-->
-              <button id="tutorial-play" class="btn"><span class="text">Play </span> &nbsp <span class="glyphicon">▶</span></button>
+              <button id="tutorial-play" class="btn"><span class="text">Play</span> &nbsp <span class="glyphicon">▶</span></button>
             </div>
             <div id="icon-legend">
               <img src="./assets/instructions/icon-legend.png">
@@ -405,6 +405,8 @@
     let settings = document.querySelector('#settings');
     let levelSelection = document.querySelector('#level-selection');
     let pauseMenu = document.querySelector('#pause-menu');
+    let introModalTimer1 = null;
+    let introModalTimer2 = null;
 
     // Level ids in the same order as userStars object
     const levelIds = ['level-1-button', 'level-2-button', 'level-3-button', 'level-4-button'];
@@ -427,24 +429,24 @@
       clearInterval(quoteInterval);
 
       // highlight the school level with the sparkle sound after 300 ms
-      setTimeout(() => {
-        this.powerupAudio = document.querySelector('#sparkle-sound');
-        this.powerupAudio.currentTime = 0; // Reset the audio to the start
-        this.powerupAudio.play();
-        
-        // do this a split second later
-        setTimeout(() => {
+      introModalTimer1 = setTimeout(() => {
+
+        // only do this if you are not already playing (gamestate 3)
+        if (window.gameManager.getGameState() === 3){
+          this.powerupAudio = document.querySelector('#sparkle-sound');
+          this.powerupAudio.currentTime = 0; // Reset the audio to the start
+          this.powerupAudio.play();
+          
             document.querySelector('#level-1-button').classList.add('highlight');        
           // increase the width of level-1-button
           document.querySelector('#level-1-button').style.width = '30%';
           // move to the left by 3%
           document.querySelector('#level-1-button').style.left = '35%';
           document.querySelector('#level-1-button').classList.add('border-yellow');
-        }, 0);
-
-
+        }
+        
         // move to the intro-modal screen after 3. seconds
-        setTimeout(() => {
+        introModalTimer2 = setTimeout(() => {
           document.querySelector('#intro-modal').classList.remove('disabled');
           document.querySelector('#intro-modal').classList.add('enabled');
 
@@ -468,9 +470,13 @@
           document.querySelector('#level-stars-all').classList.add('enabled');
 
           // raise the horn and shout above the menu for the first bit
-          document.querySelector('#horn').style.zIndex = 11;
-          document.querySelector('#shout').style.zIndex = 11;
-          document.querySelector('#meta-title-container').style.zIndex = 11;
+          // but if you are already playing, don't do this
+          console.log("gamestate: " + window.gameManager.getGameState())
+          if (window.gameManager.getGameState() === 3){
+            document.querySelector('#horn').style.zIndex = 11;
+            document.querySelector('#shout').style.zIndex = 11;
+            document.querySelector('#meta-title-container').style.zIndex = 11;
+          }
           
         }, 3000);
 
@@ -519,6 +525,7 @@
           endScreen.querySelector('#level-end-content').innerHTML = message;
         }
       } else {
+        // bop these guys down, wherever you came from
         endScreen.classList.remove('enabled');
         endScreen.classList.add('disabled');
         levelSelection.classList.add('enabled');
@@ -654,6 +661,15 @@
     }
 
     function setMenuEnabled(b) {
+
+      // clear the introModalTimer
+      console.log("clearing timer");
+      clearTimeout(this.introModalTimer1);
+      clearTimeout(this.introModalTimer2);
+      document.querySelector('#horn').style.zIndex = 9;
+      document.querySelector('#shout').style.zIndex = 9;
+
+
       updateLevelButtons();
       landing.classList.add('disabled');
       if(b) {
