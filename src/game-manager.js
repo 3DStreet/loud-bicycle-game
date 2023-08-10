@@ -67,6 +67,13 @@ AFRAME.registerComponent('game-manager', {
                         
                     // }, 1000);
 
+                    // for debugging if you want to end screen right away
+                    setTimeout(() => {
+                        this.endLevel();
+                        
+                    }, 1000);
+
+
         setTimeout(() => {
             this.interactablePool = document.querySelector('[interactable-pool]').components['interactable-pool'];
             this.smogPool = document.querySelector('[smog-pool]').components['smog-pool'];

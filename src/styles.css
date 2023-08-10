@@ -432,52 +432,6 @@ margin-top: 0.2em;
 }
 
 
-#level-end-container {
-  color: black;
-  background-color: aliceblue;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  width: 80%;
-  border-radius: 10px;
-  gap: 10px;
-  max-width: 600px;
-}
-
-/* media query for smaller screens */
-@media screen and (max-width: 600px) {
-  #level-end-container {
-      width: 95%;
-  }
-
-  #level-end-levelId-container img {
-    top: -10px;
-    width: 150px;
-  }
-  #level-end-star-container img{
-    /* position: relative; */
-    /* margin-top: -50px; */
-    /* margin-bottom: -10px; */
-    width: 150px;
-  }
-}
-
-
-/* media query for smaller screens */
-@media screen and (max-width: 450px) {
-  #level-end-levelId-container img {
-    top: -10px;
-    width: 100px;
-    margin-top: 50px;
-
-  }
-
-  #level-end-star-container img{
-    width: 100px;
-  }
-}
-
 #meta-title-container{
   display: flex;
   position: absolute;
@@ -574,14 +528,6 @@ margin-top: 0.2em;
   margin: 10px;
 }
 
-
-#level-end-image-container{
-  margin-top: -100px;
-}
-
-#level-end-levelId-container{
-  top:-10px;
-}
 #level-end-star-container{
   position: relative;
   margin-top: -50px;
@@ -849,4 +795,101 @@ span.social-media-group span.share-whatsapp {
   left: 50%;
   width: 200px;
   transform: translate(-50%, 50%);
+}
+
+
+#level-end-image-container{
+  margin-top: -100px;
+}
+
+#level-end-levelId-container{
+  top:-10px;
+}
+
+
+
+#level-end-container {
+  color: black;
+  background-color: aliceblue;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 80%;
+  border-radius: 10px;
+  gap: 10px;
+  max-width: 600px;
+}
+
+/* media query for smaller screens */
+@media screen and (max-width: 600px) {
+  #level-end-container {
+      width: 95%;
+  }
+
+  #level-end-levelId-container img {
+    top: -10px;
+    /* width: 150px; */
+  }
+
+}
+
+
+/* media query for smaller screens */
+@media screen and (max-width: 450px) {
+  #level-end-levelId-container img {
+    top: -10px;
+    /* width: 100px; */
+    margin-top: 50px;
+
+  }
+
+}
+
+
+#handlebar-image{
+  width: 100%;
+}
+
+#handelbar-bell-image img{
+  width: 20px;
+}
+
+
+#handlebar-bar {
+  position: absolute;
+  width: 100%;
+  left: 16%;
+  top: 4%;
+}
+
+
+#handlebar-bell {
+  position: absolute;
+  width: 20%;
+  left: 16%;
+  top: 4%;
+}
+#handlebar-bell img {
+  width: 100%;
+}
+
+#handlebar-mini {
+  position: absolute;
+  width: 28%;
+  left: 36%;
+  top: -2%;
+}
+#handlebar-mini img {
+  width: 100%;
+}
+
+#handlebar-raygun {
+  position: absolute;
+  width: 20%;
+  right: 16%;
+  top: 4%;
+}
+#handlebar-raygun img {
+  width: 100%;
 }
