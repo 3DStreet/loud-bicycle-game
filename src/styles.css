@@ -160,7 +160,7 @@ h1, h2{
 }
 #special-meter, #main-meter, #ray-meter {
   position: absolute;
-  bottom: 125px;
+  bottom: 110px;
   width: 110px;
   height: 50px;
   left: 50px;
@@ -355,6 +355,17 @@ margin-top: 0.2em;
   height: auto;
   border: 5px solid #4caf50;
   border-radius: 50%;
+}
+.level-shop {
+  position: absolute;
+  width: 24%; /* Adjust as needed */
+  height: auto;
+  /* border-radius: 50%; */
+  /* border-color: #ff6c36; */
+}
+.level-shop-button {
+  top: 38%;
+  right: 35%;
 }
 
 .level-star {
