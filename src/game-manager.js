@@ -115,6 +115,14 @@ AFRAME.registerComponent('game-manager', {
                     setLevelSelectionEnabled(false)
                 })
             }
+            document.querySelector('#level-5-button').addEventListener('click', () => {
+                // this.generateLevel(3);
+                // this.playLevel();
+                // setMenuEnabled(false);
+                // setLevelSelectionEnabled(false)
+
+                window.open('https://www.loudbicycle.com/horn#buy', '_blank');
+            })
 
             // create the button action for the very first play button.
             const id = `#tutorial-play`;
