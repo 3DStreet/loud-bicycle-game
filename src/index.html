@@ -65,6 +65,7 @@
 
 
     </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   </head>
   <body>
     <a-scene
@@ -777,15 +778,25 @@
     });
 }
   
-window.onload = shareText();
 
-window.addEventListener('resize', checkScreenSize);
-checkScreenSize();  // Also call it once on load
+function isMobileDevice() {
+    return (window.innerWidth <= 600) || 
+           ('ontouchstart' in window) || 
+           (navigator.maxTouchPoints > 0) || 
+           (navigator.msMaxTouchPoints > 0) || 
+           /Mobi|Android/i.test(navigator.userAgent);
+}
+
+window.onload = function() {
+    shareText();
+    checkScreenSize();
+};
 
 function checkScreenSize() {
     const turnInstructions = document.querySelector('#instructions2 img');
     const iconLegend = document.querySelector('#icon-legend img');
-    if (window.innerWidth <= 600) {
+
+    if (isMobileDevice()) {
         // For mobile devices
         turnInstructions.src = './assets/instructions/turn-swipe.gif';
         iconLegend.src = './assets/instructions/icon-legend.png';
@@ -796,9 +807,9 @@ function checkScreenSize() {
     }
 }
 
-// function openLink() {
-//         window.open('https://www.loudbicycle.com/horn#buy', '_blank');
-//     }
+window.addEventListener('resize', checkScreenSize);
+
+
 
 
   </script>
