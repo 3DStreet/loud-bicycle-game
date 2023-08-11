@@ -68,10 +68,11 @@ AFRAME.registerComponent('game-manager', {
                     // }, 1000);
 
                     // for debugging if you want to end screen right away
-                    setTimeout(() => {
-                        this.endLevel();
+                    // setTimeout(() => {
+                    //     this.endLevel();
                         
-                    }, 1000);
+                    // }, 1000);
+
 
 
         setTimeout(() => {
@@ -272,29 +273,51 @@ AFRAME.registerComponent('game-manager', {
             congratsAnimation.classList.add("disabled");
 
 
-            // // Calculate user stars for the completed level
-            // let currentLevel = this.getLevelIndex(); // Get the index of the completed level
-            // let bikeMemberCount = this.bikeMemberCount;
-            // let lives = playerController.lives;
-            
-            // // if you did better than the last time, update your score
-            // let newStars = this.calculateUserStars(currentLevel, bikeMemberCount, lives);
-            // let currentStars = this.userStars[`level${currentLevel + 1}`];
-            // // check if you just unlocked a new level, beat a level you never beat before
-            // if ((currentStars === null || currentStars === 0 ) && newStars > 0){
-            //     console.log("just beat level: " + currentLevel + " for the first time");
-            //     this.justBeatLevel = currentLevel + 1;
-            // }
-
-            // if (currentStars === null || newStars > currentStars) {
-            //     this.userStars[`level${currentLevel + 1}`] = newStars;
-            // }
-            // this.updateEndScreenImages(this.levelData.nameId, newStars);
-
             setEndScreenEnabled(true, this.levelData.getLevelEndMessage(this.bikeMemberCount));
 
             this.removeLevel();
             document.querySelector('#game-menu-bg').style.opacity = 1;
+
+
+            // if you won any new things, then give them to you now:
+            setTimeout(() => {
+                            // log current level
+                console.log("current level: " + currentLevel);
+
+                const handlebarIds = ['handlebar-mini', 'handlebar-raygun', 'handlebar-screws'];
+                handlebarIds.forEach(id => {
+                    const element = document.getElementById(id).querySelector('img');
+                    element.classList.remove('handlebar-highlighted');
+                });
+
+                let keyElement = null;
+
+                // switch case on current level
+                switch (currentLevel) {
+                    case 0:
+                            keyElement = document.getElementById('handlebar-mini').querySelector('img');
+                            break;
+                    case 1:
+                            keyElement = document.getElementById('handlebar-raygun').querySelector('img');
+                            break;
+                    case 3:
+                            keyElement = document.getElementById('handlebar-screws').querySelector('img');
+                            break;
+                }
+
+                if (keyElement != null ){
+                    keyElement.classList.remove('handlebar-disabled');
+                    keyElement.classList.add('handlebar-enabled');
+                    keyElement.classList.add('handlebar-highlighted');
+                    this.powerupAudio = document.querySelector('#sparkle-sound');
+                    this.powerupAudio.currentTime = 0; // Reset the audio to the start
+                    this.powerupAudio.play();
+                }
+
+                        
+        
+                }, 300);
+
             
         }, finalAnimationTimeMS);
     },

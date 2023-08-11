@@ -79,10 +79,11 @@ export const gameData = {
             ],
             getLevelEndMessage: function(score) {
                 return `
-                <img src="./assets/loud-mini-onbike.jpg" class="icon" style="float: right; margin: 0 10px 10px 10px;">
-                <h1>You got Loud Mini!</h1>
-                <a href="https://www.loudbicycle.com">Learn more ...</a>
-                <h2>You got ${score} kid(s) safely to school. Good effort.</h2>
+                <img src="./assets/loud-mini-onbike.jpg" class="icon" style="float: right; margin: 0 -10% 10px 10px;">
+                <h1>You won Loud Mini!</h1>
+                It sounds like a car horn. 
+                <a href="https://www.loudbicycle.com" target="_blank">Learn more ...</a>
+                
             `
             }
         },
@@ -158,11 +159,8 @@ export const gameData = {
             ],
             getLevelEndMessage: function(score) {
                 return `
-                        <img src="./assets/gun-ray.png" class="icon" style="float: right; margin: 0 10px 10px 10px;">
-                        <h1>You got the Loud Ray Gun!</h1>
-                        Turn cars into bicycles, awaiting approval by FDA/FCC. 
-                        <h2>You brought ${score} colleagues safely to work! Good effort!</h2>
-                        The one's left behind are probably gonna be fine.
+                        <h1>You got the Ray Gun!</h1>
+                        Turn cars into bicycles, awaiting approval by FDA/FCC.
                         `
             }
         },
@@ -226,12 +224,10 @@ export const gameData = {
                 'https://cdn.glitch.global/4cbfc52c-9f40-485c-b7ff-e3ed0494f9a0/intersection.jpeg?v=1650059985944'
             ],
             getLevelEndMessage: function() {
-                return `<h1>Great job you got to the bar!</h1>
-                            <p>You don't need a raygun to vote for safer streets and walkable neighborhoods.
-                            <a href="https://www.loudbicycle.com">www.loudbicycle.com</a></p>
-                            <p>Beat the next (last) level to get a coupon for free securty screws.</p>
-                            <h2>You were in their blind spot</h2>
-                            It's a good idea to give the blind people driving extra space to careen.`
+                return `<h1>You got to the bar!</h1>
+                            <img src="./assets/security-screws.png" class="icon" style="float: right; margin: 0 10px 10px 10px;">
+                            <p>Don't need no raygun to vote for safer streets and walkable neighborhoods.
+                            <p>Beat Level-4 to get a coupon for free securty screws.</p>`
             }
         },
         {
@@ -298,7 +294,7 @@ export const gameData = {
                         <img src="./assets/loud-mini-onbike.jpg" class="icon" style="float: right; margin: 0 10px 10px 10px;">
                         <h1>Congratulations you won!</h1>
                             <p>
-                            You get a Loud Mini discount <a href="https://loud-bicycle-store.myshopify.com/cart/32290221654067:1,10359316551:1?discount=SUPERSAVERBIKETRAINHERO">Click here to order</a>
+                            You get free Loud Mini security screws in real life <a href="https://loud-bicycle-store.myshopify.com/cart/32290221654067:1,10359316551:1?discount=SUPERSAVERBIKETRAINHERO">Click here to order</a>
                         </p>`
             }
         }

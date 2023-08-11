@@ -678,7 +678,6 @@ margin-top: 0.2em;
   margin: auto;
 }
 
-
 #h1 {
   font-family: Oswald,Helvetica;
 }
@@ -799,7 +798,9 @@ span.social-media-group span.share-whatsapp {
 
 
 #level-end-image-container{
-  margin-top: -100px;
+  position: relative;
+  top: 30px;
+  width: 130%;;
 }
 
 #level-end-levelId-container{
@@ -819,6 +820,17 @@ span.social-media-group span.share-whatsapp {
   border-radius: 10px;
   gap: 10px;
   max-width: 600px;
+}
+
+#level-end-container img {
+  pointer-events: none;
+  user-drag: none;
+  -webkit-user-drag: none;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -webkit-touch-callout:none;
 }
 
 /* media query for smaller screens */
@@ -846,29 +858,46 @@ span.social-media-group span.share-whatsapp {
 
 }
 
+.handlebar-highlighted {
+  border-color: yellow;
+  border-width: 5px;
+  border-radius: 100px;
+  border-style: solid;
+  /* transition: filter 0.6s; */
+}
+
+.handlebar-disabled {
+  filter: grayscale(100%) brightness(0.4);
+}
+
+.handlebar-enabled {
+  filter: none11;
+}
 
 #handlebar-image{
   width: 100%;
-}
-
-#handelbar-bell-image img{
-  width: 20px;
 }
 
 
 #handlebar-bar {
   position: absolute;
   width: 100%;
-  left: 16%;
+  left: 0%;
   top: 4%;
 }
+
+#handlebar-bar img {
+  width: 100%;
+}
+
+/* #handlebar-bar { */
 
 
 #handlebar-bell {
   position: absolute;
-  width: 20%;
-  left: 16%;
-  top: 4%;
+  width: 12%;
+  left: 25%;
+  top: 12%;
 }
 #handlebar-bell img {
   width: 100%;
@@ -876,20 +905,32 @@ span.social-media-group span.share-whatsapp {
 
 #handlebar-mini {
   position: absolute;
-  width: 28%;
-  left: 36%;
-  top: -2%;
+  width: 20%;
+  left: 40%;
+  top: -10%;
 }
 #handlebar-mini img {
+  width: 100%;
+  transition: filter 0.4s;
+}
+
+#handlebar-screws {
+  position: absolute;
+  width: 7%;
+  left: 36%;
+  top: 47%;
+}
+#handlebar-screws img {
   width: 100%;
 }
 
 #handlebar-raygun {
   position: absolute;
-  width: 20%;
-  right: 16%;
-  top: 4%;
+  width: 14%;
+  right: 25%;
+  top: 12%;
 }
 #handlebar-raygun img {
   width: 100%;
+  transition: opacity 0.4s;
 }
