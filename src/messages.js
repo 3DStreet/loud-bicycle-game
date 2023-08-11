@@ -2,26 +2,26 @@
 const loseMessages = [
     { 
         header: "You came out of nowhere!",
-        content: ". Next time try sticking to this ethereal plane."
+        content: ". Next time stay completely outside the multiverse."
       },
       {
-        header: "They said they had the right of way",
+        header: "I had the right of way",
         content: ", next time steer clear of their royal highness, the baby princess of the parkway."
       },
       {
-        header: "You were in their blind spot",
+        header: "You were in my blind spot",
         content: ". Please next time provide your psychic premonition hotline for the blind people driving."
       },
       {
-        header: "You were in their blind spot",
+        header: "You were in my blind spot",
         content: ", remember it's a good idea to give the blind people driving extra space to careen."
       },
       {
-        header: "They couldn't see you",
+        header: "I couldn't see you",
         content: ". Before getting going next time, remember to stow away your invisibility cloak."
       },
       {
-        header: "They couldn't see you coming",
+        header: "I couldn't see you coming",
         content: ", next time remember to wear your suit of sparkling laser disco balls."
       },
       {
@@ -29,24 +29,24 @@ const loseMessages = [
         content: ", next time please ride on the sidewalk, cars will use the bike lane and Medium M4 Sherman Tanks will use the road."
       },
       {
-        header: "They said the sun was in their eyes",
-        content: ". Next time hold off on riding until there is a solar eclipse and it reaches totality."
+        header: "The sun was in my eyes",
+        content: ". Next time don't ride until there is a solar eclipse and it reaches totality."
       },
       {
-        header: "They were on their phone",
-        content: ". Next time they get too close try sending a relatable tick tock."
+        header: "I was on TickTock",
+        content: ". Next time they get close try sending a relatable TickTock."
       },
       {
-        header: "They didn't expect a person to be biking",
-        content: ", next time try sending a memo to every person driving 24 hours before your next ride."
+        header: "I didn't expect a person to be biking",
+        content: ", try sending a memo to every person driving 24 hours before your next ride."
       },
       {
-        header: "They just didn't see you",
+        header: "I just didn't see you",
         content: ". But no big deal, next time try glowing radioactively."
       },
       {
-        header: "If you want to be treated like a car",
-        content: " .... well you sometimes have to get smashed like a car too."
+        header: "If you want to be treated like a car ...",
+        content: " .... well you have to get into car crashes too."
       },
   ];
   
