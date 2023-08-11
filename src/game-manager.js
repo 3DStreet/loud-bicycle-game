@@ -760,7 +760,7 @@ AFRAME.registerComponent('game-manager', {
         this.timerSubtitle = setTimeout(() => {
             // Stop the blinking after blinkDuration milliseconds
             this.timerTitle = setTimeout(() => {
-                console.log("setting to non");
+                // console.log("setting to non");
                 document.querySelector('#meta-title-container').style.display = 'none';
             }, 7000);
         document.querySelector('#subtitle').style.display = 'flex';

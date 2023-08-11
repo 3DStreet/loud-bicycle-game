@@ -27,6 +27,12 @@ AFRAME.registerComponent('bike-train-member', {
         let x = Math.sign((amountBikeTrainMembers % 2) - 0.5) * 0.5;
         let z = Math.floor(amountBikeTrainMembers / 2) * 2.2 + 1.5;
 
+        // play the powerup sound if you got someone
+        this.powerupAudio = document.querySelector('#powerup-sound');
+        this.powerupAudio.currentTime = 0;
+        this.powerupAudio.volume = 1.0;
+        this.powerupAudio.play();
+
         playerController.el.object3D.attach(this.el.object3D)
         this.el.object3D.position.set(x, 0, z)
         this.el.object3D.rotation.set(0, Math.PI, 0)

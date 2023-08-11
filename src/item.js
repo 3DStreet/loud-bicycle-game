@@ -41,6 +41,7 @@ AFRAME.registerComponent('item', {
             playerController.addLife();
         }
         this.powerupAudio = document.querySelector('#powerup-sound');
+        this.powerupAudio.currentTime = 0;
         this.powerupAudio.volume = 1.0;
         this.powerupAudio.play();
 
