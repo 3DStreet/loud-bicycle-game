@@ -74,6 +74,7 @@ AFRAME.registerComponent('game-manager', {
                     // }, 1000);
 
 
+
         setTimeout(() => {
             this.interactablePool = document.querySelector('[interactable-pool]').components['interactable-pool'];
             this.smogPool = document.querySelector('[smog-pool]').components['smog-pool'];
@@ -271,10 +272,12 @@ AFRAME.registerComponent('game-manager', {
             congratsAnimation.classList.remove("enabled");
             congratsAnimation.classList.add("disabled");
 
+
             setEndScreenEnabled(true, this.levelData.getLevelEndMessage(this.bikeMemberCount));
 
             this.removeLevel();
             document.querySelector('#game-menu-bg').style.opacity = 1;
+
 
             // if you won any new things, then give them to you now:
             setTimeout(() => {
@@ -314,9 +317,6 @@ AFRAME.registerComponent('game-manager', {
                         
         
                 }, 300);
-
-
-
 
             
         }, finalAnimationTimeMS);

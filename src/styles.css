@@ -678,7 +678,6 @@ margin-top: 0.2em;
   margin: auto;
 }
 
-
 #h1 {
   font-family: Oswald,Helvetica;
 }
@@ -879,10 +878,6 @@ span.social-media-group span.share-whatsapp {
   width: 100%;
 }
 
-/* #handelbar-bell-image img{
-  width: 20px;
-} */
-
 
 #handlebar-bar {
   position: absolute;
@@ -939,4 +934,3 @@ span.social-media-group span.share-whatsapp {
   width: 100%;
   transition: opacity 0.4s;
 }
-
