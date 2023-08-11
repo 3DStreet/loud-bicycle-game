@@ -284,6 +284,8 @@ AFRAME.registerComponent('game-manager', {
                             // log current level
                 console.log("current level: " + currentLevel);
 
+                // remove highlights
+                // this.removeHighlights();
                 const handlebarIds = ['handlebar-mini', 'handlebar-raygun', 'handlebar-screws'];
                 handlebarIds.forEach(id => {
                     const element = document.getElementById(id).querySelector('img');
@@ -320,6 +322,14 @@ AFRAME.registerComponent('game-manager', {
 
             
         }, finalAnimationTimeMS);
+    },
+    // this function isn't used because for some reason it didn't work when encapsulated in a function
+    removeHighlights: function() {
+        const handlebarIds = ['handlebar-mini', 'handlebar-raygun', 'handlebar-screws'];
+        handlebarIds.forEach(id => {
+            const element = document.getElementById(id).querySelector('img');
+            element.classList.remove('handlebar-highlighted');
+        });
     },
     getLevelIndex: function() {
         // Find the index of the completed level in the gameData.levels array
@@ -368,6 +378,13 @@ AFRAME.registerComponent('game-manager', {
     },
     // when you lose the game
     failLevel: function() {
+        // remove highlights
+        const handlebarIds = ['handlebar-mini', 'handlebar-raygun', 'handlebar-screws'];
+        handlebarIds.forEach(id => {
+            const element = document.getElementById(id).querySelector('img');
+            element.classList.remove('handlebar-highlighted');
+        });
+
         this.stopLevel(true);
         this.clearTitleTimers();
         console.log("failLevel");

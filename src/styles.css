@@ -160,7 +160,7 @@ h1, h2{
 }
 #special-meter, #main-meter, #ray-meter {
   position: absolute;
-  bottom: 125px;
+  bottom: 110px;
   width: 110px;
   height: 50px;
   left: 50px;
