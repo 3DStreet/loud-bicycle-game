@@ -27,6 +27,7 @@ AFRAME.registerComponent('noise-meter', {
     init: function() {
         this.meter = 100;
         this.lastTickUpdate = 0;
+        this.tickCounter = 0;
         this.threshhold = this.data.clickerId === 'ray' ? BROKEN_REACTIVATE_THRESHHOLD_RAY : BROKEN_REACTIVATE_THRESHHOLD;
         this.tempVec = new THREE.Vector3();
 
@@ -39,9 +40,12 @@ AFRAME.registerComponent('noise-meter', {
         }
     },
     tick: function(_t, dt) {
+        this.tickCounter++;
         // if (GAME_STATE === GAME_STATES.PLAYING && this.noiseIndicator) {
         if (this.noiseIndicator) {
-            this.clickerEl.style.transform = `rotate(${this.meter - 100}deg)`;
+            if (this.tickCounter % 5 === 0) {
+                this.clickerEl.style.transform = `rotate(${this.meter - 100}deg)`;
+            }
             if(!this.displaying || this.broken) {
                 let increase = (dt * METER_INTERVAL_INCREASE)/METER_INTERVAL_MS;
                 // make it recharge more slowly if the ray meter is on
