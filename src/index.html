@@ -377,7 +377,7 @@
 
 
           <!-- <img id="level-shop-button" class="level-shop disabled" src="assets/levels/shop.png" alt="Loud Shop"> -->
-          <img id="level-shop-button" class="level-shop disabled" src="assets/levels/shop.png" alt="Loud Shop" style="cursor: pointer;" onclick="openLink()">
+          <img id="level-5-button" class="level-button level-5-button-class disabled" src="assets/levels/shop.png" alt="Loud Shop" style="border: none; border-radius: 0px">
           
           <div id="level-stars-all" class="disabled">
           <img id="level-1-stars" class="level-star" src="assets/levels/0-stars.png">
@@ -508,8 +508,8 @@
           document.querySelector('#level-stars-all').classList.add('enabled');
 
           // set to enabled
-          document.querySelector('#level-shop-button').classList.remove('disabled');
-          document.querySelector('#level-shop-button').classList.add('enabled');
+          document.querySelector('#level-5-button').classList.remove('disabled');
+          // document.querySelector('#level-shop-button').classList.add('enabled');
 
           // raise the horn and shout above the menu for the first bit
           // but if you are already playing, don't do this
@@ -795,9 +795,9 @@ function checkScreenSize() {
     }
 }
 
-function openLink() {
-        window.open('https://www.loudbicycle.com/horn#buy', '_blank');
-    }
+// function openLink() {
+//         window.open('https://www.loudbicycle.com/horn#buy', '_blank');
+//     }
 
 
   </script>
