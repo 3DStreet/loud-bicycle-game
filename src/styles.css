@@ -859,13 +859,20 @@ span.social-media-group span.share-whatsapp {
 
 }
 
-.handlebar-class img{
-  width: 100%;
+.handlebar-highlighted {
   border-color: yellow;
   border-width: 5px;
   border-radius: 100px;
-  border-style: none;
-  transition: filter 0.6s;
+  border-style: solid;
+  /* transition: filter 0.6s; */
+}
+
+.handlebar-disabled {
+  filter: grayscale(100%) brightness(0.4);
+}
+
+.handlebar-enabled {
+  filter: none11;
 }
 
 #handlebar-image{

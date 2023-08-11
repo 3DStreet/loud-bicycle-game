@@ -159,10 +159,8 @@ export const gameData = {
             ],
             getLevelEndMessage: function(score) {
                 return `
-                        <img src="./assets/gun-ray.png" class="icon" style="float: right; margin: 0 10px 10px 10px;">
-                        <h1>You got the Loud Ray Gun!</h1>
+                        <h1>You got the Ray Gun!</h1>
                         Turn cars into bicycles, awaiting approval by FDA/FCC.
-                        The one's left behind are probably gonna be fine.
                         `
             }
         },
@@ -226,12 +224,10 @@ export const gameData = {
                 'https://cdn.glitch.global/4cbfc52c-9f40-485c-b7ff-e3ed0494f9a0/intersection.jpeg?v=1650059985944'
             ],
             getLevelEndMessage: function() {
-                return `<h1>Great job you got to the bar!</h1>
-                            <p>You don't need a raygun to vote for safer streets and walkable neighborhoods.
-                            <a href="https://www.loudbicycle.com">www.loudbicycle.com</a></p>
-                            <p>Beat the next (last) level to get a coupon for free securty screws.</p>
-                            <h2>You were in their blind spot</h2>
-                            It's a good idea to give the blind people driving extra space to careen.`
+                return `<h1>You got to the bar!</h1>
+                            <img src="./assets/security-screws.png" class="icon" style="float: right; margin: 0 10px 10px 10px;">
+                            <p>Don't need no raygun to vote for safer streets and walkable neighborhoods.
+                            <p>Beat Level-4 to get a coupon for free securty screws.</p>`
             }
         },
         {

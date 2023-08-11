@@ -282,68 +282,36 @@ AFRAME.registerComponent('game-manager', {
                 console.log("current level: " + currentLevel);
 
                 const handlebarIds = ['handlebar-mini', 'handlebar-raygun', 'handlebar-screws'];
-                // handlebarIds.forEach(id => {
-                //     const element = document.getElementById(id).querySelector('img');
-                //     element.style.borderColor = ""; 
-                //     element.style.borderWidth = ""; 
-                //     element.style.borderStyle = ""; 
-                //     element.style.borderRadius = ""; 
-                //     element.style.filter = "";
-                // });
+                handlebarIds.forEach(id => {
+                    const element = document.getElementById(id).querySelector('img');
+                    element.classList.remove('handlebar-highlighted');
+                });
 
+                let keyElement = null;
 
-                // for (let i = 0; i < handlebarIds.length; i++) {
-                //     const id = handlebarIds[i];
-                //     const element = document.getElementById(id).querySelector('img');
-                //     // element.style.borderColor = ""; 
-                //     // element.style.borderWidth = ""; 
-                //     element.style.borderStyle = "None"; 
-                //     // element.style.borderRadius = ""; 
-                //     // element.style.filter = "";
-                //         // Ensure class is set
-                //     if (!element.classList.contains('handlebar-class')) {
-                //         element.classList.add('handlebar-class');
-                //     }
-                // }
-
-                    
-
-                let keyElement;
                 // switch case on current level
                 switch (currentLevel) {
                     case 0:
                             keyElement = document.getElementById('handlebar-mini').querySelector('img');
-                            keyElement.style.borderStyle = "solid";
-                            keyElement.style.borderColor = "yellow";
-                            keyElement.style.borderWidth = "5px";
-                            keyElement.style.borderStyle = "solid";
-                            keyElement.style.borderRadius = "100px";
-                            keyElement.style.filter = "grayscale(0%)";
-
                             break;
-                    // case 1:
-                    //         keyElement = document.getElementById('handlebar-raygun').querySelector('img');
-                    //         keyElement.style.borderStyle = "solid";
-
-                    //         break;
-                    // case 3:
-                    //         console.log("level 3 screws getting their color");
-                    //         keyElement = document.getElementById('handlebar-screws').querySelector('img');
-                    //         keyElement.style.borderStyle = "solid";
-
-                    //         break;
+                    case 1:
+                            keyElement = document.getElementById('handlebar-raygun').querySelector('img');
+                            break;
+                    case 3:
+                            keyElement = document.getElementById('handlebar-screws').querySelector('img');
+                            break;
                 }
-                        
-                // change the `#handlebar-mini img` from grayscale to color
-                // keyElement.style.borderColor = "yellow";
-                // keyElement.style.borderWidth = "5px";
-                // keyElement.style.borderStyle = "solid";
-                // keyElement.style.borderRadius = "100px";
-                // keyElement.style.filter = "grayscale(0%)";
 
-                this.powerupAudio = document.querySelector('#sparkle-sound');
-                this.powerupAudio.currentTime = 0; // Reset the audio to the start
-                this.powerupAudio.play();
+                if (keyElement != null ){
+                    keyElement.classList.remove('handlebar-disabled');
+                    keyElement.classList.add('handlebar-enabled');
+                    keyElement.classList.add('handlebar-highlighted');
+                    this.powerupAudio = document.querySelector('#sparkle-sound');
+                    this.powerupAudio.currentTime = 0; // Reset the audio to the start
+                    this.powerupAudio.play();
+                }
+
+                        
         
                 }, 300);
 
