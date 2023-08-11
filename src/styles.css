@@ -356,6 +356,17 @@ margin-top: 0.2em;
   border: 5px solid #4caf50;
   border-radius: 50%;
 }
+.level-shop {
+  position: absolute;
+  width: 24%; /* Adjust as needed */
+  height: auto;
+  /* border-radius: 50%; */
+  /* border-color: #ff6c36; */
+}
+.level-shop-button {
+  top: 38%;
+  right: 35%;
+}
 
 .level-star {
   position: absolute;
