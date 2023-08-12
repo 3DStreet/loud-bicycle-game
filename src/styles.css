@@ -560,6 +560,11 @@ margin-top: 0.2em;
     text-decoration: underline; /* adds the underline back when hovering or active */
 }
 
+.gone {
+  display: none !important;
+  pointer-events: none !important;
+  opacity: 0;
+}
 
 .horizontal-buttons {
   display: flex;
@@ -806,8 +811,19 @@ span.social-media-group span.share-whatsapp {
   width: 130%;;
 }
 
-#level-end-levelId-container{
-  top:-10px;
+
+
+
+#level-end-image-container-fail{
+  position: relative;
+  top: -8%;
+  width: 90%;
+}
+#level-end-image-container-fail img{
+  position: relative;
+  top: 30px;
+  width: 100%;
+  border-radius: 50px;
 }
 
 
