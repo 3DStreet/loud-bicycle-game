@@ -50,6 +50,7 @@ AFRAME.registerComponent('game-manager', {
         this.loseSoundEl = document.querySelector('#game-over');
         this.currentAvatarIndex = -1;
         this.currentShoutIndex = 0;
+        this.lastKillVehicle = null;
 
         // Add timer properties
         this.timerTitle = null;
@@ -397,7 +398,7 @@ AFRAME.registerComponent('game-manager', {
         this.clearTitleTimers();
         console.log("failLevel");
         console.log("hitCounter: " + playerController.hitCounter);
-        setEndScreenEnabled(true, getRandomMessage('fail', playerController.hitCounter));
+        setEndScreenEnabled(true, getRandomMessage('fail', playerController.hitCounter, this.lastKillVehicle));
         this.loseSoundEl.play();
         // <img class="level-end-images" src="./assets/loud_mini.png">                                        
                                 
@@ -850,7 +851,21 @@ AFRAME.registerComponent('game-manager', {
     
         return stars;
     },
-    
+    setLastKillVehicle: function(vehicleType) {
+        const vehicleMap = {
+            'rightHook': 'Taxi',
+            'leftCross': 'Unknown', // I see you left this blank, ensure you fill it in if needed
+            'rightCross': 'Truck',
+            'side': 'BMW',
+            'driveway': 'SUV'
+        };
+
+        if(vehicleMap.hasOwnProperty(vehicleType)) {
+            this.lastKillVehicle = vehicleMap[vehicleType];
+        } else {
+            this.lastKillVehicle = 'Unknown';
+        }
+    },
 
     tick: function(t, dt) {
         if(GAME_STATE === GAME_STATES.PLAYING && this.getLevelPosition() > this.levelData.endDistance) {

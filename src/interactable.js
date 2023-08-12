@@ -98,6 +98,9 @@ AFRAME.registerComponent('interactable', {
             }, time);
         } else {
             this.isHit = true;
+            gameManager.setLastKillVehicle(this.data.type);
+            // log the type
+            console.log('hit',  this.data.type);
             this.sound.playSound();
         }
     },

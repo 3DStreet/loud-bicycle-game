@@ -2,7 +2,7 @@
 const loseMessages = [
     { 
         header: "You came out of nowhere!",
-        content: ". Next time stay completely outside the multiverse."
+        content: ". Next time stay in this universe, no straying in and out of the multiverse."
       },
       {
         header: "I had the right of way",
@@ -18,11 +18,11 @@ const loseMessages = [
       },
       {
         header: "I couldn't see you",
-        content: ". Before getting going next time, remember to stow away your invisibility cloak."
+        content: ". Next time don't use your invisibility cloak."
       },
       {
         header: "I couldn't see you coming",
-        content: ", next time remember to wear your suit of sparkling laser disco balls."
+        content: ", next time wear your suit of sparkling laser disco balls."
       },
       {
         header: "Why weren't you on the sidewalk",
@@ -34,7 +34,7 @@ const loseMessages = [
       },
       {
         header: "I was on TickTock",
-        content: ". Next time they get close try sending a relatable TickTock."
+        content: ". Next time send a relatable TickTock to the people crashing into you."
       },
       {
         header: "I didn't expect a person to be biking",
@@ -42,25 +42,18 @@ const loseMessages = [
       },
       {
         header: "I just didn't see you",
-        content: ". But no big deal, next time try glowing radioactively."
+        content: ". You should really wear your suit of sparkling laser disco balls every single day."
       },
       {
         header: "If you want to be treated like a car ...",
         content: " .... well you have to get into car crashes too."
       },
+      {
+        header: "Were you wearing a helmet?",
+        content: " but not to worry, because you were wearing a helmet everything is totally fine."
+      },
   ];
   
-const runOverMessages = [
-    {
-        content: "Don't be mad - they said they didn't see you.",
-        content: "Good thing you were wearing a helmet",
-        content: "Lucky thing you were wearing a helmet",
-        content: "Imagine if you weren't wearing a helmet",
-        content: "They weren't texting, they were checking if they had a text.",
-    }
-];
-
-
 const winMessages = [
     { 
       header: "Win Message 1",
@@ -88,7 +81,7 @@ const advertisements = [
 
   
 // Function to select and format a random message
-export function getRandomMessage(messageType, hitCounter, numKids, numFriends) {
+export function getRandomMessage(messageType, hitCounter, killVehicle) {
     let messages;
 
     // Determine which message array to use based on messageType
@@ -114,12 +107,7 @@ export function getRandomMessage(messageType, hitCounter, numKids, numFriends) {
     
     
     // add you were run over hitCounter times to curMessage
-    if (hitCounter > 0) {
-        curMessage = `${selectedMessage.header ? `<h1>"${selectedMessage.header}" – Mr. Car</h1>` : ''}You've been run over ${hitCounter} times${selectedMessage.content}`;
-    }
-    else {
-        curMessage = `${selectedMessage.header ? `<h1>"${selectedMessage.header}"</h1>` : ''}${selectedMessage.content}`;
-    }
+    curMessage = `<h1>"${selectedMessage.header}" – Mr. ${killVehicle}</h1> You've been run over ${hitCounter} times${selectedMessage.content}`;
 
     return curMessage;
 
