@@ -247,8 +247,11 @@ AFRAME.registerComponent('game-manager', {
 
         // set level-end-image-container to be enabled
         let levelEndImageContainer = document.getElementById("level-end-image-container");
-        levelEndImageContainer.classList.remove("disabled");
-        levelEndImageContainer.classList.add("enabled");
+        levelEndImageContainer.classList.remove("gone");
+
+        let levelEndImageContainerFail = document.getElementById("level-end-image-container-fail");
+        levelEndImageContainerFail.classList.add("gone");        
+
         // update z-index to 13
         // levelEndImageContainer.style.zIndex = 13;
 
@@ -294,7 +297,6 @@ AFRAME.registerComponent('game-manager', {
                 console.log("current level: " + currentLevel);
 
                 // remove highlights
-                // this.removeHighlights();
                 const handlebarIds = ['handlebar-mini', 'handlebar-raygun', 'handlebar-screws'];
                 handlebarIds.forEach(id => {
                     const element = document.getElementById(id).querySelector('img');
@@ -331,14 +333,6 @@ AFRAME.registerComponent('game-manager', {
 
             
         }, finalAnimationTimeMS);
-    },
-    // this function isn't used because for some reason it didn't work when encapsulated in a function
-    removeHighlights: function() {
-        const handlebarIds = ['handlebar-mini', 'handlebar-raygun', 'handlebar-screws'];
-        handlebarIds.forEach(id => {
-            const element = document.getElementById(id).querySelector('img');
-            element.classList.remove('handlebar-highlighted');
-        });
     },
     getLevelIndex: function() {
         // Find the index of the completed level in the gameData.levels array
@@ -387,18 +381,23 @@ AFRAME.registerComponent('game-manager', {
     },
     // when you lose the game
     failLevel: function() {
-        // remove highlights
-        const handlebarIds = ['handlebar-mini', 'handlebar-raygun', 'handlebar-screws'];
-        handlebarIds.forEach(id => {
-            const element = document.getElementById(id).querySelector('img');
-            element.classList.remove('handlebar-highlighted');
-        });
+
+        // disable the level-end-image-container div
+        let levelEndImageContainer = document.getElementById("level-end-image-container");
+        levelEndImageContainer.classList.add("gone");
+        let levelEndImageContainerFail = document.getElementById("level-end-image-container-fail");
+        levelEndImageContainerFail.classList.remove("gone");
 
         this.stopLevel(true);
         this.clearTitleTimers();
         console.log("failLevel");
         console.log("hitCounter: " + playerController.hitCounter);
         setEndScreenEnabled(true, getRandomMessage('fail', playerController.hitCounter, this.lastKillVehicle));
+
+        //change the fail image to the vehicle:
+        let levelImageFail = document.getElementById("level-end-image-fail-image");
+        levelImageFail.src = `./assets/screenshots/${this.lastKillVehicle}.jpg`;
+
         this.loseSoundEl.play();
         // <img class="level-end-images" src="./assets/loud_mini.png">                                        
                                 
