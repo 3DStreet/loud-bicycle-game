@@ -15,11 +15,14 @@ error_reporting(E_ALL);
 
 // Map of random identifiers to image filenames and descriptions
 $validImages = array(
-    'x1abc' => array('filename' => 'BMW.jpg', 'description' => 'I had a close call with a BMW.', 'width' => 500, 'height' => 339),
-    'y2def' => array('filename' => 'SUV.jpg', 'description' => 'An SUV nearly hit me.', 'width' => 500, 'height' => 339),
-    'z3ghi' => array('filename' => 'Taxi.jpg', 'description' => 'I was run over by a taxi.', 'width' => 500, 'height' => 339),
-    'a4jkl' => array('filename' => 'Truck.jpg', 'description' => 'A truck forced me off the road.', 'width' => 500, 'height' => 339),
-    'b5mno' => array('filename' => 'Unknown.jpg', 'description' => 'A vehicle, I couldn’t identify, scared me.', 'width' => 500, 'height' => 339)
+    'x1abc' => array('filename' => 'bmw.jpg', 'description' => 'Can you avoid all the BMWs in the Loud Bicycle game?', 'width' => 500, 'height' => 339),
+    'y2def' => array('filename' => 'suv.jpg', 'description' => 'Can you stay safe with all the SUVs in the Loud Bicycle game?', 'width' => 500, 'height' => 339),
+    'z3ghi' => array('filename' => 'taxi.jpg', 'description' => 'Can you avoid getting run over by a taxi in the Loud Bicycle game?', 'width' => 500, 'height' => 339),
+    'a4jkl' => array('filename' => 'truck.jpg', 'description' => 'Can you stay safe with all the trucks in the Loud Bicycle game?', 'width' => 500, 'height' => 339),
+    'b5mno' => array('filename' => 'unknown.jpg', 'description' => 'Can you get home safely in the Loud Bicycle game?', 'width' => 500, 'height' => 339),
+
+    '91sna' => array('filename' => 'raygun.jpg', 'description' => 'How many cars can you turn into bicycles in the Loud Bicycle game?', 'width' => 500, 'height' => 339),
+    'f2s6s' => array('filename' => 'loudmini.jpg', 'description' => 'How powerful is Loud Mini in the Loud Bicycle game?', 'width' => 500, 'height' => 339)
 );
 
 // Check if the 'v' parameter exists in our array
