@@ -161,6 +161,15 @@
         <a-mixin id="prop-banner-wfh" gltf-model="#prop-banner-wfh-asset"></a-mixin>
         <a-mixin id="scrubber" gltf-model="#scrubber-asset"></a-mixin>
 
+        <!-- just for the show -->
+        <a-asset-item id="just-bike-dutch1" src="./assets/bikes/dutch_cycle.glb"></a-asset-item>
+        <a-mixin id="just-bike-dutch" gltf-model="#just-bike-dutch1"></a-mixin>
+        <a-asset-item id="just-bike-1" src="./assets/bikes/cycle_1.glb"></a-asset-item>
+        <a-mixin id="just-bike" gltf-model="#just-bike-1"></a-mixin>
+        <a-asset-item id="kid-bike-1" src="./assets/bikes/kid_bike.glb"></a-asset-item>
+        <a-mixin id="kid-bike" gltf-model="#kid-bike-1"></a-mixin>
+       
+
       </a-assets>
       <a-entity id="ambient-light" light="type: ambient; color: #222"></a-entity>
       <a-entity id="directional-light" light="type: directional; color: #444; intensity: 0.6" position="-0.5 1 1"></a-entity>
@@ -345,6 +354,8 @@
   
           <div id="share-links">
             <span class="action-button-container">
+              Share <span id="share-text">your win</span>!
+              <div id="grouping socials">
               <span class="action-confirmation" style="display: none;">Copied. Paste to share!</span>
               <span class="copy-text action-button">
                 <img src="./assets/social/copy.png" alt="Copy text">                
@@ -358,6 +369,7 @@
                   <span class="share-whatsapp action-button">
                     <img src="./assets/social/whatsapp_1.png" alt="Share Whatsapp">
                   </span>
+                </div>
           </div>
     
           <!-- <p>Crash statistics coming soon...</p>           -->
@@ -755,27 +767,27 @@
     });
   });
 
-  function shareText() {
-    var shareText = `Practice Your Road Safety Knowledge with this Game https://loudbicycle.com/game`;
+  
+  function shareContent() {
 
     document.querySelector('.share-facebook').addEventListener('click', function() {
-        var facebookURL = 'https://www.facebook.com/sharer/sharer.php?u=https://loudbicycle.com/game';
-        window.open(facebookURL, '_blank');
+        const url = `https://www.facebook.com/sharer/sharer.php?u=https://loudbicycle.com/game${gameManager.appendToLink}`;
+        window.open(url, '_blank');
     });
 
     document.querySelector('.share-twitter').addEventListener('click', function() {
-        var twitterURL = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(shareText);
-        window.open(twitterURL, '_blank');
+        const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(gameManager.shareText + ' https://loudbicycle.com/game' + gameManager.appendToLink)}`;
+        window.open(url, '_blank');
     });
 
     document.querySelector('.share-whatsapp').addEventListener('click', function() {
-        var whatsappURL = 'https://wa.me/?text=' + encodeURIComponent(shareText);
-        window.open(whatsappURL, '_blank');
+        const url = `https://wa.me/?text=${encodeURIComponent(gameManager.shareText + ' https://loudbicycle.com/game' + gameManager.appendToLink)}`;
+        window.open(url, '_blank');
     });
 
     document.querySelector('.copy-text').addEventListener('click', function() {
-        copyText = shareText;
-        navigator.clipboard.writeText(copyText).then(function() {
+        const textToCopy = `${gameManager.shareText} https://loudbicycle.com/game${gameManager.appendToLink}`;
+        navigator.clipboard.writeText(textToCopy).then(function() {
             document.querySelector('.action-confirmation').style.display = "inline";
             setTimeout(function() {
                 document.querySelector('.action-confirmation').style.display = "none";
@@ -783,7 +795,6 @@
         });
     });
 }
-  
 
 function isMobileDevice() {
     return (window.innerWidth <= 600) || 
@@ -794,7 +805,7 @@ function isMobileDevice() {
 }
 
 window.onload = function() {
-    shareText();
+    shareContent();
     checkScreenSize();
 };
 

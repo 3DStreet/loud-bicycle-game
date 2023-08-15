@@ -51,6 +51,8 @@ AFRAME.registerComponent('game-manager', {
         this.currentAvatarIndex = -1;
         this.currentShoutIndex = 0;
         this.lastKillVehicle = null;
+        this.shareText = 'Can you keep the kids safe in the Loud Bicycle Game?';
+        this.appendToLink = '';
 
         // Add timer properties
         this.timerTitle = null;
@@ -266,12 +268,6 @@ AFRAME.registerComponent('game-manager', {
             this.updateEndScreenImages(this.levelData.nameId, newStars);
         }, 500);
 
-
-        // setEndScreenEnabled(true, this.levelData.getLevelEndMessage(this.bikeMemberCount));
-
-        
-
-
         setTimeout(() => {
             // set replay-button-text
             let replayButtonText = document.getElementById("replay-button-text");
@@ -287,9 +283,11 @@ AFRAME.registerComponent('game-manager', {
 
             setEndScreenEnabled(true, this.levelData.getLevelEndMessage(this.bikeMemberCount));
 
+            this.shareBasedOnLevel(currentLevel);
+
+            // change this here to be class removed
             this.removeLevel();
             document.querySelector('#game-menu-bg').style.opacity = 1;
-
 
             // if you won any new things, then give them to you now:
             setTimeout(() => {
@@ -334,6 +332,51 @@ AFRAME.registerComponent('game-manager', {
             
         }, finalAnimationTimeMS);
     },
+    shareBasedOnLevel: function(currentLevel) {
+        switch(currentLevel) {
+            case 0:
+                this.shareText = "I won Loud Mini playing the Loud Bicycle Game!";
+                this.appendToLink = '?v=f2s6s';
+                break;
+            case 1:
+                this.shareText = "I won a ray gun in the Loud Bicycle Game!";
+                this.appendToLink = '?v=91sna';
+                break;
+            case 2:
+                this.shareText = "I beat level 3 safely in the Loud Bicycle Game!";
+                this.appendToLink = '';
+                break;
+            case 3:
+                this.shareText = "I won the Loud Bicycle Game!";
+                this.appendToLink = '';
+                break;
+        }
+    },    
+    shareFailureBasedOnVehicle: function(lastKillVehicle) {
+        switch(lastKillVehicle) {
+            case 'BMW':
+                this.shareText = "I got run over by a BMW playing the Loud Bicycle Game.";
+                this.appendToLink = '?v=x1abc';
+                break;
+            case 'SUV':
+                this.shareText = "I got run over by an SUV playing the Loud Bicycle Game.";
+                this.appendToLink = '?v=y2def';
+                break;
+            case 'Taxi':
+                this.shareText = "I got run over by a Taxi playing the Loud Bicycle Game.";
+                this.appendToLink = '?v=z3ghi';
+                break;
+            case 'Truck':
+                this.shareText = "I got run over by a Truck playing the Loud Bicycle Game.";
+                this.appendToLink = '?v=a4jkl';
+                break;
+            case 'Unknown':
+                this.shareText = "I got run over playing the Loud Bicycle Game.";
+                this.appendToLink = '?v=b5mno';
+                break;
+        }        // Constructing the full message        
+    },
+    
     getLevelIndex: function() {
         // Find the index of the completed level in the gameData.levels array
         for (let i = 0; i < gameData.levels.length; i++) {
@@ -385,6 +428,7 @@ AFRAME.registerComponent('game-manager', {
         // disable the level-end-image-container div
         let levelEndImageContainer = document.getElementById("level-end-image-container");
         levelEndImageContainer.classList.add("gone");
+
         let levelEndImageContainerFail = document.getElementById("level-end-image-container-fail");
         levelEndImageContainerFail.classList.remove("gone");
 
@@ -418,6 +462,10 @@ AFRAME.registerComponent('game-manager', {
         continueButtonText.innerText = "Levels";
         
         this.removeLevel();
+
+        console.log("lastKillVehicle: " + this.lastKillVehicle);
+        this.shareFailureBasedOnVehicle(this.lastKillVehicle);
+
     },
     stopLevel: function(shouldMusicStop) {
         this.ambientAudio.pause();
