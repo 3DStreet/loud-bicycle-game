@@ -13,3 +13,6 @@ Start development server: `npm run dev`
 ### Production
 
 Build project: `npm run build`
+
+### Wordpress
+Move the template game.php into your wordpress themes directory
