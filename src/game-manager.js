@@ -351,6 +351,9 @@ AFRAME.registerComponent('game-manager', {
                 this.appendToLink = '';
                 break;
         }
+        let shareTextSpan = document.getElementById("share-text-span");
+        shareTextSpan.innerText = "win";
+
     },    
     shareFailureBasedOnVehicle: function(lastKillVehicle) {
         switch(lastKillVehicle) {
@@ -374,7 +377,13 @@ AFRAME.registerComponent('game-manager', {
                 this.shareText = "I got run over playing the Loud Bicycle Game.";
                 this.appendToLink = '?v=b5mno';
                 break;
-        }        // Constructing the full message        
+        }        // Constructing the full message     
+        
+        // update the share-text-span to share your story
+        let shareTextSpan = document.getElementById("share-text-span");
+        shareTextSpan.innerText = "story";
+
+
     },
     
     getLevelIndex: function() {
