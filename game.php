@@ -36,7 +36,7 @@ if ($imageKey) {
     $imageHeight = $validImages[$imageKey]['height'];
 } else {
     $imageUrl = "https://loudbicycle.com/screenshots/bicycle-collision-with-truck.jpg";
-    $imageDescription = "A truck collided with me while I was on my bike.";
+    $imageDescription = "Can you get the kids to school safely? Try the Loud Bicycle game!";
     $imageWidth = 1306;
     $imageHeight = 1023;
 }

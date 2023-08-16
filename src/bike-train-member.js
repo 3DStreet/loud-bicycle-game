@@ -83,7 +83,13 @@ AFRAME.registerComponent('bike-train-member', {
     }
 });
 
-export function getRandomAdultBikeId() {
-    const index = Math.floor(Math.random() * 2) + 2;
-    return `#cyclist${index}-asset`;
+export function getRandomAdultBikeId(excludeCargo = false) {
+    const cyclists = ["cyclist1", "cyclist2", "cyclist3", "cyclist-dutch"];
+    
+    if (!excludeCargo) {
+        cyclists.push("cyclist-cargo");
+    }
+
+    const index = Math.floor(Math.random() * cyclists.length);
+    return `#${cyclists[index]}-asset`;
 }

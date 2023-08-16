@@ -333,7 +333,7 @@ AFRAME.registerComponent('interactable-pool', {
         });
     },
 // raygun turn all the cars into bicycles, one by one
-// turns cars into bicycles
+// turns cars into bicycles turn all cars into bicycles
 convertAllToBikes: function() {
     for (let i = 0; i < this.pool.usedEls.length; i++) {
         const el = this.pool.usedEls[i];
@@ -362,8 +362,17 @@ convertAllToBikes: function() {
         }
 
         setTimeout(() => {
+            // console.log(el);
+            const truckModel = './3dstreet-assets/sets/vehicles-rig/gltf-exports/draco/isuzu-truck-rig.glb';
+            const currentModel = el.getAttribute('gltf-model');
+
             el.removeAttribute("gltf-model");
-            el.setAttribute('gltf-model', getRandomAdultBikeId());
+
+            if (currentModel === truckModel) {
+                el.setAttribute('gltf-model', '#cyclist-cargo-asset');
+            } else {
+                el.setAttribute('gltf-model', getRandomAdultBikeId(true));
+            }
 
             // Change the color of all circles to blue
             circles.forEach(circle => {
