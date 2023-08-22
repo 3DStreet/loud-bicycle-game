@@ -268,7 +268,8 @@ AFRAME.registerComponent('interactable-pool', {
         // el.setAttribute('raycaster', {objects: '[interactable]', showLine: DEBUG_RAYCAST_LINE, far: 4, interval: 100, origin: '0, 1, 3', direction: '0 0 1'});
     
         el.removeAttribute("gltf-model");
-        el.setAttribute('gltf-model', '#vehicle-bmw-m2-asset');
+        el.setAttribute('gltf-model', this.getRandomCarId());
+        console.log(this.getRandomCarId());
     
         el.components.interactable.isHit = true;
     
@@ -332,59 +333,93 @@ AFRAME.registerComponent('interactable-pool', {
             }
         });
     },
-// raygun turn all the cars into bicycles, one by one
-// turns cars into bicycles
-convertAllToBikes: function() {
-    for (let i = 0; i < this.pool.usedEls.length; i++) {
-        const el = this.pool.usedEls[i];
-        let circles = [];
+    // raygun turn all the cars into bicycles, one by one
+    // turns cars into bicycles turn all cars into bicycles
+    convertAllToBikes: function() {
+        for (let i = 0; i < this.pool.usedEls.length; i++) {
+            const el = this.pool.usedEls[i];
+            let circles = [];
 
-        el.setAttribute('interactable', {type: 'bike'});
-        el.play();
+            el.setAttribute('interactable', {type: 'bike'});
+            el.play();
 
-        for(let j = 0; j < 4; j++) {
-            // Create the circle geometry and material with double the radius
-            let geometry = new THREE.CircleGeometry(1.5, 16); 
-            let material = new THREE.MeshBasicMaterial({
-                color: new THREE.Color(0xff9900), 
-                opacity: 0.3,
-                transparent: true, 
-                side: THREE.DoubleSide
-            });
+            for(let j = 0; j < 4; j++) {
+                // Create the circle geometry and material with double the radius
+                let geometry = new THREE.CircleGeometry(1.5, 16); 
+                let material = new THREE.MeshBasicMaterial({
+                    color: new THREE.Color(0xff9900), 
+                    opacity: 0.3,
+                    transparent: true, 
+                    side: THREE.DoubleSide
+                });
 
-            // Create the circle mesh and position it in front of the car
-            let circle = new THREE.Mesh(geometry, material);
-            circle.position.set(0, 1.5, 0.5 - j);  // shifted one unit forward
+                // Create the circle mesh and position it in front of the car
+                let circle = new THREE.Mesh(geometry, material);
+                circle.position.set(0, 1.5, 0.5 - j);  // shifted one unit forward
 
-            // Add the circle to the car entity
-            el.object3D.add(circle);
-            circles.push(circle);
-        }
-
-        setTimeout(() => {
-            el.removeAttribute("gltf-model");
-            el.setAttribute('gltf-model', getRandomAdultBikeId());
-
-            // Change the color of all circles to blue
-            circles.forEach(circle => {
-                circle.material.color.set(0x007BFF);
-            });
-
-            // Remove circles one by one, from front to back
-            for(let j = circles.length - 1; j >= 0; j--) {
-                setTimeout(() => {
-                    // Remove the circle
-                    el.object3D.remove(circles[j]);
-                }, 50 * (circles.length - 1 - j));
+                // Add the circle to the car entity
+                el.object3D.add(circle);
+                circles.push(circle);
             }
-            // play a nice ping sound
-            let audio = new Audio('./assets/ping.wav');
-            audio.play();
 
-        }, 100 * i + 0); // stagger the conversion of cars to bikes by an additional delay equal to the time taken to create all the circles 
-    }
-},
+            setTimeout(() => {
+                const truckModel = './3dstreet-assets/sets/vehicles-rig/gltf-exports/draco/isuzu-truck-rig.glb';
+                const currentModel = el.getAttribute('gltf-model');
 
+                el.removeAttribute("gltf-model");
+                if (currentModel === truckModel) {
+                    el.setAttribute('gltf-model', '#cyclist-cargo-asset');
+                } else if (el.getAttribute('position').x === -4.872) {
+                    // identifying parked cars
+                    this.replaceWithParklet(el);
+                } else {
+                    el.setAttribute('gltf-model', getRandomAdultBikeId(true));
+                }
+                
+
+                // Change the color of all circles to blue
+                circles.forEach(circle => {
+                    circle.material.color.set(0x007BFF);
+                });
+
+                // Remove circles one by one, from front to back
+                for(let j = circles.length - 1; j >= 0; j--) {
+                    setTimeout(() => {
+                        // Remove the circle
+                        el.object3D.remove(circles[j]);
+                    }, 50 * (circles.length - 1 - j));
+                }
+                // play a nice ping sound
+                let audio = new Audio('./assets/ping.wav');
+                audio.play();
+
+            }, 100 * i + 0); // stagger the conversion of cars to bikes by an additional delay equal to the time taken to create all the circles 
+        }
+    },
+    replaceWithParklet: function(el) {
+        // Assuming `el` is the A-Frame entity of the bike you're trying to replace.
+        let position = el.getAttribute('position');
+        let rotation = el.getAttribute('rotation');
+
+        // set rotation to -90 to be facing the street.
+        rotation.y = -90;
+        position.y = .1;
+
+        el.setAttribute('gltf-model', '#prop-parklet');
+        el.setAttribute('rotation', rotation);
+        el.setAttribute('position', position);
+
+    },
+    getRandomCarId: function() {
+        const cars = [
+            "sedan-rigged",
+            "suv-rigged",
+            'vehicle-bmw-m2-asset',
+        ];
+    
+        const index = Math.floor(Math.random() * cars.length);
+        return `#${cars[index]}`;
+    },    
     returnAll: function() {
         const els = [...this.pool.usedEls];
         for (let i = 0; i < els.length; i++) {

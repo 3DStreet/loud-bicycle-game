@@ -146,6 +146,7 @@
         <a-asset-item id="scrubber-asset" src="./3dstreet-assets/sets/c02-scrubber/gltf-exports/draco/co2-scrubber.glb"></a-asset-item>
         <a-asset-item id="prop-heart-asset" src="./assets/heart-model_v01.glb"></a-asset-item>
         <a-asset-item id="prop-finish-asset" src="./assets/finish.glb"></a-asset-item>
+        <a-asset-item id="prop-parklet" src="./assets/parklet.glb"></a-asset-item>
         <a-mixin id="cyclist-cargo" gltf-model="#cyclist-cargo-asset"></a-mixin>
         <a-mixin id="cyclist1" gltf-model="#cyclist1-asset"></a-mixin>
         <a-mixin id="cyclist2" gltf-model="#cyclist2-asset"></a-mixin>
@@ -176,6 +177,21 @@
       <a-sky src="#sky"></a-sky>
       <!--            center/height/  distance away -->
       <a-camera position="0 4 4" rotation="-15 0 0" wasd-controls-enabled="false" look-controls-enabled="false" fov="90"></a-camera>
+      <a-entity id="bell-indicator" gltf-model="#bell" visible="false" scale="0.75 0.75 0.75"></a-entity>
+
+      <!-- the raygun blast wave -->
+      <a-entity id="flash-light" light="type: point; color: #f2ad13; decay: 0.23; distance: 25.35; intensity: 0.0" animation="property: light.intensity; from: 0.0; to: 5.0; dur: 400; dir: alternate; loop: 1; startEvents: startAnimation" position="0 1 -0.40039" rotation="-19.74 0 0"></a-entity>
+
+      <a-entity id="interactable-spawner" interactable-pool></a-entity>
+      <a-entity id="smog-spawner" smog-pool></a-entity>
+      <a-entity id="bike-train-spawner" bike-train-pool></a-entity>
+
+      <a-entity id="game-manager" game-manager sound="src: url(./assets/breath_caugh.webm);"></a-entity>
+      <a-entity noise-meter="clickerId:shout; meterId:special-meter; isSmall:true; keyCode:ArrowUp;" sound="src: url(./assets/bell.webm);"></a-entity>
+      <a-entity id="horn-noise" noise-meter="clickerId:horn; meterId:main-meter; isSmall:false; keyCode:Control"></a-entity>
+      <a-entity id="ray-noise" noise-meter="clickerId:ray; meterId:ray-meter; keyCode:Shift; lightId: flash-light" sound="src: url(./assets/raygun2.wav);"></a-entity>
+
+
       <a-entity
         id="model"
         geometry="primitive: box; depth: 1.5; width: 0.6"
@@ -195,20 +211,6 @@
         </a-entity>
         <!-- <a-entity mixin="scrubber" position="-0.03 0.81 -0.77" rotation="0 180 0"></a-entity> -->
       </a-entity>
-      <a-entity id="bell-indicator" gltf-model="#bell" visible="false" scale="0.75 0.75 0.75"></a-entity>
-
-      <!-- the raygun blast wave -->
-      <a-entity id="flash-light" light="type: point; color: #f2ad13; decay: 0.23; distance: 25.35; intensity: 0.0" animation="property: light.intensity; from: 0.0; to: 5.0; dur: 400; dir: alternate; loop: 1; startEvents: startAnimation" position="0 1 -0.40039" rotation="-19.74 0 0"></a-entity>
-
-      <a-entity id="interactable-spawner" interactable-pool></a-entity>
-      <a-entity id="smog-spawner" smog-pool></a-entity>
-      <a-entity id="bike-train-spawner" bike-train-pool></a-entity>
-
-      <a-entity id="game-manager" game-manager sound="src: url(./assets/breath_caugh.webm);"></a-entity>
-      <a-entity noise-meter="clickerId:shout; meterId:special-meter; isSmall:true; keyCode:ArrowUp;" sound="src: url(./assets/bell.webm);"></a-entity>
-      <a-entity id="horn-noise" noise-meter="clickerId:horn; meterId:main-meter; isSmall:false; keyCode:Control"></a-entity>
-      <a-entity id="ray-noise" noise-meter="clickerId:ray; meterId:ray-meter; keyCode:Shift; lightId: flash-light" sound="src: url(./assets/raygun2.wav);"></a-entity>
-
 
       <a-entity id="level" animation="property: position; to: 0 0 400; autoplay: false; dur: 100000; easing: linear; loop: false">
         <a-plane src="#grass-floor" height="1000" width="1000" rotation="-90 0 0" position="0 -0.05 0" material="repeat: 20 20"></a-plane>
