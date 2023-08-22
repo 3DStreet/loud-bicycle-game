@@ -62,3 +62,4 @@ jobs:
           port: ${{ vars.PORT }}
           sftp_only: true
           local_path: ./dist/*
+          remote_path: ./
