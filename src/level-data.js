@@ -167,7 +167,7 @@ export const gameData = {
         {
             nameId: 'bar',
             levelNumber: 3,
-            title: 'Get to the bar. <img src="./assets/instructions/shift.png"> raygun time.',
+            title: 'Get to the bar. <img id="shift" src="./assets/instructions/shift.png">',
             subtitle: null,
             fogNear: 0,
             fogFar: 250,
