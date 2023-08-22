@@ -288,7 +288,7 @@
             <p id="quote-author" id="quote-author"></p>
           </div>
       </div>
-      <div id="main-menu" class="disabled">
+      <div id="main-menu" class="disabled gone">
         <div id="main-menu-top">
           <div id="intro-modal" class="disabled">
 
@@ -477,6 +477,7 @@
       }
       landing.classList.add('disabled');
       mainMenu.classList.remove('disabled');
+      mainMenu.classList.remove('gone');
       mainMenu.classList.add('enabled');
 
       // enable level selection
@@ -554,10 +555,12 @@
       if(b) {
         mainMenu.classList.remove('enabled');
         mainMenu.classList.add('disabled');
+        mainMenu.classList.add('gone');
         credits.classList.add('enabled');
         credits.classList.remove('disabled');
       } else {
         mainMenu.classList.remove('disabled');
+        mainMenu.classList.remove('gone');
         mainMenu.classList.add('enabled');
         credits.classList.remove('enabled');
         credits.classList.add('disabled');
@@ -568,10 +571,12 @@
       if(b) {
         mainMenu.classList.remove('enabled');
         mainMenu.classList.add('disabled');
+        mainMenu.classList.add('gone');
         settings.classList.add('enabled');
         settings.classList.remove('disabled');
       } else {
         mainMenu.classList.remove('disabled');
+        mainMenu.classList.remove('gone');
         mainMenu.classList.add('enabled');
         settings.classList.remove('enabled');
         settings.classList.add('disabled');
@@ -700,6 +705,7 @@
 
         mainMenu.classList.remove('enabled');
         mainMenu.classList.add('disabled');
+        mainMenu.classList.add('gone');
         if(hasPlayedBefore) {
           levelSelection.classList.add('enabled');
           levelSelection.classList.remove('disabled');
@@ -738,9 +744,11 @@
       landing.classList.add('disabled');
       if(b) {
         mainMenu.classList.remove('disabled');
+        mainMenu.classList.remove('gone');
         mainMenu.classList.add('enabled');
       } else {
         mainMenu.classList.add('disabled');
+        mainMenu.classList.add('gone');
         mainMenu.classList.remove('enabled');
       }
     }
