@@ -268,7 +268,8 @@ AFRAME.registerComponent('interactable-pool', {
         // el.setAttribute('raycaster', {objects: '[interactable]', showLine: DEBUG_RAYCAST_LINE, far: 4, interval: 100, origin: '0, 1, 3', direction: '0 0 1'});
     
         el.removeAttribute("gltf-model");
-        el.setAttribute('gltf-model', '#vehicle-bmw-m2-asset');
+        el.setAttribute('gltf-model', this.getRandomCarId());
+        console.log(this.getRandomCarId());
     
         el.components.interactable.isHit = true;
     
@@ -409,8 +410,16 @@ AFRAME.registerComponent('interactable-pool', {
         el.setAttribute('position', position);
 
     },
-
-
+    getRandomCarId: function() {
+        const cars = [
+            "sedan-rigged",
+            "suv-rigged",
+            'vehicle-bmw-m2-asset',
+        ];
+    
+        const index = Math.floor(Math.random() * cars.length);
+        return `#${cars[index]}`;
+    },    
     returnAll: function() {
         const els = [...this.pool.usedEls];
         for (let i = 0; i < els.length; i++) {
