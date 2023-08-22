@@ -61,4 +61,4 @@ jobs:
           password: ${{ secrets.password }}
           port: ${{ vars.PORT }}
           protocol: ftps
-          local-dir: dist
+          local-dir: ./dist/
