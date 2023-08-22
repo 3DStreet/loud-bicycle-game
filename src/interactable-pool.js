@@ -399,28 +399,15 @@ AFRAME.registerComponent('interactable-pool', {
         // Assuming `el` is the A-Frame entity of the bike you're trying to replace.
         let position = el.getAttribute('position');
         let rotation = el.getAttribute('rotation');
-        let scale = el.getAttribute('scale');
 
-        // set rotation to -90
+        // set rotation to -90 to be facing the street.
         rotation.y = -90;
-        position.y += .1;
+        position.y = .1;
 
-        // Create a new entity for the parklet.
-        let parkletEntity = document.createElement('a-entity');
+        el.setAttribute('gltf-model', '#prop-parklet');
+        el.setAttribute('rotation', rotation);
+        el.setAttribute('position', position);
 
-        // Assign the 'parklet' mixin to the new entity.
-        parkletEntity.setAttribute('mixin', 'parklet');
-
-        // Set the position, rotation, and scale to be the same as the bike's.
-        parkletEntity.setAttribute('position', position);
-        parkletEntity.setAttribute('rotation', rotation);
-        parkletEntity.setAttribute('scale', scale);
-
-        // Attach the new entity to the A-Frame scene or whichever parent `el` had.
-        el.parentNode.appendChild(parkletEntity);
-
-        // Optionally, remove the bike entity from the scene.
-        // el.parentNode.removeChild(el);
     },
 
 

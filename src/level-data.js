@@ -170,7 +170,7 @@ export const gameData = {
             title: 'Get to the bar. <img id="shift" src="./assets/instructions/shift.png">',
             subtitle: null,
             fogNear: 0,
-            fogFar: 250,
+            fogFar: 550,
             fogColor: '#646464',
             ambientLightColor: '#646464', 
             directionalLightColor: '#646464', 
