@@ -24,8 +24,8 @@ AFRAME.registerComponent('bike-train-member', {
         if(this.isHit || !this.spawned) return;
         this.isHit = true;
 
-        let x = Math.sign((amountBikeTrainMembers % 2) - 0.5) * 0.5;
-        let z = Math.floor(amountBikeTrainMembers / 2) * 2.2 + 1.5;
+        let x = Math.sign((gameManager.bikeMemberCount % 2) - 0.5) * 0.5;
+        let z = Math.floor(gameManager.bikeMemberCount / 2) * 2.2 + 1.5;
 
         // play the powerup sound if you got someone
         this.powerupAudio = document.querySelector('#powerup-sound');
@@ -36,8 +36,6 @@ AFRAME.registerComponent('bike-train-member', {
         playerController.el.object3D.attach(this.el.object3D)
         this.el.object3D.position.set(x, 0, z)
         this.el.object3D.rotation.set(0, Math.PI, 0)
-
-        amountBikeTrainMembers++;
 
         this.bellOffset = 0;
         this.el.setAttribute('animation-mixer', 'timeScale: 1.5');
