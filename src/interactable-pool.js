@@ -393,7 +393,7 @@ AFRAME.registerComponent('interactable-pool', {
                     }, 50 * (circles.length - 1 - j));
                 }
                 // play a nice ping sound
-                let audio = new Audio('./assets/ping.wav');
+                let audio = new Audio('./assets/ping.webm');
                 audio.play();
 
             }, 100 * i + 0); // stagger the conversion of cars to bikes by an additional delay equal to the time taken to create all the circles 
