@@ -42,7 +42,7 @@ AFRAME.registerComponent('bike-train-member', {
     },
     spawn: function() {
         if(gameManager.levelData.bikePoolIsAdult) {
-            let url = document.querySelector(getRandomAdultBikeId()).getAttribute('src');
+            let url = document.querySelector(getRandomAdultBikeId(false, true)).getAttribute('src');
             this.el.setAttribute('gltf-model', url);
         } else {
             let url = document.querySelector('#cyclist-kid-asset').getAttribute('src');
@@ -79,13 +79,20 @@ AFRAME.registerComponent('bike-train-member', {
     }
 });
 
-export function getRandomAdultBikeId(excludeCargo = false) {
+let lastRandomAdultBikeId = -1;
+
+export function getRandomAdultBikeId(excludeCargo = false, differentThanLastOne = false) {
     const cyclists = ["cyclist1", "cyclist2", "cyclist3", "cyclist-dutch"];
     
     if (!excludeCargo) {
         cyclists.push("cyclist-cargo");
     }
 
-    const index = Math.floor(Math.random() * cyclists.length);
+    let index = Math.floor(Math.random() * cyclists.length);
+    while(differentThanLastOne && index === lastRandomAdultBikeId) {
+        index = Math.floor(Math.random() * cyclists.length);
+    }
+    lastRandomAdultBikeId = index;
+
     return `#${cyclists[index]}-asset`;
 }
