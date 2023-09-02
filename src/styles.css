@@ -129,7 +129,7 @@ h1, h2{
 }
 
 
-#shout, #horn, #ray {
+#bell, #main, #ray {
   position: absolute;
   bottom: 5px;
   height: 120px;
@@ -147,16 +147,16 @@ h1, h2{
   -webkit-touch-callout:none;
 }
 
-#shout > img, #horn > img, #ray > img {
+#bell > img, #main > img, #ray > img {
   pointer-events: none;
   width: 100%;
   height: 100%;
 }
 
-#horn.disabled {
+#main.disabled {
   border: 2px solid red;
 }
-#shout.disabled {
+#bell.disabled {
   border: 2px solid red;
 }
 #special-meter, #main-meter, #ray-meter {
@@ -177,7 +177,7 @@ h1, h2{
   left: 290px;
 }
 
-#horn, #main-meter {
+#main, #main-meter {
   left: 170px;
 }
 
