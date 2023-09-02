@@ -2,8 +2,6 @@ import { Vector3 } from 'super-three';
 import { gameManager } from './game-manager';
 import { playerController } from './player-controller'
 
-let amountBikeTrainMembers = 0;
-
 AFRAME.registerComponent('bike-train-member', {
     schema: {
     },
