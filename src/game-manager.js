@@ -521,7 +521,7 @@ AFRAME.registerComponent('game-manager', {
         }
     },
     playGetHurt: function() {
-        if(this.bikeMemberCount > 0) {
+        if(this.bikeMemberCount > 0 && this.levelData.isBikePoolKids) {
             let path = `#ouch-baby-sound-${Math.floor(Math.random() * 2)}`; // 0 or 1
             let audio = document.querySelector(path);
             audio.play();
