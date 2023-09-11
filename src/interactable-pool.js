@@ -127,9 +127,12 @@ AFRAME.registerComponent('interactable-pool', {
 
         if(!el) return console.error("Interactable pool is too small, failed to spawn");
 
-        el.setAttribute('interactable', {type});
-        el.setAttribute('sound', 'src:' + gameManager.levelData.onInteractableHitSoundId)
-        el.play();
+        // Workaround for "random" collision bug
+        setTimeout(() => {
+            el.setAttribute('interactable', {type});
+            el.setAttribute('sound', 'src:' + gameManager.levelData.onInteractableHitSoundId)
+            el.play();
+        }, 100);
 
         el.setAttribute('raycaster', {objects: '[interactable]', showLine: DEBUG_RAYCAST_LINE, far: 4, interval: 100, origin: '0, 1, 5', direction: '0, 0, 1'});
 
@@ -390,7 +393,7 @@ AFRAME.registerComponent('interactable-pool', {
                     }, 50 * (circles.length - 1 - j));
                 }
                 // play a nice ping sound
-                let audio = new Audio('./assets/ping.wav');
+                let audio = new Audio('./assets/ping.webm');
                 audio.play();
 
             }, 100 * i + 0); // stagger the conversion of cars to bikes by an additional delay equal to the time taken to create all the circles 

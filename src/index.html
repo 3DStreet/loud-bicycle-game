@@ -91,7 +91,7 @@
         <audio id="muffled-voice" src="./assets/muffled_voice.webm" preload="auto"></audio>
         <audio id="tires" src="./assets/tires.webm" preload="auto"></audio>
 
-        <audio id="game-over" src="./assets/game-over.wav" preload="auto"></audio>
+        <audio id="game-over" src="./assets/game-over.webm" preload="auto"></audio>
         <audio id="win-sound" src="./assets/win.webm" preload="auto"></audio>
 
         <audio id="ambient-sound-a" src="./assets/background/ambience_1-2.webm" loop preload="auto"></audio>
@@ -104,22 +104,22 @@
         <audio id="horn-sound" src="./assets/horn.webm" loop preload="auto"></audio>
 
 
-        <audio id="shout-female-sound-0" src="./assets/shout_woman_1.wav" preload="auto"></audio>
-        <audio id="shout-female-sound-1" src="./assets/shout_woman_2.wav" preload="auto"></audio>
-        <audio id="shout-female-sound-2" src="./assets/shout_woman_3.wav" preload="auto"></audio>
+        <audio id="shout-female-sound-0" src="./assets/shout_woman_1.webm" preload="auto"></audio>
+        <audio id="shout-female-sound-1" src="./assets/shout_woman_2.webm" preload="auto"></audio>
+        <audio id="shout-female-sound-2" src="./assets/shout_woman_3.webm" preload="auto"></audio>
 
-        <audio id="shout-male-sound-0" src="./assets/shout_man_1.wav" preload="auto"></audio>
-        <audio id="shout-male-sound-1" src="./assets/shout_man_2.wav" preload="auto"></audio>
-        <audio id="shout-male-sound-2" src="./assets/shout_man_3.wav" preload="auto"></audio>
+        <audio id="shout-male-sound-0" src="./assets/shout_man_1.webm" preload="auto"></audio>
+        <audio id="shout-male-sound-1" src="./assets/shout_man_2.webm" preload="auto"></audio>
+        <audio id="shout-male-sound-2" src="./assets/shout_man_3.webm" preload="auto"></audio>
         
-        <audio id="ouch-female-sound" src="./assets/ouch_woman.wav" preload="auto"></audio>
-        <audio id="ouch-male-sound" src="./assets/ouch_man.wav" preload="auto"></audio>
-        <audio id="ouch-baby-sound-0" src="./assets/ouch_baby1.wav" preload="auto"></audio>
-        <audio id="ouch-baby-sound-1" src="./assets/ouch_baby2.wav" preload="auto"></audio>
+        <audio id="ouch-female-sound" src="./assets/ouch_woman.webm" preload="auto"></audio>
+        <audio id="ouch-male-sound" src="./assets/ouch_man.webm" preload="auto"></audio>
+        <audio id="ouch-baby-sound-0" src="./assets/ouch_baby1.webm" preload="auto"></audio>
+        <audio id="ouch-baby-sound-1" src="./assets/ouch_baby2.webm" preload="auto"></audio>
 
-        <audio id="powerup-sound" src="./assets/powerup.wav" preload="auto"></audio>
-        <audio id="pop-sound" src="./assets/pop.wav" preload="auto"></audio>
-        <audio id="sparkle-sound" src="./assets/sparkle.wav" preload="auto"></audio>
+        <audio id="powerup-sound" src="./assets/powerup.webm" preload="auto"></audio>
+        <audio id="pop-sound" src="./assets/pop.webm" preload="auto"></audio>
+        <audio id="sparkle-sound" src="./assets/sparkle.webm" preload="auto"></audio>
         
         <img id="comic-effect" src="./assets/comic_effect.png">
         <img id="grass-floor" src="./3dstreet-assets/materials/TexturesCom_Grass0052_1_seamless_S.jpg">
@@ -128,7 +128,7 @@
         <a-mixin id="smog-mixin" smog geometry="primitive: box; width: 1; height: 1; depth: 0.2"></a-mixin>
         <a-mixin id="bike-pool-mixin" gltf-model="#cyclist-kid-asset" animation-mixer bike-train-member></a-mixin>
         <a-asset-item id="wave" src="./assets/wave.glb"></a-asset-item>
-        <a-asset-item id="bell" src="./assets/bell.glb"></a-asset-item>
+        <a-asset-item id="bell-asset" src="./assets/bell.glb"></a-asset-item>
 
         <!-- vehicles -->
         <a-asset-item id="sedan-taxi-rigged" src="./3dstreet-assets/sets/vehicles-rig/gltf-exports/draco/sedan-taxi-rig.glb"></a-asset-item>
@@ -185,7 +185,7 @@
       <a-sky src="#sky"></a-sky>
       <!--            center/height/  distance away -->
       <a-camera position="0 4 4" rotation="-15 0 0" wasd-controls-enabled="false" look-controls-enabled="false" fov="90"></a-camera>
-      <a-entity id="bell-indicator" gltf-model="#bell" visible="false" scale="0.75 0.75 0.75"></a-entity>
+      <a-entity id="bell-indicator" gltf-model="#bell-asset" visible="false" scale="0.75 0.75 0.75"></a-entity>
 
       <!-- the raygun blast wave -->
       <a-entity id="flash-light" light="type: point; color: #f2ad13; decay: 0.23; distance: 25.35; intensity: 0.0" animation="property: light.intensity; from: 0.0; to: 5.0; dur: 400; dir: alternate; loop: 1; startEvents: startAnimation" position="0 1 -0.40039" rotation="-19.74 0 0"></a-entity>
@@ -195,9 +195,9 @@
       <a-entity id="bike-train-spawner" bike-train-pool></a-entity>
 
       <a-entity id="game-manager" game-manager sound="src: url(./assets/breath_caugh.webm);"></a-entity>
-      <a-entity noise-meter="clickerId:shout; meterId:special-meter; isSmall:true; keyCode:ArrowUp;" sound="src: url(./assets/bell.webm);"></a-entity>
-      <a-entity id="horn-noise" noise-meter="clickerId:horn; meterId:main-meter; isSmall:false; keyCode:Control"></a-entity>
-      <a-entity id="ray-noise" noise-meter="clickerId:ray; meterId:ray-meter; keyCode:Shift; lightId: flash-light" sound="src: url(./assets/raygun2.wav);"></a-entity>
+      <a-entity noise-meter="clickerId:bell; meterId:special-meter; isSmall:true; keyCode:ArrowUp;" sound="src: url(./assets/bell.webm);"></a-entity>
+      <a-entity id="horn-noise" noise-meter="clickerId:main; meterId:main-meter; isSmall:false; keyCode:Control"></a-entity>
+      <a-entity id="ray-noise" noise-meter="clickerId:ray; meterId:ray-meter; keyCode:Shift; lightId: flash-light" sound="src: url(./assets/raygun2.webm);"></a-entity>
 
 
       <a-entity
@@ -266,13 +266,13 @@
     </div>
 
 <!-- special weapon, bell-->
-    <div id="shout">
+    <div id="bell">
       <img class="icon" src="./assets/bell.svg" >
     </div>
     <progress id="special-meter" class="high-meter" value="0" max="100"></progress>
 
 <!-- main weapon, shout, Loud Classic, Loud Mini -->
-    <div id="horn">
+    <div id="main">
       <img class="icon" src="./assets/shout.svg" >
     </div>
     <progress id="main-meter" class="high-meter" value="0" max="100"></progress>
@@ -546,8 +546,8 @@
           // but if you are already playing, don't do this
           console.log("gamestate: " + window.gameManager.getGameState())
           if (window.gameManager.getGameState() === 3){
-            document.querySelector('#horn').style.zIndex = 11;
-            document.querySelector('#shout').style.zIndex = 11;
+            document.querySelector('#main').style.zIndex = 11;
+            document.querySelector('#bell').style.zIndex = 11;
             document.querySelector('#meta-title-container').style.zIndex = 11;
           }
           
@@ -705,8 +705,8 @@
       updateLevelButtons();
       
       // bop these guys down, wherever you came from
-      document.querySelector('#horn').style.zIndex = 9;
-      document.querySelector('#shout').style.zIndex = 9;
+      document.querySelector('#main').style.zIndex = 9;
+      document.querySelector('#bell').style.zIndex = 9;
 
       if(b) {
         let hasPlayedBefore = localStorage.getItem("played-loud-bicycle");
@@ -744,8 +744,8 @@
       console.log("clearing timer");
       clearTimeout(this.introModalTimer1);
       clearTimeout(this.introModalTimer2);
-      document.querySelector('#horn').style.zIndex = 9;
-      document.querySelector('#shout').style.zIndex = 9;
+      document.querySelector('#main').style.zIndex = 9;
+      document.querySelector('#bell').style.zIndex = 9;
 
 
       updateLevelButtons();
