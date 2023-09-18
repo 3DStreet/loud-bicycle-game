@@ -29,8 +29,8 @@ module.exports = merge(common, {
     minimizer: [new TerserPlugin()]
   },
   plugins: [new CleanWebpackPlugin(), new HtmlWebpackPlugin({
-    template: "./src/index.html",
-    filename: "index.html",
+    template: "./src/index.php",
+    filename: "index.php",
     inject: 'head',
     scriptLoading: 'blocking'
   }), new CopyWebpackPlugin({

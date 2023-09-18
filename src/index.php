@@ -42,7 +42,7 @@
             authorContainer.textContent = "- " + splitQuote[1];
 
             currentIndex = (currentIndex + 1) % quotes.length; // Cycle through indices
-          }, 3000); // Change quote every 3 seconds
+          }, 4000); // Change quote every 3 seconds
         }
 
         // Function to shuffle an array
@@ -74,6 +74,76 @@
   </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta charset="UTF-8">
+<!-- social things -->
+<?php
+
+// report errors
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+
+// Map of random identifiers to image filenames and descriptions
+$validImages = array(
+    'x1abc' => array('filename' => 'bmw.jpg', 'description' => 'Can you avoid all the BMWs in the Loud Bicycle game?', 'width' => 500, 'height' => 339),
+    'y2def' => array('filename' => 'suv.jpg', 'description' => 'Can you stay safe with all the SUVs in the Loud Bicycle game?', 'width' => 500, 'height' => 339),
+    'z3ghi' => array('filename' => 'taxi.jpg', 'description' => 'Can you avoid getting run over by a taxi in the Loud Bicycle game?', 'width' => 500, 'height' => 339),
+    'a4jkl' => array('filename' => 'truck.jpg', 'description' => 'Can you stay safe with all the trucks in the Loud Bicycle game?', 'width' => 500, 'height' => 339),
+    'b5mno' => array('filename' => 'unknown.jpg', 'description' => 'Can you get home safely in the Loud Bicycle game?', 'width' => 500, 'height' => 339),
+
+    '91sna' => array('filename' => 'raygun.jpg', 'description' => 'How many cars can you turn into bicycles in the Loud Bicycle game?', 'width' => 500, 'height' => 339),
+    'f2s6s' => array('filename' => 'loudmini.jpg', 'description' => 'How powerful is Loud Mini in the Loud Bicycle game?', 'width' => 500, 'height' => 339)
+);
+
+// Check if the 'v' parameter exists in our array
+$imageKey = isset($_GET['v']) && isset($validImages[$_GET['v']]) ? $_GET['v'] : null;
+
+// If the key was found, use the corresponding image and description, otherwise default to bicycle collision with a truck
+if ($imageKey) {
+    $imageUrl = "https://loudbicycle.com/screenshots/" . $validImages[$imageKey]['filename'];
+    $imageDescription = $validImages[$imageKey]['description'];
+    $imageWidth = $validImages[$imageKey]['width'];
+    $imageHeight = $validImages[$imageKey]['height'];
+} else {
+    $imageUrl = "https://loudbicycle.com/screenshots/bicycle-collision-with-truck.jpg";
+    $imageDescription = "Can you get the kids to school safely? Try the Loud Bicycle game!";
+    $imageWidth = 1306;
+    $imageHeight = 1023;
+}
+
+$assetsUrl = "https://loudbicycle.com/wp-content/themes/loud-bicycle-wp/assets"
+
+
+?>
+
+
+<!-- Favicon -->
+<link rel="apple-touch-icon" sizes="180x180" href="<?php echo $assetsUrl; ?>/images/favicons/apple-touch-icon.png?v=47BrWnbJxN">
+    <link rel="icon" type="image/png" sizes="32x32" href="<?php echo $assetsUrl; ?>/images/favicons/favicon-32x32.png?v=47BrWnbJxN">
+    <link rel="icon" type="image/png" sizes="194x194" href="<?php echo $assetsUrl; ?>/images/favicons/favicon-194x194.png?v=47BrWnbJxN">
+    <link rel="icon" type="image/png" sizes="192x192" href="<?php echo $assetsUrl; ?>/images/favicons/android-chrome-192x192.png?v=47BrWnbJxN">
+    <link rel="icon" type="image/png" sizes="16x16" href="<?php echo $assetsUrl; ?>/images/favicons/favicon-16x16.png?v=47BrWnbJxN">
+    <link rel="manifest" href="<?php echo $assetsUrl; ?>/images/favicons/site.webmanifest?v=47BrWnbJxN">
+    <link rel="shortcut icon" href="<?php echo $assetsUrl; ?>/images/favicons/favicon.ico">
+
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="LOUD BICYCLE | THE GAME">
+    <meta property="og:description" content="<?php echo $imageDescription; ?>">
+    <meta name="image" property="og:image" content="<?php echo $imageUrl; ?>">
+    <meta property="og:image:width" content="<?php echo $imageWidth; ?>">
+    <meta property="og:image:height" content="<?php echo $imageHeight; ?>">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.loudbicycle.com/game">
+
+    <!-- Twitter Card Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="LOUD BICYCLE | THE GAME">
+    <meta name="twitter:description" content="<?php echo $imageDescription; ?>">
+    <meta name="twitter:image" content="<?php echo $imageUrl; ?>">
+
+
+
+
   </head>
   <body>
     <a-scene
