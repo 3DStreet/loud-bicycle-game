@@ -226,8 +226,9 @@ export const gameData = {
             ],
             getLevelEndMessage: function() {
                 return `<h1>You got to the bar!</h1>
-                <h2>Office of the Mayor - Community Infrastructure Ballot</h2>
-                <p>"VOTE: Should Loud Street have a protected bike lane?"</p>
+                <div class="ballot-box">
+                <h2>Office of the Mayor - Ballot</h2>
+                <p>VOTE: Should Loud Street have a protected bike lane?</p>
                 <div class="ballot-buttons">
                     <button id="yesBtn">YES</button>
                     <button id="noBtn">NO</button>
@@ -235,6 +236,7 @@ export const gameData = {
                 <div id="results" style="display: none;">
                 <div class="bar yes"><div class="background"></div><span>99% YES</span></div>
                 <div class="bar no"><div class="background"></div><span>1% NO</span></div>
+                </div>
             </div>
             
                       `

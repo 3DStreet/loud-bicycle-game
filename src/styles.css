@@ -669,24 +669,53 @@ margin-top: 0.2em;
 
 /* results from the vote */
 .bar {
+  position: relative; 
   height: 30px;
   margin: 10px 0;
   line-height: 30px;
-  text-align: center;
-  color: white;
+  text-align: left;
+  width: 100%; 
+  overflow: hidden; /* Hide the excess portion of background bars */
+}
+
+.bar .background {
+  position: absolute; /* Absolute positioning relative to .bar container */
+  top: 0;
+  left: 0;
+  height: 100%;
   border-radius: 10px;
 }
 
-.yes {
+.bar span {
+  color: white;
+  position: relative; /* Ensuring text stays above the background */
+  z-index: 2; /* Positioning it higher than the background */
+  margin-left: 1em;
+}
+
+.yes .background {
   background-color: #003366;
   width: 99%;
 }
 
-.no {
+.no span{
+  color: black;
+}
+
+.no .background {
   background-color: #9e9e9e;
   width: 3%;
-  color: black
 }
+
+.ballot-box {
+  border: black;
+  border-width: 15px;
+  border-radius: 5ps;
+  border-style: solid;
+  padding: 15px;
+}
+
+
 
 .glyphicon {
   font-size: 24px;
