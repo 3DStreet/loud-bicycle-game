@@ -226,9 +226,18 @@ export const gameData = {
             ],
             getLevelEndMessage: function() {
                 return `<h1>You got to the bar!</h1>
-                            <img src="./assets/security-screws.png" class="icon" style="float: right; margin: 0 10px 10px 10px;">
-                            <p>Don't need no raygun to vote for safer streets and walkable neighborhoods.
-                            <p>Beat Level-4 to get a coupon for free securty screws.</p>`
+                <h2>Office of the Mayor - Community Infrastructure Ballot</h2>
+                <p>"VOTE: Should Loud Street have a protected bike lane?"</p>
+                <div class="ballot-buttons">
+                    <button id="yesBtn">YES</button>
+                    <button id="noBtn">NO</button>
+                </div>
+                <div id="results" style="display: none;">
+                <div class="bar yes"><div class="background"></div><span>99% YES</span></div>
+                <div class="bar no"><div class="background"></div><span>1% NO</span></div>
+            </div>
+            
+                      `
             }
         },
         {

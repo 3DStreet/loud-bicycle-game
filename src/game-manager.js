@@ -283,6 +283,33 @@ AFRAME.registerComponent('game-manager', {
 
             setEndScreenEnabled(true, this.levelData.getLevelEndMessage(this.bikeMemberCount));
 
+            // if its the voting thing - make that work plz
+            // Check if the elements exist before adding event listeners
+            var yesButton = document.getElementById('yesBtn');
+            var noButton = document.getElementById('noBtn');
+            var ballotButtons = document.querySelector('.ballot-buttons');
+            var results = document.getElementById('results');
+
+            if (yesButton && noButton) {
+                yesButton.addEventListener('click', showResults);
+                noButton.addEventListener('click', showResults);
+            }
+
+            function showResults() {
+                // Hide the buttons if they exist
+                if (ballotButtons) {
+                    ballotButtons.style.display = 'none';
+                }
+
+                // Show the results if it exists
+                if (results) {
+                    results.style.display = 'block';
+                }
+            }
+
+
+
+
             this.shareBasedOnLevel(currentLevel);
 
             // change this here to be class removed
