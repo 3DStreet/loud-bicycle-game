@@ -22,8 +22,8 @@ module.exports = merge(common, {
     hot: true
   },
   plugins: [new HtmlWebpackPlugin({
-    template: "./src/index.html",
-    filename: "index.html",
+    template: "./src/index.php",
+    filename: "index.php",
     inject: 'head',
     scriptLoading: 'blocking'
   })]

@@ -2,8 +2,6 @@ import { Vector3 } from 'super-three';
 import { gameManager } from './game-manager';
 import { playerController } from './player-controller'
 
-let amountBikeTrainMembers = 0;
-
 AFRAME.registerComponent('bike-train-member', {
     schema: {
     },
@@ -24,8 +22,8 @@ AFRAME.registerComponent('bike-train-member', {
         if(this.isHit || !this.spawned) return;
         this.isHit = true;
 
-        let x = Math.sign((amountBikeTrainMembers % 2) - 0.5) * 0.5;
-        let z = Math.floor(amountBikeTrainMembers / 2) * 2.2 + 1.5;
+        let x = Math.sign((gameManager.bikeMemberCount % 2) - 0.5) * 0.5;
+        let z = Math.floor(gameManager.bikeMemberCount / 2) * 2.2 + 1.5;
 
         // play the powerup sound if you got someone
         this.powerupAudio = document.querySelector('#powerup-sound');
@@ -37,8 +35,6 @@ AFRAME.registerComponent('bike-train-member', {
         this.el.object3D.position.set(x, 0, z)
         this.el.object3D.rotation.set(0, Math.PI, 0)
 
-        amountBikeTrainMembers++;
-
         this.bellOffset = 0;
         this.el.setAttribute('animation-mixer', 'timeScale: 1.5');
         gameManager.incrementBikePoolMemberCount();
@@ -46,7 +42,7 @@ AFRAME.registerComponent('bike-train-member', {
     },
     spawn: function() {
         if(gameManager.levelData.bikePoolIsAdult) {
-            let url = document.querySelector(getRandomAdultBikeId()).getAttribute('src');
+            let url = document.querySelector(getRandomAdultBikeId(false, true)).getAttribute('src');
             this.el.setAttribute('gltf-model', url);
         } else {
             let url = document.querySelector('#cyclist-kid-asset').getAttribute('src');
@@ -83,13 +79,20 @@ AFRAME.registerComponent('bike-train-member', {
     }
 });
 
-export function getRandomAdultBikeId(excludeCargo = false) {
+let lastRandomAdultBikeId = -1;
+
+export function getRandomAdultBikeId(excludeCargo = false, differentThanLastOne = false) {
     const cyclists = ["cyclist1", "cyclist2", "cyclist3", "cyclist-dutch"];
     
     if (!excludeCargo) {
         cyclists.push("cyclist-cargo");
     }
 
-    const index = Math.floor(Math.random() * cyclists.length);
+    let index = Math.floor(Math.random() * cyclists.length);
+    while(differentThanLastOne && index === lastRandomAdultBikeId) {
+        index = Math.floor(Math.random() * cyclists.length);
+    }
+    lastRandomAdultBikeId = index;
+
     return `#${cyclists[index]}-asset`;
 }

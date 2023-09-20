@@ -283,6 +283,33 @@ AFRAME.registerComponent('game-manager', {
 
             setEndScreenEnabled(true, this.levelData.getLevelEndMessage(this.bikeMemberCount));
 
+            // if its the voting thing - make that work plz
+            // Check if the elements exist before adding event listeners
+            var yesButton = document.getElementById('yesBtn');
+            var noButton = document.getElementById('noBtn');
+            var ballotButtons = document.querySelector('.ballot-buttons');
+            var results = document.getElementById('results');
+
+            if (yesButton && noButton) {
+                yesButton.addEventListener('click', showResults);
+                noButton.addEventListener('click', showResults);
+            }
+
+            function showResults() {
+                // Hide the buttons if they exist
+                if (ballotButtons) {
+                    ballotButtons.style.display = 'none';
+                }
+
+                // Show the results if it exists
+                if (results) {
+                    results.style.display = 'block';
+                }
+            }
+
+
+
+
             this.shareBasedOnLevel(currentLevel);
 
             // change this here to be class removed
@@ -521,7 +548,7 @@ AFRAME.registerComponent('game-manager', {
         }
     },
     playGetHurt: function() {
-        if(this.bikeMemberCount > 0) {
+        if(this.bikeMemberCount > 0 && !this.levelData.bikePoolIsAdult) {
             let path = `#ouch-baby-sound-${Math.floor(Math.random() * 2)}`; // 0 or 1
             let audio = document.querySelector(path);
             audio.play();
@@ -558,8 +585,8 @@ AFRAME.registerComponent('game-manager', {
 
         // flash the UI elemets for the tutorial
         if (this.levelData.tutorial) {
-            this.blinkIcon('#shout', 3500, 17000); // Start blinking the bell (named shout accidentally)
-            this.blinkIcon('#horn', 2000, 22000);  // Start blinking the #horn icon
+            this.blinkIcon('#bell', 3500, 17000); // Start blinking the bell (named shout accidentally)
+            this.blinkIcon('#main', 2000, 22000);  // Start blinking the #horn icon
             this.blinkSwipeInstrucions();
 
             // set timeout for the text instructions to pick shout to stay safe
@@ -600,7 +627,7 @@ AFRAME.registerComponent('game-manager', {
     upgradeToHorn: function() {
         this.isLoudMini = true;
         document.querySelector('[noise-indicator]').components['noise-indicator'].upgradeLoudMini();
-        document.querySelector('#horn img').src = './assets/loud_mini.png';
+        document.querySelector('#main img').src = './assets/loud_mini.png';
     },
     setRaygunActive: function(b) {
         document.querySelector('#ray').style.display = b ? 'unset' : 'none';
@@ -611,7 +638,7 @@ AFRAME.registerComponent('game-manager', {
     },
     downgradeToShout: function() {
         document.querySelector('[noise-indicator]').components['noise-indicator'].downgradeShout();
-        document.querySelector('#horn img').src = './assets/shout.svg';
+        document.querySelector('#main img').src = './assets/shout.svg';
     },
     spawnMinis: function() {
         // <a-entity item="type: horn" gltf-model="#loud-bicycle-mini-asset" position="0 0.8 -16" scale="4 4 4"></a-entity>

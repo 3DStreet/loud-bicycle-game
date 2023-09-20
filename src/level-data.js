@@ -182,6 +182,7 @@ export const gameData = {
             amountLanes: 3,
             amountBikePool: 0,
             bikePoolSpawnOffset: 1,
+            bikePoolIsAdult: true,
             disableBikePool: true,
             laneWidth: 3.248,
             streetLength: 50,
@@ -225,9 +226,20 @@ export const gameData = {
             ],
             getLevelEndMessage: function() {
                 return `<h1>You got to the bar!</h1>
-                            <img src="./assets/security-screws.png" class="icon" style="float: right; margin: 0 10px 10px 10px;">
-                            <p>Don't need no raygun to vote for safer streets and walkable neighborhoods.
-                            <p>Beat Level-4 to get a coupon for free securty screws.</p>`
+                <div class="ballot-box">
+                <h2>Office of the Mayor - Ballot</h2>
+                <p>VOTE: Should Loud Street have a protected bike lane?</p>
+                <div class="ballot-buttons">
+                    <button id="yesBtn">YES</button>
+                    <button id="noBtn">NO</button>
+                </div>
+                <div id="results" style="display: none;">
+                <div class="bar yes"><div class="background"></div><span>99% YES</span></div>
+                <div class="bar no"><div class="background"></div><span>1% NO</span></div>
+                </div>
+            </div>
+            
+                      `
             }
         },
         {
@@ -248,6 +260,7 @@ export const gameData = {
             amountLanes: 3,
             amountBikePool: 0,
             bikePoolSpawnOffset: 1,
+            bikePoolIsAdult: true,
             disableBikePool: true,
             laneWidth: 3.048,
             streetLength: 50,

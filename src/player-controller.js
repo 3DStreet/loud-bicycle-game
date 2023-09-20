@@ -127,7 +127,12 @@ AFRAME.registerComponent('player-controller', {
                 }
             }
             this.el.object3D.position.x = lerp(this.currentPosition, this.targetPosition, this.lerpT)
-            this.el.object3D.position.z -= this.el.object3D.position.z / 100;
+            
+            if(this.el.object3D.position.z < 0.001) 
+                this.el.object3D.position.z = 0;
+            else
+                this.el.object3D.position.z -= this.el.object3D.position.z / 100;
+            
             this.lerpT += this.data.speed * dt / 1000;
             this.lerpT = Math.max(Math.min(this.lerpT,1),0);
 
