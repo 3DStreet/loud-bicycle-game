@@ -113,7 +113,7 @@ AFRAME.registerComponent('game-manager', {
                 const id = `#level-${i+1}-button`;
                 const button = document.querySelector(id);
                 button.addEventListener('click', () => {
-                    if(button.classList.contains('level-button-grayscale')) return;
+                    // if(button.classList.contains('level-button-grayscale')) return;
                     this.generateLevel(i);
                     this.playLevel();
                     setMenuEnabled(false);
