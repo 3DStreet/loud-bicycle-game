@@ -564,8 +564,13 @@ $assetsUrl = "https://loudbicycle.com/wp-content/themes/loud-bicycle-wp/assets"
       // change the border color of level-1-button to gray
       document.querySelector('#level-1-button').classList.remove('border-yellow');
 
+      if(quoteInterval) clearInterval(quoteInterval);
 
-      clearInterval(quoteInterval);
+      if(gameManager && gameManager.userStars && gameManager.userStars['level1']) {
+        document.querySelector('#level-stars-all').classList.remove('disabled');
+        document.querySelector('#level-stars-all').classList.add('enabled');
+        return;
+      }
 
       // highlight the school level with the sparkle sound after 300 ms
       introModalTimer1 = setTimeout(() => {
@@ -718,7 +723,8 @@ $assetsUrl = "https://loudbicycle.com/wp-content/themes/loud-bicycle-wp/assets"
           let stars = gameManager.userStars[`level${i+1}`];
           // Check if the user has completed this level or it's the level user is currently at
           if(gameManager.userStars[`level${i+1}`] !== null) {
-            levelButton.style.filter = 'grayscale(0%)';
+            // levelButton.style.filter = 'grayscale(0%)';
+            levelButton.classList.remove('level-button-grayscale');
             levelButton.classList.remove('border-yellow');
             // add stars
             starImage.src = `assets/levels/${stars}-stars.png`;
@@ -726,12 +732,14 @@ $assetsUrl = "https://loudbicycle.com/wp-content/themes/loud-bicycle-wp/assets"
 
           } else if(gameManager.userStars[`level${i}`] !== null) {
             // This is the level user is currently at
-            levelButton.style.filter = 'grayscale(0%)';
+            // levelButton.style.filter = 'grayscale(0%)';
+            levelButton.classList.remove('level-button-grayscale');
             levelButton.classList.add('border-yellow');
             starImage.style.display = 'none';
           } else {
             // The level is not reached yet
-            levelButton.style.filter = 'grayscale(100%)';
+            // levelButton.style.filter = 'grayscale(100%)';
+            levelButton.classList.add('level-button-grayscale');
             levelButton.classList.remove('border-yellow');
             starImage.style.display = 'none';
           }
@@ -748,7 +756,8 @@ $assetsUrl = "https://loudbicycle.com/wp-content/themes/loud-bicycle-wp/assets"
           // change the button
           levelButton.classList.remove('border-yellow');
 
-          levelButton.style.filter = 'grayscale(100%)';
+          // levelButton.style.filter = 'grayscale(100%)';
+          levelButton.classList.add('level-button-grayscale');
           // levelButton.style.transition = 'filter 0.75s';
           levelButton.style.transition = 'filter 0.75s, width 0.75s';
 
@@ -759,7 +768,8 @@ $assetsUrl = "https://loudbicycle.com/wp-content/themes/loud-bicycle-wp/assets"
 
             levelButton.classList.add('highlight'); 
             levelButton.classList.add('border-yellow');       
-            levelButton.style.filter = 'grayscale(0%)';
+            // levelButton.style.filter = 'grayscale(0%)';
+            levelButton.classList.remove('level-button-grayscale');
             levelButton.style.width = '28%';
             console.log("just expanded the business");
             window.gameManager.justBeatLevel = null;

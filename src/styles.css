@@ -356,6 +356,8 @@ margin-top: 0.2em;
   height: auto;
   border: 5px solid #4caf50;
   border-radius: 50%;
+  filter: grayscale(0%);
+  transition: filter 0.75s;
 }
 
 
@@ -1042,4 +1044,8 @@ span.social-media-group span.share-whatsapp {
 #handlebar-raygun img {
   width: 100%;
   transition: opacity 0.4s;
+}
+
+.level-button-grayscale {
+  filter: grayscale(100%);
 }
