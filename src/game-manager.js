@@ -111,7 +111,9 @@ AFRAME.registerComponent('game-manager', {
             // Level Buttons
             for (let i = 0; i < 4; i++) {
                 const id = `#level-${i+1}-button`;
-                document.querySelector(id).addEventListener('click', () => {
+                const button = document.querySelector(id);
+                button.addEventListener('click', () => {
+                    if(button.classList.contains('level-button-grayscale')) return;
                     this.generateLevel(i);
                     this.playLevel();
                     setMenuEnabled(false);
@@ -245,6 +247,7 @@ AFRAME.registerComponent('game-manager', {
 
         if (currentStars === null || newStars > currentStars) {
             this.userStars[`level${currentLevel + 1}`] = newStars;
+            this.saveUserStars();
         }
 
         // set level-end-image-container to be enabled
@@ -902,6 +905,9 @@ AFRAME.registerComponent('game-manager', {
 
             return initialStars;
         }
+    },
+    saveUserStars: function() {
+        localStorage.setItem("userStars", JSON.stringify(this.userStars));
     },
     getGameState() {
         return GAME_STATE;
