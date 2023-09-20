@@ -373,11 +373,11 @@ AFRAME.registerComponent('game-manager', {
                 this.appendToLink = '?v=91sna';
                 break;
             case 2:
-                this.shareText = "I beat level 3 safely in the Loud Bicycle Game!";
+                this.shareText = "I voted for protected bike lanes in the Loud Bicycle Game!";
                 this.appendToLink = '';
                 break;
             case 3:
-                this.shareText = "I won the Loud Bicycle Game!";
+                this.shareText = "I won the whole Loud Bicycle Game!";
                 this.appendToLink = '';
                 break;
         }
