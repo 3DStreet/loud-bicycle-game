@@ -21,6 +21,18 @@ export const avatarData = [
         type: 'male',
         id: '#cyclist2-asset'
     },
+    {
+        type: 'female',
+        id: '#cyclist4-asset'
+    },
+    {
+        type: 'male',
+        id: '#cyclist5-asset'
+    },
+    {
+        type: 'female',
+        id: '#cyclist-dutch-asset'
+    },
 ]
 
 export let GAME_STATE = GAME_STATES.MENU;
@@ -564,6 +576,9 @@ AFRAME.registerComponent('game-manager', {
     playLevel: function() {
 
         this.avatarObject = this.getAvatarObject();
+        // log the avator object chosen
+        console.log("avatarObject: ");
+        console.log(this.avatarObject)
         playerController.setAvatar(this.avatarObject.id);
         this.currentShoutIndex = 0;
 
