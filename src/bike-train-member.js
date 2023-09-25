@@ -82,7 +82,7 @@ AFRAME.registerComponent('bike-train-member', {
 let lastRandomAdultBikeId = -1;
 
 export function getRandomAdultBikeId(excludeCargo = false, differentThanLastOne = false) {
-    const cyclists = ["cyclist1", "cyclist2", "cyclist3", "cyclist-dutch"];
+    const cyclists = ["cyclist1", "cyclist2", "cyclist3", "cyclist4", "cyclist5", "cyclist-dutch"];
     
     if (!excludeCargo) {
         cyclists.push("cyclist-cargo");

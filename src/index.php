@@ -211,6 +211,8 @@ $assetsUrl = "https://loudbicycle.com/wp-content/themes/loud-bicycle-wp/assets"
         <a-asset-item id="cyclist1-asset" src="./3dstreet-assets/sets/cyclist-animation/gltf-exports/draco/cyclist-1-animation-v1.glb"></a-asset-item>
         <a-asset-item id="cyclist2-asset" src="./3dstreet-assets/sets/cyclist-animation/gltf-exports/draco/cyclist-2-animation-v1.glb"></a-asset-item>
         <a-asset-item id="cyclist3-asset" src="./3dstreet-assets/sets/cyclist-animation/gltf-exports/draco/cyclist-3-animation-v1.glb"></a-asset-item>
+        <a-asset-item id="cyclist4-asset" src="./3dstreet-assets/sets/cyclist-animation/gltf-exports/draco/cyclist-4-animation-v1.glb"></a-asset-item>
+        <a-asset-item id="cyclist5-asset" src="./3dstreet-assets/sets/cyclist-animation/gltf-exports/draco/cyclist-5-animation-v1.glb"></a-asset-item>
         <a-asset-item id="cyclist-kid-asset" src="./3dstreet-assets/sets/cyclist-animation/gltf-exports/draco/Kid_cyclist_animation_v01.glb"></a-asset-item>
         <a-asset-item id="cyclist-dutch-asset" src="./3dstreet-assets/sets/cyclist-animation/gltf-exports/draco/Dutch_cyclist_animation_v01.glb"></a-asset-item>
         <a-asset-item id="loud-bicycle-mini-asset" src="./3dstreet-assets/sets/cycle-horn/gltf-exports/draco/loud-bicycle-mini-horn.glb"></a-asset-item>
@@ -224,11 +226,13 @@ $assetsUrl = "https://loudbicycle.com/wp-content/themes/loud-bicycle-wp/assets"
         <a-asset-item id="scrubber-asset" src="./3dstreet-assets/sets/c02-scrubber/gltf-exports/draco/co2-scrubber.glb"></a-asset-item>
         <a-asset-item id="prop-heart-asset" src="./assets/heart-model_v01.glb"></a-asset-item>
         <a-asset-item id="prop-finish-asset" src="./assets/finish.glb"></a-asset-item>
-        <a-asset-item id="prop-parklet" src="./assets/parklet.glb"></a-asset-item>
+        <a-asset-item id="prop-parklet" src="./3dstreet-assets/sets/street-props-parklet/gltf-exports/draco/parklet.glb"></a-asset-item>
         <a-mixin id="cyclist-cargo" gltf-model="#cyclist-cargo-asset"></a-mixin>
         <a-mixin id="cyclist1" gltf-model="#cyclist1-asset"></a-mixin>
         <a-mixin id="cyclist2" gltf-model="#cyclist2-asset"></a-mixin>
         <a-mixin id="cyclist3" gltf-model="#cyclist3-asset"></a-mixin>
+        <a-mixin id="cyclist4" gltf-model="#cyclist4-asset"></a-mixin>
+        <a-mixin id="cyclist5" gltf-model="#cyclist5-asset"></a-mixin>
         <a-mixin id="cyclist-kid" gltf-model="#cyclist-kid-asset"></a-mixin>
         <a-mixin id="cyclist-dutch" gltf-model="#cyclist-dutch-asset"></a-mixin>
         <a-mixin id="loud-bicycle-mini" gltf-model="#loud-bicycle-mini-asset"></a-mixin>
@@ -243,7 +247,7 @@ $assetsUrl = "https://loudbicycle.com/wp-content/themes/loud-bicycle-wp/assets"
         <!-- just for the show -->
         <a-asset-item id="just-bike-dutch1" src="./assets/bikes/dutch_cycle.glb"></a-asset-item>
         <a-mixin id="just-bike-dutch" gltf-model="#just-bike-dutch1"></a-mixin>
-        <a-asset-item id="just-bike-1" src="./assets/bikes/cycle_1.glb"></a-asset-item>
+        <a-asset-item id="just-bike-1" src="./3dstreet-assets/sets/cyclist-animation/gltf-exports/draco/cyclist-1-animation-v1.glb"></a-asset-item>
         <a-mixin id="just-bike" gltf-model="#just-bike-1"></a-mixin>
         <a-asset-item id="kid-bike-1" src="./assets/bikes/kid_bike.glb"></a-asset-item>
         <a-mixin id="kid-bike" gltf-model="#kid-bike-1"></a-mixin>

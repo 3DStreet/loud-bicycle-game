@@ -288,8 +288,8 @@ export const gameData = {
             interactables: {
                 'rightHook': 0.4,
                 'rightCross': 0.8,
-                'driveway': 0.3,
-                'side': 0.7
+                'driveway': 0.6,
+                'side': 0.8
             },
             streetUrls: [
                 './levels/street_3b.json',
