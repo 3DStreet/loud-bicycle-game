@@ -75,6 +75,7 @@ AFRAME.registerComponent('game-manager', {
 
         this.justBeatLevel = null;
         this.userStars = this.getUserStars();
+        this.justBeat12Stars = false;
 //                  for debugging if you want to fail right away
                     // instant fail:
                     // setTimeout(() => {
@@ -267,9 +268,22 @@ AFRAME.registerComponent('game-manager', {
         });
         
 
+        this.justBeat12Stars = false;
         if (currentStars === null || newStars > currentStars) {
             this.userStars[`level${currentLevel + 1}`] = newStars;
             this.saveUserStars();
+
+            // check if all three stars are now unlocked
+            if (this.checkThreeStars(this.userStars)) {
+                console.log("You beat ALL the levels with THREE stars!!!");
+                gtag('event', 'beat_level_all', {
+                    'event_category': 'game',
+                    'event_label': '12 stars',
+                    'value': playerController.hitCounter  // Optional. You can use this to assign a numeric value to the event.
+                });
+                this.justBeat12Stars = true;
+            }
+                
         }
 
         // set level-end-image-container to be enabled
@@ -942,6 +956,14 @@ AFRAME.registerComponent('game-manager', {
 
             return initialStars;
         }
+    },
+    checkThreeStars: function hasThreeStars(stars) {
+        for (let level in stars) {
+            if (stars[level] !== 3) {
+                return false;
+            }
+        }
+        return true;
     },
     saveUserStars: function() {
         localStorage.setItem("userStars", JSON.stringify(this.userStars));

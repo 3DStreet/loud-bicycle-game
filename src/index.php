@@ -483,7 +483,7 @@ $assetsUrl = "https://loudbicycle.com/wp-content/themes/loud-bicycle-wp/assets"
           <!-- <img id="level-shop-button" class="level-shop disabled" src="assets/levels/shop.png" alt="Loud Shop"> -->
           <img id="level-5-button" class="level-button level-5-button-class disabled" src="assets/levels/shop.png" alt="Loud Shop" style="border: none; border-radius: 0px">
           
-          <div id="level-stars-all" class="disabled">
+          <div id="level-stars-all" class="gone">
           <img id="level-1-stars" class="level-star" src="assets/levels/0-stars.png">
           <img id="level-2-stars" class="level-star" src="assets/levels/1-stars.png">
           <img id="level-3-stars" class="level-star" src="assets/levels/2-stars.png">
@@ -571,8 +571,8 @@ $assetsUrl = "https://loudbicycle.com/wp-content/themes/loud-bicycle-wp/assets"
       if(quoteInterval) clearInterval(quoteInterval);
 
       if(gameManager && gameManager.userStars && gameManager.userStars['level1']) {
-        document.querySelector('#level-stars-all').classList.remove('disabled');
-        document.querySelector('#level-stars-all').classList.add('enabled');
+        document.querySelector('#level-stars-all').classList.remove('gone');
+        // document.querySelector('#level-stars-all').classList.add('enabled');
         return;
       }
 
@@ -614,8 +614,8 @@ $assetsUrl = "https://loudbicycle.com/wp-content/themes/loud-bicycle-wp/assets"
           document.querySelector('.game-title').classList.add('disabled');
 
           // reenable level-stars-all
-          document.querySelector('#level-stars-all').classList.remove('disabled');
-          document.querySelector('#level-stars-all').classList.add('enabled');
+          document.querySelector('#level-stars-all').classList.remove('gone');
+          // document.querySelector('#level-stars-all').classList.add('enabled');
 
           // set to enabled
           document.querySelector('#level-5-button').classList.remove('disabled');
@@ -671,6 +671,20 @@ $assetsUrl = "https://loudbicycle.com/wp-content/themes/loud-bicycle-wp/assets"
     }
 
     function setEndScreenEnabled(b, message) {
+
+      // overwrite with a new message if you just beat with 3 stars
+      if (gameManager.justBeat12Stars){
+
+        message = `
+                <img src="./assets/let-cars-share-road.png" class="icon" style="float: right; margin: 0 10px 10px 10px;">
+                <img src="./assets/finalwin2.jpg" class="icon" style="float: right; margin: 0 10px 10px 10px;">
+                                <h1>Congratulations you beat the game!</h1>
+                                    <p>
+                                    We want to send you stickers in real life 🎉 <a href="https://loudbicycle.com/horn">CLICK HERE to visit the shop</a> use coupon code BIKEHERO to get stickers for free.
+                                </p>`
+
+      }
+
       if(b) {
         document.querySelector('#game-menu-bg').style.opacity = 1;
         endScreen.classList.add('enabled');
