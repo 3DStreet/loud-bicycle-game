@@ -248,16 +248,6 @@ AFRAME.registerComponent('game-manager', {
         let bikeMemberCount = this.bikeMemberCount;
         let lives = playerController.lives;
 
-
-        // Send the event to Google Analytics
-        console.log("Logging amazing news that a level was beaten.");
-        gtag('event', 'beat_level_' + currentLevel, {
-            'event_category': 'game',
-            'event_label': 'Level ' + currentLevel,
-            'value': currentLevel  // Optional. You can use this to assign a numeric value to the event.
-        });
-        
-        
         // if you did better than the last time, update your score
         let newStars = this.calculateUserStars(currentLevel, bikeMemberCount, lives);
         let currentStars = this.userStars[`level${currentLevel + 1}`];
@@ -266,6 +256,16 @@ AFRAME.registerComponent('game-manager', {
             console.log("just beat level: " + currentLevel + " for the first time");
             this.justBeatLevel = currentLevel + 1;
         }
+
+
+        // Send the event to Google Analytics
+        console.log("Logging amazing news that a level was beaten.");
+        gtag('event', 'beat_level_' + currentLevel, {
+            'event_category': 'game',
+            'event_label': 'Level ' + currentLevel,
+            'value': newStars  // Optional. You can use this to assign a numeric value to the event.
+        });
+        
 
         if (currentStars === null || newStars > currentStars) {
             this.userStars[`level${currentLevel + 1}`] = newStars;
@@ -500,13 +500,14 @@ AFRAME.registerComponent('game-manager', {
         setEndScreenEnabled(true, getRandomMessage('fail', playerController.hitCounter, this.lastKillVehicle));
 
 
+        let currentLevel = this.getLevelIndex(); // Get the index of the completed level
 
         // Send the event to Google Analytics
         console.log("Logging sad news that a level was lost.");
         gtag('event', 'lose_level_' + currentLevel, {
             'event_category': 'game',
             'event_label': 'Level ' + currentLevel,
-            'value': currentLevel  // Optional. You can use this to assign a numeric value to the event.
+            'value': playerController.hitCounter  // Optional. You can use this to assign a numeric value to the event.
         });
         
 
