@@ -247,6 +247,16 @@ AFRAME.registerComponent('game-manager', {
         let currentLevel = this.getLevelIndex(); // Get the index of the completed level
         let bikeMemberCount = this.bikeMemberCount;
         let lives = playerController.lives;
+
+
+        // Send the event to Google Analytics
+        console.log("Logging amazing news that a level was beaten.");
+        gtag('event', 'beat_level_' + currentLevel, {
+            'event_category': 'game',
+            'event_label': 'Level ' + currentLevel,
+            'value': currentLevel  // Optional. You can use this to assign a numeric value to the event.
+        });
+        
         
         // if you did better than the last time, update your score
         let newStars = this.calculateUserStars(currentLevel, bikeMemberCount, lives);
@@ -488,6 +498,17 @@ AFRAME.registerComponent('game-manager', {
         console.log("failLevel");
         console.log("hitCounter: " + playerController.hitCounter);
         setEndScreenEnabled(true, getRandomMessage('fail', playerController.hitCounter, this.lastKillVehicle));
+
+
+
+        // Send the event to Google Analytics
+        console.log("Logging sad news that a level was lost.");
+        gtag('event', 'lose_level_' + currentLevel, {
+            'event_category': 'game',
+            'event_label': 'Level ' + currentLevel,
+            'value': currentLevel  // Optional. You can use this to assign a numeric value to the event.
+        });
+        
 
         //change the fail image to the vehicle:
         let levelImageFail = document.getElementById("level-end-image-fail-image");
