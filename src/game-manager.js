@@ -75,6 +75,7 @@ AFRAME.registerComponent('game-manager', {
 
         this.justBeatLevel = null;
         this.userStars = this.getUserStars();
+        this.checkHandlebarEnabled(this.userStars);
         this.justBeat12Stars = false;
 //                  for debugging if you want to fail right away
                     // instant fail:
@@ -957,10 +958,39 @@ AFRAME.registerComponent('game-manager', {
             return initialStars;
         }
     },
-    checkThreeStars: function hasThreeStars(stars) {
+    checkThreeStars: function(stars) {
+        console.log("checking if you just beat all the levels");
         for (let level in stars) {
             if (stars[level] !== 3) {
                 return false;
+            }
+        }
+        return true;
+    },
+    checkHandlebarEnabled: function(stars) {
+        console.log("checking if we need to enable some handlebar images");
+        let keyElement = null;
+        for (let level in stars) {
+            // check if stars[level] is NOT null
+            if (stars[level] !== null) {
+                // switch case on current level
+                keyElement = null;
+                switch (level) {
+                    case 'level1':
+                            keyElement = document.getElementById('handlebar-mini').querySelector('img');
+                            break;
+                    case 'level2':
+                            keyElement = document.getElementById('handlebar-raygun').querySelector('img');
+                            break;
+                    case 'level3':
+                            keyElement = document.getElementById('handlebar-screws').querySelector('img');
+                            break;
+                }
+
+                if (keyElement != null ){
+                    keyElement.classList.remove('handlebar-disabled');
+                    keyElement.classList.add('handlebar-enabled');
+                }
             }
         }
         return true;
