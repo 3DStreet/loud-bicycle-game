@@ -458,7 +458,7 @@ margin-top: 0.2em;
   border-radius: 15px;
 }
 
-.game-title {
+#game-title {
   position: absolute;
   display: flex;
   justify-content: center;  /* center the content horizontally */

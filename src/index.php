@@ -468,7 +468,7 @@ $assetsUrl = "https://loudbicycle.com/wp-content/themes/loud-bicycle-wp/assets"
         </div>
       </div>
       <div id="level-selection" class="disabled">
-        <div class="game-title">
+        <div id="game-title">
           Loud Bicycle THE GAME
         </div>
       
@@ -479,9 +479,8 @@ $assetsUrl = "https://loudbicycle.com/wp-content/themes/loud-bicycle-wp/assets"
           <img id="level-3-button" class="level-button" src="assets/levels/bar.png" alt="Level 3">
           <img id="level-4-button" class="level-button" src="assets/levels/home.png" alt="Level 4">
 
-
           <!-- <img id="level-shop-button" class="level-shop disabled" src="assets/levels/shop.png" alt="Loud Shop"> -->
-          <img id="level-5-button" class="level-button level-5-button-class disabled" src="assets/levels/shop.png" alt="Loud Shop" style="border: none; border-radius: 0px">
+          <img id="level-5-button" class="level-button level-5-button-class gone" src="assets/levels/shop.png" alt="Loud Shop" style="border: none; border-radius: 0px">
           
           <div id="level-stars-all" class="gone">
           <img id="level-1-stars" class="level-star" src="assets/levels/0-stars.png">
@@ -611,14 +610,15 @@ $assetsUrl = "https://loudbicycle.com/wp-content/themes/loud-bicycle-wp/assets"
           document.querySelector('#meta-title-container').classList.add('enabled');
 
           // remove the game-title
-          document.querySelector('.game-title').classList.add('disabled');
+          document.querySelector('#game-title').classList.add('gone');
 
           // reenable level-stars-all
           document.querySelector('#level-stars-all').classList.remove('gone');
           // document.querySelector('#level-stars-all').classList.add('enabled');
 
           // set to enabled
-          document.querySelector('#level-5-button').classList.remove('disabled');
+          // document.querySelector('#level-5-button').classList.remove('disabled');
+          document.querySelector('#level-5-button').classList.remove('gone');
           // document.querySelector('#level-shop-button').classList.add('enabled');
 
           // raise the horn and shout above the menu for the first bit
