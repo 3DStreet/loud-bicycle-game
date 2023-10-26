@@ -48,6 +48,8 @@ export let finalAnimationTimeMS = 3500;
 
 const SMOG_SCORE = 1;
 
+const FOG_FADE_OUT_DURATION = 6.0;
+
 AFRAME.registerComponent('game-manager', {
     schema: {
     },
@@ -746,6 +748,7 @@ AFRAME.registerComponent('game-manager', {
         // Lights & Fog
         let scene = document.querySelector('a-scene');
         this.currentNearFog = levelData.fogNear;
+        this.currentFarFog = levelData.fogFar;
         scene.setAttribute('fog', {'near': levelData.fogNear, 'far': levelData.fogFar, 'color': levelData.fogColor});
         let ambientLight = document.querySelector('#ambient-light');
         ambientLight.setAttribute('light', {'color': levelData.ambientLightColor});
@@ -839,9 +842,14 @@ AFRAME.registerComponent('game-manager', {
         return this.tempVec.z;
     },
     clearFog: function() {
-        this.targetFarFog = 800;
+        let fogPushAmount = 40;
+
+        this.targetFarFog = this.currentFarFog + fogPushAmount;
+        this.targetNearFog = this.currentNearFog + fogPushAmount;
+
         this.lerpFog = true;
-        this.lerpFogTimer = 2.0;
+        this.lerpFogUp = true;
+        this.lerpFogTimer = FOG_FADE_OUT_DURATION;
         this.lerpFogAmount = 0.0;
     },
     getCurrentStreetIndex: function() {
@@ -1051,12 +1059,17 @@ AFRAME.registerComponent('game-manager', {
         }
 
         if(this.lerpFog && GAME_STATE === GAME_STATES.PLAYING) {
-            if(this.lerpFogTimer >= 0) {
-                this.currentNearFog = lerp(this.levelData.fogFar, this.targetFarFog, this.lerpFogAmount);
-                this.lerpFogAmount = Math.min(1.0, this.lerpFogAmount + dt/1000);
-                this.lerpFogTimer -= dt/1000;
+            if(this.lerpFogUp) {
+                this.currentNearFog = lerp(this.levelData.fogNear, this.targetNearFog, this.lerpFogAmount);
+                this.currentFarFog = lerp(this.levelData.fogFar, this.targetFarFog, this.lerpFogAmount);
+                this.lerpFogAmount = this.lerpFogAmount + dt/1000;
+                if(this.lerpFogAmount >= 1.0) {
+                    this.lerpFogAmount = FOG_FADE_OUT_DURATION;
+                    this.lerpFogUp = false;
+                }
             } else {
-                this.currentNearFog = lerp(this.levelData.fogFar, this.targetFarFog, this.lerpFogAmount);
+                this.currentNearFog = lerp(this.levelData.fogNear, this.targetNearFog, this.lerpFogAmount / FOG_FADE_OUT_DURATION);
+                this.currentFarFog = lerp(this.levelData.fogFar, this.targetFarFog, this.lerpFogAmount / FOG_FADE_OUT_DURATION);
                 this.lerpFogAmount -= dt/1000;
                 if(this.lerpFogAmount <= 0) {
                     this.lerpFog = false;
@@ -1064,7 +1077,7 @@ AFRAME.registerComponent('game-manager', {
             }
 
             let scene = document.querySelector('a-scene');
-            scene.setAttribute('fog', {'far': this.currentNearFog});
+            scene.setAttribute('fog', {'near': this.currentNearFog, 'far': this.currentFarFog});
 
         }
     }
