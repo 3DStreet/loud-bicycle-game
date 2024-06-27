@@ -1,4 +1,4 @@
-import { GAME_STATE, GAME_STATES, gameManager } from "./game-manager";
+import { GAME_STATE, GAME_STATES, gameManager, getLevelIndex} from "./game-manager";
 import { interactablePool } from "./interactable-pool";
 
 const LOW_METER_THRESHOLD = 20;
@@ -151,7 +151,12 @@ AFRAME.registerComponent('noise-meter', {
 
         gameManager.disableAmbientAudio();
         interactablePool.convertAllToBikes();
-        gameManager.clearFog();
+        console.log("we are trying to clear the fog");
+        console.log(gameManager.getLevelIndex());
+        if (gameManager.getLevelIndex() == 2){
+            gameManager.clearFog();
+        }
+
 
         this.sound.playSound();
         this.displaying = true;

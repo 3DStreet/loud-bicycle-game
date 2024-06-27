@@ -174,8 +174,12 @@ export const gameData = {
             fogColor: '#646464',
             ambientLightColor: '#646464', 
             directionalLightColor: '#646464', 
-            directionalLightIntensity: 1.0, 
-            directionalLightPosition: '0 0 0', 
+            directionalLightIntensity: .4, 
+            // this is the original bar level light
+            // directionalLightPosition: '0 0 0', 
+            // this is teh new test to see if it is brighter
+            directionalLightPosition: '-5 8 4',
+
             hasBikeLight: false, 
             endDistance: 4 * 50 + 3 * 10 + 20 + 4,
             startingLane: 2,

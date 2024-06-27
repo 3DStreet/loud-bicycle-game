@@ -100,21 +100,18 @@ $imageKey = isset($_GET['v']) && isset($validImages[$_GET['v']]) ? $_GET['v'] : 
 
 // If the key was found, use the corresponding image and description, otherwise default to bicycle collision with a truck
 if ($imageKey) {
-    $imageUrl = "https://loudbicycle.com/screenshots/" . $validImages[$imageKey]['filename'];
+    $imageUrl = "https://game.loudbicycle.com/screenshots/" . $validImages[$imageKey]['filename'];
     $imageDescription = $validImages[$imageKey]['description'];
     $imageWidth = $validImages[$imageKey]['width'];
     $imageHeight = $validImages[$imageKey]['height'];
 } else {
-    $imageUrl = "https://loudbicycle.com/screenshots/bicycle-collision-with-truck.jpg";
+    $imageUrl = "https://game.loudbicycle.com/screenshots/bicycle-collision-with-truck.jpg";
     $imageDescription = "Can you get the kids to school safely? Try the Loud Bicycle game!";
     $imageWidth = 1306;
     $imageHeight = 1023;
 }
 
-$assetsUrl = "https://loudbicycle.com/wp-content/themes/loud-bicycle-wp/assets"
-
-
-?>
+$assetsUrl = "https://game.loudbicycle.com/wp-assets"?>
 
 
 <!-- Favicon -->
@@ -133,7 +130,7 @@ $assetsUrl = "https://loudbicycle.com/wp-content/themes/loud-bicycle-wp/assets"
     <meta property="og:image:width" content="<?php echo $imageWidth; ?>">
     <meta property="og:image:height" content="<?php echo $imageHeight; ?>">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://www.loudbicycle.com/game">
+    <meta property="og:url" content="https://game.loudbicycle.com">
 
     <!-- Twitter Card Tags -->
     <meta name="twitter:card" content="summary_large_image">
@@ -887,22 +884,22 @@ $assetsUrl = "https://loudbicycle.com/wp-content/themes/loud-bicycle-wp/assets"
   function shareContent() {
 
     document.querySelector('.share-facebook').addEventListener('click', function() {
-        const url = `https://www.facebook.com/sharer/sharer.php?u=https://loudbicycle.com/game${gameManager.appendToLink}`;
+        const url = `https://www.facebook.com/sharer/sharer.php?u=https://game.loudbicycle.com/${gameManager.appendToLink}`;
         window.open(url, '_blank');
     });
 
     document.querySelector('.share-twitter').addEventListener('click', function() {
-        const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(gameManager.shareText + ' https://loudbicycle.com/game' + gameManager.appendToLink)}`;
+        const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(gameManager.shareText + ' https://game.loudbicycle.com/' + gameManager.appendToLink)}`;
         window.open(url, '_blank');
     });
 
     document.querySelector('.share-whatsapp').addEventListener('click', function() {
-        const url = `https://wa.me/?text=${encodeURIComponent(gameManager.shareText + ' https://loudbicycle.com/game' + gameManager.appendToLink)}`;
+        const url = `https://wa.me/?text=${encodeURIComponent(gameManager.shareText + ' https://game.loudbicycle.com/' + gameManager.appendToLink)}`;
         window.open(url, '_blank');
     });
 
     document.querySelector('.copy-text').addEventListener('click', function() {
-        const textToCopy = `${gameManager.shareText} https://loudbicycle.com/game${gameManager.appendToLink}`;
+        const textToCopy = `${gameManager.shareText} https://game.loudbicycle.com/${gameManager.appendToLink}`;
         navigator.clipboard.writeText(textToCopy).then(function() {
             document.querySelector('.action-confirmation').style.display = "inline";
             setTimeout(function() {
