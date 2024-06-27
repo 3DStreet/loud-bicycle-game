@@ -48,7 +48,7 @@ export let finalAnimationTimeMS = 3500;
 
 const SMOG_SCORE = 1;
 
-const FOG_FADE_OUT_DURATION = 6.0;
+const FOG_FADE_OUT_DURATION = 9.0;
 
 AFRAME.registerComponent('game-manager', {
     schema: {
@@ -142,7 +142,7 @@ AFRAME.registerComponent('game-manager', {
                 // setMenuEnabled(false);
                 // setLevelSelectionEnabled(false)
 
-                window.open('https://www.loudbicycle.com/horn#buy', '_blank');
+                window.open('https://loudbicycle.com/collections/shop', '_blank');
             })
 
             // create the button action for the very first play button.
@@ -842,10 +842,14 @@ AFRAME.registerComponent('game-manager', {
         return this.tempVec.z;
     },
     clearFog: function() {
-        let fogPushAmount = 40;
+        console.log("we are clearning the fog!");
+        let fogPushAmount = 60;
 
         this.targetFarFog = this.currentFarFog + fogPushAmount;
-        this.targetNearFog = this.currentNearFog + fogPushAmount;
+        this.targetNearFog = this.currentNearFog + fogPushAmount + 500;
+
+        this.currentDirectionalLightIntensity = .4;
+        this.targetDirectionalLightIntensity = .6;
 
         this.lerpFog = true;
         this.lerpFogUp = true;
@@ -1062,6 +1066,8 @@ AFRAME.registerComponent('game-manager', {
             if(this.lerpFogUp) {
                 this.currentNearFog = lerp(this.levelData.fogNear, this.targetNearFog, this.lerpFogAmount);
                 this.currentFarFog = lerp(this.levelData.fogFar, this.targetFarFog, this.lerpFogAmount);
+
+
                 this.lerpFogAmount = this.lerpFogAmount + dt/1000;
                 if(this.lerpFogAmount >= 1.0) {
                     this.lerpFogAmount = FOG_FADE_OUT_DURATION;
@@ -1070,14 +1076,18 @@ AFRAME.registerComponent('game-manager', {
             } else {
                 this.currentNearFog = lerp(this.levelData.fogNear, this.targetNearFog, this.lerpFogAmount / FOG_FADE_OUT_DURATION);
                 this.currentFarFog = lerp(this.levelData.fogFar, this.targetFarFog, this.lerpFogAmount / FOG_FADE_OUT_DURATION);
+
+
                 this.lerpFogAmount -= dt/1000;
                 if(this.lerpFogAmount <= 0) {
                     this.lerpFog = false;
                 }
             }
-
+    
             let scene = document.querySelector('a-scene');
             scene.setAttribute('fog', {'near': this.currentNearFog, 'far': this.currentFarFog});
+            // fix this todo->
+            // scene.setAttribute('fog', {'near': this.currentNearFog, 'far': this.currentFarFog});
 
         }
     }

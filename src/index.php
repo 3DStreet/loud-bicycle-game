@@ -111,10 +111,7 @@ if ($imageKey) {
     $imageHeight = 1023;
 }
 
-$assetsUrl = "https://game.loudbicycle.com/wp-assets"
-
-
-?>
+$assetsUrl = "https://game.loudbicycle.com/wp-assets"?>
 
 
 <!-- Favicon -->
