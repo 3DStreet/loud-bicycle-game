@@ -48,6 +48,8 @@ export let finalAnimationTimeMS = 3500;
 
 const SMOG_SCORE = 1;
 
+const FOG_FADE_OUT_DURATION = 9.0;
+
 AFRAME.registerComponent('game-manager', {
     schema: {
     },
@@ -140,7 +142,7 @@ AFRAME.registerComponent('game-manager', {
                 // setMenuEnabled(false);
                 // setLevelSelectionEnabled(false)
 
-                window.open('https://www.loudbicycle.com/horn#buy', '_blank');
+                window.open('https://loudbicycle.com/collections/shop', '_blank');
             })
 
             // create the button action for the very first play button.
@@ -180,7 +182,7 @@ AFRAME.registerComponent('game-manager', {
                 }, 1000);
             }
 
-            this.tick = AFRAME.utils.throttleTick(this.tick, 500, this);
+            // this.tick = AFRAME.utils.throttleTick(this.tick, 500, this);
 
         }, 100);
     },
@@ -746,6 +748,7 @@ AFRAME.registerComponent('game-manager', {
         // Lights & Fog
         let scene = document.querySelector('a-scene');
         this.currentNearFog = levelData.fogNear;
+        this.currentFarFog = levelData.fogFar;
         scene.setAttribute('fog', {'near': levelData.fogNear, 'far': levelData.fogFar, 'color': levelData.fogColor});
         let ambientLight = document.querySelector('#ambient-light');
         ambientLight.setAttribute('light', {'color': levelData.ambientLightColor});
@@ -839,10 +842,19 @@ AFRAME.registerComponent('game-manager', {
         return this.tempVec.z;
     },
     clearFog: function() {
-        // this.targetNearFog = 400;
-        // this.lerpFog = true;
-        // this.lerpFogTimer = 10.0;
-        // this.lerpFogAmount = 0.0;
+        console.log("we are clearning the fog!");
+        let fogPushAmount = 60;
+
+        this.targetFarFog = this.currentFarFog + fogPushAmount;
+        this.targetNearFog = this.currentNearFog + fogPushAmount + 500;
+
+        this.currentDirectionalLightIntensity = .4;
+        this.targetDirectionalLightIntensity = .6;
+
+        this.lerpFog = true;
+        this.lerpFogUp = true;
+        this.lerpFogTimer = FOG_FADE_OUT_DURATION;
+        this.lerpFogAmount = 0.0;
     },
     getCurrentStreetIndex: function() {
         if(!this.currentLevelStreetEls) return;
@@ -1051,20 +1063,31 @@ AFRAME.registerComponent('game-manager', {
         }
 
         if(this.lerpFog && GAME_STATE === GAME_STATES.PLAYING) {
-            if(this.lerpFogTimer >= 0) {
+            if(this.lerpFogUp) {
                 this.currentNearFog = lerp(this.levelData.fogNear, this.targetNearFog, this.lerpFogAmount);
-                this.lerpFogAmount = Math.min(1.0, this.lerpFogAmount + dt/1000);
-                this.lerpFogTimer -= dt/1000;
+                this.currentFarFog = lerp(this.levelData.fogFar, this.targetFarFog, this.lerpFogAmount);
+
+
+                this.lerpFogAmount = this.lerpFogAmount + dt/1000;
+                if(this.lerpFogAmount >= 1.0) {
+                    this.lerpFogAmount = FOG_FADE_OUT_DURATION;
+                    this.lerpFogUp = false;
+                }
             } else {
-                this.currentNearFog = lerp(this.levelData.fogNear, this.targetNearFog, this.lerpFogAmount);
+                this.currentNearFog = lerp(this.levelData.fogNear, this.targetNearFog, this.lerpFogAmount / FOG_FADE_OUT_DURATION);
+                this.currentFarFog = lerp(this.levelData.fogFar, this.targetFarFog, this.lerpFogAmount / FOG_FADE_OUT_DURATION);
+
+
                 this.lerpFogAmount -= dt/1000;
                 if(this.lerpFogAmount <= 0) {
                     this.lerpFog = false;
                 }
             }
-
+    
             let scene = document.querySelector('a-scene');
-            scene.setAttribute('fog', {'near': this.currentNearFog});
+            scene.setAttribute('fog', {'near': this.currentNearFog, 'far': this.currentFarFog});
+            // fix this todo->
+            // scene.setAttribute('fog', {'near': this.currentNearFog, 'far': this.currentFarFog});
 
         }
     }
