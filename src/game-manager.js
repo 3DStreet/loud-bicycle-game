@@ -854,24 +854,6 @@ AFRAME.registerComponent('game-manager', {
         directionalLight.setAttribute('light', 'intensity:3');
         // bring the fog back in ten steps
 
-        // let brightness = 3;
-        // let T = 1000;
-        // const brightnessStep = (3 - 0.4) / 10; // Adjust the step size based on the desired number of iterations
-        // const TStep = (9000 - 1000) / 10; // Adjust the step size based on the desired number of iterations
-        
-        // for (let i = 0; i <= 10; i++) {
-        //     console.log(`Iteration ${i + 1}: Brightness = ${brightness.toFixed(2)}, T = ${T}`);
-
-        //     setTimeout(() => {
-        //     directionalLight.setAttribute('light', `intensity:${brightness.toFixed(2)}`);
-        //     },T);
-
-        //     console.log(`intensity:${brightness.toFixed(2)}`)
-        
-        //     brightness -= brightnessStep;
-        //     T += TStep;
-        // }
-
         // First change immediately sets intensity to 3.0
         // Second change reduces intensity to 2.74
         setTimeout(() => {
@@ -910,11 +892,7 @@ AFRAME.registerComponent('game-manager', {
         setTimeout(() => {
             directionalLight.setAttribute('light', 'intensity:0.66');
         }, 5000); // 10 seconds after execution
-        
-        
-        // setTimeout(() => {
-        //     directionalLight.setAttribute('light', 'intensity:0.4');
-        // },8000);
+
 
         this.lerpFog = true;
         this.lerpFogUp = true;
