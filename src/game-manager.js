@@ -848,8 +848,51 @@ AFRAME.registerComponent('game-manager', {
         this.targetFarFog = this.currentFarFog + fogPushAmount;
         this.targetNearFog = this.currentNearFog + fogPushAmount + 500;
 
-        this.currentDirectionalLightIntensity = .4;
-        this.targetDirectionalLightIntensity = .6;
+        let directionalLight = document.querySelector('#directional-light');
+
+        // brighten the lights when the fog goes away
+        directionalLight.setAttribute('light', 'intensity:3');
+        // bring the fog back in ten steps
+
+        // First change immediately sets intensity to 3.0
+        // Second change reduces intensity to 2.74
+        setTimeout(() => {
+            directionalLight.setAttribute('light', 'intensity:2.74');
+        }, 1000); // 2 seconds after execution
+        
+        // Continue reducing intensity
+        setTimeout(() => {
+            directionalLight.setAttribute('light', 'intensity:2.48');
+        }, 1500); // 3 seconds after execution
+        
+        setTimeout(() => {
+            directionalLight.setAttribute('light', 'intensity:2.22');
+        }, 2000); // 4 seconds after execution
+        
+        setTimeout(() => {
+            directionalLight.setAttribute('light', 'intensity:1.96');
+        }, 2500); // 5 seconds after execution
+        
+        setTimeout(() => {
+            directionalLight.setAttribute('light', 'intensity:1.7');
+        }, 3000); // 6 seconds after execution
+        
+        setTimeout(() => {
+            directionalLight.setAttribute('light', 'intensity:1.44');
+        }, 3500); // 7 seconds after execution
+        
+        setTimeout(() => {
+            directionalLight.setAttribute('light', 'intensity:1.18');
+        }, 4000); // 8 seconds after execution
+        
+        setTimeout(() => {
+            directionalLight.setAttribute('light', 'intensity:0.92');
+        }, 4500); // 9 seconds after execution
+        
+        setTimeout(() => {
+            directionalLight.setAttribute('light', 'intensity:0.66');
+        }, 5000); // 10 seconds after execution
+
 
         this.lerpFog = true;
         this.lerpFogUp = true;
