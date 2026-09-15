@@ -50,6 +50,14 @@ module.exports = merge(common, {
       {
         from: path.resolve(__dirname, "src/favicon.ico"),
         to: path.resolve(__dirname, "dist/favicon.ico"),
+      },
+      {
+        from: path.resolve(__dirname, "src/screenshots"),
+        to: path.resolve(__dirname, "dist/screenshots"),
+      },
+      {
+        from: path.resolve(__dirname, "src/wp-assets"),
+        to: path.resolve(__dirname, "dist/wp-assets"),
       }
     ]}
   )]
