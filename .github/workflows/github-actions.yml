@@ -11,12 +11,12 @@ jobs:
     if: github.ref_name == 'main'
     steps:
       - name: Checkout the repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
-      - name: Use Node.js 16.x
-        uses: actions/setup-node@v3
+      - name: Use Node.js 20.x
+        uses: actions/setup-node@v4
         with:
-          node-version: "16"
+          node-version: "20"
 
       - name: Checkout submodules
         run: git submodule update --init --recursive
@@ -26,11 +26,32 @@ jobs:
           npm ci
           npm run build
 
-      - name: Deploy to Github Stages
-        uses: JamesIves/github-pages-deploy-action@4.1.1
+      - name: Generate static index.html from index.php
+        run: |
+          python3 -c "
+          import re
+          with open('dist/index.php', 'r') as f:
+              content = f.read()
+          content = re.sub(r'<\?php.*?\?>', '', content, flags=re.DOTALL)
+          content = re.sub(r'<meta\s+(?:property=\"og:|name=\"(?:image|twitter:)).*?>', '', content)
+          content = content.replace('<meta charset=\"UTF-8\">', '<meta charset=\"UTF-8\"><!-- OG_TAGS -->')
+          content = re.sub(r'  +', ' ', content)
+          with open('dist/index.html', 'w') as f:
+              f.write(content)
+          "
+
+      - name: Deploy to Github Pages
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
           folder: dist
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy dist --project-name=loud-bicycle-game
 
   publish:
     runs-on: ubuntu-latest
@@ -38,12 +59,12 @@ jobs:
     if: github.ref_name == 'publish'
     steps:
       - name: Checkout the repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
-      - name: Use Node.js 16.x
-        uses: actions/setup-node@v3
+      - name: Use Node.js 20.x
+        uses: actions/setup-node@v4
         with:
-          node-version: "16"
+          node-version: "20"
 
       - name: Checkout submodules
         run: git submodule update --init --recursive

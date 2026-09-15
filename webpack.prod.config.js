@@ -46,6 +46,10 @@ module.exports = merge(common, {
       {
         from: path.resolve(__dirname, "src/3dstreet-assets"),
         to: path.resolve(__dirname, "dist/3dstreet-assets"),
+      },
+      {
+        from: path.resolve(__dirname, "src/favicon.ico"),
+        to: path.resolve(__dirname, "dist/favicon.ico"),
       }
     ]}
   )]
